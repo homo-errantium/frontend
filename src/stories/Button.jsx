@@ -17,6 +17,7 @@ export default function Button({
 		: 'storybook-button--secondary'
 	return (
 		<button
+			onClick={console.log('привет!!!')}
 			type="button"
 			className={[
 				'storybook-button',
