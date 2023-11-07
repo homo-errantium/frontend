@@ -10,18 +10,33 @@
 		"plugin:react/jsx-runtime",
 		"plugin:react-hooks/recommended",
 		"plugin:import/recommended",
-		"prettier",
 		"plugin:prettier/recommended",
-		"airbnb"
+		"airbnb",
+		"prettier",
+		"plugin:storybook/recommended"
 	],
-
 	"parserOptions": {
 		"ecmaVersion": "latest",
 		"sourceType": "module"
 	},
-	"plugins": ["prettier"],
+	"plugins": ["react"],
 	"rules": {
-		"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-		"react/react-in-jsx-scope": "off"
+		"react/jsx-filename-extension": [
+			1,
+			{
+				"extensions": [".js", ".jsx"]
+			}
+		],
+		"react/react-in-jsx-scope": "off",
+		"prettier/prettier": [
+			"error",
+			{
+				"endOfLine": "auto"
+			}
+		],
+		"import/no-anonymous-default-export": 0,
+		"import/no-extraneous-dependencies": 0,
+		"import/prefer-default-export": 0,
+		"react/jsx-props-no-spreading": 0
 	}
 }
