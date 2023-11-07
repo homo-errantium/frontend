@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Header from './Header'
+import App from '../components/App/App'
 import './page.css'
 
 export function Page() {
@@ -15,6 +16,7 @@ export function Page() {
 				onCreateAccount={() => setUser({ name: 'Jane Doe' })}
 			/>
 
+			<App />
 			<section className="storybook-page">
 				<h2>Pages in Storybook</h2>
 				<p>
