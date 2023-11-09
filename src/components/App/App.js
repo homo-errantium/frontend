@@ -17,7 +17,7 @@ function App() {
 	const [currentUser, setCurrentUser] = React.useState({}) // Сохраняем данные пользователя
 
 	return (
-		<div className="App">
+		<div className="app">
 			<CurrentUserContext.Provider value={currentUser}>
 				<Routes>
 					<Route

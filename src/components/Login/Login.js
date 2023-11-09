@@ -1,8 +1,7 @@
 import React from 'react'
 import './Login.scss'
 
-function Login(props) {
-	console.log(props)
+function Login() {
 	return <div>Login</div>
 }
 
