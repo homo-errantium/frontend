@@ -8,10 +8,12 @@ import Resume from '../Resume/Resume'
 import Error from '../Error/Error'
 import Register from '../Register/Register'
 import Login from '../Login/Login'
+import Profile from '../Profile/Profile'
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 function App() {
 	// eslint-disable-next-line no-unused-vars
-	const [isLoggedIn, setIsLoggedIn] = React.useState(false) // Пользователь авторизован/неавторизован
+	const [isLoggedIn, setIsLoggedIn] = React.useState(true) // Пользователь авторизован/неавторизован
 	// eslint-disable-next-line no-unused-vars
 	const [currentUser, setCurrentUser] = React.useState({}) // Сохраняем данные пользователя
 
@@ -33,6 +35,15 @@ function App() {
 						path="/signin"
 						element={
 							isLoggedIn ? <Navigate to="/" replace /> : <Login />
+						}
+					/>
+					<Route
+						path="/my-profile"
+						element={
+							<ProtectedRoute
+								element={Profile}
+								isLoggedIn={isLoggedIn}
+							/>
 						}
 					/>
 					<Route path="/" element={<Main />} />
