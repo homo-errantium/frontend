@@ -1,9 +1,8 @@
 import React from 'react'
 import './Register.scss'
 
-function Register(props) {
-	console.log(props)
-	return <div>Register</div>
+function Register() {
+	return <section className="register">Register</section>
 }
 
 export default Register

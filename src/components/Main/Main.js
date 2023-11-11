@@ -2,7 +2,7 @@ import React from 'react'
 import './Main.scss'
 
 function Main() {
-	return <div>Main</div>
+	return <main className="main">Main</main>
 }
 
 export default Main

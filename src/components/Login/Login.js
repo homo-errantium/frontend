@@ -2,7 +2,7 @@ import React from 'react'
 import './Login.scss'
 
 function Login() {
-	return <div>Login</div>
+	return <section className="login">Login</section>
 }
 
 export default Login

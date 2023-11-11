@@ -2,7 +2,7 @@ import React from 'react'
 import './Resume.scss'
 
 function Resume() {
-	return <div>Resume</div>
+	return <main className="resume">Resume</main>
 }
 
 export default Resume

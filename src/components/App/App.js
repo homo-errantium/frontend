@@ -3,9 +3,9 @@ import './App.scss'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import Main from '../Main/Main'
-import Professional from '../Professional/Professional'
+import Profession from '../Profession/Profession'
 import Resume from '../Resume/Resume'
-import Error from '../Error/Error'
+import NotFound from '../NotFound/NotFound'
 import Register from '../Register/Register'
 import Login from '../Login/Login'
 import Profile from '../Profile/Profile'
@@ -47,9 +47,9 @@ function App() {
 						}
 					/>
 					<Route path="/" element={<Main />} />
-					<Route path="/professional" element={<Professional />} />
+					<Route path="/profession" element={<Profession />} />
 					<Route path="/resume" element={<Resume />} />
-					<Route path="*" element={<Error />} />
+					<Route path="*" element={<NotFound />} />
 				</Routes>
 			</CurrentUserContext.Provider>
 		</div>
