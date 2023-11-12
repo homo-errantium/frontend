@@ -62,7 +62,15 @@ const RegistrationForm = ({ button, onSubmit }) => {
 	const handlePasswordConfirmationChange = evt => {
 		handleChange(evt)
 		const { name, value } = evt.target
-		setValues({ ...values, [name]: value })
+		if (name === 'passwordConfirmation' && evt.target.value.length < 1) {
+			setIsValid(false)
+			setErrors({
+				...errors,
+				passwordConfirmation: 'Необходимо повторно ввести пароль',
+			})
+		} else {
+			setValues({ ...values, [name]: value })
+		}
 	}
 	// TODO: раскомментировать, когда будет Api:
 	// const getErrorMessage = (status, defaultText) => {
