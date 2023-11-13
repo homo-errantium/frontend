@@ -13,9 +13,16 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 function App() {
 	// eslint-disable-next-line no-unused-vars
-	const [isLoggedIn, setIsLoggedIn] = React.useState(true) // Пользователь авторизован/неавторизован
+	const [isLoggedIn, setIsLoggedIn] = React.useState(false) // Пользователь авторизован/неавторизован
 	// eslint-disable-next-line no-unused-vars
 	const [currentUser, setCurrentUser] = React.useState({}) // Сохраняем данные пользователя
+
+	// TODO: добавить описание функции регистрации по готовности Api
+	// eslint-disable-next-line no-unused-vars
+	const handleRegister = (name, email, password) => {
+		// eslint-disable-next-line no-console
+		console.log('try register')
+	}
 
 	return (
 		<div className="app">
@@ -27,7 +34,7 @@ function App() {
 							isLoggedIn ? (
 								<Navigate to="/" replace />
 							) : (
-								<Register />
+								<Register onRegister={handleRegister} />
 							)
 						}
 					/>
