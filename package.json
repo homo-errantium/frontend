@@ -13,6 +13,7 @@
 		"lint-staged": "^15.0.2",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
+		"react-router-dom": "^6.18.0",
 		"react-scripts": "5.0.1",
 		"sass": "^1.69.5",
 		"sass-npm": "^1.0.2",
@@ -50,6 +51,7 @@
 		]
 	},
 	"devDependencies": {
+		"@babel/plugin-proposal-private-property-in-object": "^7.21.11",
 		"@storybook/addon-essentials": "^7.5.3",
 		"@storybook/addon-interactions": "^7.5.3",
 		"@storybook/addon-links": "^7.5.3",
