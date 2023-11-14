@@ -6,7 +6,7 @@ import './LoginForm.scss'
 import '../../Register/RegistrationForm/RegistrationForm.scss'
 import PlusIcon from '../../../img/plus-icon.svg'
 
-const LoginForm = ({ button, onSubmit }) => {
+const LoginForm = ({ buttonText, onSubmit }) => {
 	const [values, setValues] = useState({})
 	const [errors, setErrors] = useState({})
 	const [isValid, setIsValid] = useState(false)
@@ -107,7 +107,7 @@ const LoginForm = ({ button, onSubmit }) => {
 						alt="plus icon"
 					/>
 					<span className="login-form__button-text registration-form__button-text">
-						{button}
+						{buttonText}
 					</span>
 				</button>
 			</form>
@@ -116,7 +116,7 @@ const LoginForm = ({ button, onSubmit }) => {
 }
 
 LoginForm.propTypes = {
-	button: PropTypes.string.isRequired,
+	buttonText: PropTypes.string.isRequired,
 	onSubmit: PropTypes.func.isRequired,
 }
 

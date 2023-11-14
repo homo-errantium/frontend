@@ -10,7 +10,7 @@ const Register = ({ onRegister }) => (
 		<div className="register__container">
 			<FormTitle page="register" greeting="Регистрация" />
 			<RegistrationForm
-				button="Зарегистрироваться"
+				buttonText="Зарегистрироваться"
 				onSubmit={onRegister}
 			/>
 			<FormRedirection

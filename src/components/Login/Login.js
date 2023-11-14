@@ -10,7 +10,7 @@ const Login = ({ onLogin }) => (
 	<section className="login register">
 		<div className="login__container register__container">
 			<FormTitle page="login" greeting="Привет!" />
-			<LoginForm button="Войти" onSubmit={onLogin} />
+			<LoginForm buttonText="Войти" onSubmit={onLogin} />
 			<a href="_blank" className="login__restore-password">
 				Не помню пароль
 			</a>

@@ -7,7 +7,7 @@ import PlusIcon from '../../../img/plus-icon.svg'
 import DataProcessing from './DataProcessing/DataProcessing'
 import { DATA_PROCESSING_TEXT } from '../../../constants/text-templates'
 
-const RegistrationForm = ({ button, onSubmit }) => {
+const RegistrationForm = ({ buttonText, onSubmit }) => {
 	const [values, setValues] = useState({})
 	const [errors, setErrors] = useState({})
 	const [isValid, setIsValid] = useState(false)
@@ -169,7 +169,7 @@ const RegistrationForm = ({ button, onSubmit }) => {
 						alt="plus icon"
 					/>
 					<span className="registration-form__button-text">
-						{button}
+						{buttonText}
 					</span>
 				</button>
 			</form>
@@ -178,7 +178,7 @@ const RegistrationForm = ({ button, onSubmit }) => {
 }
 
 RegistrationForm.propTypes = {
-	button: PropTypes.string.isRequired,
+	buttonText: PropTypes.string.isRequired,
 	onSubmit: PropTypes.func.isRequired,
 }
 
