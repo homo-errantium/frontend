@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import './RegistrationField.scss'
 
 const RegistrationField = ({
@@ -31,5 +32,15 @@ const RegistrationField = ({
 		)}
 	</div>
 )
+
+RegistrationField.propTypes = {
+	label: PropTypes.string.isRequired,
+	name: PropTypes.string.isRequired,
+	placeholder: PropTypes.string.isRequired,
+	type: PropTypes.string.isRequired,
+	errors: PropTypes.objectOf(PropTypes.string).isRequired,
+	handleChange: PropTypes.func.isRequired,
+	values: PropTypes.objectOf(PropTypes.string).isRequired,
+}
 
 export default RegistrationField
