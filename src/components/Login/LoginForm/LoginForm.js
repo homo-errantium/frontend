@@ -4,6 +4,7 @@ import { EMAIL_REGEX } from '../../../constants/regex'
 import RegistrationField from '../../Register/RegistrationForm/RegistrationField/RegistrationField'
 import './LoginForm.scss'
 import '../../Register/RegistrationForm/RegistrationForm.scss'
+import PlusIcon from '../../../img/plus-icon.svg'
 
 const LoginForm = ({ button, onSubmit }) => {
 	const [values, setValues] = useState({})
@@ -59,36 +60,55 @@ const LoginForm = ({ button, onSubmit }) => {
 		onSubmit()
 	}
 	return (
-		<section className="login-form">
+		<section className="login-form registration-form">
 			<form
-				className="login-form__form"
+				className="login-form__form registration-form__form"
 				name="login"
 				onSubmit={handleSubmit}
 				noValidate
 			>
-				<RegistrationField
-					label="E-mail"
-					name="email"
-					placeholder="Введите e-mail"
-					type="email"
-					handleChange={handleEmailChange}
-					values={values}
-					errors={errors}
-				/>
-				<RegistrationField
-					label="Пароль"
-					name="password"
-					placeholder="Введите пароль"
-					type="password"
-					handleChange={handlePasswordChange}
-					values={values}
-					errors={errors}
-				/>
-				<p className="login-field__input-error">
-					{!isValid && responseMessage}
-				</p>
-				<button type="submit" className="button" disabled={!isValid}>
-					{button}
+				<div className="login-form__fields registration-form__fields">
+					<RegistrationField
+						label="E-mail"
+						name="email"
+						placeholder="Введите e-mail"
+						type="email"
+						handleChange={handleEmailChange}
+						values={values}
+						errors={errors}
+					/>
+					<RegistrationField
+						label="Пароль"
+						name="password"
+						placeholder="Введите пароль"
+						type="password"
+						handleChange={handlePasswordChange}
+						values={values}
+						errors={errors}
+						eye
+					/>
+				</div>
+				{responseMessage && (
+					<p className="login-form__input-error registration-form__input-error">
+						{responseMessage}
+					</p>
+				)}
+
+				<button
+					type="submit"
+					className={`login-form__button registration-form__button ${
+						!isValid ? 'registration-form__button_inactive' : 'link'
+					}`}
+					disabled={!isValid}
+				>
+					<img
+						className="login-form__button-icon registration-form__button-icon"
+						src={PlusIcon}
+						alt="plus icon"
+					/>
+					<span className="login-form__button-text registration-form__button-text">
+						{button}
+					</span>
 				</button>
 			</form>
 		</section>

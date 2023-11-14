@@ -151,7 +151,7 @@ const RegistrationForm = ({ button, onSubmit }) => {
 					handleChange={handleCheckboxChange}
 				/>
 				{responseMessage && (
-					<p className="registration-field__input-error">
+					<p className="registration-form__input-error">
 						{responseMessage}
 					</p>
 				)}

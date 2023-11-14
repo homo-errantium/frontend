@@ -8,12 +8,13 @@ import FormRedirection from './FormRedirection/FormRedirection'
 const Register = ({ onRegister }) => (
 	<section className="register">
 		<div className="register__container">
-			<FormTitle greeting="Регистрация" />
+			<FormTitle page="register" greeting="Регистрация" />
 			<RegistrationForm
 				button="Зарегистрироваться"
 				onSubmit={onRegister}
 			/>
 			<FormRedirection
+				page="register"
 				text="Уже есть аккаунт?"
 				button="Войти"
 				path="/signin"

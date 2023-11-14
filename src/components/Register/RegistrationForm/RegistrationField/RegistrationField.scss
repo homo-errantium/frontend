@@ -1,5 +1,5 @@
 .registration-field {
-  position: relative;
+	position: relative;
 }
 .registration-field__input {
 	width: 231px;
@@ -9,18 +9,21 @@
 	font-size: 16px;
 	font-weight: 400;
 	line-height: 1.21;
+	border-radius: 4px;
+	background: #fff;
+  border: none;
 }
 
 .registration-field__button {
-  background-image: url(../../../../img/eye-icon.svg);
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-color: transparent;
-  appearance: none;
-  border: none;
-  width: 24px;
-  height: 24px;
-  position: absolute;
-  top: 11px;
-  left: 230px;
+	background-image: url(../../../../img/eye-icon.svg);
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-color: transparent;
+	appearance: none;
+	border: none;
+	width: 24px;
+	height: 24px;
+	position: absolute;
+	top: 11px;
+	left: 224px;
 }

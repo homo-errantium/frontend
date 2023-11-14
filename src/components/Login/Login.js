@@ -8,13 +8,16 @@ import LoginForm from './LoginForm/LoginForm'
 
 const Login = ({ onLogin }) => (
 	<section className="login register">
-		<FormTitle greeting="Привет!" />
-		<LoginForm button="Войти" onSubmit={onLogin} />
-		<FormRedirection
-			text="Еще не зарегистрированы?"
-			button="Зарегистрироваться"
-			path="/signup"
-		/>
+		<div className="login__container register__container">
+			<FormTitle page="login" greeting="Привет!" />
+			<LoginForm button="Войти" onSubmit={onLogin} />
+			<span className="login__restore-password">Не помню пароль</span>
+			<FormRedirection
+				page="login"
+				button="Зарегистрироваться"
+				path="/signup"
+			/>
+		</div>
 	</section>
 )
 

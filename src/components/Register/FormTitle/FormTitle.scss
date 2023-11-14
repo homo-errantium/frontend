@@ -1,6 +1,16 @@
 .form-title__container {
-	margin: 84px 156px 0;
+	margin: 0 156px;
 }
+
+.form-title__container_register {
+	margin-top: 84px;
+}
+
+.form-title__container_login {
+	margin-top: 109px;
+}
+
+
 
 .form-title__greeting {
 	margin: 0;
@@ -9,4 +19,5 @@
 	font-size: 32px;
 	font-weight: 400;
 	line-height: 1.21;
+  text-align: center;
 }
