@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import './RegistrationForm.scss'
 import RegistrationField from './RegistrationField/RegistrationField'
 import { NAME_REGEX, EMAIL_REGEX } from '../../../constants/regex'
@@ -159,6 +160,11 @@ const RegistrationForm = ({ button, onSubmit }) => {
 			</form>
 		</section>
 	)
+}
+
+RegistrationForm.propTypes = {
+	button: PropTypes.string.isRequired,
+	onSubmit: PropTypes.func.isRequired,
 }
 
 export default RegistrationForm

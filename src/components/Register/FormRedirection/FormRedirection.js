@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import './FormRedirection.scss'
 
@@ -10,5 +11,11 @@ const FormRedirection = ({ text, button, path }) => (
 		</Link>
 	</div>
 )
+
+FormRedirection.propTypes = {
+	text: PropTypes.string.isRequired,
+	button: PropTypes.string.isRequired,
+	path: PropTypes.string.isRequired,
+}
 
 export default FormRedirection
