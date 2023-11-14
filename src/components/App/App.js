@@ -53,9 +53,18 @@ function App() {
 							/>
 						}
 					/>
-					<Route path="/" element={<Main />} />
-					<Route path="/profession" element={<Profession />} />
-					<Route path="/resume" element={<Resume />} />
+					<Route
+						path="/"
+						element={<Main isLoggedIn={isLoggedIn} />}
+					/>
+					<Route
+						path="/profession"
+						element={<Profession isLoggedIn={isLoggedIn} />}
+					/>
+					<Route
+						path="/resume"
+						element={<Resume isLoggedIn={isLoggedIn} />}
+					/>
 					<Route path="*" element={<NotFound />} />
 				</Routes>
 			</CurrentUserContext.Provider>
