@@ -11,7 +11,9 @@ const Login = ({ onLogin }) => (
 		<div className="login__container register__container">
 			<FormTitle page="login" greeting="Привет!" />
 			<LoginForm button="Войти" onSubmit={onLogin} />
-			<span className="login__restore-password">Не помню пароль</span>
+			<a href="_blank" className="login__restore-password">
+				Не помню пароль
+			</a>
 			<FormRedirection
 				page="login"
 				button="Зарегистрироваться"
