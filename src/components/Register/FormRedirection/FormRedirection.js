@@ -5,7 +5,7 @@ import './FormRedirection.scss'
 
 const FormRedirection = ({ text, button, path }) => (
 	<div className="form-redirection_container">
-		<p className="form-redirection__text">{text}</p>
+		<span className="form-redirection__text">{text}</span>
 		<Link className="form-redirection__button link" to={path}>
 			{button}
 		</Link>

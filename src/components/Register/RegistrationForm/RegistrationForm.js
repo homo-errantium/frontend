@@ -2,12 +2,16 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import './RegistrationForm.scss'
 import RegistrationField from './RegistrationField/RegistrationField'
-import { NAME_REGEX, EMAIL_REGEX } from '../../../constants/regex'
+import { EMAIL_REGEX } from '../../../constants/regex'
+import PlusIcon from '../../../img/plus-icon.svg'
+import DataProcessing from './DataProcessing/DataProcessing'
+import { DATA_PROCESSING_TEXT } from '../../../constants/text-templates'
 
 const RegistrationForm = ({ button, onSubmit }) => {
 	const [values, setValues] = useState({})
 	const [errors, setErrors] = useState({})
 	const [isValid, setIsValid] = useState(false)
+	// const [isFromValid, setIsFormValid] = useState(false)
 	// eslint-disable-next-line no-unused-vars
 	const [responseMessage, setResponseMessage] = useState('')
 
@@ -26,24 +30,6 @@ const RegistrationForm = ({ button, onSubmit }) => {
 			setErrors({
 				...errors,
 				email: 'Введите email в формате address@domain.com',
-			})
-		}
-	}
-
-	const handleNameChange = evt => {
-		handleChange(evt)
-		const { name, value } = evt.target
-		if (name === 'name' && evt.target.value.length < 2) {
-			setIsValid(false)
-			setErrors({
-				...errors,
-				name: 'Имя должно иметь не менее 2 символов',
-			})
-		} else if (name === 'name' && !NAME_REGEX.test(value)) {
-			setIsValid(false)
-			setErrors({
-				...errors,
-				name: 'Имя может содержать только латиницу, кириллицу, пробел или дефис.',
 			})
 		}
 	}
@@ -73,6 +59,21 @@ const RegistrationForm = ({ button, onSubmit }) => {
 			setValues({ ...values, [name]: value })
 		}
 	}
+
+	const handleCheckboxChange = evt => {
+		handleChange(evt)
+		const { name, checked } = evt.target
+		if (name === 'dataProcessing' && evt.target.checked === false) {
+			setIsValid(false)
+			setErrors({
+				...errors,
+				dataProcessing: 'Необходимо дать согласие на обработку данных',
+			})
+		} else {
+			setValues({ ...values, [name]: toString(checked) })
+		}
+	}
+
 	// TODO: раскомментировать, когда будет Api:
 	// const getErrorMessage = (status, defaultText) => {
 	// 	switch (status) {
@@ -87,21 +88,25 @@ const RegistrationForm = ({ button, onSubmit }) => {
 
 	const handleSubmit = e => {
 		e.preventDefault()
-		onSubmit()
+		if (values.password !== values.passwordConfirmation) {
+			setIsValid(false)
+			setErrors({
+				...errors,
+				passwordConfirmation: 'Пароли не совпадают',
+			})
+		} else {
+			onSubmit()
+		}
+		// TODO: раскомментировать, когда будет Api
+		// onSubmit(values.name, values.email, values.password).catch(err => {
+		// 	const message = getErrorMessage(
+		// 		err.status,
+		// 		'Произошла ошибка при регистрации пользователя'
+		// 	)
+		// 	setResponseMessage(message)
+		// 	setIsValid(false)
+		// })
 	}
-
-	// TODO: раскомментировать, когда будет Api
-	// const handleSubmit = e => {
-	// 	e.preventDefault()
-	// 	onSubmit(values.email, values.password).catch(err => {
-	// 		const message = getErrorMessage(
-	// 			err.status,
-	// 			'Произошла ошибка при авторизации пользователя'
-	// 		)
-	// 		setResponseMessage(message)
-	// 		setIsValid(false)
-	// 	})
-	// }
 
 	return (
 		<section className="registration-form">
@@ -111,47 +116,61 @@ const RegistrationForm = ({ button, onSubmit }) => {
 				onSubmit={handleSubmit}
 				noValidate
 			>
-				<RegistrationField
-					label="Имя"
-					name="name"
-					placeholder="Введите имя"
-					type="text"
-					handleChange={handleNameChange}
-					values={values}
-					errors={errors}
+				<div className="registration-form__fields">
+					<RegistrationField
+						name="email"
+						placeholder="Электронная почта"
+						type="email"
+						handleChange={handleEmailChange}
+						values={values}
+						errors={errors}
+					/>
+					<RegistrationField
+						label="Пароль"
+						name="password"
+						placeholder="Пароль"
+						type="password"
+						handleChange={handlePasswordChange}
+						values={values}
+						errors={errors}
+						eye
+					/>
+					<RegistrationField
+						label="Подтвердите пароль"
+						name="passwordConfirmation"
+						placeholder="Повторите пароль"
+						type="password"
+						handleChange={handlePasswordConfirmationChange}
+						values={values}
+						errors={errors}
+						eye
+					/>
+				</div>
+				<DataProcessing
+					text={DATA_PROCESSING_TEXT}
+					handleChange={handleCheckboxChange}
 				/>
-				<RegistrationField
-					label="E-mail"
-					name="email"
-					placeholder="Введите e-mail"
-					type="email"
-					handleChange={handleEmailChange}
-					values={values}
-					errors={errors}
-				/>
-				<RegistrationField
-					label="Пароль"
-					name="password"
-					placeholder="Введите пароль"
-					type="password"
-					handleChange={handlePasswordChange}
-					values={values}
-					errors={errors}
-				/>
-				<RegistrationField
-					label="Подтверждение пароля"
-					name="passwordConfirmation"
-					placeholder="Повторите пароль"
-					type="password"
-					handleChange={handlePasswordConfirmationChange}
-					values={values}
-					errors={errors}
-				/>
-				<p className="registration-field__input-error">
-					{!isValid && responseMessage}
-				</p>
-				<button type="submit" className="button" disabled={!isValid}>
-					{button}
+				{responseMessage && (
+					<p className="registration-field__input-error">
+						{responseMessage}
+					</p>
+				)}
+
+				<button
+					type="submit"
+					className={`registration-form__button ${
+						!isValid ? 'registration-form__button_inactive' : 'link'
+					}`}
+					disabled={!isValid}
+				>
+					<img
+						className="registration-form__button-icon"
+						src={PlusIcon}
+						alt="plus icon"
+					/>
+					<span className="registration-form__button-text">
+						{button}
+					</span>
 				</button>
 			</form>
 		</section>
