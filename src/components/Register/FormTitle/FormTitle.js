@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import './FormTitle.scss'
 
 const FormTitle = ({ greeting }) => (
@@ -6,5 +7,9 @@ const FormTitle = ({ greeting }) => (
 		<h1 className="form-title__greeting">{greeting}</h1>
 	</div>
 )
+
+FormTitle.propTypes = {
+	greeting: PropTypes.string.isRequired,
+}
 
 export default FormTitle

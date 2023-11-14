@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import './Register.scss'
 import FormTitle from './FormTitle/FormTitle'
 import RegistrationForm from './RegistrationForm/RegistrationForm'
@@ -15,5 +16,9 @@ const Register = ({ onRegister }) => (
 		/>
 	</section>
 )
+
+Register.propTypes = {
+	onRegister: PropTypes.func.isRequired,
+}
 
 export default Register
