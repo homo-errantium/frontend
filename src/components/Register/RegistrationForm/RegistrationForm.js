@@ -87,25 +87,21 @@ const RegistrationForm = ({ button, onSubmit }) => {
 
 	const handleSubmit = e => {
 		e.preventDefault()
-		if (values.password !== values.passwordConfirmation) {
-			setIsValid(false)
-			setErrors({
-				...errors,
-				passwordConfirmation: 'Пароли не совпадают',
-			})
-		} else {
-			onSubmit()
-		}
-		// TODO: раскомментировать, когда будет Api
-		// onSubmit(values.name, values.email, values.password).catch(err => {
-		// 	const message = getErrorMessage(
-		// 		err.status,
-		// 		'Произошла ошибка при регистрации пользователя'
-		// 	)
-		// 	setResponseMessage(message)
-		// 	setIsValid(false)
-		// })
+		onSubmit()
 	}
+
+	// TODO: раскомментировать, когда будет Api
+	// const handleSubmit = e => {
+	// 	e.preventDefault()
+	// 	onSubmit(values.email, values.password).catch(err => {
+	// 		const message = getErrorMessage(
+	// 			err.status,
+	// 			'Произошла ошибка при авторизации пользователя'
+	// 		)
+	// 		setResponseMessage(message)
+	// 		setIsValid(false)
+	// 	})
+	// }
 
 	return (
 		<section className="registration-form">
