@@ -1,7 +1,7 @@
 import React from 'react'
 import './NotFound.scss'
 import NotFoundImage from '../../img/404.png'
-import Header from '../../stories/Header'
+import Header from '../Header/Header'
 
 export default function NotFound() {
 	return (
