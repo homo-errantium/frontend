@@ -24,6 +24,13 @@ function App() {
 		console.log('try register')
 	}
 
+	// TODO: добавить описание функции авторизации по готовности Api
+	// eslint-disable-next-line no-unused-vars
+	const handleLogin = (email, password) => {
+		// eslint-disable-next-line no-console
+		console.log('try to login')
+	}
+
 	return (
 		<div className="app">
 			<CurrentUserContext.Provider value={currentUser}>
@@ -41,7 +48,11 @@ function App() {
 					<Route
 						path="/signin"
 						element={
-							isLoggedIn ? <Navigate to="/" replace /> : <Login />
+							isLoggedIn ? (
+								<Navigate to="/" replace />
+							) : (
+								<Login onLogin={handleLogin} />
+							)
 						}
 					/>
 					<Route

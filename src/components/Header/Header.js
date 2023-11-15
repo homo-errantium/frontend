@@ -1,10 +1,9 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
 import './Header.scss'
 
 function Header({ isLoggedIn, nextPage }) {
-	// eslint-disable-next-line no-console
-	console.log(nextPage)
 	const navigate = useNavigate()
 
 	return (
@@ -48,6 +47,11 @@ function Header({ isLoggedIn, nextPage }) {
 			</div>
 		</header>
 	)
+}
+
+Header.propTypes = {
+	isLoggedIn: PropTypes.bool.isRequired,
+	nextPage: PropTypes.string.isRequired,
 }
 
 export default Header
