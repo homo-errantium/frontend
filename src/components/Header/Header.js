@@ -22,7 +22,9 @@ function Header({ isLoggedIn, nextPage }) {
 					className="header__button"
 					type="button"
 					label="button"
-					onClick={() => navigate('/')}
+					onClick={() => {
+						navigate(nextPage)
+					}}
 				>
 					Главная страница
 				</button>
