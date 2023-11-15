@@ -26,7 +26,9 @@ function App() {
 	const [isLoggedIn, setIsLoggedIn] = React.useState(false) // Пользователь авторизован/неавторизован
 	// eslint-disable-next-line no-unused-vars
 	const [currentUser, setCurrentUser] = React.useState({}) // Сохраняем данные пользователя
+
 	// Переменные для защиты дочерних роутов компонента Resume
+	// TODO: установить значение false для всех переменных ниже после сохранения резюме
 	const [complitedStepsPersonalData, setComplitedStepsPersonalData] =
 		React.useState(false)
 	const [complitedStepsExperience, setComplitedStepsExperience] =
