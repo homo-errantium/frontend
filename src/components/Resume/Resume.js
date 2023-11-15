@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import './Resume.scss'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
@@ -12,6 +13,9 @@ function Resume({ isLoggedIn }) {
 			<Footer />
 		</>
 	)
+}
+Resume.propTypes = {
+	isLoggedIn: PropTypes.bool.isRequired,
 }
 
 export default Resume

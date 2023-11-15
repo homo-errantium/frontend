@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import './Profile.scss'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
@@ -12,6 +13,10 @@ function Profile({ isLoggedIn }) {
 			<Footer />
 		</>
 	)
+}
+
+Profile.propTypes = {
+	isLoggedIn: PropTypes.bool.isRequired,
 }
 
 export default Profile
