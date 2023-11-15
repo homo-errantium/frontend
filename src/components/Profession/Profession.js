@@ -1,8 +1,22 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import './Profession.scss'
+import Header from '../Header/Header'
+import Footer from '../Footer/Footer'
 
-function Profession() {
-	return <main className="profession">Profession</main>
+function Profession({ isLoggedIn }) {
+	const nextPage = '/my-profile'
+	return (
+		<>
+			<Header isLoggedIn={isLoggedIn} nextPage={nextPage} />
+			<main className="profession">Profession</main>
+			<Footer />
+		</>
+	)
+}
+
+Profession.propTypes = {
+	isLoggedIn: PropTypes.bool.isRequired,
 }
 
 export default Profession

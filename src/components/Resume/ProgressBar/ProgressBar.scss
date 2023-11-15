@@ -1,0 +1,42 @@
+.progress-bar {
+	width: 1264px;
+	height: 12px;
+	border-radius: 20px;
+	background: #d9d9d9;
+  margin: 68px auto 0;
+  position: relative;
+}
+
+.progress-bar_step {
+  background: #787575;
+  height: 12px;
+  border-radius: 20px;
+}
+
+.progress-bar_step_1 {
+  width: 158px;
+}
+
+.progress-bar_step_2 {
+  width: 158px*2;
+}
+
+.progress-bar_step_3 {
+  width: 158px*3;
+}
+
+.progress-bar_step_4 {
+  width: 158px*4;
+}
+
+.progress-bar_step_5 {
+  width: 158px*5;
+}
+
+.progress-bar_step_6 {
+  width: 158px*6;
+}
+
+.progress-bar_step_7 {
+  width: 158px*7;
+}
