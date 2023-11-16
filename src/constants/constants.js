@@ -1,3 +1,4 @@
+// Массив роутов
 export const locationArr = [
 	'personal-data',
 	'experience',

@@ -2,15 +2,15 @@ import '../PersonalData/PersonalData.scss'
 import React from 'react'
 import PropTypes from 'prop-types'
 
-function Portfolio({ setComplitedStepsPortfolio }) {
+function Portfolio({ setComplitedSteps }) {
 	React.useEffect(() => {
-		setComplitedStepsPortfolio(true)
+		setComplitedSteps(true)
 	})
 	return <section className="personal-data">Проекты и портфолио</section>
 }
 
 Portfolio.propTypes = {
-	setComplitedStepsPortfolio: PropTypes.func.isRequired,
+	setComplitedSteps: PropTypes.func.isRequired,
 }
 
 export default Portfolio

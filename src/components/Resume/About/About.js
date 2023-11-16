@@ -2,15 +2,15 @@ import '../PersonalData/PersonalData.scss'
 import React from 'react'
 import PropTypes from 'prop-types'
 
-function About({ setComplitedStepsAbout }) {
+function About({ setComplitedSteps }) {
 	React.useEffect(() => {
-		setComplitedStepsAbout(true)
+		setComplitedSteps(true)
 	})
 	return <section className="personal-data">Обо мне</section>
 }
 
 About.propTypes = {
-	setComplitedStepsAbout: PropTypes.func.isRequired,
+	setComplitedSteps: PropTypes.func.isRequired,
 }
 
 export default About

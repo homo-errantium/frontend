@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React from 'react'
 import './App.scss'
 import { Routes, Route, Navigate } from 'react-router-dom'
@@ -10,7 +11,6 @@ import Register from '../Register/Register'
 import Login from '../Login/Login'
 import Profile from '../Profile/Profile'
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
-// import { resumeRoutes } from '../../constants/constants'
 import About from '../Resume/About/About'
 import Education from '../Resume/Education/Education'
 import Expirience from '../Resume/Experience/Experience'
@@ -43,6 +43,79 @@ function App() {
 		React.useState(false)
 	const [complitedStepsAbout, setComplitedStepsAbout] = React.useState(false)
 	const [complitedLayouts, setComplitedLayouts] = React.useState(false)
+
+	// Объект для защиты дочерних роутов Resume
+	const routesResumeArr = [
+		{
+			path: 'personal-data',
+			element: (
+				<PersonalData
+					setComplitedSteps={setComplitedStepsPersonalData}
+				/>
+			),
+			id: 1,
+			complitedSteps: complitedStepsPersonalData,
+		},
+		{
+			path: 'experience',
+			element: (
+				<Expirience setComplitedSteps={setComplitedStepsExperience} />
+			),
+			id: 2,
+			complitedSteps: complitedStepsExperience,
+		},
+		{
+			path: 'qualification',
+			element: (
+				<Qualification
+					setComplitedSteps={setComplitedStepsQualification}
+				/>
+			),
+			id: 3,
+			complitedSteps: complitedStepsQualification,
+		},
+		{
+			path: 'education',
+			element: (
+				<Education setComplitedSteps={setComplitedStepsEducation} />
+			),
+			id: 4,
+			complitedSteps: complitedStepsEducation,
+		},
+		{
+			path: 'portfolio',
+			element: (
+				<Portfolio setComplitedSteps={setComplitedStepsPortfolio} />
+			),
+			id: 5,
+			complitedSteps: complitedStepsPortfolio,
+		},
+		{
+			path: 'skills',
+			element: <Skills setComplitedSteps={setComplitedStepsSkills} />,
+			id: 6,
+			complitedSteps: complitedStepsSkills,
+		},
+		{
+			path: 'about',
+			element: <About setComplitedSteps={setComplitedStepsAbout} />,
+			id: 7,
+			complitedSteps: complitedStepsAbout,
+		},
+		{
+			path: 'layouts',
+			element: <Layouts setComplitedSteps={setComplitedLayouts} />,
+			id: 8,
+			complitedSteps: complitedLayouts,
+		},
+		{
+			path: 'result',
+			element: <Result />,
+			id: 9,
+			complitedSteps: complitedStepsPersonalData,
+			setComplitedSteps: null,
+		},
+	]
 
 	// TODO: добавить описание функции регистрации по готовности Api
 	// eslint-disable-next-line no-unused-vars
@@ -107,124 +180,20 @@ function App() {
 							index
 							element={<Navigate to="personal-data" />}
 						/>
-						<Route
-							path="personal-data"
-							element={
-								<PersonalData
-									setComplitedStepsPersonalData={
-										setComplitedStepsPersonalData
-									}
-								/>
-							}
-						/>
-						<Route
-							path="experience"
-							element={
-								complitedStepsPersonalData ? (
-									<Expirience
-										setComplitedStepsExperience={
-											setComplitedStepsExperience
-										}
-									/>
-								) : (
-									<Navigate to="/resume" replace />
-								)
-							}
-						/>
-						<Route
-							path="qualification"
-							element={
-								complitedStepsExperience ? (
-									<Qualification
-										setComplitedStepsQualification={
-											setComplitedStepsQualification
-										}
-									/>
-								) : (
-									<Navigate to="/resume" replace />
-								)
-							}
-						/>
-						<Route
-							path="education"
-							element={
-								complitedStepsQualification ? (
-									<Education
-										setComplitedStepsEducation={
-											setComplitedStepsEducation
-										}
-									/>
-								) : (
-									<Navigate to="/resume" replace />
-								)
-							}
-						/>
-						<Route
-							path="portfolio"
-							element={
-								complitedStepsEducation ? (
-									<Portfolio
-										setComplitedStepsPortfolio={
-											setComplitedStepsPortfolio
-										}
-									/>
-								) : (
-									<Navigate to="/resume" replace />
-								)
-							}
-						/>
-						<Route
-							path="skills"
-							element={
-								complitedStepsPortfolio ? (
-									<Skills
-										setComplitedStepsSkills={
-											setComplitedStepsSkills
-										}
-									/>
-								) : (
-									<Navigate to="/resume" replace />
-								)
-							}
-						/>
-						<Route
-							path="about"
-							element={
-								complitedStepsSkills ? (
-									<About
-										setComplitedStepsAbout={
-											setComplitedStepsAbout
-										}
-									/>
-								) : (
-									<Navigate to="/resume" replace />
-								)
-							}
-						/>
-						<Route
-							path="layouts"
-							element={
-								complitedStepsAbout ? (
-									<Layouts
-										setComplitedLayouts={
-											setComplitedLayouts
-										}
-									/>
-								) : (
-									<Navigate to="/resume" replace />
-								)
-							}
-						/>
-						<Route
-							path="result"
-							element={
-								complitedLayouts ? (
-									<Result />
-								) : (
-									<Navigate to="/resume" replace />
-								)
-							}
-						/>
+						{routesResumeArr.map((route, i) => (
+							<Route
+								path={route.path}
+								element={
+									i === 0 ||
+									routesResumeArr[i - 1].complitedSteps ? (
+										route.element
+									) : (
+										<Navigate to="/resume" replace />
+									)
+								}
+								key={route.id}
+							/>
+						))}
 					</Route>
 					<Route path="*" element={<NotFound />} />
 				</Routes>

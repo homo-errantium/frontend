@@ -2,15 +2,15 @@ import '../PersonalData/PersonalData.scss'
 import React from 'react'
 import PropTypes from 'prop-types'
 
-function Skills({ setComplitedStepsSkills }) {
+function Skills({ setComplitedSteps }) {
 	React.useEffect(() => {
-		setComplitedStepsSkills(true)
+		setComplitedSteps(true)
 	})
 	return <section className="personal-data">Навыки</section>
 }
 
 Skills.propTypes = {
-	setComplitedStepsSkills: PropTypes.func.isRequired,
+	setComplitedSteps: PropTypes.func.isRequired,
 }
 
 export default Skills

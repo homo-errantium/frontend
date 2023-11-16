@@ -2,16 +2,16 @@ import './PersonalData.scss'
 import React from 'react'
 import PropTypes from 'prop-types'
 
-function PersonalData({ setComplitedStepsPersonalData }) {
+function PersonalData({ setComplitedSteps }) {
 	React.useEffect(() => {
-		setComplitedStepsPersonalData(true)
+		setComplitedSteps(true)
 	})
 
 	return <section className="personal-data">Персональные данные</section>
 }
 
 PersonalData.propTypes = {
-	setComplitedStepsPersonalData: PropTypes.func.isRequired,
+	setComplitedSteps: PropTypes.func.isRequired,
 }
 
 export default PersonalData
