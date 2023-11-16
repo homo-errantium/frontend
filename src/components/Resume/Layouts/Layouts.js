@@ -2,15 +2,15 @@ import '../PersonalData/PersonalData.scss'
 import React from 'react'
 import PropTypes from 'prop-types'
 
-function Layouts({ setComplitedSteps }) {
+function Layouts({ setCompletedSteps }) {
 	React.useEffect(() => {
-		setComplitedSteps(true)
+		setCompletedSteps(true)
 	})
 	return <section className="personal-data">Макеты</section>
 }
 
 Layouts.propTypes = {
-	setComplitedSteps: PropTypes.func.isRequired,
+	setCompletedSteps: PropTypes.func.isRequired,
 }
 
 export default Layouts

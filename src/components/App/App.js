@@ -29,20 +29,20 @@ function App() {
 
 	// Переменные для защиты дочерних роутов компонента Resume
 	// TODO: установить значение false для всех переменных ниже после сохранения резюме
-	const [complitedStepsPersonalData, setComplitedStepsPersonalData] =
+	const [completedStepsPersonalData, setCompletedStepsPersonalData] =
 		React.useState(false)
-	const [complitedStepsExperience, setComplitedStepsExperience] =
+	const [completedStepsExperience, setCompletedStepsExperience] =
 		React.useState(false)
-	const [complitedStepsQualification, setComplitedStepsQualification] =
+	const [completedStepsQualification, setCompletedStepsQualification] =
 		React.useState(false)
-	const [complitedStepsEducation, setComplitedStepsEducation] =
+	const [completedStepsEducation, setCompletedStepsEducation] =
 		React.useState(false)
-	const [complitedStepsPortfolio, setComplitedStepsPortfolio] =
+	const [completedStepsPortfolio, setCompletedStepsPortfolio] =
 		React.useState(false)
-	const [complitedStepsSkills, setComplitedStepsSkills] =
+	const [completedStepsSkills, setCompletedStepsSkills] =
 		React.useState(false)
-	const [complitedStepsAbout, setComplitedStepsAbout] = React.useState(false)
-	const [complitedLayouts, setComplitedLayouts] = React.useState(false)
+	const [completedStepsAbout, setCompletedStepsAbout] = React.useState(false)
+	const [completedLayouts, setCompletedLayouts] = React.useState(false)
 
 	// Объект для защиты дочерних роутов Resume
 	const routesResumeArr = [
@@ -50,70 +50,70 @@ function App() {
 			path: 'personal-data',
 			element: (
 				<PersonalData
-					setComplitedSteps={setComplitedStepsPersonalData}
+					setCompletedSteps={setCompletedStepsPersonalData}
 				/>
 			),
 			id: 1,
-			complitedSteps: complitedStepsPersonalData,
+			completedSteps: completedStepsPersonalData,
 		},
 		{
 			path: 'experience',
 			element: (
-				<Expirience setComplitedSteps={setComplitedStepsExperience} />
+				<Expirience setCompletedSteps={setCompletedStepsExperience} />
 			),
 			id: 2,
-			complitedSteps: complitedStepsExperience,
+			completedSteps: completedStepsExperience,
 		},
 		{
 			path: 'qualification',
 			element: (
 				<Qualification
-					setComplitedSteps={setComplitedStepsQualification}
+					setCompletedSteps={setCompletedStepsQualification}
 				/>
 			),
 			id: 3,
-			complitedSteps: complitedStepsQualification,
+			completedSteps: completedStepsQualification,
 		},
 		{
 			path: 'education',
 			element: (
-				<Education setComplitedSteps={setComplitedStepsEducation} />
+				<Education setCompletedSteps={setCompletedStepsEducation} />
 			),
 			id: 4,
-			complitedSteps: complitedStepsEducation,
+			completedSteps: completedStepsEducation,
 		},
 		{
 			path: 'portfolio',
 			element: (
-				<Portfolio setComplitedSteps={setComplitedStepsPortfolio} />
+				<Portfolio setCompletedSteps={setCompletedStepsPortfolio} />
 			),
 			id: 5,
-			complitedSteps: complitedStepsPortfolio,
+			completedSteps: completedStepsPortfolio,
 		},
 		{
 			path: 'skills',
-			element: <Skills setComplitedSteps={setComplitedStepsSkills} />,
+			element: <Skills setCompletedSteps={setCompletedStepsSkills} />,
 			id: 6,
-			complitedSteps: complitedStepsSkills,
+			completedSteps: completedStepsSkills,
 		},
 		{
 			path: 'about',
-			element: <About setComplitedSteps={setComplitedStepsAbout} />,
+			element: <About setCompletedSteps={setCompletedStepsAbout} />,
 			id: 7,
-			complitedSteps: complitedStepsAbout,
+			completedSteps: completedStepsAbout,
 		},
 		{
 			path: 'layouts',
-			element: <Layouts setComplitedSteps={setComplitedLayouts} />,
+			element: <Layouts setCompletedSteps={setCompletedLayouts} />,
 			id: 8,
-			complitedSteps: complitedLayouts,
+			completedSteps: completedLayouts,
 		},
 		{
 			path: 'result',
 			element: <Result />,
 			id: 9,
-			complitedSteps: complitedStepsPersonalData,
-			setComplitedSteps: null,
+			completedSteps: completedStepsPersonalData,
+			setCompletedSteps: null,
 		},
 	]
 
@@ -185,7 +185,7 @@ function App() {
 								path={route.path}
 								element={
 									i === 0 ||
-									routesResumeArr[i - 1].complitedSteps ? (
+									routesResumeArr[i - 1].completedSteps ? (
 										route.element
 									) : (
 										<Navigate to="/resume" replace />

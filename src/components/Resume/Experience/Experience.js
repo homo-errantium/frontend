@@ -2,16 +2,16 @@ import '../PersonalData/PersonalData.scss'
 import React from 'react'
 import PropTypes from 'prop-types'
 
-function Experience({ setComplitedSteps }) {
+function Experience({ setCompletedSteps }) {
 	React.useEffect(() => {
-		setComplitedSteps(true)
+		setCompletedSteps(true)
 	})
 
 	return <section className="personal-data">Опыт работы</section>
 }
 
 Experience.propTypes = {
-	setComplitedSteps: PropTypes.func.isRequired,
+	setCompletedSteps: PropTypes.func.isRequired,
 }
 
 export default Experience

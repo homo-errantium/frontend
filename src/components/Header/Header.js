@@ -23,7 +23,7 @@ function Header({ isLoggedIn, nextPage }) {
 					type="button"
 					label="button"
 					onClick={() => {
-						navigate(nextPage)
+						navigate('/')
 					}}
 				>
 					Главная страница
