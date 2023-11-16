@@ -1,4 +1,4 @@
-import './Education.scss'
+import '../PersonalData/PersonalData.scss'
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -6,7 +6,7 @@ function Education({ setComplitedStepsEducation }) {
 	React.useEffect(() => {
 		setComplitedStepsEducation(true)
 	})
-	return <section className="education">Education</section>
+	return <section className="personal-data">Образование</section>
 }
 
 Education.propTypes = {

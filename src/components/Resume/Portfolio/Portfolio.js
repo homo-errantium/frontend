@@ -1,4 +1,4 @@
-import './Portfolio.scss'
+import '../PersonalData/PersonalData.scss'
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -6,7 +6,7 @@ function Portfolio({ setComplitedStepsPortfolio }) {
 	React.useEffect(() => {
 		setComplitedStepsPortfolio(true)
 	})
-	return <section className="portfolio">Portfolio</section>
+	return <section className="personal-data">Проекты и портфолио</section>
 }
 
 Portfolio.propTypes = {

@@ -1,4 +1,4 @@
-import './Layouts.scss'
+import '../PersonalData/PersonalData.scss'
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -6,7 +6,7 @@ function Layouts({ setComplitedLayouts }) {
 	React.useEffect(() => {
 		setComplitedLayouts(true)
 	})
-	return <section className="layouts">Layouts</section>
+	return <section className="personal-data">Макеты</section>
 }
 
 Layouts.propTypes = {

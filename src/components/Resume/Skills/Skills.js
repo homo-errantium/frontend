@@ -1,4 +1,4 @@
-import './Skills.scss'
+import '../PersonalData/PersonalData.scss'
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -6,7 +6,7 @@ function Skills({ setComplitedStepsSkills }) {
 	React.useEffect(() => {
 		setComplitedStepsSkills(true)
 	})
-	return <section className="skills">Skills</section>
+	return <section className="personal-data">Навыки</section>
 }
 
 Skills.propTypes = {

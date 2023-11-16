@@ -1,4 +1,4 @@
-import './Qualification.scss'
+import '../PersonalData/PersonalData.scss'
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -6,7 +6,7 @@ function Qualification({ setComplitedStepsQualification }) {
 	React.useEffect(() => {
 		setComplitedStepsQualification(true)
 	})
-	return <section className="qualification">Qualification</section>
+	return <section className="personal-data">Повышение квалификации</section>
 }
 
 Qualification.propTypes = {

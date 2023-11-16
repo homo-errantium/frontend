@@ -7,7 +7,7 @@ function PersonalData({ setComplitedStepsPersonalData }) {
 		setComplitedStepsPersonalData(true)
 	})
 
-	return <section className="personal-data">PersonalData</section>
+	return <section className="personal-data">Персональные данные</section>
 }
 
 PersonalData.propTypes = {

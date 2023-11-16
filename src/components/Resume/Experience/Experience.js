@@ -1,4 +1,4 @@
-import './Experience.scss'
+import '../PersonalData/PersonalData.scss'
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -7,7 +7,7 @@ function Experience({ setComplitedStepsExperience }) {
 		setComplitedStepsExperience(true)
 	})
 
-	return <section className="experience">Experience</section>
+	return <section className="personal-data">Опыт работы</section>
 }
 
 Experience.propTypes = {

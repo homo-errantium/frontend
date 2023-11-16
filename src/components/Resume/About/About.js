@@ -1,4 +1,4 @@
-import './About.scss'
+import '../PersonalData/PersonalData.scss'
 import React from 'react'
 import PropTypes from 'prop-types'
 
@@ -6,7 +6,7 @@ function About({ setComplitedStepsAbout }) {
 	React.useEffect(() => {
 		setComplitedStepsAbout(true)
 	})
-	return <section className="about">About</section>
+	return <section className="personal-data">Обо мне</section>
 }
 
 About.propTypes = {
