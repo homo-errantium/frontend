@@ -16,7 +16,7 @@ const Tip = ({ text }) => (
 )
 
 Tip.propTypes = {
-	text: PropTypes.objectOf.isRequired,
+	text: PropTypes.node.isRequired,
 }
 
 export default Tip
