@@ -25,7 +25,7 @@ const FormInput = ({ label, tip, tipText, extraInputClass }) => (
 FormInput.propTypes = {
 	label: PropTypes.node.isRequired,
 	tip: PropTypes.bool,
-	tipText: PropTypes.string,
+	tipText: PropTypes.node,
 	extraInputClass: PropTypes.string,
 }
 
