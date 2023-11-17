@@ -8,13 +8,7 @@
 .personal-data__form {
   display: flex;
   flex-direction: column;
-}
-.personal-data__left-column {
- display: flex;
- flex-direction: column;
-}
-.personal-data__label {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  margin: 36px 0;
+  gap: 32px;
+  max-width: 729px;
 }
