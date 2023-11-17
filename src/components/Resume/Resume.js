@@ -4,7 +4,7 @@ import './Resume.scss'
 import { useLocation } from 'react-router-dom'
 import Header from '../Header/Header'
 import FormPage from './FormPage/FormPage'
-import ProgressBar from './ProgressBar/ProgressBar'
+import ProgressBar from './ResumeComponents/ProgressBar/ProgressBar'
 import { locationArr } from '../../constants/constants'
 
 function Resume({ isLoggedIn }) {
