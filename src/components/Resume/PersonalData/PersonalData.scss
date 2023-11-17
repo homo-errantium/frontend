@@ -5,3 +5,16 @@
   padding-right: 20px;
   border-right: 1px solid #D0D0D0;
 }
+.personal-data__form {
+  display: flex;
+  flex-direction: column;
+}
+.personal-data__left-column {
+ display: flex;
+ flex-direction: column;
+}
+.personal-data__label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
