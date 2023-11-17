@@ -21,6 +21,11 @@ import Qualification from '../Resume/Qualification/Qualification'
 import Result from '../Resume/Result/Result'
 import Skills from '../Resume/Skills/Skills'
 
+import PopupRegister from '../PopupRegister/PopupRegister'
+import PopupConfirmation from '../PopupConfirmation/PopupConfirmation'
+import PopupResumeName from '../PopupResumeName/PopupResumeName'
+import PopupLogin from '../PopupLogin/PopupLogin'
+
 function App() {
 	// eslint-disable-next-line no-unused-vars
 	const [isLoggedIn, setIsLoggedIn] = React.useState(false) // Пользователь авторизован/неавторизован
@@ -43,6 +48,46 @@ function App() {
 		React.useState(false)
 	const [completedStepsAbout, setCompletedStepsAbout] = React.useState(false)
 	const [completedLayouts, setCompletedLayouts] = React.useState(false)
+
+	/* --------- Popup ---------*/
+	const [isLoginPopupOpen, setIsLoginPopupOpen] = React.useState(false)
+	const [isRegisterPopupOpen, setIsRegisterPopupOpen] = React.useState(false)
+	const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false)
+	const [isResumeNamePopupOpen, setIsResumeNamePopupOpen] =
+		React.useState(false)
+
+	// закрытие попапа
+	const closeAllPopup = () => {
+		setIsLoginPopupOpen(false)
+		setIsRegisterPopupOpen(false)
+		setIsConfirmPopupOpen(false)
+		setIsResumeNamePopupOpen(false)
+	}
+
+	// открытие попапа
+	const handleResumeNamePopupOpen = () => {
+		setIsResumeNamePopupOpen(true)
+	}
+	const handleLoginPopupOpen = () => {
+		setIsLoginPopupOpen(true)
+	}
+	const handleRegisterPopupOpen = () => {
+		setIsRegisterPopupOpen(true)
+	}
+	const handleConfirmPopupOpen = () => {
+		setIsConfirmPopupOpen(true)
+	}
+
+	/* убрать эти консоли */
+	// eslint-disable-next-line no-console
+	console.log(handleLoginPopupOpen)
+	// eslint-disable-next-line no-console
+	console.log(handleRegisterPopupOpen)
+	// eslint-disable-next-line no-console
+	console.log(handleResumeNamePopupOpen)
+	// eslint-disable-next-line no-console
+	console.log(handleConfirmPopupOpen)
+	/* --------- для Popup ---------*/
 
 	// Объект для защиты дочерних роутов Resume
 	const routesResumeArr = [
@@ -141,7 +186,10 @@ function App() {
 							isLoggedIn ? (
 								<Navigate to="/" replace />
 							) : (
-								<Register onRegister={handleRegister} />
+								<Register
+									onRegister={handleRegister}
+									isOpen={isRegisterPopupOpen}
+								/>
 							)
 						}
 					/>
@@ -151,7 +199,11 @@ function App() {
 							isLoggedIn ? (
 								<Navigate to="/" replace />
 							) : (
-								<Login onLogin={handleLogin} />
+								<Login
+									onLogin={handleLogin}
+									isOpen={isLoginPopupOpen}
+									isLoggedIn={isLoggedIn}
+								/>
 							)
 						}
 					/>
@@ -161,20 +213,36 @@ function App() {
 							<ProtectedRoute
 								element={Profile}
 								isLoggedIn={isLoggedIn}
+								// onOpenPopup={handleConfirmPopupOpen}
 							/>
 						}
 					/>
 					<Route
 						path="/"
-						element={<Main isLoggedIn={isLoggedIn} />}
+						element={
+							<Main
+								isLoggedIn={isLoggedIn}
+								onOpenPopup={handleConfirmPopupOpen}
+							/>
+						}
 					/>
 					<Route
 						path="/profession"
-						element={<Profession isLoggedIn={isLoggedIn} />}
+						element={
+							<Profession
+								isLoggedIn={isLoggedIn}
+								onOpenPopup={handleConfirmPopupOpen}
+							/>
+						}
 					/>
 					<Route
 						path="/resume"
-						element={<Resume isLoggedIn={isLoggedIn} />}
+						element={
+							<Resume
+								isLoggedIn={isLoggedIn}
+								onOpenPopup={handleConfirmPopupOpen}
+							/>
+						}
 					>
 						<Route
 							index
@@ -197,6 +265,28 @@ function App() {
 					</Route>
 					<Route path="*" element={<NotFound />} />
 				</Routes>
+				{/* Попап регистрации */}
+				<PopupRegister
+					isOpen={isRegisterPopupOpen}
+					onClose={closeAllPopup}
+					onRegister={handleRegister}
+				/>
+				{/* Попап авторизации */}
+				<PopupLogin
+					isOpen={isLoginPopupOpen}
+					onClose={closeAllPopup}
+					onLogin={handleLogin}
+				/>
+				{/* Попап подтверждения */}
+				<PopupConfirmation
+					isOpen={isConfirmPopupOpen}
+					onClose={closeAllPopup}
+				/>
+				{/* попап добавления имени резюме */}
+				<PopupResumeName
+					isOpen={isResumeNamePopupOpen}
+					onClose={closeAllPopup}
+				/>
 			</CurrentUserContext.Provider>
 		</div>
 	)
