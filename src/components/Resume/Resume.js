@@ -7,7 +7,7 @@ import FormPage from './FormPage/FormPage'
 import ProgressBar from './ProgressBar/ProgressBar'
 import { locationArr } from '../../constants/constants'
 
-function Resume({ isLoggedIn }) {
+function Resume({ isLoggedIn, onOpenPopup }) {
 	const location = useLocation()
 	const [nextPage, setNextPage] = React.useState(locationArr[0]) // Переменная с фактической локацией
 	const [step, setStep] = React.useState(1)
@@ -27,7 +27,11 @@ function Resume({ isLoggedIn }) {
 
 	return (
 		<>
-			<Header isLoggedIn={isLoggedIn} nextPage={nextPage} />
+			<Header
+				isLoggedIn={isLoggedIn}
+				nextPage={nextPage}
+				onOpenPopup={onOpenPopup}
+			/>
 			<main className="resume">
 				{location.pathname === '/resume/result' ? (
 					''
@@ -41,6 +45,7 @@ function Resume({ isLoggedIn }) {
 }
 Resume.propTypes = {
 	isLoggedIn: PropTypes.bool.isRequired,
+	onOpenPopup: PropTypes.func.isRequired,
 }
 
 export default Resume
