@@ -1,17 +1,12 @@
 import '../PersonalData/PersonalData.scss'
 import React from 'react'
-import PropTypes from 'prop-types'
 import './Experience.scss'
 import ResumeTitle from '../ResumeComponents/ResumeTitle/ResumeTitle'
 import AddButton from '../ResumeComponents/AddButton/AddButton'
 import FormInput from '../ResumeComponents/FormInput/FormInput'
 import { JOB_TIP } from '../../../constants/tips'
 
-function Experience({ setCompletedSteps }) {
-  React.useEffect(() => {
-    setCompletedSteps(true)
-  })
-
+function Experience() {
   return (
     <section className="personal-data">
       <ResumeTitle title="Опыт работы" checkbox checkboxText="Нет опыта" />
@@ -29,10 +24,6 @@ function Experience({ setCompletedSteps }) {
       </div>
     </section>
   )
-}
-
-Experience.propTypes = {
-  setCompletedSteps: PropTypes.func.isRequired,
 }
 
 export default Experience
