@@ -6,25 +6,22 @@ import RegistrationForm from './RegistrationForm/RegistrationForm'
 import FormRedirection from './FormRedirection/FormRedirection'
 
 const Register = ({ onRegister }) => (
-    <section className="register">
-        <div className="register__container">
-            <FormTitle page="register" greeting="Регистрация" />
-            <RegistrationForm
-                buttonText="Зарегистрироваться"
-                onSubmit={onRegister}
-            />
-            <FormRedirection
-                page="register"
-                text="Уже есть аккаунт?"
-                button="Войти"
-                path="/signin"
-            />
-        </div>
-    </section>
+  <section className="register">
+    <div className="register__container">
+      <FormTitle page="register" greeting="Регистрация" />
+      <RegistrationForm buttonText="Зарегистрироваться" onSubmit={onRegister} />
+      <FormRedirection
+        page="register"
+        text="Уже есть аккаунт?"
+        button="Войти"
+        path="/signin"
+      />
+    </div>
+  </section>
 )
 
 Register.propTypes = {
-    onRegister: PropTypes.func.isRequired,
+  onRegister: PropTypes.func.isRequired,
 }
 
 export default Register

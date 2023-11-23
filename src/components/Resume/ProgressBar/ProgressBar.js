@@ -6,13 +6,13 @@ import './ProgressBar.scss'
 // Пример шага #3: <ProgressBar step={3} />
 
 const ProgressBar = ({ step }) => (
-    <div className="progress-bar">
-        <div className={`progress-bar_step progress-bar_step_${step}`} />
-    </div>
+  <div className="progress-bar">
+    <div className={`progress-bar_step progress-bar_step_${step}`} />
+  </div>
 )
 
 ProgressBar.propTypes = {
-    step: PropTypes.number.isRequired,
+  step: PropTypes.number.isRequired,
 }
 
 export default ProgressBar
