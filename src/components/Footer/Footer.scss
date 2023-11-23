@@ -1,11 +1,11 @@
 .footer {
-	flex-grow: 0; /*чтобы футер не рос*/
-	flex-shrink: 0; /*чтобы футер не сжимался*/
-	box-sizing: border-box;
-	background-color: grey;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	width: 100%;
-	padding: 18px 70px;
+    flex-grow: 0; /*чтобы футер не рос*/
+    flex-shrink: 0; /*чтобы футер не сжимался*/
+    box-sizing: border-box;
+    background-color: grey;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 18px 70px;
 }

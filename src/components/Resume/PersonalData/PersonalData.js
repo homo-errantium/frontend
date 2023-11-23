@@ -13,9 +13,9 @@ import {
 } from '../../../constants/input-options'
 
 function PersonalData({ setCompletedSteps }) {
-	React.useEffect(() => {
-		setCompletedSteps(true)
-	})
+  React.useEffect(() => {
+    setCompletedSteps(true)
+  })
 
 	return (
 		<section className="personal-data">
@@ -54,7 +54,7 @@ function PersonalData({ setCompletedSteps }) {
 }
 
 PersonalData.propTypes = {
-	setCompletedSteps: PropTypes.func.isRequired,
+  setCompletedSteps: PropTypes.func.isRequired,
 }
 
 export default PersonalData

@@ -57,7 +57,7 @@ function Experience({ setCompletedSteps }) {
 }
 
 Experience.propTypes = {
-	setCompletedSteps: PropTypes.func.isRequired,
+  setCompletedSteps: PropTypes.func.isRequired,
 }
 
 export default Experience
