@@ -7,24 +7,24 @@ import FormRedirection from '../Register/FormRedirection/FormRedirection'
 import LoginForm from './LoginForm/LoginForm'
 
 const Login = ({ onLogin }) => (
-	<section className="login register">
-		<div className="login__container register__container">
-			<FormTitle page="login" greeting="Привет!" />
-			<LoginForm buttonText="Войти" onSubmit={onLogin} />
-			<a href="_blank" className="login__restore-password">
-				Не помню пароль
-			</a>
-			<FormRedirection
-				page="login"
-				button="Зарегистрироваться"
-				path="/signup"
-			/>
-		</div>
-	</section>
+    <section className="login register">
+        <div className="login__container register__container">
+            <FormTitle page="login" greeting="Привет!" />
+            <LoginForm buttonText="Войти" onSubmit={onLogin} />
+            <a href="_blank" className="login__restore-password">
+                Не помню пароль
+            </a>
+            <FormRedirection
+                page="login"
+                button="Зарегистрироваться"
+                path="/signup"
+            />
+        </div>
+    </section>
 )
 
 Login.propTypes = {
-	onLogin: PropTypes.func.isRequired,
+    onLogin: PropTypes.func.isRequired,
 }
 
 export default Login

@@ -5,18 +5,18 @@ import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 
 function Profession({ isLoggedIn }) {
-	const nextPage = '/my-profile'
-	return (
-		<>
-			<Header isLoggedIn={isLoggedIn} nextPage={nextPage} />
-			<main className="profession">Profession</main>
-			<Footer />
-		</>
-	)
+    const nextPage = '/my-profile'
+    return (
+        <>
+            <Header isLoggedIn={isLoggedIn} nextPage={nextPage} />
+            <main className="profession">Profession</main>
+            <Footer />
+        </>
+    )
 }
 
 Profession.propTypes = {
-	isLoggedIn: PropTypes.bool.isRequired,
+    isLoggedIn: PropTypes.bool.isRequired,
 }
 
 export default Profession
