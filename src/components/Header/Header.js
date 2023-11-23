@@ -4,7 +4,7 @@ import { useNavigate, useLocation, NavLink } from 'react-router-dom'
 import './Header.scss'
 import headerIcon from '../../logo.svg'
 
-function Header({ isLoggedIn, nextPage, onOpenPopup }) {
+function Header({ isLoggedIn, nextPage, onOpenPopup, setCompletedSteps }) {
   const navigate = useNavigate()
   const location = useLocation()
   const path = location.pathname
@@ -190,7 +190,10 @@ function Header({ isLoggedIn, nextPage, onOpenPopup }) {
             className="header__button header__button_next"
             type="button"
             label="button"
-            onClick={() => navigate(`${nextPage}`)}
+            onClick={() => {
+              setCompletedSteps()
+              navigate(`${nextPage}`)
+            }}
           >
             Следующий шаг
           </button>
@@ -204,11 +207,13 @@ Header.propTypes = {
   isLoggedIn: PropTypes.bool,
   nextPage: PropTypes.string,
   onOpenPopup: PropTypes.func,
+  setCompletedSteps: PropTypes.func,
 }
 Header.defaultProps = {
   isLoggedIn: false,
   nextPage: '',
   onOpenPopup: () => {},
+  setCompletedSteps: () => {},
 }
 
 export default Header

@@ -92,53 +92,49 @@ function App() {
   const routesResumeArr = [
     {
       path: 'personal-data',
-      element: (
-        <PersonalData setCompletedSteps={setCompletedStepsPersonalData} />
-      ),
+      element: <PersonalData />,
       id: 1,
       completedSteps: completedStepsPersonalData,
     },
     {
       path: 'experience',
-      element: <Expirience setCompletedSteps={setCompletedStepsExperience} />,
+      element: <Expirience />,
       id: 2,
       completedSteps: completedStepsExperience,
     },
     {
       path: 'qualification',
-      element: (
-        <Qualification setCompletedSteps={setCompletedStepsQualification} />
-      ),
+      element: <Qualification />,
       id: 3,
       completedSteps: completedStepsQualification,
     },
     {
       path: 'education',
-      element: <Education setCompletedSteps={setCompletedStepsEducation} />,
+      element: <Education />,
       id: 4,
       completedSteps: completedStepsEducation,
     },
     {
       path: 'portfolio',
-      element: <Portfolio setCompletedSteps={setCompletedStepsPortfolio} />,
+      element: <Portfolio />,
       id: 5,
       completedSteps: completedStepsPortfolio,
     },
     {
       path: 'skills',
-      element: <Skills setCompletedSteps={setCompletedStepsSkills} />,
+      element: <Skills />,
       id: 6,
       completedSteps: completedStepsSkills,
     },
     {
       path: 'about',
-      element: <About setCompletedSteps={setCompletedStepsAbout} />,
+      element: <About />,
       id: 7,
       completedSteps: completedStepsAbout,
     },
     {
       path: 'layouts',
-      element: <Layouts setCompletedSteps={setCompletedLayouts} />,
+      element: <Layouts />,
       id: 8,
       completedSteps: completedLayouts,
     },
@@ -147,7 +143,6 @@ function App() {
       element: <Result />,
       id: 9,
       completedSteps: completedStepsPersonalData,
-      setCompletedSteps: null,
     },
   ]
 
@@ -226,6 +221,14 @@ function App() {
               <Resume
                 isLoggedIn={isLoggedIn}
                 onOpenPopup={handleConfirmPopupOpen}
+                setCompletedStepsPersonalData={setCompletedStepsPersonalData}
+                setCompletedStepsExperience={setCompletedStepsExperience}
+                setCompletedStepsQualification={setCompletedStepsQualification}
+                setCompletedStepsEducation={setCompletedStepsEducation}
+                setCompletedStepsPortfolio={setCompletedStepsPortfolio}
+                setCompletedStepsSkills={setCompletedStepsSkills}
+                setCompletedStepsAbout={setCompletedStepsAbout}
+                setCompletedLayouts={setCompletedLayouts}
               />
             }
           >
