@@ -11,6 +11,11 @@ const DoubleInput = ({
 	doubleInput,
 	secondLabel,
 	placeholder,
+	selectedInputFirst,
+	ordinaryInputFirst,
+	selectedInputSecond,
+	ordinaryInputSecond,
+	options,
 }) => (
 	<div className="double-input">
 		<div className="double-input__box">
@@ -20,12 +25,32 @@ const DoubleInput = ({
 				</label>
 				{tip && <Tip text={tipText} />}
 			</div>
-			<input
-				className="double-input__field"
-				disabled={disabled}
-				id="double-input"
-				placeholder={placeholder}
-			/>
+			{selectedInputFirst && (
+				<div className="double-input__select-wrapper">
+					<select
+						id="double-input"
+						className="double-input__field double-input__field_selected"
+					>
+						{options.map(value => (
+							<option
+								value={value}
+								className="double-input__field"
+								key={value}
+							>
+								{value}
+							</option>
+						))}
+					</select>
+				</div>
+			)}
+			{ordinaryInputFirst && (
+				<input
+					className="double-input__field"
+					disabled={disabled}
+					id="double-input"
+					placeholder={placeholder}
+				/>
+			)}
 		</div>
 		<div className="double-input__box">
 			{doubleInput && (
@@ -39,11 +64,31 @@ const DoubleInput = ({
 						</label>
 						{tip && <Tip text={tipText} />}
 					</div>
-					<input
-						className="double-input__field double-input__field_short"
-						disabled={disabled}
-						id="double-input"
-					/>
+					{selectedInputSecond && (
+						<div className="double-input__select-wrapper">
+							<select
+								id="double-input"
+								className="double-input__field double-input__field_selected"
+							>
+								{options.map(value => (
+									<option
+										value={value}
+										className="double-input__option"
+										key={value}
+									>
+										{value}
+									</option>
+								))}
+							</select>
+						</div>
+					)}
+					{ordinaryInputSecond && (
+						<input
+							className="double-input__field double-input__field_short"
+							disabled={disabled}
+							id="double-input"
+						/>
+					)}
 				</>
 			)}
 		</div>
@@ -57,6 +102,11 @@ DoubleInput.propTypes = {
 	disabled: PropTypes.bool,
 	doubleInput: PropTypes.bool,
 	placeholder: PropTypes.node,
+	selectedInputFirst: PropTypes.bool,
+	ordinaryInputFirst: PropTypes.bool,
+	selectedInputSecond: PropTypes.bool,
+	ordinaryInputSecond: PropTypes.bool,
+	options: PropTypes.arrayOf(PropTypes.string),
 }
 
 DoubleInput.defaultProps = {
@@ -66,6 +116,11 @@ DoubleInput.defaultProps = {
 	doubleInput: false,
 	placeholder: '',
 	secondLabel: '',
+	selectedInputFirst: false,
+	ordinaryInputFirst: false,
+	selectedInputSecond: false,
+	ordinaryInputSecond: false,
+	options: [],
 }
 
 export default DoubleInput

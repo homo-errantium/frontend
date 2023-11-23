@@ -7,6 +7,10 @@ import {
 	CAREER_OBJECTIVE_TIP,
 	ACTUAL_STATUS_TIP,
 } from '../../../constants/tips'
+import {
+	ACTUAL_STATUS_OPTIONS,
+	LEVEL_OPTIONS,
+} from '../../../constants/input-options'
 
 function PersonalData({ setCompletedSteps }) {
 	React.useEffect(() => {
@@ -17,16 +21,20 @@ function PersonalData({ setCompletedSteps }) {
 		<section className="personal-data">
 			<ResumeTitle title="Персональные данные" />
 			<div className="personal-data__form">
-				<DoubleInput firstLabel="Имя" />
-				<DoubleInput firstLabel="Фамилия" />
+				<DoubleInput firstLabel="Имя" ordinaryInputFirst />
+				<DoubleInput firstLabel="Фамилия" ordinaryInputFirst />
 				<DoubleInput
 					firstLabel="Дата рождения"
 					placeholder="ДД.ММ.ГГ"
+					ordinaryInputFirst
 				/>
 				<DoubleInput
 					firstLabel="Город проживания"
 					secondLabel="Актуальный статус"
 					doubleInput
+					ordinaryInputFirst
+					selectedInputSecond
+					options={ACTUAL_STATUS_OPTIONS}
 					tip
 					tipText={ACTUAL_STATUS_TIP}
 				/>
@@ -34,11 +42,12 @@ function PersonalData({ setCompletedSteps }) {
 					firstLabel="Желаемая должность"
 					secondLabel="Уровень"
 					doubleInput
+					ordinaryInputFirst
+					selectedInputSecond
+					options={LEVEL_OPTIONS}
 					tip
 					tipText={CAREER_OBJECTIVE_TIP}
 				/>
-				{/* <div className="personal-data__left-column"></div>
-				<div className="personal-data__right-column"></div> */}
 			</div>
 		</section>
 	)
