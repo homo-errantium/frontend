@@ -1,3 +1,4 @@
+import React from 'react'
 import './Recommendations.scss'
 
 function Recommendations() {

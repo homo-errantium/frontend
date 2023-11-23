@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import './Tip.scss'
-import TipIcon from '../../../img/tip-icon.svg'
+import TipIcon from '../../../../img/tip-icon.svg'
 
 // Текст подсказок с нужной разметкой хранится в константах в файле tips.js
 
