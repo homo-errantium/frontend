@@ -17,11 +17,7 @@ import {
 import FormInput from '../ResumeComponents/FormInput/FormInput'
 import AddButton from '../ResumeComponents/AddButton/AddButton'
 
-function PersonalData({ setCompletedSteps }) {
-  React.useEffect(() => {
-    setCompletedSteps(true)
-  })
-
+function PersonalData() {
   return (
     <section className="personal-data">
       <div className="personal-data__container">

@@ -1,5 +1,5 @@
 import '../PersonalData/PersonalData.scss'
-import React from 'react'
+import React, { useState } from 'react'
 import './Experience.scss'
 import ResumeTitle from '../ResumeComponents/ResumeTitle/ResumeTitle'
 import AddButton from '../ResumeComponents/AddButton/AddButton'
@@ -8,6 +8,11 @@ import PeriodInput from '../ResumeComponents/PeriodInput/PeriodInput'
 import { JOB_TIP } from '../../../constants/tips'
 
 function Experience() {
+  const [hasExperience, setHasExperience] = useState(true)
+
+  const handleTitleCheckboxClick = () => {
+    setHasExperience(!hasExperience)
+  }
   return (
     <section className="personal-data">
       <ResumeTitle
