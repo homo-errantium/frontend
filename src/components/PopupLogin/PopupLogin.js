@@ -8,34 +8,34 @@ import PopupСontainer from '../PopupContainer/PopupContainer'
 import Login from '../Login/Login'
 
 function PopupLogin({ isOpen, onClose, onLogin }) {
-	return (
-		<PopupСontainer
-			isOpen={isOpen}
-			onClose={onClose}
-			popupName="popup-login"
-			element={<Login onLogin={onLogin} isOpen={isOpen} />}
-			// element={
-			// 	<>
-			// 		<LoginForm buttonText="Войти" onSubmit={onLogin} />
-			// 		<a href="_blank" className="login__restore-password">
-			// 			Не помню пароль
-			// 		</a>
-			// 		<FormTitle page="login" greeting="Привет!" />
-			// 		<FormRedirection
-			// 			page="login"
-			// 			button="Зарегистрироваться"
-			// 			path="/signup"
-			// 		/>
-			// 	</>
-			// }
-		/>
-	)
+  return (
+    <PopupСontainer
+      isOpen={isOpen}
+      onClose={onClose}
+      popupName="popup-login"
+      element={<Login onLogin={onLogin} isOpen={isOpen} />}
+      // element={
+      // 	<>
+      // 		<LoginForm buttonText="Войти" onSubmit={onLogin} />
+      // 		<a href="_blank" className="login__restore-password">
+      // 			Не помню пароль
+      // 		</a>
+      // 		<FormTitle page="login" greeting="Привет!" />
+      // 		<FormRedirection
+      // 			page="login"
+      // 			button="Зарегистрироваться"
+      // 			path="/signup"
+      // 		/>
+      // 	</>
+      // }
+    />
+  )
 }
 
 PopupLogin.propTypes = {
-	onLogin: PropTypes.func.isRequired,
-	onClose: PropTypes.func.isRequired,
-	isOpen: PropTypes.bool.isRequired,
+  onLogin: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
 }
 
 export default PopupLogin
