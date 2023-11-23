@@ -6,21 +6,21 @@ import Register from '../Register/Register'
 // import RegistrationForm from '../Register/RegistrationForm/RegistrationForm'
 
 function PopupRegister({ isOpen, onClose, onRegister }) {
-	return (
-		<PopupСontainer
-			isOpen={isOpen}
-			onClose={onClose}
-			popupName="popupRegister"
-			element={<Register onRegister={onRegister} isOpen={isOpen} />}
-			// element={<RegistrationForm />}
-		/>
-	)
+  return (
+    <PopupСontainer
+      isOpen={isOpen}
+      onClose={onClose}
+      popupName="popupRegister"
+      element={<Register onRegister={onRegister} isOpen={isOpen} />}
+      // element={<RegistrationForm />}
+    />
+  )
 }
 
 PopupRegister.propTypes = {
-	onRegister: PropTypes.func.isRequired,
-	onClose: PropTypes.func.isRequired,
-	isOpen: PropTypes.bool.isRequired,
+  onRegister: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
 }
 
 export default PopupRegister

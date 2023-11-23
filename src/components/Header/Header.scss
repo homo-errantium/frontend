@@ -1,22 +1,22 @@
 .header {
-	flex-grow: 0; /*чтобы header не рос*/
-	flex-shrink: 0; /*чтобы header не сжимался*/
-	box-sizing: border-box;
-	background: grey;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	width: 100%;
-	padding: 18px 70px;
+  flex-grow: 0; /*чтобы header не рос*/
+  flex-shrink: 0; /*чтобы header не сжимался*/
+  box-sizing: border-box;
+  background: grey;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 18px 70px;
 }
 
 .header__buttons-container {
-	display: flex;
-	gap: 10px;
-	margin-left: auto; // чтобы прижимался к правомуу краю
+  display: flex;
+  gap: 10px;
+  margin-left: auto; // чтобы прижимался к правомуу краю
 }
 
 .header__logo {
-	width: 36px;
-	height: 36px;
+  width: 36px;
+  height: 36px;
 }

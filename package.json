@@ -9,6 +9,7 @@
 		"classnames": "^2.3.2",
 		"commitizen": "^4.3.0",
 		"cz-conventional-changelog": "^3.3.0",
+		"husky": "^8.0.3",
 		"jest": "^27.5.1",
 		"lint-staged": "^15.0.2",
 		"react": "^18.2.0",
@@ -17,7 +18,7 @@
 		"react-scripts": "5.0.1",
 		"sass": "^1.69.5",
 		"sass-npm": "^1.0.2",
-		"web-vitals": "^2.1.4"
+		"web-vitals": "^3.5.0"
 	},
 	"scripts": {
 		"start": "react-scripts start",
@@ -62,7 +63,7 @@
 		"@storybook/react-webpack5": "^7.5.3",
 		"@storybook/testing-library": "^0.2.2",
 		"babel-plugin-named-exports-order": "^0.0.2",
-		"eslint": "^8.54.0",
+		"eslint": "^8.52.0",
 		"eslint-config-airbnb": "^19.0.4",
 		"eslint-config-prettier": "^9.0.0",
 		"eslint-plugin-import": "^2.29.0",
@@ -70,7 +71,6 @@
 		"eslint-plugin-react": "^7.33.2",
 		"eslint-plugin-react-hooks": "^4.6.0",
 		"eslint-plugin-storybook": "^0.6.15",
-		"husky": "^8.0.0",
 		"prettier": "^3.0.3",
 		"prop-types": "^15.8.1",
 		"storybook": "^7.5.3",
