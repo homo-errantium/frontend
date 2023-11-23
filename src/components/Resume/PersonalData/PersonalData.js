@@ -1,6 +1,5 @@
 import './PersonalData.scss'
 import React from 'react'
-import PropTypes from 'prop-types'
 import ResumeTitle from '../ResumeComponents/ResumeTitle/ResumeTitle'
 import DoubleInput from '../ResumeComponents/DoubleInput/DoubleInput'
 import {
@@ -99,10 +98,6 @@ function PersonalData({ setCompletedSteps }) {
       </div>
     </section>
   )
-}
-
-PersonalData.propTypes = {
-  setCompletedSteps: PropTypes.func.isRequired,
 }
 
 export default PersonalData
