@@ -1,8 +1,9 @@
 .progress-bar {
-	width: 87%;
-	height: 12px;
-	border-radius: 20px;
-	background: #d9d9d9;
+  display: flex;
+  width: 87%;
+  height: 12px;
+  border-radius: 20px;
+  background: #d9d9d9;
   margin: 68px auto 0;
   position: relative;
 }
@@ -13,30 +14,16 @@
   border-radius: 20px;
 }
 
-.progress-bar_step_1 {
-  width: 12.5%;
+.progress-bar_step.completed {
+  background: #787575;
+  margin-right: 4px; // Добавляем отступ только для завершенных шагов
 }
 
-.progress-bar_step_2 {
-  width: 12.5%*2;
+.progress-bar_step.active {
+  background: #00a859; // Цвет для активного шага
 }
 
-.progress-bar_step_3 {
-  width: 12.5%*3;
-}
-
-.progress-bar_step_4 {
-  width: 12.5%*4;
-}
-
-.progress-bar_step_5 {
-  width: 12.5%*5;
-}
-
-.progress-bar_step_6 {
-  width: 12.5%*6;
-}
-
-.progress-bar_step_7 {
-  width: 12.5%*7;
+.progress-bar_step.future {
+  background: #e0e0e0; // Цвет для еще не открытых шагов
+  margin-right: 0; // Убираем отступ для будущих шагов
 }

@@ -32,7 +32,7 @@ function Resume({ isLoggedIn }) {
 				{location.pathname === '/resume/result' ? (
 					''
 				) : (
-					<ProgressBar step={step} />
+					<ProgressBar step={step} totalSteps={locationArr.length} />
 				)}
 				<FormPage />
 			</main>
