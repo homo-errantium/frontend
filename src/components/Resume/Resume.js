@@ -61,7 +61,7 @@ function Resume({
         {location.pathname === '/resume/result' ? (
           ''
         ) : (
-          <ProgressBar step={step} />
+          <ProgressBar step={step} totalSteps={locationArr.length} />
         )}
         <FormPage />
       </main>
