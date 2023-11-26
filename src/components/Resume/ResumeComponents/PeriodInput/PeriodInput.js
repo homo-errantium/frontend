@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import './PeriodInput.scss'
+import classNames from 'classnames'
 import Tip from '../Tip/Tip'
 import Checkbox from '../Checkbox/Checkbox'
 import MonthPicker from './MonthPicker/MonthPicker'
@@ -27,7 +28,12 @@ const PeriodInput = ({
   }, [disabled])
 
   return (
-    <div className="period-input__container">
+    <div
+      className={classNames(
+        'period-input__container',
+        !month && 'period-input__container_year-only'
+      )}
+    >
       <div className="form-input">
         <div className="form-input__label-container">
           <label className="form-input__label" htmlFor="form-input">
@@ -35,13 +41,21 @@ const PeriodInput = ({
           </label>
           {tip && <Tip text={tipText} />}
         </div>
-        <div className="period-input__inputs-container">
+        <div
+          className={classNames(
+            'period-input__inputs-container',
+            !month && 'period-input__inputs-container_year-only'
+          )}
+        >
           {month && <MonthPicker disabled={disabled} />}
           <input
             type="text"
             placeholder="Год"
             id="year"
-            className="period-input__field form-input__field"
+            className={classNames(
+              'period-input__field form-input__field',
+              !month && 'period-input__field_year-only'
+            )}
             disabled={disabled}
           />
         </div>
@@ -54,7 +68,12 @@ const PeriodInput = ({
           </label>
           {tip && <Tip text={tipText} />}
         </div>
-        <div className="period-input__inputs-container">
+        <div
+          className={classNames(
+            'period-input__inputs-container',
+            !month && 'period-input__inputs-container_year-only'
+          )}
+        >
           {month && (
             <MonthPicker disabled={disabledMonthChoice || isTillPresent} />
           )}
@@ -62,7 +81,10 @@ const PeriodInput = ({
             type="text"
             placeholder="Год"
             id="year"
-            className="period-input__field form-input__field"
+            className={classNames(
+              'period-input__field form-input__field',
+              !month && 'period-input__field_year-only'
+            )}
             disabled={disabled || isTillPresent}
           />
         </div>
