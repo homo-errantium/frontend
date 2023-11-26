@@ -71,12 +71,12 @@ const Qualification = () => {
           disabled={!hasQualification}
         />
         <FormInput
-          label="Описание полученного опыта"
+          label="Навыки"
           extraInputClass="qualification-skills"
           disabled={!hasQualification}
         />
         <FormInput
-          label="Описание полученного опыта"
+          label="Ссылка на дипломную работу"
           disabled={!hasQualification}
         />
         {addedQualification.map(qualification => (
