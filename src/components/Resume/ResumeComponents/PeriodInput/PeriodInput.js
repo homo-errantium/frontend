@@ -13,6 +13,7 @@ const PeriodInput = ({
   tipText,
   disabled,
   i,
+  tillPresent,
 }) => {
   const [isTillPresent, setIsTillPresent] = useState(false)
   const [disabledMonthChoice, setDisabledMonthChoice] = useState(false)
@@ -66,13 +67,15 @@ const PeriodInput = ({
           />
         </div>
 
-        <div className="period-input__checkbox-container">
-          <Checkbox
-            checkboxText="Настоящее время"
-            checkboxId={`period-checkbox${i}`}
-            onClick={handleCheckboxToggle}
-          />
-        </div>
+        {tillPresent && (
+          <div className="period-input__checkbox-container">
+            <Checkbox
+              checkboxText="Настоящее время"
+              checkboxId={`period-checkbox${i}`}
+              onClick={handleCheckboxToggle}
+            />
+          </div>
+        )}
       </div>
     </div>
   )
@@ -86,6 +89,7 @@ PeriodInput.propTypes = {
   tipText: PropTypes.node,
   disabled: PropTypes.bool,
   i: PropTypes.string.isRequired,
+  tillPresent: PropTypes.bool,
 }
 
 PeriodInput.defaultProps = {
@@ -93,6 +97,7 @@ PeriodInput.defaultProps = {
   tip: false,
   tipText: '',
   disabled: false,
+  tillPresent: false,
 }
 
 export default PeriodInput
