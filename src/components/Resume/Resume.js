@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React from 'react'
 import PropTypes from 'prop-types'
 import './Resume.scss'
@@ -60,7 +61,7 @@ function Resume({
         {location.pathname === '/resume/result' ? (
           ''
         ) : (
-          <ProgressBar step={step} />
+          <ProgressBar step={step} totalSteps={locationArr.length - 1} />
         )}
         <FormPage />
       </main>
