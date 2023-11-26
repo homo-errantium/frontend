@@ -1,0 +1,22 @@
+.period-input__container {
+  display: flex;
+  gap: 22px;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.period-input__inputs-container {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+.period-input__field {
+  width: 50%;
+  padding: 12px;
+}
+
+.period-input__checkbox-container {
+  margin-top: 12px;
+}
