@@ -13,7 +13,7 @@ import Profile from '../Profile/Profile'
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import About from '../Resume/About/About'
 import Education from '../Resume/Education/Education'
-import Expirience from '../Resume/Experience/Experience'
+import Experience from '../Resume/Experience/Experience'
 import Layouts from '../Resume/Layouts/Layouts'
 import PersonalData from '../Resume/PersonalData/PersonalData'
 import Portfolio from '../Resume/Portfolio/Portfolio'
@@ -47,6 +47,59 @@ function App() {
   const [completedStepsSkills, setCompletedStepsSkills] = React.useState(false)
   const [completedStepsAbout, setCompletedStepsAbout] = React.useState(false)
   const [completedLayouts, setCompletedLayouts] = React.useState(false)
+  const [values, setValues] = React.useState({}) // Записываем в объект данные из полей
+  // eslint-disable-next-line no-unused-vars
+  const [localFormData, setLocalFormData] = React.useState(
+    JSON.parse(localStorage.getItem('formData')) || {}
+  ) // Собираем данные полей в один объект
+  const [checkboxValues, setCheckboxValues] = React.useState({
+    work_experience: false,
+    work_period: false,
+  })
+  const [localCheckboxData, setLocalCheckboxData] = React.useState(
+    JSON.parse(localStorage.getItem('checkboxData')) || checkboxValues
+  )
+
+  React.useEffect(() => {
+    setValues(prevValues => ({
+      ...prevValues,
+      company: localFormData.company || undefined,
+      company_website: localFormData.company_website || undefined,
+      current_position: localFormData.current_position || undefined,
+      duties: localFormData.duties || undefined,
+    }))
+
+    setCheckboxValues(prevValues => ({
+      ...prevValues,
+      work_experience: localCheckboxData.work_experience,
+      work_period: localCheckboxData.work_period,
+    }))
+  }, [localFormData, localCheckboxData])
+
+  const handleCheckboxChange = evt => {
+    const { name } = evt.target
+    setCheckboxValues(prevValues => ({
+      ...prevValues,
+      [name]: !prevValues[name],
+    }))
+  }
+
+  // Функция, которая записывает данные полей форм
+  const handleChange = evt => {
+    const { name, value } = evt.target
+
+    setValues({ ...values, [name]: value })
+  }
+
+  // Сохраняем данные полей в локалное хранилище
+  const handleClick = () => {
+    const checkboxData = { ...localCheckboxData, ...checkboxValues }
+    const formData = { ...localFormData, ...values }
+    localStorage.setItem('checkboxData', JSON.stringify(checkboxData))
+    localStorage.setItem('formData', JSON.stringify(formData))
+    setLocalCheckboxData(checkboxData)
+    setLocalFormData(formData)
+  }
 
   /* --------- Popup ---------*/
   const [isLoginPopupOpen, setIsLoginPopupOpen] = React.useState(false)
@@ -98,7 +151,14 @@ function App() {
     },
     {
       path: 'experience',
-      element: <Expirience />,
+      element: (
+        <Experience
+          values={values}
+          handleChange={handleChange}
+          handleCheckboxChange={handleCheckboxChange}
+          checkboxValues={checkboxValues}
+        />
+      ),
       id: 2,
       completedSteps: completedStepsExperience,
     },
@@ -229,6 +289,7 @@ function App() {
                 setCompletedStepsSkills={setCompletedStepsSkills}
                 setCompletedStepsAbout={setCompletedStepsAbout}
                 setCompletedLayouts={setCompletedLayouts}
+                onClick={handleClick}
               />
             }
           >

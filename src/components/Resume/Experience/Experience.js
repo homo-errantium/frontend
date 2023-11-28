@@ -2,6 +2,7 @@ import '../PersonalData/PersonalData.scss'
 import React, { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import './Experience.scss'
+import PropTypes from 'prop-types'
 import ResumeTitle from '../ResumeComponents/ResumeTitle/ResumeTitle'
 import AddButton from '../ResumeComponents/AddButton/AddButton'
 import FormInput from '../ResumeComponents/FormInput/FormInput'
@@ -9,7 +10,12 @@ import PeriodInput from '../ResumeComponents/PeriodInput/PeriodInput'
 import Job from './Job/Job'
 import { JOB_TIP } from '../../../constants/tips'
 
-const Experience = () => {
+const Experience = ({
+  values,
+  handleChange,
+  handleCheckboxChange,
+  checkboxValues,
+}) => {
   // Если опыт есть, поля активны. Если нет, поля деактивируются:
   const [hasExperience, setHasExperience] = useState(true)
   // Если появился добавленный опыт, основная кнопка "Добавить" удаляется
@@ -44,6 +50,9 @@ const Experience = () => {
   return (
     <section className="personal-data">
       <ResumeTitle
+        name="work_experience"
+        checkboxValues={checkboxValues}
+        handleCheckboxChange={handleCheckboxChange}
         title="Опыт работы"
         checkbox
         checkboxText="Нет опыта"
@@ -51,9 +60,24 @@ const Experience = () => {
         onClick={handleTitleCheckboxClick}
       />
       <div className="experience__form-container">
-        <FormInput label="Название компании" disabled={!hasExperience} />
-        <FormInput label="Сайт компании" disabled={!hasExperience} />
         <FormInput
+          name="company"
+          values={values}
+          handleChange={handleChange}
+          label="Название компании"
+          disabled={!hasExperience}
+        />
+        <FormInput
+          name="company_website"
+          values={values}
+          handleChange={handleChange}
+          label="Сайт компании"
+          disabled={!hasExperience}
+        />
+        <FormInput
+          name="current_position"
+          values={values}
+          handleChange={handleChange}
           label="Должность"
           tip
           tipText={JOB_TIP}
@@ -66,8 +90,13 @@ const Experience = () => {
           disabled={!hasExperience}
           i="0"
           tillPresent
+          checkboxValues={checkboxValues}
+          handleCheckboxChange={handleCheckboxChange}
         />
         <FormInput
+          name="duties"
+          values={values}
+          handleChange={handleChange}
           label="Обязанности"
           extraInputClass="responsibilities"
           disabled={!hasExperience}
@@ -87,6 +116,24 @@ const Experience = () => {
       </div>
     </section>
   )
+}
+
+Experience.propTypes = {
+  values: PropTypes.shape({
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  }),
+  handleChange: PropTypes.func,
+  handleCheckboxChange: PropTypes.func,
+  checkboxValues: PropTypes.shape({
+    checkbox: PropTypes.bool,
+  }),
+}
+
+Experience.defaultProps = {
+  values: {},
+  handleChange: () => {},
+  handleCheckboxChange: () => {},
+  checkboxValues: {},
 }
 
 export default Experience

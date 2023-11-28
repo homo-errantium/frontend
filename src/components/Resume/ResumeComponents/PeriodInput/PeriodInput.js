@@ -15,6 +15,8 @@ const PeriodInput = ({
   disabled,
   i,
   tillPresent,
+  checkboxValues,
+  handleCheckboxChange,
 }) => {
   const [isTillPresent, setIsTillPresent] = useState(false)
   const [disabledMonthChoice, setDisabledMonthChoice] = useState(false)
@@ -92,6 +94,9 @@ const PeriodInput = ({
         {tillPresent && (
           <div className="period-input__checkbox-container">
             <Checkbox
+              name="work_period"
+              checkboxValues={checkboxValues}
+              handleCheckboxChange={handleCheckboxChange}
               checkboxText="Настоящее время"
               checkboxId={`period-checkbox${i}`}
               onClick={handleCheckboxToggle}
@@ -112,6 +117,10 @@ PeriodInput.propTypes = {
   disabled: PropTypes.bool,
   i: PropTypes.string.isRequired,
   tillPresent: PropTypes.bool,
+  handleCheckboxChange: PropTypes.func,
+  checkboxValues: PropTypes.shape({
+    checkbox: PropTypes.bool,
+  }),
 }
 
 PeriodInput.defaultProps = {
@@ -120,6 +129,8 @@ PeriodInput.defaultProps = {
   tipText: '',
   disabled: false,
   tillPresent: false,
+  handleCheckboxChange: () => {},
+  checkboxValues: {},
 }
 
 export default PeriodInput
