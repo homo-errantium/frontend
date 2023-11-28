@@ -1,27 +1,34 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import './MonthPicker.scss'
-import React, { useState } from 'react'
+// import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { months } from '../../../../../constants/months'
 
-const MonthPicker = ({ disabled }) => {
-  const [chosenMonth, setChosenMonth] = useState('')
+const MonthPicker = ({ disabled, setChosenMonth, chosenMonth, name }) => {
+  // const [chosenMonth, setChosenMonth] = useState('')
 
   const chooseMonth = month => {
-    setChosenMonth(month.id)
+    setChosenMonth({ ...chosenMonth, [name]: month.id })
   }
 
   return (
     <div className="month__container">
       <input
+        name={name}
         type="text"
         placeholder="Месяц"
-        id="month"
+        id={name}
         className={classNames(
           'month__input',
           disabled && 'month__input_disabled'
         )}
-        value={chosenMonth && months.find(m => chosenMonth === m.id).long}
+        value={
+          chosenMonth[name]
+            ? months.find(m => chosenMonth[name] === m.id).long
+            : ''
+        }
         readOnly
         disabled={disabled}
       />
@@ -38,7 +45,7 @@ const MonthPicker = ({ disabled }) => {
                   key={month.id}
                   className={classNames(
                     'month__button link',
-                    chosenMonth === month.id && 'month__button_active'
+                    chosenMonth[name] === month.id && 'month__button_active'
                   )}
                   onClick={chooseThisMonth}
                 >

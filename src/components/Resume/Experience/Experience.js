@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import '../PersonalData/PersonalData.scss'
 import React, { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
@@ -15,12 +16,17 @@ const Experience = ({
   handleChange,
   handleCheckboxChange,
   checkboxValues,
+  hasExperience,
+  setHasExperience,
+  isTillPresent,
+  setIsTillPresent,
+  chosenMonth,
+  setChosenMonth,
 }) => {
-  // Если опыт есть, поля активны. Если нет, поля деактивируются:
-  const [hasExperience, setHasExperience] = useState(true)
   // Если появился добавленный опыт, основная кнопка "Добавить" удаляется
   const [noAddedExperience, setNoAddedExperience] = useState(true)
-  const [addedExperience, setAddedExperience] = useState([])
+  const [addedExperience, setAddedExperience] = React.useState([])
+  const [number, setNumber] = useState(0)
 
   const handleTitleCheckboxClick = () => {
     setHasExperience(!hasExperience)
@@ -31,9 +37,11 @@ const Experience = ({
   const addExperience = () => {
     setNoAddedExperience(false)
     setAddedExperience([...addedExperience, { id: uuidv4() }])
+    setNumber(prevValue => prevValue + 1)
   }
 
   const deleteExperience = jobId => {
+    setNumber(prevValue => prevValue - 1)
     const experienceToBeRemoved = addedExperience.find(m => jobId === m.id)
     setAddedExperience(
       addedExperience.filter(item => item.id !== experienceToBeRemoved.id)
@@ -92,6 +100,13 @@ const Experience = ({
           tillPresent
           checkboxValues={checkboxValues}
           handleCheckboxChange={handleCheckboxChange}
+          isTillPresent={isTillPresent}
+          setIsTillPresent={setIsTillPresent}
+          namePeriod="work_period"
+          monthPeriod={['work_start', 'work_end']}
+          year={['year_start', 'year_end']}
+          chosenMonth={chosenMonth}
+          setChosenMonth={setChosenMonth}
         />
         <FormInput
           name="duties"
@@ -103,11 +118,20 @@ const Experience = ({
         />
         {addedExperience.map(experience => (
           <Job
+            values={values}
+            handleChange={handleChange}
             hasExperience={hasExperience}
             deleteExperience={deleteExperience}
             addExperience={addExperience}
             i={experience.id}
             key={experience.id}
+            checkboxValues={checkboxValues}
+            handleCheckboxChange={handleCheckboxChange}
+            isTillPresent={isTillPresent}
+            setIsTillPresent={setIsTillPresent}
+            number={number}
+            chosenMonth={chosenMonth}
+            setChosenMonth={setChosenMonth}
           />
         ))}
         {noAddedExperience && (
@@ -127,6 +151,10 @@ Experience.propTypes = {
   checkboxValues: PropTypes.shape({
     checkbox: PropTypes.bool,
   }),
+  hasExperience: PropTypes.bool.isRequired,
+  setHasExperience: PropTypes.func,
+  isTillPresent: PropTypes.bool.isRequired,
+  setIsTillPresent: PropTypes.func,
 }
 
 Experience.defaultProps = {
@@ -134,6 +162,8 @@ Experience.defaultProps = {
   handleChange: () => {},
   handleCheckboxChange: () => {},
   checkboxValues: {},
+  setHasExperience: () => {},
+  setIsTillPresent: () => {},
 }
 
 export default Experience

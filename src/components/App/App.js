@@ -11,15 +11,15 @@ import Register from '../Register/Register'
 import Login from '../Login/Login'
 import Profile from '../Profile/Profile'
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
-import About from '../Resume/About/About'
-import Education from '../Resume/Education/Education'
+// import About from '../Resume/About/About'
+// import Education from '../Resume/Education/Education'
 import Experience from '../Resume/Experience/Experience'
-import Layouts from '../Resume/Layouts/Layouts'
+// import Layouts from '../Resume/Layouts/Layouts'
 import PersonalData from '../Resume/PersonalData/PersonalData'
-import Portfolio from '../Resume/Portfolio/Portfolio'
-import Qualification from '../Resume/Qualification/Qualification'
+// import Portfolio from '../Resume/Portfolio/Portfolio'
+// import Qualification from '../Resume/Qualification/Qualification'
 import Result from '../Resume/Result/Result'
-import Skills from '../Resume/Skills/Skills'
+// import Skills from '../Resume/Skills/Skills'
 
 import PopupRegister from '../PopupRegister/PopupRegister'
 import PopupConfirmation from '../PopupConfirmation/PopupConfirmation'
@@ -38,42 +38,102 @@ function App() {
     React.useState(false)
   const [completedStepsExperience, setCompletedStepsExperience] =
     React.useState(false)
-  const [completedStepsQualification, setCompletedStepsQualification] =
-    React.useState(false)
-  const [completedStepsEducation, setCompletedStepsEducation] =
-    React.useState(false)
-  const [completedStepsPortfolio, setCompletedStepsPortfolio] =
-    React.useState(false)
-  const [completedStepsSkills, setCompletedStepsSkills] = React.useState(false)
-  const [completedStepsAbout, setCompletedStepsAbout] = React.useState(false)
-  const [completedLayouts, setCompletedLayouts] = React.useState(false)
-  const [values, setValues] = React.useState({}) // Записываем в объект данные из полей
-  // eslint-disable-next-line no-unused-vars
+  // const [completedStepsQualification, setCompletedStepsQualification] =
+  //   React.useState(false)
+  // const [completedStepsEducation, setCompletedStepsEducation] =
+  //   React.useState(false)
+  // const [completedStepsPortfolio, setCompletedStepsPortfolio] =
+  //   React.useState(false)
+  // const [completedStepsSkills, setCompletedStepsSkills] = React.useState(false)
+  // const [completedStepsAbout, setCompletedStepsAbout] = React.useState(false)
+  // const [completedLayouts, setCompletedLayouts] = React.useState(false)
+
+  // --------------------------- Работа с данными через локальное хранилище -----------------------
+
+  // Записываем в объект данные из полей
+  const [values, setValues] = React.useState({})
+  // Достаём данные полей из хранилища
   const [localFormData, setLocalFormData] = React.useState(
     JSON.parse(localStorage.getItem('formData')) || {}
-  ) // Собираем данные полей в один объект
-  const [checkboxValues, setCheckboxValues] = React.useState({
-    work_experience: false,
-    work_period: false,
-  })
+  )
+  // Записываем в объект данные чекбоксов
+  const [checkboxValues, setCheckboxValues] = React.useState({})
+  // Достаём данные чекбоксов из хранилища
   const [localCheckboxData, setLocalCheckboxData] = React.useState(
     JSON.parse(localStorage.getItem('checkboxData')) || checkboxValues
   )
+  // Если опыт есть, поля активны. Если нет, поля деактивируются:
+  const [hasExperience, setHasExperience] = React.useState(
+    JSON.parse(localStorage.getItem('hasExperience') || true)
+  )
+  console.log(hasExperience)
+  // Блокирует/ разблокирует поля ввода периода работы
+  const [isTillPresent, setIsTillPresent] = React.useState(
+    JSON.parse(localStorage.getItem('isTillPresent')) || false
+  )
+  const [chosenMonth, setChosenMonth] = React.useState(
+    JSON.parse(localStorage.getItem('chosenMonth')) || {}
+  )
+  const [localChooseMonth, setLocalChooseMonth] = React.useState(
+    JSON.parse(localStorage.getItem('chosenMonth')) || chosenMonth
+  )
+  // console.log(localChooseMonth)
 
   React.useEffect(() => {
     setValues(prevValues => ({
       ...prevValues,
-      company: localFormData.company || undefined,
-      company_website: localFormData.company_website || undefined,
-      current_position: localFormData.current_position || undefined,
-      duties: localFormData.duties || undefined,
+      company: localFormData.company || '',
+      company_website: localFormData.company_website || '',
+      current_position: localFormData.current_position || '',
+      duties: localFormData.duties || '',
+      company1: localFormData.company1 || '',
+      company_website1: localFormData.company_website1 || '',
+      current_position1: localFormData.current_position1 || '',
+      duties1: localFormData.duties1 || '',
+      company2: localFormData.company2 || '',
+      company_website2: localFormData.company_website2 || '',
+      current_position2: localFormData.current_position2 || '',
+      duties2: localFormData.duties2 || '',
+      company3: localFormData.company3 || '',
+      company_website3: localFormData.company_website3 || '',
+      current_position3: localFormData.current_position3 || '',
+      duties3: localFormData.duties3 || '',
+      company4: localFormData.company4 || '',
+      company_website4: localFormData.company_website4 || '',
+      current_position4: localFormData.current_position4 || '',
+      duties4: localFormData.duties4 || '',
+      company5: localFormData.company5 || '',
+      company_website5: localFormData.company_website5 || '',
+      current_position5: localFormData.current_position5 || '',
+      duties5: localFormData.duties5 || '',
     }))
 
     setCheckboxValues(prevValues => ({
       ...prevValues,
       work_experience: localCheckboxData.work_experience,
       work_period: localCheckboxData.work_period,
+      work_period1: localCheckboxData.work_period1,
+      work_period2: localCheckboxData.work_period2,
+      work_period3: localCheckboxData.work_period3,
+      work_period4: localCheckboxData.work_period4,
+      work_period5: localCheckboxData.work_period5,
     }))
+
+    // setChosenMonth(prevValues => ({
+    //   ...prevValues,
+    //   month_start: localChooseMonth.month_start || 1,
+    //   // month_start1: localChooseMonth.month_start1,
+    //   // month_start2: localChooseMonth.month_start2,
+    //   // month_start3: localChooseMonth.month_start3,
+    //   // month_start4: localChooseMonth.month_start4,
+    //   // month_start5: localChooseMonth.month_start5,
+    //   month_end: localChooseMonth.month_end || 1,
+    //   // month_end1: localChooseMonth.month_end1,
+    //   // month_end2: localChooseMonth.month_end2,
+    //   // month_end3: localChooseMonth.month_end3,
+    //   // month_end4: localChooseMonth.month_end4,
+    //   // month_end5: localChooseMonth.month_end5,
+    // }))
   }, [localFormData, localCheckboxData])
 
   const handleCheckboxChange = evt => {
@@ -95,13 +155,18 @@ function App() {
   const handleClick = () => {
     const checkboxData = { ...localCheckboxData, ...checkboxValues }
     const formData = { ...localFormData, ...values }
+    const chosenData = { ...localChooseMonth, ...chosenMonth }
     localStorage.setItem('checkboxData', JSON.stringify(checkboxData))
     localStorage.setItem('formData', JSON.stringify(formData))
+    localStorage.setItem('hasExperience', JSON.stringify(hasExperience))
+    localStorage.setItem('isTillPresent', JSON.stringify(isTillPresent))
+    localStorage.setItem('chosenMonth', JSON.stringify(chosenData))
     setLocalCheckboxData(checkboxData)
     setLocalFormData(formData)
+    setLocalChooseMonth(chosenData)
   }
 
-  /* --------- Popup ---------*/
+  /* ----------------------------------------- Popup -----------------------------------------------------*/
   const [isLoginPopupOpen, setIsLoginPopupOpen] = React.useState(false)
   const [isRegisterPopupOpen, setIsRegisterPopupOpen] = React.useState(false)
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false)
@@ -117,12 +182,15 @@ function App() {
   }
 
   // открытие попапа
+  // eslint-disable-next-line no-unused-vars
   const handleResumeNamePopupOpen = () => {
     setIsResumeNamePopupOpen(true)
   }
+  // eslint-disable-next-line no-unused-vars
   const handleLoginPopupOpen = () => {
     setIsLoginPopupOpen(true)
   }
+  // eslint-disable-next-line no-unused-vars
   const handleRegisterPopupOpen = () => {
     setIsRegisterPopupOpen(true)
   }
@@ -130,16 +198,16 @@ function App() {
     setIsConfirmPopupOpen(true)
   }
 
-  /* убрать эти консоли */
-  // eslint-disable-next-line no-console
-  console.log(handleLoginPopupOpen)
-  // eslint-disable-next-line no-console
-  console.log(handleRegisterPopupOpen)
-  // eslint-disable-next-line no-console
-  console.log(handleResumeNamePopupOpen)
-  // eslint-disable-next-line no-console
-  console.log(handleConfirmPopupOpen)
-  /* --------- для Popup ---------*/
+  // /* убрать эти консоли */
+  // // eslint-disable-next-line no-console
+  // console.log(handleLoginPopupOpen)
+  // // eslint-disable-next-line no-console
+  // console.log(handleRegisterPopupOpen)
+  // // eslint-disable-next-line no-console
+  // console.log(handleResumeNamePopupOpen)
+  // // eslint-disable-next-line no-console
+  // console.log(handleConfirmPopupOpen)
+  // /* --------- для Popup ---------*/
 
   // Объект для защиты дочерних роутов Resume
   const routesResumeArr = [
@@ -157,47 +225,53 @@ function App() {
           handleChange={handleChange}
           handleCheckboxChange={handleCheckboxChange}
           checkboxValues={checkboxValues}
+          hasExperience={hasExperience}
+          setHasExperience={setHasExperience}
+          isTillPresent={isTillPresent}
+          setIsTillPresent={setIsTillPresent}
+          chosenMonth={chosenMonth}
+          setChosenMonth={setChosenMonth}
         />
       ),
       id: 2,
       completedSteps: completedStepsExperience,
     },
-    {
-      path: 'qualification',
-      element: <Qualification />,
-      id: 3,
-      completedSteps: completedStepsQualification,
-    },
-    {
-      path: 'education',
-      element: <Education />,
-      id: 4,
-      completedSteps: completedStepsEducation,
-    },
-    {
-      path: 'portfolio',
-      element: <Portfolio />,
-      id: 5,
-      completedSteps: completedStepsPortfolio,
-    },
-    {
-      path: 'skills',
-      element: <Skills />,
-      id: 6,
-      completedSteps: completedStepsSkills,
-    },
-    {
-      path: 'about',
-      element: <About />,
-      id: 7,
-      completedSteps: completedStepsAbout,
-    },
-    {
-      path: 'layouts',
-      element: <Layouts />,
-      id: 8,
-      completedSteps: completedLayouts,
-    },
+    // {
+    //   path: 'qualification',
+    //   element: <Qualification />,
+    //   id: 3,
+    //   completedSteps: completedStepsQualification,
+    // },
+    // {
+    //   path: 'education',
+    //   element: <Education />,
+    //   id: 4,
+    //   completedSteps: completedStepsEducation,
+    // },
+    // {
+    //   path: 'portfolio',
+    //   element: <Portfolio />,
+    //   id: 5,
+    //   completedSteps: completedStepsPortfolio,
+    // },
+    // {
+    //   path: 'skills',
+    //   element: <Skills />,
+    //   id: 6,
+    //   completedSteps: completedStepsSkills,
+    // },
+    // {
+    //   path: 'about',
+    //   element: <About />,
+    //   id: 7,
+    //   completedSteps: completedStepsAbout,
+    // },
+    // {
+    //   path: 'layouts',
+    //   element: <Layouts />,
+    //   id: 8,
+    //   completedSteps: completedLayouts,
+    // },
     {
       path: 'result',
       element: <Result />,
@@ -283,12 +357,12 @@ function App() {
                 onOpenPopup={handleConfirmPopupOpen}
                 setCompletedStepsPersonalData={setCompletedStepsPersonalData}
                 setCompletedStepsExperience={setCompletedStepsExperience}
-                setCompletedStepsQualification={setCompletedStepsQualification}
-                setCompletedStepsEducation={setCompletedStepsEducation}
-                setCompletedStepsPortfolio={setCompletedStepsPortfolio}
-                setCompletedStepsSkills={setCompletedStepsSkills}
-                setCompletedStepsAbout={setCompletedStepsAbout}
-                setCompletedLayouts={setCompletedLayouts}
+                // setCompletedStepsQualification={setCompletedStepsQualification}
+                // setCompletedStepsEducation={setCompletedStepsEducation}
+                // setCompletedStepsPortfolio={setCompletedStepsPortfolio}
+                // setCompletedStepsSkills={setCompletedStepsSkills}
+                // setCompletedStepsAbout={setCompletedStepsAbout}
+                // setCompletedLayouts={setCompletedLayouts}
                 onClick={handleClick}
               />
             }

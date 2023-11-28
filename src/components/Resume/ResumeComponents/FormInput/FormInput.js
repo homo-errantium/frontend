@@ -25,7 +25,7 @@ const FormInput = ({
       name={name}
       value={values[name]}
       onChange={handleChange}
-      disabled={disabled}
+      disabled={disabled || false}
       id="form-input"
       className={classNames(
         'form-input__field',

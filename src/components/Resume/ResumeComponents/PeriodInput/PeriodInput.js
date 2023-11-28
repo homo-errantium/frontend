@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import './PeriodInput.scss'
@@ -17,12 +18,23 @@ const PeriodInput = ({
   tillPresent,
   checkboxValues,
   handleCheckboxChange,
+  isTillPresent,
+  setIsTillPresent,
+  namePeriod,
+  setChosenMonth,
+  chosenMonth,
+  monthPeriod,
+  year,
 }) => {
-  const [isTillPresent, setIsTillPresent] = useState(false)
   const [disabledMonthChoice, setDisabledMonthChoice] = useState(false)
 
   const handleCheckboxToggle = () => {
     setIsTillPresent(!isTillPresent)
+  }
+
+  const handleYearChange = evt => {
+    const { name, value } = evt.target
+    setChosenMonth({ ...chosenMonth, [name]: value })
   }
 
   useEffect(() => {
@@ -49,11 +61,21 @@ const PeriodInput = ({
             !month && 'period-input__inputs-container_year-only'
           )}
         >
-          {month && <MonthPicker disabled={disabled} />}
+          {month && (
+            <MonthPicker
+              name={monthPeriod[0]}
+              chosenMonth={chosenMonth}
+              setChosenMonth={setChosenMonth}
+              disabled={disabled}
+            />
+          )}
           <input
+            name={year[0]}
+            value={chosenMonth[year[0]] ? chosenMonth[year[0]] : ''}
+            onChange={handleYearChange}
             type="text"
             placeholder="Год"
-            id="year"
+            id={year[0]}
             className={classNames(
               'period-input__field form-input__field',
               !month && 'period-input__field_year-only'
@@ -77,12 +99,20 @@ const PeriodInput = ({
           )}
         >
           {month && (
-            <MonthPicker disabled={disabledMonthChoice || isTillPresent} />
+            <MonthPicker
+              name={monthPeriod[1]}
+              chosenMonth={chosenMonth}
+              setChosenMonth={setChosenMonth}
+              disabled={disabledMonthChoice || isTillPresent}
+            />
           )}
           <input
+            name={year[1]}
+            value={chosenMonth[year[1]] ? chosenMonth[year[1]] : ''}
+            onChange={handleYearChange}
             type="text"
             placeholder="Год"
-            id="year"
+            id={year[1]}
             className={classNames(
               'period-input__field form-input__field',
               !month && 'period-input__field_year-only'
@@ -94,7 +124,8 @@ const PeriodInput = ({
         {tillPresent && (
           <div className="period-input__checkbox-container">
             <Checkbox
-              name="work_period"
+              disabled={disabled}
+              name={namePeriod}
               checkboxValues={checkboxValues}
               handleCheckboxChange={handleCheckboxChange}
               checkboxText="Настоящее время"
@@ -121,6 +152,9 @@ PeriodInput.propTypes = {
   checkboxValues: PropTypes.shape({
     checkbox: PropTypes.bool,
   }),
+  isTillPresent: PropTypes.bool,
+  setIsTillPresent: PropTypes.func,
+  namePeriod: PropTypes.string,
 }
 
 PeriodInput.defaultProps = {
@@ -131,6 +165,9 @@ PeriodInput.defaultProps = {
   tillPresent: false,
   handleCheckboxChange: () => {},
   checkboxValues: {},
+  setIsTillPresent: () => {},
+  isTillPresent: undefined,
+  namePeriod: undefined,
 }
 
 export default PeriodInput
