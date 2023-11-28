@@ -13,7 +13,7 @@ import Profile from '../Profile/Profile'
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import About from '../Resume/About/About'
 import Education from '../Resume/Education/Education'
-import Expirience from '../Resume/Experience/Experience'
+import Experience from '../Resume/Experience/Experience'
 import Layouts from '../Resume/Layouts/Layouts'
 import PersonalData from '../Resume/PersonalData/PersonalData'
 import Portfolio from '../Resume/Portfolio/Portfolio'
@@ -98,7 +98,7 @@ function App() {
     },
     {
       path: 'experience',
-      element: <Expirience />,
+      element: <Experience />,
       id: 2,
       completedSteps: completedStepsExperience,
     },

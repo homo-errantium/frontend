@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import './ResumeTitle.scss'
-import Checkbox from '../Checkbox/Checkbox'
+import Toggle from './Toggle/Toggle'
 
 const ResumeTitle = ({
   title,
@@ -13,7 +13,7 @@ const ResumeTitle = ({
   <div className="resume-title__container">
     <h1 className="resume-title__text">{title}</h1>
     {checkbox && (
-      <Checkbox
+      <Toggle
         checkboxText={checkboxText}
         checkboxId={checkboxId}
         onClick={onClick}
