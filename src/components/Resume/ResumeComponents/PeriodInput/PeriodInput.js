@@ -24,18 +24,18 @@ const PeriodInput = ({
   values,
   handleCheckboxChange,
   checkboxValues,
+  handleChange,
 }) => {
   const [disabledMonthChoice, setDisabledMonthChoice] = useState(false)
-  console.log(values[year[1]])
 
   const handleCheckboxToggle = () => {
     setIsTillPresent(!isTillPresent)
   }
 
-  const handleYearChange = evt => {
-    const { name, value } = evt.target
-    setValues(prevValue => ({ ...prevValue, [name]: value }))
-  }
+  // const handleYearChange = evt => {
+  //   const { name, value } = evt.target
+  //   setValues(prevValue => ({ ...prevValue, [name]: value }))
+  // }
 
   useEffect(() => {
     setDisabledMonthChoice(disabled)
@@ -72,7 +72,7 @@ const PeriodInput = ({
           <input
             name={year[0]}
             value={values[year[0]] || ''}
-            onChange={handleYearChange}
+            onChange={handleChange}
             type="text"
             placeholder="Год"
             id={year[0]}
@@ -109,7 +109,7 @@ const PeriodInput = ({
           <input
             name={year[1]}
             value={values[year[1]] || ''}
-            onChange={handleYearChange}
+            onChange={handleChange}
             type="text"
             placeholder="Год"
             id={year[1]}
@@ -161,6 +161,7 @@ PeriodInput.propTypes = {
   values: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ),
+  handleChange: PropTypes.func,
 }
 
 PeriodInput.defaultProps = {
@@ -178,6 +179,7 @@ PeriodInput.defaultProps = {
   monthPeriod: [],
   year: [],
   values: {},
+  handleChange: () => {},
 }
 
 export default PeriodInput

@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import { months } from '../../../../../constants/months'
 
 const MonthPicker = ({ disabled, setValues, values, name }) => {
+  console.log(values)
   const chooseMonth = month => {
     setValues({ ...values, [name]: month.id })
   }
