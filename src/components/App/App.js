@@ -50,11 +50,11 @@ function App() {
 
   // --------------------------- Работа с данными через локальное хранилище -----------------------
 
-  const date = new Date()
   // Записываем в объект данные из полей
   const [values, setValues] = React.useState(
     JSON.parse(localStorage.getItem('formData')) || {}
   )
+  // console.log(values)
   // // Если опыт есть, поля активны. Если нет, поля деактивируются:
   const [hasExperience, setHasExperience] = React.useState(
     JSON.parse(localStorage.getItem('hasExperience') || true)
@@ -95,24 +95,36 @@ function App() {
         month_work_end: '',
         year_work_start: '',
         year_work_end: '',
+        company_1: '',
+        company_website_1: '',
+        current_position_1: '',
+        duties_1: '',
+        month_work_start_1: '',
+        month_work_end_1: '',
+        year_work_start_1: '',
+        year_work_end_1: '',
+        company_2: '',
+        company_website_2: '',
+        current_position_2: '',
+        duties_2: '',
+        month_work_start_2: '',
+        month_work_end_2: '',
+        year_work_start_2: '',
+        year_work_end_2: '',
       })
       setCheckboxValues(prevValues => ({
         ...prevValues,
         work_period_checkbox: false,
+        work_period_checkbox_1: false,
+        work_period_checkbox_2: false,
       }))
       setIsTillPresent(false)
     }
-  }, [hasExperience, isTillPresent])
+  }, [hasExperience])
 
   // Этот useEffect очищает поля с датой, если галочки "Настоящее время" нет и подставляет фактическую дату, если галочка есть
   React.useEffect(() => {
     if (isTillPresent) {
-      setValues({
-        ...values,
-        month_work_end: date.getMonth(),
-        year_work_end: date.getFullYear(),
-      })
-    } else {
       setValues({
         ...values,
         month_work_end: '',

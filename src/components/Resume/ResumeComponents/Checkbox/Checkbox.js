@@ -6,7 +6,7 @@ const Checkbox = ({
   checkboxId,
   onClick,
   name,
-  values,
+  checkboxValues,
   handleCheckboxChange,
   disabled,
 }) => (
@@ -20,7 +20,7 @@ const Checkbox = ({
         disabled={disabled}
         className="checkbox__input"
         onChange={handleCheckboxChange}
-        checked={values[name] ? values[name] : false}
+        checked={checkboxValues[name] ? checkboxValues[name] : false}
       />
       <span className="checkbox__text">{checkboxText}</span>
     </label>
@@ -36,7 +36,6 @@ Checkbox.propTypes = {
     checkbox: PropTypes.bool,
   }),
   name: PropTypes.string,
-  values: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.bool])),
   disabled: PropTypes.bool,
 }
 
@@ -45,7 +44,6 @@ Checkbox.defaultProps = {
   handleCheckboxChange: () => {},
   checkboxValues: {},
   name: '',
-  values: {},
   disabled: undefined,
 }
 

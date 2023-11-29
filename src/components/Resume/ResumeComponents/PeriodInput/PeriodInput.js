@@ -26,6 +26,7 @@ const PeriodInput = ({
   checkboxValues,
 }) => {
   const [disabledMonthChoice, setDisabledMonthChoice] = useState(false)
+  console.log(values[year[1]])
 
   const handleCheckboxToggle = () => {
     setIsTillPresent(!isTillPresent)
@@ -33,7 +34,7 @@ const PeriodInput = ({
 
   const handleYearChange = evt => {
     const { name, value } = evt.target
-    setValues({ ...values, [name]: value })
+    setValues(prevValue => ({ ...prevValue, [name]: value }))
   }
 
   useEffect(() => {
@@ -70,7 +71,7 @@ const PeriodInput = ({
           )}
           <input
             name={year[0]}
-            value={values[year[0]] ? values[year[0]] : ''}
+            value={values[year[0]] || ''}
             onChange={handleYearChange}
             type="text"
             placeholder="Год"
@@ -107,7 +108,7 @@ const PeriodInput = ({
           )}
           <input
             name={year[1]}
-            value={values[year[1]] ? values[year[1]] : ''}
+            value={values[year[1]] || ''}
             onChange={handleYearChange}
             type="text"
             placeholder="Год"
@@ -125,7 +126,7 @@ const PeriodInput = ({
             <Checkbox
               disabled={disabled}
               name={namePeriod}
-              values={checkboxValues}
+              checkboxValues={checkboxValues}
               handleCheckboxChange={handleCheckboxChange}
               checkboxText="Настоящее время"
               checkboxId={`period-checkbox${i}`}

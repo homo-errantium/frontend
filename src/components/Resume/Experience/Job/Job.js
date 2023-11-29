@@ -53,7 +53,8 @@ const Job = ({
           disabled={!hasExperience}
           i={i}
           tillPresent
-          values={checkboxValues}
+          values={values}
+          checkboxValues={checkboxValues}
           handleChange={handleChange}
           isTillPresent={isTillPresent}
           setIsTillPresent={setIsTillPresent}
