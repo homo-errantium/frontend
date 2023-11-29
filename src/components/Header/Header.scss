@@ -10,6 +10,17 @@
 //   padding: 18px 70px;
 // }
 
+.header__buttons-container {
+  display: flex;
+  gap: 10px;
+  margin-left: auto; // чтобы прижимался к правомуу краю
+}
+
+// .header__logo {
+//   width: 36px;
+//   height: 36px;
+// }
+
 .header {
   flex-grow: 0; /*чтобы header не рос*/
   flex-shrink: 0; /*чтобы header не сжимался*/
@@ -18,18 +29,54 @@
   min-height: 80px;
 }
 
+.header__flex-container {
+  margin: 48px auto;
+  width: 1264px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
 .header__logo {
   display: flex;
   gap: 8px;
 }
 
-.header__buttons-container {
-  display: flex;
-  gap: 10px;
-  margin-left: auto; // чтобы прижимался к правомуу краю
+.header__logo-resume {
+  width: 81px;
+  height: 16px;
 }
 
-.header__logo {
-  width: 36px;
-  height: 36px;
+.header__logo-plus {
+  width: 14px;
+  height: 14px;
 }
+
+.header__main-buttons {
+  display: flex;
+  gap: 60px;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.header__button {
+  color: #F7F7F7;
+text-align: center;
+// font-family: Open Sans;
+font-size: 20px;
+font-weight: 400;
+line-height: 1.2;
+}
+
+.header__exit-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+
+.header__exit-icon {
+  width: 24px;
+  height: 24px;
+}
+

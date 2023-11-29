@@ -5,6 +5,7 @@ import './Header.scss'
 import headerIcon from '../../logo.svg'
 import ResumeLogo from '../../img/resume.svg'
 import PlusLogo from '../../img/plus-logo.svg'
+import ExitIcon from '../../img/exit-icon.svg'
 
 function Header({ isLoggedIn, nextPage, onOpenPopup, setCompletedSteps }) {
   const navigate = useNavigate()
@@ -141,13 +142,32 @@ function Header({ isLoggedIn, nextPage, onOpenPopup, setCompletedSteps }) {
   if ((isMainPage() || isLogRegPage()) && !isLoggedIn) {
     return (
       <header className="header">
-        <div className="footer__logo">
-          <img alt="резюме" src={ResumeLogo} className="footer__logo-resume" />
-          <img alt="плюс" src={PlusLogo} className="footer__logo-plus" />
-        </div>
-        <div className="footer__contacts">
-          <span className="footer__contact">8 (800) 555 35 35</span>
-          <span className="footer__contact">pochta@gmail.com</span>
+        <div className="header__flex-container">
+          <NavLink className="header__nav-link" to="/">
+            <div className="header__logo">
+              <img
+                alt="резюме"
+                src={ResumeLogo}
+                className="header__logo-resume"
+              />
+              <img alt="плюс" src={PlusLogo} className="header__logo-plus" />
+            </div>
+          </NavLink>
+          <div className="header__main-buttons">
+            <NavLink className="header__nav-link" to="/resume">
+              <span className="header__button">Создать резюме</span>
+            </NavLink>
+            <NavLink className="header__nav-link" to="/signin">
+              <div className="header__exit-button">
+                <span className="header__button">Выйти</span>
+                <img
+                  className="header__exit-icon"
+                  alt="Кнопка выхода"
+                  src={ExitIcon}
+                />
+              </div>
+            </NavLink>
+          </div>
         </div>
       </header>
     )
