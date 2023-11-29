@@ -9,13 +9,14 @@ import ExitIcon from '../../img/exit-icon.svg'
 import BackToProfileIcon from '../../img/back-to-profile.svg'
 import LeftArrowIcon from '../../img/left-arrow.svg'
 import RightArrowIcon from '../../img/right-arrow.svg'
+import EditIcon from '../../img/edit-icon.svg'
 
 function Header({
   isLoggedIn,
   nextPage,
   onOpenPopup,
   setCompletedSteps,
-  onClick,
+  // onClick,
 }) {
   const navigate = useNavigate()
   const location = useLocation()
@@ -49,48 +50,51 @@ function Header({
   // на странице готового  резюме
   if (isResultPage()) {
     return (
-      <header className="header ">
-        <button
-          className="header__button"
-          type="button"
-          label="button"
-          onClick={onOpenPopup}
-        >
-          Личный кабинет
-        </button>
-        <div className="header__buttons-container">
+      <header className="header">
+        <div className="header__flex-container">
           <button
-            className="header__button header__button_prev"
+            className="header__button"
             type="button"
             label="button"
-            onClick={() => {}}
+            onClick={onOpenPopup}
           >
-            Редактировать
+            <img
+              className="header__button-icon"
+              alt="стрелка назад"
+              src={BackToProfileIcon}
+            />
+            Личный кабинет
           </button>
-          <button
-            className="header__button header__button_prev"
-            type="button"
-            label="button"
-            onClick={() => {}}
-          >
-            Word
-          </button>
-          <button
-            className="header__button header__button_prev"
-            type="button"
-            label="button"
-            onClick={() => {}}
-          >
-            PDF
-          </button>
-          <button
-            className="header__button header__button_next"
-            type="button"
-            label="button"
-            onClick={() => {}}
-          >
-            Сохранить
-          </button>
+          <div className="header__steps-buttons">
+            <NavLink className="header__nav-link" to="/resume/personal-data">
+              <button
+                className="header__button header__button_black header__button_prev"
+                type="button"
+                label="button"
+                onClick={() => navigate(-1)}
+              >
+                <img
+                  className="header__button-icon"
+                  alt="стрелка влево"
+                  src={EditIcon}
+                />
+                Редактировать
+              </button>
+            </NavLink>
+            <NavLink className="header__nav-link" to="/">
+              <button
+                className="header__button header__button_orange"
+                type="button"
+                label="button"
+                onClick={() => {
+                  setCompletedSteps()
+                  navigate(`${nextPage}`)
+                }}
+              >
+                Сохранить
+              </button>
+            </NavLink>
+          </div>
         </div>
       </header>
     )
@@ -240,7 +244,7 @@ function Header({
                   className="header__button-icon"
                   alt="стрелка влево"
                   src={LeftArrowIcon}
-                />{' '}
+                />
                 Предыдущий шаг
               </button>
             )}
@@ -305,14 +309,14 @@ Header.propTypes = {
   nextPage: PropTypes.string,
   onOpenPopup: PropTypes.func,
   setCompletedSteps: PropTypes.func,
-  onClick: PropTypes.func,
+  // onClick: PropTypes.func,
 }
 Header.defaultProps = {
   isLoggedIn: false,
   nextPage: '',
   onOpenPopup: () => {},
   setCompletedSteps: () => {},
-  onClick: () => {},
+  // onClick: () => {},
 }
 
 export default Header
