@@ -6,6 +6,9 @@ import headerIcon from '../../logo.svg'
 import ResumeLogo from '../../img/resume.svg'
 import PlusLogo from '../../img/plus-logo.svg'
 import ExitIcon from '../../img/exit-icon.svg'
+import BackToProfileIcon from '../../img/back-to-profile.svg'
+import LeftArrowIcon from '../../img/left-arrow.svg'
+import RightArrowIcon from '../../img/right-arrow.svg'
 
 function Header({ isLoggedIn, nextPage, onOpenPopup, setCompletedSteps }) {
   const navigate = useNavigate()
@@ -141,8 +144,8 @@ function Header({ isLoggedIn, nextPage, onOpenPopup, setCompletedSteps }) {
   // страница авт или рег + НЕ залогинены
   if ((isMainPage() || isLogRegPage()) && !isLoggedIn) {
     return (
-      <header className="header">
-        <div className="header__flex-container">
+      <header className="header header_main">
+        <div className="header__flex-container header__flex-container_main">
           <NavLink className="header__nav-link" to="/">
             <div className="header__logo">
               <img
@@ -155,11 +158,11 @@ function Header({ isLoggedIn, nextPage, onOpenPopup, setCompletedSteps }) {
           </NavLink>
           <div className="header__main-buttons">
             <NavLink className="header__nav-link" to="/resume">
-              <span className="header__button">Создать резюме</span>
+              <span className="header__main-button">Создать резюме</span>
             </NavLink>
             <NavLink className="header__nav-link" to="/signin">
               <div className="header__exit-button">
-                <span className="header__button">Выйти</span>
+                <span className="header__main-button">Выйти</span>
                 <img
                   className="header__exit-icon"
                   alt="Кнопка выхода"
@@ -200,42 +203,93 @@ function Header({ isLoggedIn, nextPage, onOpenPopup, setCompletedSteps }) {
   //     </header>
   //   )
   // }
+
   // НЕ старт страница
   if (!(isMainPage() && isLogRegPage())) {
     return (
-      <header className="header ">
-        <button
-          className="header__button"
-          type="button"
-          label="button"
-          onClick={onOpenPopup}
-        >
-          Личный кабинет
-        </button>
-        <div className="header__buttons-container">
-          {!isPersonDataPage() && (
-            <button
-              className="header__button header__button_prev"
-              type="button"
-              label="button"
-              onClick={() => navigate(-1)}
-            >
-              Предыдущий шаг
-            </button>
-          )}
+      <header className="header">
+        <div className="header__flex-container">
           <button
-            className="header__button header__button_next"
+            className="header__button"
             type="button"
             label="button"
-            onClick={() => {
-              setCompletedSteps()
-              navigate(`${nextPage}`)
-            }}
+            onClick={onOpenPopup}
           >
-            Следующий шаг
+            <img
+              className="header__button-icon"
+              alt="стрелка назад"
+              src={BackToProfileIcon}
+            />
+            Личный кабинет
           </button>
+          <div className="header__steps-buttons">
+            {!isPersonDataPage() && (
+              <button
+                className="header__button header__button_prev"
+                type="button"
+                label="button"
+                onClick={() => navigate(-1)}
+              >
+                <img
+                  className="header__button-icon"
+                  alt="стрелка влево"
+                  src={LeftArrowIcon}
+                />{' '}
+                Предыдущий шаг
+              </button>
+            )}
+            <button
+              className="header__button header__button_black header__button_next"
+              type="button"
+              label="button"
+              onClick={() => {
+                setCompletedSteps()
+                navigate(`${nextPage}`)
+              }}
+            >
+              Следующий шаг
+              <img
+                className="header__button-icon"
+                alt="стрелка вправо"
+                src={RightArrowIcon}
+              />
+            </button>
+          </div>
         </div>
       </header>
+      // <header className="header ">
+      // <button
+      //   className="header__button"
+      //   type="button"
+      //   label="button"
+      //   onClick={onOpenPopup}
+      // >
+      //   Личный кабинет
+      // </button>
+      //   <div className="header__buttons-container">
+      //     {!isPersonDataPage() && (
+      //       <button
+      //         className="header__button header__button_prev"
+      //         type="button"
+      //         label="button"
+      //         onClick={() => navigate(-1)}
+      //       >
+      //         Предыдущий шаг
+      //       </button>
+      //     )}
+      //     <button
+      //       className="header__button header__button_next"
+      //       type="button"
+      //       label="button"
+      //       onClick={() => {
+      //         setCompletedSteps()
+      //         navigate(`${nextPage}`)
+      //       }}
+      //     >
+      //       Следующий шаг
+      //     </button>
+      //   </div>
+      // </header>
     )
   }
 }
