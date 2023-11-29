@@ -28,7 +28,7 @@
   border: #000 solid 1px;
   padding: 12px 9px;
   width: 89.2%;
-  border-radius: 0px 0px 8px 8px;
+  border-radius: 0px 0px 16px 16px;
   background-color: #fff;
 }
 
@@ -42,7 +42,7 @@
 }
 
 .month__container:hover .month__input {
-  border-radius: 4px 4px 0 0;
+  border-radius: 16px 16px 0 0;
 }
 
 .month__grid-list {
