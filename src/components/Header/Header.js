@@ -10,7 +10,13 @@ import BackToProfileIcon from '../../img/back-to-profile.svg'
 import LeftArrowIcon from '../../img/left-arrow.svg'
 import RightArrowIcon from '../../img/right-arrow.svg'
 
-function Header({ isLoggedIn, nextPage, onOpenPopup, setCompletedSteps }) {
+function Header({
+  isLoggedIn,
+  nextPage,
+  onOpenPopup,
+  setCompletedSteps,
+  onClick,
+}) {
   const navigate = useNavigate()
   const location = useLocation()
   const path = location.pathname
@@ -299,12 +305,14 @@ Header.propTypes = {
   nextPage: PropTypes.string,
   onOpenPopup: PropTypes.func,
   setCompletedSteps: PropTypes.func,
+  onClick: PropTypes.func,
 }
 Header.defaultProps = {
   isLoggedIn: false,
   nextPage: '',
   onOpenPopup: () => {},
   setCompletedSteps: () => {},
+  onClick: () => {},
 }
 
 export default Header
