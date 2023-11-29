@@ -23,7 +23,7 @@ const FormInput = ({
     </div>
     <textarea
       name={name}
-      value={values[name]}
+      value={values[name] || ''}
       onChange={handleChange}
       disabled={disabled || false}
       id="form-input"

@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react'
 import PropTypes from 'prop-types'
 import './Job.scss'
@@ -15,34 +14,32 @@ const Job = ({
   i,
   values,
   handleChange,
-  checkboxValues,
-  handleCheckboxChange,
   isTillPresent,
   setIsTillPresent,
   number,
-  chosenMonth,
-  setChosenMonth,
+  handleCheckboxChange,
+  checkboxValues,
 }) => {
   const handleDelete = () => deleteExperience(i)
   return (
     <>
       <div className="experience__job-container" id={i}>
         <FormInput
-          name={`company${number}`}
+          name={`company_${number}`}
           values={values}
           handleChange={handleChange}
           label="Название компании"
           disabled={!hasExperience}
         />
         <FormInput
-          name={`company_website${number}`}
+          name={`company_website_${number}`}
           values={values}
           handleChange={handleChange}
           label="Сайт компании"
           disabled={!hasExperience}
         />
         <FormInput
-          name={`current_position${number}`}
+          name={`current_position_${number}`}
           values={values}
           handleChange={handleChange}
           label="Должность"
@@ -56,15 +53,17 @@ const Job = ({
           disabled={!hasExperience}
           i={i}
           tillPresent
-          checkboxValues={checkboxValues}
-          handleCheckboxChange={handleCheckboxChange}
+          values={checkboxValues}
+          handleChange={handleChange}
           isTillPresent={isTillPresent}
           setIsTillPresent={setIsTillPresent}
-          namePeriod={`work_period${number}`}
-          monthPeriod={[`work_start${number}`, `work_end${number}`]}
-          year={[`year_start${number}`, `year_end${number}`]}
-          chosenMonth={chosenMonth}
-          setChosenMonth={setChosenMonth}
+          namePeriod={`work_period_checkbox_${number}`}
+          monthPeriod={[
+            `month_work_start_${number}`,
+            `month_work_end_${number}`,
+          ]}
+          year={[`year_work_start_${number}`, `year_work_end_${number}`]}
+          handleCheckboxChange={handleCheckboxChange}
         />
         <FormInput
           name={`duties${number}`}
@@ -106,13 +105,13 @@ Job.propTypes = {
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   }),
   handleChange: PropTypes.func,
-  handleCheckboxChange: PropTypes.func,
   checkboxValues: PropTypes.shape({
     checkbox: PropTypes.bool,
   }),
   isTillPresent: PropTypes.bool.isRequired,
   setIsTillPresent: PropTypes.func,
   number: PropTypes.number,
+  handleCheckboxChange: PropTypes.func,
 }
 
 Job.defaultProps = {
@@ -120,8 +119,8 @@ Job.defaultProps = {
   handleChange: () => {},
   checkboxValues: {},
   setIsTillPresent: () => {},
-  handleCheckboxChange: () => {},
   number: undefined,
+  handleCheckboxChange: () => {},
 }
 
 export default Job

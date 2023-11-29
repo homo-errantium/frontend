@@ -50,91 +50,24 @@ function App() {
 
   // --------------------------- Работа с данными через локальное хранилище -----------------------
 
+  const date = new Date()
   // Записываем в объект данные из полей
-  const [values, setValues] = React.useState({})
-  // Достаём данные полей из хранилища
-  const [localFormData, setLocalFormData] = React.useState(
+  const [values, setValues] = React.useState(
     JSON.parse(localStorage.getItem('formData')) || {}
   )
-  // Записываем в объект данные чекбоксов
-  const [checkboxValues, setCheckboxValues] = React.useState({})
-  // Достаём данные чекбоксов из хранилища
-  const [localCheckboxData, setLocalCheckboxData] = React.useState(
-    JSON.parse(localStorage.getItem('checkboxData')) || checkboxValues
-  )
-  // Если опыт есть, поля активны. Если нет, поля деактивируются:
+  console.log(values)
+  // // Если опыт есть, поля активны. Если нет, поля деактивируются:
   const [hasExperience, setHasExperience] = React.useState(
     JSON.parse(localStorage.getItem('hasExperience') || true)
   )
-  console.log(hasExperience)
-  // Блокирует/ разблокирует поля ввода периода работы
+  // // Блокирует/ разблокирует поля ввода периода работы
   const [isTillPresent, setIsTillPresent] = React.useState(
     JSON.parse(localStorage.getItem('isTillPresent')) || false
   )
-  const [chosenMonth, setChosenMonth] = React.useState(
-    JSON.parse(localStorage.getItem('chosenMonth')) || {}
+  // Записываем в объект данные чекбоксов
+  const [checkboxValues, setCheckboxValues] = React.useState(
+    JSON.parse(localStorage.getItem('checkboxData')) || {}
   )
-  const [localChooseMonth, setLocalChooseMonth] = React.useState(
-    JSON.parse(localStorage.getItem('chosenMonth')) || chosenMonth
-  )
-  // console.log(localChooseMonth)
-
-  React.useEffect(() => {
-    setValues(prevValues => ({
-      ...prevValues,
-      company: localFormData.company || '',
-      company_website: localFormData.company_website || '',
-      current_position: localFormData.current_position || '',
-      duties: localFormData.duties || '',
-      company1: localFormData.company1 || '',
-      company_website1: localFormData.company_website1 || '',
-      current_position1: localFormData.current_position1 || '',
-      duties1: localFormData.duties1 || '',
-      company2: localFormData.company2 || '',
-      company_website2: localFormData.company_website2 || '',
-      current_position2: localFormData.current_position2 || '',
-      duties2: localFormData.duties2 || '',
-      company3: localFormData.company3 || '',
-      company_website3: localFormData.company_website3 || '',
-      current_position3: localFormData.current_position3 || '',
-      duties3: localFormData.duties3 || '',
-      company4: localFormData.company4 || '',
-      company_website4: localFormData.company_website4 || '',
-      current_position4: localFormData.current_position4 || '',
-      duties4: localFormData.duties4 || '',
-      company5: localFormData.company5 || '',
-      company_website5: localFormData.company_website5 || '',
-      current_position5: localFormData.current_position5 || '',
-      duties5: localFormData.duties5 || '',
-    }))
-
-    setCheckboxValues(prevValues => ({
-      ...prevValues,
-      work_experience: localCheckboxData.work_experience,
-      work_period: localCheckboxData.work_period,
-      work_period1: localCheckboxData.work_period1,
-      work_period2: localCheckboxData.work_period2,
-      work_period3: localCheckboxData.work_period3,
-      work_period4: localCheckboxData.work_period4,
-      work_period5: localCheckboxData.work_period5,
-    }))
-
-    // setChosenMonth(prevValues => ({
-    //   ...prevValues,
-    //   month_start: localChooseMonth.month_start || 1,
-    //   // month_start1: localChooseMonth.month_start1,
-    //   // month_start2: localChooseMonth.month_start2,
-    //   // month_start3: localChooseMonth.month_start3,
-    //   // month_start4: localChooseMonth.month_start4,
-    //   // month_start5: localChooseMonth.month_start5,
-    //   month_end: localChooseMonth.month_end || 1,
-    //   // month_end1: localChooseMonth.month_end1,
-    //   // month_end2: localChooseMonth.month_end2,
-    //   // month_end3: localChooseMonth.month_end3,
-    //   // month_end4: localChooseMonth.month_end4,
-    //   // month_end5: localChooseMonth.month_end5,
-    // }))
-  }, [localFormData, localCheckboxData])
 
   const handleCheckboxChange = evt => {
     const { name } = evt.target
@@ -147,23 +80,56 @@ function App() {
   // Функция, которая записывает данные полей форм
   const handleChange = evt => {
     const { name, value } = evt.target
-
     setValues({ ...values, [name]: value })
   }
 
+  // Этот useEffect очищает поля ввода, если стоит галочка "Нет опыта"
+  React.useEffect(() => {
+    if (!hasExperience) {
+      setValues({
+        ...values,
+        company: '',
+        company_website: '',
+        current_position: '',
+        duties: '',
+        month_work_start: '',
+        month_work_end: '',
+        year_work_start: '',
+        year_work_end: '',
+      })
+      setCheckboxValues(prevValues => ({
+        ...prevValues,
+        work_period_checkbox: false,
+      }))
+      setIsTillPresent(false)
+    }
+  }, [hasExperience, isTillPresent])
+
+  // Этот useEffect очищает поля с датой, если галочки "Настоящее время" нет и подставляет фактическую дату, если галочка есть
+  React.useEffect(() => {
+    if (isTillPresent) {
+      setValues({
+        ...values,
+        month_work_end: date.getMonth(),
+        year_work_end: date.getFullYear(),
+      })
+    } else {
+      setValues({
+        ...values,
+        month_work_end: '',
+        year_work_end: '',
+      })
+    }
+  }, [isTillPresent])
+
   // Сохраняем данные полей в локалное хранилище
   const handleClick = () => {
-    const checkboxData = { ...localCheckboxData, ...checkboxValues }
-    const formData = { ...localFormData, ...values }
-    const chosenData = { ...localChooseMonth, ...chosenMonth }
+    const checkboxData = { ...checkboxValues }
+    const formData = { ...values }
     localStorage.setItem('checkboxData', JSON.stringify(checkboxData))
     localStorage.setItem('formData', JSON.stringify(formData))
     localStorage.setItem('hasExperience', JSON.stringify(hasExperience))
     localStorage.setItem('isTillPresent', JSON.stringify(isTillPresent))
-    localStorage.setItem('chosenMonth', JSON.stringify(chosenData))
-    setLocalCheckboxData(checkboxData)
-    setLocalFormData(formData)
-    setLocalChooseMonth(chosenData)
   }
 
   /* ----------------------------------------- Popup -----------------------------------------------------*/
@@ -229,8 +195,7 @@ function App() {
           setHasExperience={setHasExperience}
           isTillPresent={isTillPresent}
           setIsTillPresent={setIsTillPresent}
-          chosenMonth={chosenMonth}
-          setChosenMonth={setChosenMonth}
+          setValues={setValues}
         />
       ),
       id: 2,

@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-// import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import './Checkbox.scss'
 
@@ -8,7 +6,7 @@ const Checkbox = ({
   checkboxId,
   onClick,
   name,
-  checkboxValues,
+  values,
   handleCheckboxChange,
   disabled,
 }) => (
@@ -22,7 +20,7 @@ const Checkbox = ({
         disabled={disabled}
         className="checkbox__input"
         onChange={handleCheckboxChange}
-        checked={checkboxValues[name] ? checkboxValues[name] : false}
+        checked={values[name] ? values[name] : false}
       />
       <span className="checkbox__text">{checkboxText}</span>
     </label>
@@ -38,6 +36,8 @@ Checkbox.propTypes = {
     checkbox: PropTypes.bool,
   }),
   name: PropTypes.string,
+  values: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.bool])),
+  disabled: PropTypes.bool,
 }
 
 Checkbox.defaultProps = {
@@ -45,6 +45,8 @@ Checkbox.defaultProps = {
   handleCheckboxChange: () => {},
   checkboxValues: {},
   name: '',
+  values: {},
+  disabled: undefined,
 }
 
 export default Checkbox

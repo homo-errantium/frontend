@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import './PeriodInput.scss'
@@ -16,15 +15,15 @@ const PeriodInput = ({
   disabled,
   i,
   tillPresent,
-  checkboxValues,
-  handleCheckboxChange,
   isTillPresent,
   setIsTillPresent,
   namePeriod,
-  setChosenMonth,
-  chosenMonth,
+  setValues,
   monthPeriod,
   year,
+  values,
+  handleCheckboxChange,
+  checkboxValues,
 }) => {
   const [disabledMonthChoice, setDisabledMonthChoice] = useState(false)
 
@@ -34,7 +33,7 @@ const PeriodInput = ({
 
   const handleYearChange = evt => {
     const { name, value } = evt.target
-    setChosenMonth({ ...chosenMonth, [name]: value })
+    setValues({ ...values, [name]: value })
   }
 
   useEffect(() => {
@@ -64,14 +63,14 @@ const PeriodInput = ({
           {month && (
             <MonthPicker
               name={monthPeriod[0]}
-              chosenMonth={chosenMonth}
-              setChosenMonth={setChosenMonth}
+              values={values}
+              setValues={setValues}
               disabled={disabled}
             />
           )}
           <input
             name={year[0]}
-            value={chosenMonth[year[0]] ? chosenMonth[year[0]] : ''}
+            value={values[year[0]] ? values[year[0]] : ''}
             onChange={handleYearChange}
             type="text"
             placeholder="Год"
@@ -101,14 +100,14 @@ const PeriodInput = ({
           {month && (
             <MonthPicker
               name={monthPeriod[1]}
-              chosenMonth={chosenMonth}
-              setChosenMonth={setChosenMonth}
+              values={values}
+              setValues={setValues}
               disabled={disabledMonthChoice || isTillPresent}
             />
           )}
           <input
             name={year[1]}
-            value={chosenMonth[year[1]] ? chosenMonth[year[1]] : ''}
+            value={values[year[1]] ? values[year[1]] : ''}
             onChange={handleYearChange}
             type="text"
             placeholder="Год"
@@ -126,7 +125,7 @@ const PeriodInput = ({
             <Checkbox
               disabled={disabled}
               name={namePeriod}
-              checkboxValues={checkboxValues}
+              values={checkboxValues}
               handleCheckboxChange={handleCheckboxChange}
               checkboxText="Настоящее время"
               checkboxId={`period-checkbox${i}`}
@@ -155,6 +154,12 @@ PeriodInput.propTypes = {
   isTillPresent: PropTypes.bool,
   setIsTillPresent: PropTypes.func,
   namePeriod: PropTypes.string,
+  setValues: PropTypes.func,
+  monthPeriod: PropTypes.arrayOf(PropTypes.string),
+  year: PropTypes.arrayOf(PropTypes.string),
+  values: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ),
 }
 
 PeriodInput.defaultProps = {
@@ -168,6 +173,10 @@ PeriodInput.defaultProps = {
   setIsTillPresent: () => {},
   isTillPresent: undefined,
   namePeriod: undefined,
+  setValues: () => {},
+  monthPeriod: [],
+  year: [],
+  values: {},
 }
 
 export default PeriodInput

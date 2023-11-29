@@ -1,16 +1,11 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import './MonthPicker.scss'
-// import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { months } from '../../../../../constants/months'
 
-const MonthPicker = ({ disabled, setChosenMonth, chosenMonth, name }) => {
-  // const [chosenMonth, setChosenMonth] = useState('')
-
+const MonthPicker = ({ disabled, setValues, values, name }) => {
   const chooseMonth = month => {
-    setChosenMonth({ ...chosenMonth, [name]: month.id })
+    setValues({ ...values, [name]: month.id })
   }
 
   return (
@@ -24,11 +19,7 @@ const MonthPicker = ({ disabled, setChosenMonth, chosenMonth, name }) => {
           'month__input',
           disabled && 'month__input_disabled'
         )}
-        value={
-          chosenMonth[name]
-            ? months.find(m => chosenMonth[name] === m.id).long
-            : ''
-        }
+        value={values[name] ? months.find(m => values[name] === m.id).long : ''}
         readOnly
         disabled={disabled}
       />
@@ -45,7 +36,7 @@ const MonthPicker = ({ disabled, setChosenMonth, chosenMonth, name }) => {
                   key={month.id}
                   className={classNames(
                     'month__button link',
-                    chosenMonth[name] === month.id && 'month__button_active'
+                    values[name] === month.id && 'month__button_active'
                   )}
                   onClick={chooseThisMonth}
                 >
@@ -62,10 +53,18 @@ const MonthPicker = ({ disabled, setChosenMonth, chosenMonth, name }) => {
 
 MonthPicker.propTypes = {
   disabled: PropTypes.bool,
+  setValues: PropTypes.func,
+  values: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ),
+  name: PropTypes.string,
 }
 
 MonthPicker.defaultProps = {
   disabled: false,
+  setValues: () => {},
+  values: {},
+  name: '',
 }
 
 export default MonthPicker

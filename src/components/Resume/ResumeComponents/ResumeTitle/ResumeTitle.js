@@ -10,7 +10,7 @@ const ResumeTitle = ({
   checkboxId,
   onClick,
   name,
-  checkboxValues,
+  values,
   handleCheckboxChange,
 }) => (
   <div className="resume-title__container">
@@ -18,7 +18,7 @@ const ResumeTitle = ({
     {checkbox && (
       <Checkbox
         name={name}
-        checkboxValues={checkboxValues}
+        values={values}
         handleCheckboxChange={handleCheckboxChange}
         checkboxText={checkboxText}
         checkboxId={checkboxId}
@@ -38,6 +38,9 @@ ResumeTitle.propTypes = {
     checkbox: PropTypes.bool,
   }),
   name: PropTypes.string,
+  values: PropTypes.shape({
+    value: PropTypes.bool,
+  }),
 }
 
 ResumeTitle.defaultProps = {
@@ -48,6 +51,7 @@ ResumeTitle.defaultProps = {
   handleCheckboxChange: () => {},
   checkboxValues: {},
   name: '',
+  values: {},
 }
 
 export default ResumeTitle

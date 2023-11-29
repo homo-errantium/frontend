@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import '../PersonalData/PersonalData.scss'
 import React, { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
@@ -13,6 +12,7 @@ import { JOB_TIP } from '../../../constants/tips'
 
 const Experience = ({
   values,
+  setValues,
   handleChange,
   handleCheckboxChange,
   checkboxValues,
@@ -20,8 +20,6 @@ const Experience = ({
   setHasExperience,
   isTillPresent,
   setIsTillPresent,
-  chosenMonth,
-  setChosenMonth,
 }) => {
   // Если появился добавленный опыт, основная кнопка "Добавить" удаляется
   const [noAddedExperience, setNoAddedExperience] = useState(true)
@@ -58,8 +56,8 @@ const Experience = ({
   return (
     <section className="personal-data">
       <ResumeTitle
-        name="work_experience"
-        checkboxValues={checkboxValues}
+        name="work_experience_checkbox"
+        values={checkboxValues}
         handleCheckboxChange={handleCheckboxChange}
         title="Опыт работы"
         checkbox
@@ -102,11 +100,11 @@ const Experience = ({
           handleCheckboxChange={handleCheckboxChange}
           isTillPresent={isTillPresent}
           setIsTillPresent={setIsTillPresent}
-          namePeriod="work_period"
-          monthPeriod={['work_start', 'work_end']}
-          year={['year_start', 'year_end']}
-          chosenMonth={chosenMonth}
-          setChosenMonth={setChosenMonth}
+          namePeriod="work_period_checkbox"
+          monthPeriod={['month_work_start', 'month_work_end']}
+          year={['year_work_start', 'year_work_end']}
+          values={values}
+          setValues={setValues}
         />
         <FormInput
           name="duties"
@@ -126,12 +124,11 @@ const Experience = ({
             i={experience.id}
             key={experience.id}
             checkboxValues={checkboxValues}
-            handleCheckboxChange={handleCheckboxChange}
             isTillPresent={isTillPresent}
             setIsTillPresent={setIsTillPresent}
             number={number}
-            chosenMonth={chosenMonth}
-            setChosenMonth={setChosenMonth}
+            setValues={setValues}
+            handleCheckboxChange={handleCheckboxChange}
           />
         ))}
         {noAddedExperience && (
@@ -143,9 +140,10 @@ const Experience = ({
 }
 
 Experience.propTypes = {
-  values: PropTypes.shape({
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  }),
+  values: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ),
+  setValues: PropTypes.func,
   handleChange: PropTypes.func,
   handleCheckboxChange: PropTypes.func,
   checkboxValues: PropTypes.shape({
@@ -159,6 +157,7 @@ Experience.propTypes = {
 
 Experience.defaultProps = {
   values: {},
+  setValues: () => {},
   handleChange: () => {},
   handleCheckboxChange: () => {},
   checkboxValues: {},
