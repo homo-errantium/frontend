@@ -1,11 +1,35 @@
 .footer {
     flex-grow: 0; /*чтобы футер не рос*/
     flex-shrink: 0; /*чтобы футер не сжимался*/
-    box-sizing: border-box;
-    background-color: grey;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    background-color: #1A1B22;
     width: 100%;
-    padding: 18px 70px;
+    min-height: 160px;
+}
+
+.footer__flex-container {
+  margin: 48px 88px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.footer__logo {
+  display: flex;
+  gap: 8px;
+}
+
+.footer__contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: flex-end;
+}
+
+.footer__contact {
+  color: #F7F7F7;
+text-align: right;
+// font-family: Open Sans;
+font-size: 20px;
+font-weight: 400;
+line-height: 1.2;
 }

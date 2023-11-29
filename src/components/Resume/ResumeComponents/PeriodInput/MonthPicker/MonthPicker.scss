@@ -5,15 +5,14 @@
 }
 
 .month__input {
-  color: black;
+  border-radius: 16px;
+  border: 1px solid #9f9f9f;
+  background-color: #fff;
   display: block;
-  background-color: transparent;
   opacity: 1;
   width: 100%;
-  min-height: 48px;
+  min-height: 22px;
   padding: 12px;
-  border-radius: 4px;
-  border: 1px solid #000;
 }
 
 .month__input_disabled {
@@ -23,7 +22,7 @@
 .month__container-list {
   display: none;
   position: absolute;
-  top: 73px;
+  top: 54px;
   left: 0px;
   z-index: 1;
   border: #000 solid 1px;
