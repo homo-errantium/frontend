@@ -3,7 +3,10 @@ import { useLocation } from 'react-router-dom'
 import './Recommendations.scss'
 import ResumeTitle from '../ResumeComponents/ResumeTitle/ResumeTitle'
 import RecommedationImage from '../../../img/recommendations.png'
-import { EXPERIENCE_RECOMMENDATIONS } from '../../../constants/recommendations'
+import {
+  EXPERIENCE_RECOMMENDATIONS,
+  RESULT_RECOMMENDATIONS,
+} from '../../../constants/recommendations'
 
 const Recommendations = () => {
   const location = useLocation()
@@ -11,6 +14,7 @@ const Recommendations = () => {
 
   const isPersonalDataPage = () => !!(path === '/resume/personal-data')
   const isExperiencePage = () => !!(path === '/resume/experience')
+  const isResultPage = () => !!(path === '/resume/result')
 
   return (
     <section className="recommend">
@@ -30,6 +34,9 @@ const Recommendations = () => {
       )}
       {isExperiencePage() && (
         <div className="recommend__container">{EXPERIENCE_RECOMMENDATIONS}</div>
+      )}
+      {isResultPage() && (
+        <div className="recommend__container">{RESULT_RECOMMENDATIONS}</div>
       )}
     </section>
   )
