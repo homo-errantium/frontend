@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import './PeriodInput.scss'
@@ -15,11 +16,11 @@ const PeriodInput = ({
   disabled,
   i,
   tillPresent,
-  isTillPresent,
-  setIsTillPresent,
   namePeriod,
   setValues,
   monthPeriod,
+  isTillPresent,
+  setIsTillPresent,
   year,
   values,
   handleCheckboxChange,
@@ -27,7 +28,6 @@ const PeriodInput = ({
   handleChange,
 }) => {
   const [disabledMonthChoice, setDisabledMonthChoice] = useState(false)
-  console.log(values)
 
   const handleCheckboxToggle = () => {
     setIsTillPresent(!isTillPresent)
@@ -148,8 +148,6 @@ PeriodInput.propTypes = {
   checkboxValues: PropTypes.shape({
     checkbox: PropTypes.bool,
   }),
-  isTillPresent: PropTypes.bool,
-  setIsTillPresent: PropTypes.func,
   namePeriod: PropTypes.string,
   setValues: PropTypes.func,
   monthPeriod: PropTypes.arrayOf(PropTypes.string),
@@ -168,8 +166,6 @@ PeriodInput.defaultProps = {
   tillPresent: false,
   handleCheckboxChange: () => {},
   checkboxValues: {},
-  setIsTillPresent: () => {},
-  isTillPresent: undefined,
   namePeriod: undefined,
   setValues: () => {},
   monthPeriod: [],

@@ -58,14 +58,12 @@ function App() {
   const [hasExperience, setHasExperience] = React.useState(
     JSON.parse(localStorage.getItem('hasExperience') || true)
   )
-  // // Блокирует/ разблокирует поля ввода периода работы
-  const [isTillPresent, setIsTillPresent] = React.useState(
-    JSON.parse(localStorage.getItem('isTillPresent')) || false
-  )
   // Записываем в объект данные чекбоксов
   const [checkboxValues, setCheckboxValues] = React.useState(
     JSON.parse(localStorage.getItem('checkboxData')) || {}
   )
+  // Блокирует/ разблокирует поля ввода периода работы
+  const [isTillPresent, setIsTillPresent] = React.useState(false)
 
   const handleCheckboxChange = evt => {
     const { name } = evt.target
@@ -117,20 +115,20 @@ function App() {
         work_period_checkbox_1: false,
         work_period_checkbox_2: false,
       }))
-      setIsTillPresent(false)
+      // setIsTillPresent(false)
     }
   }, [hasExperience])
 
   // Этот useEffect очищает поля с датой, если галочки "Настоящее время" нет и подставляет фактическую дату, если галочка есть
-  React.useEffect(() => {
-    if (isTillPresent) {
-      setValues({
-        ...values,
-        month_work_end: '',
-        year_work_end: '',
-      })
-    }
-  }, [isTillPresent])
+  // React.useEffect(() => {
+  //   if (isTillPresent) {
+  //     setValues({
+  //       ...values,
+  //       month_work_end: '',
+  //       year_work_end: '',
+  //     })
+  //   }
+  // }, [isTillPresent])
 
   // Сохраняем данные полей в локалное хранилище
   const handleClick = () => {
