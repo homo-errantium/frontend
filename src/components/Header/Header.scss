@@ -1,13 +1,26 @@
+// .header {
+//   flex-grow: 0; /*чтобы header не рос*/
+//   flex-shrink: 0; /*чтобы header не сжимался*/
+//   box-sizing: border-box;
+//   background: grey;
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   width: 100%;
+//   padding: 18px 70px;
+// }
+
 .header {
   flex-grow: 0; /*чтобы header не рос*/
   flex-shrink: 0; /*чтобы header не сжимался*/
-  box-sizing: border-box;
-  background: grey;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  background-color: #1A1B22;
   width: 100%;
-  padding: 18px 70px;
+  min-height: 80px;
+}
+
+.header__logo {
+  display: flex;
+  gap: 8px;
 }
 
 .header__buttons-container {

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { useNavigate, useLocation, NavLink } from 'react-router-dom'
 import './Header.scss'
 import headerIcon from '../../logo.svg'
+import ResumeLogo from '../../img/resume.svg'
+import PlusLogo from '../../img/plus-logo.svg'
 
 function Header({ isLoggedIn, nextPage, onOpenPopup, setCompletedSteps }) {
   const navigate = useNavigate()
@@ -139,30 +141,45 @@ function Header({ isLoggedIn, nextPage, onOpenPopup, setCompletedSteps }) {
   if ((isMainPage() || isLogRegPage()) && !isLoggedIn) {
     return (
       <header className="header">
-        <NavLink className="header__link" to="/">
-          <img src={headerIcon} alt="header logo" className="header__logo" />
-        </NavLink>
-        <div className="header__buttons-container">
-          <button
-            className="header__button header__button_login"
-            type="button"
-            label="button"
-            onClick={() => navigate('/resume')}
-          >
-            Создать резюме
-          </button>
-          <button
-            className="header__button header__button_register"
-            type="button"
-            label="button"
-            onClick={() => navigate('/signin')}
-          >
-            Войти
-          </button>
+        <div className="footer__logo">
+          <img alt="резюме" src={ResumeLogo} className="footer__logo-resume" />
+          <img alt="плюс" src={PlusLogo} className="footer__logo-plus" />
+        </div>
+        <div className="footer__contacts">
+          <span className="footer__contact">8 (800) 555 35 35</span>
+          <span className="footer__contact">pochta@gmail.com</span>
         </div>
       </header>
     )
   }
+  // Код Айшата:
+  // if ((isMainPage() || isLogRegPage()) && !isLoggedIn) {
+  //   return (
+  //     <header className="header">
+  //       <NavLink className="header__link" to="/">
+  //         <img src={headerIcon} alt="header logo" className="header__logo" />
+  //       </NavLink>
+  //       <div className="header__buttons-container">
+  //         <button
+  //           className="header__button header__button_login"
+  //           type="button"
+  //           label="button"
+  //           onClick={() => navigate('/resume')}
+  //         >
+  //           Создать резюме
+  //         </button>
+  //         <button
+  //           className="header__button header__button_register"
+  //           type="button"
+  //           label="button"
+  //           onClick={() => navigate('/signin')}
+  //         >
+  //           Войти
+  //         </button>
+  //       </div>
+  //     </header>
+  //   )
+  // }
   // НЕ старт страница
   if (!(isMainPage() && isLogRegPage())) {
     return (
