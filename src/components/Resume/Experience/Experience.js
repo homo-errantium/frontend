@@ -127,8 +127,8 @@ const Experience = ({
             isTillPresent={isTillPresent}
             setIsTillPresent={setIsTillPresent}
             number={number}
-            setValues={setValues}
             handleCheckboxChange={handleCheckboxChange}
+            setValues={setValues}
           />
         ))}
         {noAddedExperience && (

@@ -54,7 +54,6 @@ function App() {
   const [values, setValues] = React.useState(
     JSON.parse(localStorage.getItem('formData')) || {}
   )
-  // console.log(values)
   // // Если опыт есть, поля активны. Если нет, поля деактивируются:
   const [hasExperience, setHasExperience] = React.useState(
     JSON.parse(localStorage.getItem('hasExperience') || true)

@@ -19,6 +19,7 @@ const Job = ({
   number,
   handleCheckboxChange,
   checkboxValues,
+  setValues,
 }) => {
   const handleDelete = () => deleteExperience(i)
   return (
@@ -65,6 +66,7 @@ const Job = ({
           ]}
           year={[`year_work_start_${number}`, `year_work_end_${number}`]}
           handleCheckboxChange={handleCheckboxChange}
+          setValues={setValues}
         />
         <FormInput
           name={`duties${number}`}
@@ -113,6 +115,7 @@ Job.propTypes = {
   setIsTillPresent: PropTypes.func,
   number: PropTypes.number,
   handleCheckboxChange: PropTypes.func,
+  setValues: PropTypes.func,
 }
 
 Job.defaultProps = {
@@ -122,6 +125,7 @@ Job.defaultProps = {
   setIsTillPresent: () => {},
   number: undefined,
   handleCheckboxChange: () => {},
+  setValues: () => {},
 }
 
 export default Job

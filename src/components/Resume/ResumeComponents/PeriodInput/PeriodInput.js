@@ -27,15 +27,11 @@ const PeriodInput = ({
   handleChange,
 }) => {
   const [disabledMonthChoice, setDisabledMonthChoice] = useState(false)
+  console.log(values)
 
   const handleCheckboxToggle = () => {
     setIsTillPresent(!isTillPresent)
   }
-
-  // const handleYearChange = evt => {
-  //   const { name, value } = evt.target
-  //   setValues(prevValue => ({ ...prevValue, [name]: value }))
-  // }
 
   useEffect(() => {
     setDisabledMonthChoice(disabled)

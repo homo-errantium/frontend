@@ -1,12 +1,13 @@
+import React from 'react'
 import './MonthPicker.scss'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { months } from '../../../../../constants/months'
 
 const MonthPicker = ({ disabled, setValues, values, name }) => {
-  console.log(values)
   const chooseMonth = month => {
-    setValues({ ...values, [name]: month.id })
+    console.log(`${name}:${month.id}`)
+    setValues(prevValues => ({ ...prevValues, [name]: month.id }))
   }
 
   return (
@@ -55,9 +56,9 @@ const MonthPicker = ({ disabled, setValues, values, name }) => {
 MonthPicker.propTypes = {
   disabled: PropTypes.bool,
   setValues: PropTypes.func,
-  values: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-  ),
+  values: PropTypes.shape({
+    value: PropTypes.number,
+  }),
   name: PropTypes.string,
 }
 
