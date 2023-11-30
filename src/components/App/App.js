@@ -54,6 +54,7 @@ function App() {
   const [values, setValues] = React.useState(
     JSON.parse(localStorage.getItem('formData')) || {}
   )
+  console.log(values)
   // // Если опыт есть, поля активны. Если нет, поля деактивируются:
   const [hasExperience, setHasExperience] = React.useState(
     JSON.parse(localStorage.getItem('hasExperience') || true)
@@ -79,6 +80,7 @@ function App() {
   // Функция, которая записывает данные полей форм
   const handleChange = evt => {
     const { name, value } = evt.target
+    console.log(evt.target.select)
     setValues({ ...values, [name]: value })
   }
   // Сохраняем данные полей в локалное хранилище
@@ -138,7 +140,13 @@ function App() {
   const routesResumeArr = [
     {
       path: 'personal-data',
-      element: <PersonalData />,
+      element: (
+        <PersonalData
+          values={values}
+          handleChange={handleChange}
+          setValues={setValues}
+        />
+      ),
       id: 1,
       completedSteps: completedStepsPersonalData,
     },
@@ -153,8 +161,6 @@ function App() {
           hasExperience={hasExperience}
           setCheckboxValues={setCheckboxValues}
           setHasExperience={setHasExperience}
-          // isTillPresent={isTillPresent}
-          // setIsTillPresent={setIsTillPresent}
           setValues={setValues}
           setAllTillPresent={setAllTillPresent}
           allTillPresent={allTillPresent}

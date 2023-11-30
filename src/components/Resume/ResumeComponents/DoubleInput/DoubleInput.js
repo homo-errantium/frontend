@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import IMask from 'imask'
@@ -21,6 +22,9 @@ const DoubleInput = ({
   ordinaryInputSecond,
   optionsInputFirst,
   optionsInputSecond,
+  values,
+  handleChange,
+  name,
 }) => {
   const maskOptionsPhone = {
     mask: '+{7}(000)000-00-00',
@@ -54,7 +58,10 @@ const DoubleInput = ({
         {selectedInputFirst && (
           <div className="double-input__select-wrapper">
             <select
-              id="selected-input-first"
+              id={values[name[1]]}
+              name={name[1]}
+              onChange={handleChange}
+              value={values[name[1]]}
               className="double-input__field double-input__field_selected"
             >
               {optionsInputFirst.map(value => (
@@ -71,6 +78,9 @@ const DoubleInput = ({
         )}
         {ordinaryInputFirst && (
           <input
+            name={name[0]}
+            onChange={handleChange}
+            value={values[name[0]]}
             className="double-input__field"
             disabled={disabled}
             placeholder={placeholder}
@@ -94,7 +104,10 @@ const DoubleInput = ({
             {selectedInputSecond && (
               <div className="double-input__select-wrapper">
                 <select
-                  id="selected-input-second"
+                  name={name[1]}
+                  onChange={handleChange}
+                  value={values[name[1]]}
+                  id={values[name[1]]}
                   className="double-input__field double-input__field_selected"
                 >
                   {optionsInputSecond.map(value => (
@@ -111,6 +124,9 @@ const DoubleInput = ({
             )}
             {ordinaryInputSecond && (
               <input
+                name={name[1]}
+                onChange={handleChange}
+                value={values[name[1]]}
                 className="double-input__field double-input__field_short"
                 disabled={disabled}
               />
