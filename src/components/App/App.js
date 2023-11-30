@@ -79,7 +79,6 @@ function App() {
   // Функция, которая записывает данные полей форм
   const handleChange = evt => {
     const { name, value } = evt.target
-    console.log(`${name}: ${value}`)
     setValues({ ...values, [name]: value })
   }
   // Сохраняем данные полей в локалное хранилище
