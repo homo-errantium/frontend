@@ -6,8 +6,10 @@ import Tip from '../Tip/Tip'
 
 const DoubleInput = ({
   firstLabel,
-  tip,
-  tipText,
+  tipFirst,
+  tipTextFirst,
+  tipSecond,
+  tipTextSecond,
   disabled,
   doubleInput,
   secondLabel,
@@ -28,7 +30,7 @@ const DoubleInput = ({
         <label className="double-input__label" htmlFor="selected-input-first">
           {firstLabel}
         </label>
-        {tip && <Tip text={tipText} />}
+        {tipFirst && <Tip text={tipTextFirst} />}
       </div>
       {selectedInputFirst && (
         <div className="double-input__select-wrapper">
@@ -69,7 +71,7 @@ const DoubleInput = ({
             >
               {secondLabel}
             </label>
-            {tip && <Tip text={tipText} />}
+            {tipSecond && <Tip text={tipTextSecond} />}
           </div>
           {selectedInputSecond && (
             <div className="double-input__select-wrapper">
@@ -110,8 +112,10 @@ const DoubleInput = ({
 DoubleInput.propTypes = {
   firstLabel: PropTypes.string.isRequired,
   secondLabel: PropTypes.string,
-  tip: PropTypes.bool,
-  tipText: PropTypes.node,
+  tipFirst: PropTypes.bool,
+  tipTextFirst: PropTypes.node,
+  tipSecond: PropTypes.bool,
+  tipTextSecond: PropTypes.node,
   disabled: PropTypes.bool,
   doubleInput: PropTypes.bool,
   placeholder: PropTypes.node,
@@ -124,8 +128,10 @@ DoubleInput.propTypes = {
 }
 
 DoubleInput.defaultProps = {
-  tip: false,
-  tipText: '',
+  tipFirst: false,
+  tipTextFirst: '',
+  tipSecond: false,
+  tipTextSecond: '',
   disabled: false,
   doubleInput: false,
   placeholder: '',

@@ -35,9 +35,14 @@ const LanguageInput = ({
             id={`language_${number}`}
             className="language-input__field"
           >
-            <option value="" className="double-input__option" disabled>
-              {' '}
-            </option>
+            <option
+              value=""
+              className="double-input__option"
+              disabled
+              selected
+              hidden
+              aria-label="Выберите язык"
+            />
             {optionsInputFirst.map(value => (
               <option
                 value={value}
@@ -67,9 +72,14 @@ const LanguageInput = ({
             id={`language_level_${number}`}
             className="language-input__field"
           >
-            <option value="" className="double-input__option" disabled>
-              {' '}
-            </option>
+            <option
+              value=""
+              className="double-input__option"
+              disabled
+              selected
+              hidden
+              aria-label="Выберите уровень знания языка"
+            />
             {optionsInputSecond.map(value => (
               <option
                 value={value}
