@@ -2,9 +2,14 @@ import './ResultResume.scss'
 import PropTypes from 'prop-types'
 import Keanu from '../../../img/Keanu-Reeves.jpg'
 
-function ResultResume({ values }) {
+function ResultResume({ values, checkboxValues }) {
   // eslint-disable-next-line no-console
   console.log('🚀 ~ file: ResultResume.js:5 ~ ResultResume ~ values:', values)
+  // eslint-disable-next-line no-console
+  console.log(
+    '🚀 ~ file: ResultResume.js:5 ~ ResultResume ~ values:',
+    checkboxValues
+  )
 
   const testValue = {
     firstName: 'Keanu', // можно удалить
@@ -56,8 +61,11 @@ ResultResume.propTypes = {
   values: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ),
+  checkboxValues: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ),
 }
 
-ResultResume.defaultProps = { values: {} }
+ResultResume.defaultProps = { values: {}, checkboxValues: {} }
 
 export default ResultResume

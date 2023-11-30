@@ -1,10 +1,11 @@
 import './Result.scss'
+import PropTypes from 'prop-types'
 import jsPDF from 'jspdf'
 import { useRef } from 'react'
 import ResultResume from '../ResultResume/ResultResume'
 import DownloadIcon from '../../../img/download-icon.svg'
 
-function Result() {
+function Result({ values, checkboxValues }) {
   const resultResumeRef = useRef(null)
 
   const handleGenerateWord = () => {
@@ -80,10 +81,21 @@ function Result() {
         </div>
       </div>
       <div className="result__content" ref={resultResumeRef}>
-        <ResultResume />
+        <ResultResume values={values} checkboxValues={checkboxValues} />
       </div>
     </section>
   )
 }
+
+Result.propTypes = {
+  values: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ),
+  checkboxValues: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ),
+}
+
+Result.defaultProps = { values: {}, checkboxValues: {} }
 
 export default Result
