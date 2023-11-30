@@ -7,8 +7,11 @@ function ResultResume({ values }) {
   console.log('🚀 ~ file: ResultResume.js:5 ~ ResultResume ~ values:', values)
 
   const testValue = {
-    firstName: 'Keanu',
-    secondName: 'Reeves',
+    firstName: 'Keanu', // можно удалить
+    secondName: 'Reeves', // можно удалить
+    status: 'в  поиске', // можно удалить
+    dateBirth: '2 september 1964',
+    currentCity: 'New-York',
     company: 'Matrix Inc.',
     company_website: 'https://keanu-reeves.org/',
     current_position: 'superhero',
@@ -21,16 +24,30 @@ function ResultResume({ values }) {
 
   return (
     <div className="result-resume" id="resultResume">
-      {/* <div className="result-resume__user-info"> */}
-      <span className="result-resume__user-name">
-        {`ФИ: ${testValue.firstName} ${testValue.secondName}`}
-      </span>
-      <img
-        src={Keanu}
-        alt="фото соискателя"
-        className="result-resume__user-photo"
-      />
-      {/* </div> */}
+      <div className="result-resume__user-info">
+        <div className="result-resume__personal-info">
+          <span className="result-resume__user-name">
+            {`ФИ: ${testValue.firstName} ${testValue.secondName}`}
+          </span>
+          <br />
+          <span className="result-resume__user-status">
+            {`Статус соискателя: ${testValue.status}`}
+          </span>
+          <br />
+          <span className="result-resume__user-date-birth">
+            {`Дата рождения: ${testValue.dateBirth}`}
+          </span>
+          <br />
+          <span className="result-resume__user-date-birth">
+            {`Город проживания: ${testValue.currentCity}`}
+          </span>
+        </div>
+        <img
+          src={Keanu}
+          alt="фото соискателя"
+          className="result-resume__user-photo"
+        />
+      </div>
     </div>
   )
 }
