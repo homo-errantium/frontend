@@ -15,7 +15,13 @@ const Checkbox = ({
 }) => {
   React.useEffect(() => {
     if (disabled) {
-      setCheckboxValues({ ...checkboxValues, [name]: false })
+      setCheckboxValues({
+        ...checkboxValues,
+        work_period_checkbox: false,
+        work_period_checkbox_1: false,
+        work_period_checkbox_2: false,
+        [name]: false,
+      })
     }
   }, [disabled])
   return (
