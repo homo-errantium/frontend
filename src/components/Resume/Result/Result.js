@@ -23,7 +23,7 @@ function Result({ values, checkboxValues }) {
     const fileDownload = document.createElement('a')
     document.body.appendChild(fileDownload)
     fileDownload.href = source
-    fileDownload.download = 'document.doc'
+    fileDownload.download = 'resume.doc'
     fileDownload.click()
     document.body.removeChild(fileDownload)
   }
@@ -34,11 +34,13 @@ function Result({ values, checkboxValues }) {
       format: 'a4',
       unit: 'px',
     })
+    // Adding the fonts.
+    document.setFont('open-sans', 'normal')
 
     document.html(resultResumeRef.current, {
       // eslint-disable-next-line no-shadow
       async callback(doc) {
-        await doc.save('document')
+        await doc.save('resume')
       },
     })
   }
