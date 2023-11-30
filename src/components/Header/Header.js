@@ -71,7 +71,7 @@ function Header({
                 className="header__button header__button_black header__button_prev"
                 type="button"
                 label="button"
-                onClick={() => navigate(-1)}
+                onClick={() => navigate('/resume/personal-data')}
               >
                 <img
                   className="header__button-icon"
@@ -81,6 +81,7 @@ function Header({
                 Редактировать
               </button>
             </NavLink>
+
             <NavLink className="header__nav-link" to="/">
               <button
                 className="header__button header__button_orange"
