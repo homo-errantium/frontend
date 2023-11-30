@@ -28,6 +28,9 @@ const LanguageInput = ({
             id="selected-lang-input-first"
             className="language-input__field"
           >
+            <option value="" className="double-input__option" disabled selected>
+              {' '}
+            </option>
             {optionsInputFirst.map(value => (
               <option
                 value={value || ''}
@@ -54,9 +57,12 @@ const LanguageInput = ({
             id="selected-lang-input-second"
             className="language-input__field"
           >
+            <option value="" className="double-input__option" disabled selected>
+              {' '}
+            </option>
             {optionsInputSecond.map(value => (
               <option
-                value={value || ''}
+                value={value}
                 className="double-input__option"
                 key={value}
               >
@@ -68,13 +74,13 @@ const LanguageInput = ({
       </div>
       <div className="language-input__button-container">
         <button
-          className="language-input__button-delete"
+          className="language-input__button-delete link"
           type="button"
           aria-label="Удалить"
           onClick={handleDelete}
         />
         <button
-          className="language-input__button-add"
+          className="language-input__button-add link"
           type="button"
           aria-label="Добавить"
           onClick={addLanguage}

@@ -27,7 +27,7 @@ const PersonalData = () => {
 
   const deleteLanguage = langId => {
     if (languages.length === 1) {
-      console.log('надо очистить поля -- чуть позже')
+      setLanguages([{ id: uuidv4() }])
     } else {
       const languageToBeRemoved = languages.find(m => langId === m.id)
       setLanguages(languages.filter(item => item.id !== languageToBeRemoved.id))
