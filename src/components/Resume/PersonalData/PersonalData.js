@@ -53,8 +53,8 @@ const PersonalData = () => {
             ordinaryInputFirst
             selectedInputSecond
             optionsInputSecond={ACTUAL_STATUS_OPTIONS}
-            tip
-            tipText={ACTUAL_STATUS_TIP}
+            tipSecond
+            tipTextSecond={ACTUAL_STATUS_TIP}
           />
           <DoubleInput
             firstLabel="Желаемая должность"
@@ -63,8 +63,8 @@ const PersonalData = () => {
             ordinaryInputFirst
             selectedInputSecond
             optionsInputSecond={LEVEL_OPTIONS}
-            tip
-            tipText={CAREER_OBJECTIVE_TIP}
+            tipFirst
+            tipTextFirst={CAREER_OBJECTIVE_TIP}
           />
         </div>
         <ResumeTitle title="Контакты" />
@@ -90,8 +90,8 @@ const PersonalData = () => {
             doubleInput
             ordinaryInputFirst
             ordinaryInputSecond
-            tip
-            tipText={OTHER__SITE_LINK_TIP}
+            tipFirst
+            tipTextFirst={OTHER__SITE_LINK_TIP}
           />
         </div>
         <ResumeTitle title="Владение языками" />
