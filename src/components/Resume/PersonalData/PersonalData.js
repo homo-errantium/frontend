@@ -45,6 +45,7 @@ const PersonalData = () => {
             firstLabel="Дата рождения"
             placeholder="ДД.ММ.ГГ"
             ordinaryInputFirst
+            dataMask="date"
           />
           <DoubleInput
             firstLabel="Город проживания"
@@ -76,6 +77,7 @@ const PersonalData = () => {
             doubleInput
             ordinaryInputFirst
             ordinaryInputSecond
+            dataMask="phone"
           />
           <DoubleInput
             firstLabel="Телеграм"
