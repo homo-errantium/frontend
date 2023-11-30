@@ -1,0 +1,34 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.result-resume {
+  display: grid;
+  place-items: center;
+  grid-template-columns: (3, 1fr);
+  grid-template-rows: (7, 1fr);
+  grid-template-areas:
+    'A A B '
+    'C D D'
+    'E F F'
+    'G H H'
+    'I K K'
+    'L M M'
+    'N O O';
+  justify-items: start;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.result-resume__user-name {
+  grid-area: A;
+}
+
+.result-resume__user-photo {
+  width: 150px;
+  height: 100px;
+  grid-area: B;
+}

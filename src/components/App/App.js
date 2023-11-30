@@ -249,7 +249,7 @@ function App() {
     // },
     {
       path: 'result',
-      element: <Result />,
+      element: <Result values={values} />,
       id: 9,
       completedSteps: completedStepsPersonalData,
     },
