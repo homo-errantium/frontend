@@ -62,9 +62,12 @@ function App() {
   const [checkboxValues, setCheckboxValues] = React.useState(
     JSON.parse(localStorage.getItem('checkboxData')) || {}
   )
-  // Блокирует/ разблокирует поля ввода периода работы
-  const [isTillPresent, setIsTillPresent] = React.useState(false)
+  // Записываем данные isTillPresent в один объект
+  const [allTillPresent, setAllTillPresent] = React.useState(
+    JSON.parse(localStorage.getItem('isTillPresent')) || {}
+  )
 
+  // Функция, которая записывает данные чекбоксов
   const handleCheckboxChange = evt => {
     const { name } = evt.target
     setCheckboxValues(prevValues => ({
@@ -78,58 +81,6 @@ function App() {
     const { name, value } = evt.target
     setValues({ ...values, [name]: value })
   }
-
-  // Этот useEffect очищает поля ввода, если стоит галочка "Нет опыта"
-  React.useEffect(() => {
-    if (!hasExperience) {
-      setValues({
-        ...values,
-        company: '',
-        company_website: '',
-        current_position: '',
-        duties: '',
-        month_work_start: '',
-        month_work_end: '',
-        year_work_start: '',
-        year_work_end: '',
-        company_1: '',
-        company_website_1: '',
-        current_position_1: '',
-        duties_1: '',
-        month_work_start_1: '',
-        month_work_end_1: '',
-        year_work_start_1: '',
-        year_work_end_1: '',
-        company_2: '',
-        company_website_2: '',
-        current_position_2: '',
-        duties_2: '',
-        month_work_start_2: '',
-        month_work_end_2: '',
-        year_work_start_2: '',
-        year_work_end_2: '',
-      })
-      setCheckboxValues(prevValues => ({
-        ...prevValues,
-        work_period_checkbox: false,
-        work_period_checkbox_1: false,
-        work_period_checkbox_2: false,
-      }))
-      // setIsTillPresent(false)
-    }
-  }, [hasExperience])
-
-  // Этот useEffect очищает поля с датой, если галочки "Настоящее время" нет и подставляет фактическую дату, если галочка есть
-  // React.useEffect(() => {
-  //   if (isTillPresent) {
-  //     setValues({
-  //       ...values,
-  //       month_work_end: '',
-  //       year_work_end: '',
-  //     })
-  //   }
-  // }, [isTillPresent])
-
   // Сохраняем данные полей в локалное хранилище
   const handleClick = () => {
     const checkboxData = { ...checkboxValues }
@@ -137,7 +88,7 @@ function App() {
     localStorage.setItem('checkboxData', JSON.stringify(checkboxData))
     localStorage.setItem('formData', JSON.stringify(formData))
     localStorage.setItem('hasExperience', JSON.stringify(hasExperience))
-    localStorage.setItem('isTillPresent', JSON.stringify(isTillPresent))
+    localStorage.setItem('isTillPresent', JSON.stringify(allTillPresent))
   }
 
   /* ----------------------------------------- Popup -----------------------------------------------------*/
@@ -200,10 +151,13 @@ function App() {
           handleCheckboxChange={handleCheckboxChange}
           checkboxValues={checkboxValues}
           hasExperience={hasExperience}
+          setCheckboxValues={setCheckboxValues}
           setHasExperience={setHasExperience}
-          isTillPresent={isTillPresent}
-          setIsTillPresent={setIsTillPresent}
+          // isTillPresent={isTillPresent}
+          // setIsTillPresent={setIsTillPresent}
           setValues={setValues}
+          setAllTillPresent={setAllTillPresent}
+          allTillPresent={allTillPresent}
         />
       ),
       id: 2,
