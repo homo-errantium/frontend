@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import PropTypes from 'prop-types'
 import './LanguageInput.scss'
@@ -10,6 +11,9 @@ const LanguageInput = ({
   i,
   addLanguage,
   deleteLanguage,
+  values,
+  handleChange,
+  number,
 }) => {
   const handleDelete = () => deleteLanguage(i)
   return (
@@ -25,7 +29,10 @@ const LanguageInput = ({
         </div>
         <div className="language-input__select-wrapper">
           <select
-            id="selected-lang-input-first"
+            name={`language_${number}`}
+            onChange={handleChange}
+            value={values[`language_${number}`]}
+            id={`language_${number}`}
             className="language-input__field"
           >
             <option
@@ -38,7 +45,7 @@ const LanguageInput = ({
             />
             {optionsInputFirst.map(value => (
               <option
-                value={value || ''}
+                value={value}
                 className="language-input__field"
                 key={value}
               >
@@ -59,7 +66,10 @@ const LanguageInput = ({
         </div>
         <div className="language-input__select-wrapper">
           <select
-            id="selected-lang-input-second"
+            name={`language_level_${number}`}
+            onChange={handleChange}
+            value={values[`language_level_${number}`]}
+            id={`language_level_${number}`}
             className="language-input__field"
           >
             <option
@@ -104,7 +114,7 @@ LanguageInput.propTypes = {
   secondLabel: PropTypes.string,
   optionsInputFirst: PropTypes.arrayOf(PropTypes.string),
   optionsInputSecond: PropTypes.arrayOf(PropTypes.string),
-  i: PropTypes.string.isRequired,
+  i: PropTypes.number.isRequired,
   addLanguage: PropTypes.func,
   deleteLanguage: PropTypes.func,
 }

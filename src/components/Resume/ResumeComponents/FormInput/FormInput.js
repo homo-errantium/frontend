@@ -62,7 +62,9 @@ FormInput.propTypes = {
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   }),
   handleChange: PropTypes.func,
-  name: PropTypes.string,
+  name: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ),
   setValues: PropTypes.func,
 }
 
@@ -73,7 +75,7 @@ FormInput.defaultProps = {
   disabled: false,
   values: {},
   handleChange: () => {},
-  name: '',
+  name: [],
   setValues: () => {},
 }
 
