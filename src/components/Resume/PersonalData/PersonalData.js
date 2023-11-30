@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import './PersonalData.scss'
 import React, { useState } from 'react'
-import { v4 as uuidv4 } from 'uuid'
+// import { v4 as uuidv4 } from 'uuid'
 import ResumeTitle from '../ResumeComponents/ResumeTitle/ResumeTitle'
 import DoubleInput from '../ResumeComponents/DoubleInput/DoubleInput'
 import {
@@ -20,15 +20,19 @@ import FormInput from '../ResumeComponents/FormInput/FormInput'
 import LanguageInput from '../ResumeComponents/LanguageInput/LanguageInput'
 
 const PersonalData = ({ values, handleChange, setValues }) => {
-  const [languages, setLanguages] = useState([{ id: uuidv4() }])
+  const [number, setNumber] = useState(1)
+  const [languages, setLanguages] = useState([{ id: number }])
+  console.log(number)
 
   const addLanguage = () => {
-    setLanguages([...languages, { id: uuidv4() }])
+    setNumber(number + 1)
+    setLanguages([...languages, { id: number }])
   }
 
   const deleteLanguage = langId => {
     if (languages.length === 1) {
-      setLanguages([{ id: uuidv4() }])
+      setNumber(prevValue => prevValue + 1)
+      setLanguages([{ id: number }])
     } else {
       const languageToBeRemoved = languages.find(m => langId === m.id)
       setLanguages(languages.filter(item => item.id !== languageToBeRemoved.id))
@@ -148,7 +152,6 @@ const PersonalData = ({ values, handleChange, setValues }) => {
               values={values}
               handleChange={handleChange}
               setValues={setValues}
-              name={['language', 'language_level']}
               firstLabel="Язык"
               secondLabel="Уровень"
               optionsInputFirst={LANGUAGE_OPTIONS}
@@ -157,6 +160,7 @@ const PersonalData = ({ values, handleChange, setValues }) => {
               i={lang.id}
               addLanguage={addLanguage}
               deleteLanguage={deleteLanguage}
+              number={number}
             />
           </div>
         ))}

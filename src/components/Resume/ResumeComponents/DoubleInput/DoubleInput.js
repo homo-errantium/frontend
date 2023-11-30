@@ -33,7 +33,7 @@ const DoubleInput = ({
       {selectedInputFirst && (
         <div className="double-input__select-wrapper">
           <select
-            id="selected-input-first"
+            id={values[name[1]]}
             name={name[1]}
             onChange={handleChange}
             value={values[name[1]]}
@@ -77,7 +77,7 @@ const DoubleInput = ({
                 name={name[1]}
                 onChange={handleChange}
                 value={values[name[1]]}
-                id="selected-input-second"
+                id={values[name[1]]}
                 className="double-input__field double-input__field_selected"
               >
                 {optionsInputSecond.map(value => (
