@@ -91,9 +91,7 @@ Result.propTypes = {
   values: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ),
-  checkboxValues: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-  ),
+  checkboxValues: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.bool])),
 }
 
 Result.defaultProps = { values: {}, checkboxValues: {} }

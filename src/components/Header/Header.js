@@ -16,7 +16,7 @@ function Header({
   nextPage,
   onOpenPopup,
   setCompletedSteps,
-  // onClick,
+  onClick,
 }) {
   const navigate = useNavigate()
   const location = useLocation()
@@ -255,6 +255,7 @@ function Header({
               label="button"
               onClick={() => {
                 setCompletedSteps()
+                onClick()
                 navigate(`${nextPage}`)
               }}
             >
@@ -310,14 +311,14 @@ Header.propTypes = {
   nextPage: PropTypes.string,
   onOpenPopup: PropTypes.func,
   setCompletedSteps: PropTypes.func,
-  // onClick: PropTypes.func,
+  onClick: PropTypes.func,
 }
 Header.defaultProps = {
   isLoggedIn: false,
   nextPage: '',
   onOpenPopup: () => {},
   setCompletedSteps: () => {},
-  // onClick: () => {},
+  onClick: () => {},
 }
 
 export default Header
