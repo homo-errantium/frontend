@@ -201,7 +201,7 @@ function App() {
     // },
     {
       path: 'result',
-      element: <Result />,
+      element: <Result values={values} checkboxValues={checkboxValues} />,
       id: 9,
       completedSteps: completedStepsPersonalData,
     },
