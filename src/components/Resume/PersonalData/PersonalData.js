@@ -43,7 +43,7 @@ const PersonalData = () => {
           <DoubleInput firstLabel="Фамилия" ordinaryInputFirst />
           <DoubleInput
             firstLabel="Дата рождения"
-            placeholder="ДД.ММ.ГГ"
+            placeholder="ДД.ММ.ГГГГ"
             ordinaryInputFirst
             dataMask="date"
           />
@@ -74,6 +74,7 @@ const PersonalData = () => {
           <DoubleInput
             firstLabel="Телефон"
             secondLabel="Ссылка на Behance"
+            placeholder="+7"
             doubleInput
             ordinaryInputFirst
             ordinaryInputSecond
@@ -83,6 +84,7 @@ const PersonalData = () => {
             firstLabel="Телеграм"
             secondLabel="Ссылка на GitHub"
             doubleInput
+            placeholder="t.me/name"
             ordinaryInputFirst
             ordinaryInputSecond
           />

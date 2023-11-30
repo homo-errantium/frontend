@@ -22,22 +22,24 @@ const DoubleInput = ({
   optionsInputFirst,
   optionsInputSecond,
 }) => {
-  // const [query, setQuery] = useState('')
+  const maskOptionsPhone = {
+    mask: '+{7}(000)000-00-00',
+  }
+  const maskOptionsDate = {
+    mask: Date,
+    min: new Date(1900, 0, 1),
+  }
+  const maskInput = (dataValue, options) => {
+    const inputElements = document.querySelectorAll(`[mask="${dataValue}"]`) // ищем поля ввода по селектору с переданным значением data-атрибута
+    if (!inputElements) return // если таких полей ввода нет, прерываем функцию
+    inputElements.forEach(el => {
+      // для каждого из полей ввода
+      IMask(el, options) // инициализируем плагин imask для необходимых полей ввода с переданными параметрами маски
+    })
+  }
   useEffect(() => {
-    const inputElementPhone = document.querySelector('[mask="phone"]')
-    const maskOptionsPhone = {
-      // создаем объект параметров
-      mask: '+{7}(000)000-00-00', // задаем единственный параметр mask
-    }
-    IMask(inputElementPhone, maskOptionsPhone)
-    const inputElementDate = document.querySelector('[mask="date"]')
-
-    const maskOptionsDate = {
-      // создаем объект параметров
-      mask: Date,
-      min: new Date(1900, 0, 1), // задаем единственный параметр mask
-    }
-    IMask(inputElementDate, maskOptionsDate)
+    maskInput('phone', maskOptionsPhone)
+    maskInput('date', maskOptionsDate)
   })
 
   return (
@@ -71,12 +73,9 @@ const DoubleInput = ({
           <input
             className="double-input__field"
             disabled={disabled}
-            //   id="ordinary-input-first"
             placeholder={placeholder}
             mask={dataMask}
             type="text"
-            // value={query || ''}
-            // onClick={handleInput}
           />
         )}
       </div>
@@ -114,7 +113,6 @@ const DoubleInput = ({
               <input
                 className="double-input__field double-input__field_short"
                 disabled={disabled}
-                //   id="ordinary-input-second"
               />
             )}
           </>
