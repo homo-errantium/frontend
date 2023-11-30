@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import PropTypes from 'prop-types'
 import './DoubleInput.scss'
@@ -17,6 +18,9 @@ const DoubleInput = ({
   ordinaryInputSecond,
   optionsInputFirst,
   optionsInputSecond,
+  values,
+  handleChange,
+  name,
 }) => (
   <div className="double-input">
     <div className="double-input__left-box">
@@ -30,6 +34,9 @@ const DoubleInput = ({
         <div className="double-input__select-wrapper">
           <select
             id="selected-input-first"
+            name={name[1]}
+            onChange={handleChange}
+            value={values[name[1]]}
             className="double-input__field double-input__field_selected"
           >
             {optionsInputFirst.map(value => (
@@ -42,6 +49,9 @@ const DoubleInput = ({
       )}
       {ordinaryInputFirst && (
         <textarea
+          name={name[0]}
+          onChange={handleChange}
+          value={values[name[0]]}
           className="double-input__field"
           disabled={disabled}
           //   id="ordinary-input-first"
@@ -64,6 +74,9 @@ const DoubleInput = ({
           {selectedInputSecond && (
             <div className="double-input__select-wrapper">
               <select
+                name={name[1]}
+                onChange={handleChange}
+                value={values[name[1]]}
                 id="selected-input-second"
                 className="double-input__field double-input__field_selected"
               >
@@ -81,6 +94,9 @@ const DoubleInput = ({
           )}
           {ordinaryInputSecond && (
             <textarea
+              name={name[1]}
+              onChange={handleChange}
+              value={values[name[1]]}
               className="double-input__field double-input__field_short"
               disabled={disabled}
               //   id="ordinary-input-second"

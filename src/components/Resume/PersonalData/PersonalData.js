@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import './PersonalData.scss'
 import React, { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
@@ -18,7 +19,7 @@ import {
 import FormInput from '../ResumeComponents/FormInput/FormInput'
 import LanguageInput from '../ResumeComponents/LanguageInput/LanguageInput'
 
-const PersonalData = () => {
+const PersonalData = ({ values, handleChange, setValues }) => {
   const [languages, setLanguages] = useState([{ id: uuidv4() }])
 
   const addLanguage = () => {
@@ -39,14 +40,36 @@ const PersonalData = () => {
       <div className="personal-data__container">
         <ResumeTitle title="Персональные данные" />
         <div className="personal-data__form">
-          <DoubleInput firstLabel="Имя" ordinaryInputFirst />
-          <DoubleInput firstLabel="Фамилия" ordinaryInputFirst />
           <DoubleInput
+            values={values}
+            handleChange={handleChange}
+            setValues={setValues}
+            name={['name']}
+            firstLabel="Имя"
+            ordinaryInputFirst
+          />
+          <DoubleInput
+            values={values}
+            handleChange={handleChange}
+            setValues={setValues}
+            name={['surname']}
+            firstLabel="Фамилия"
+            ordinaryInputFirst
+          />
+          <DoubleInput
+            handleChange={handleChange}
+            values={values}
+            setValues={setValues}
+            name={['birthday']}
             firstLabel="Дата рождения"
             placeholder="ДД.ММ.ГГ"
             ordinaryInputFirst
           />
           <DoubleInput
+            setValues={setValues}
+            handleChange={handleChange}
+            values={values}
+            name={['city', 'work_status']}
             firstLabel="Город проживания"
             secondLabel="Актуальный статус"
             doubleInput
@@ -57,6 +80,10 @@ const PersonalData = () => {
             tipText={ACTUAL_STATUS_TIP}
           />
           <DoubleInput
+            setValues={setValues}
+            handleChange={handleChange}
+            values={values}
+            name={['desired_position', 'level_knowledge']}
             firstLabel="Желаемая должность"
             secondLabel="Уровень"
             doubleInput
@@ -69,8 +96,20 @@ const PersonalData = () => {
         </div>
         <ResumeTitle title="Контакты" />
         <div className="personal-data__form">
-          <FormInput label="Почта" tip tipText={EMAIL_TIP} />
+          <FormInput
+            values={values}
+            handleChange={handleChange}
+            setValues={setValues}
+            name={['email']}
+            label="Почта"
+            tip
+            tipText={EMAIL_TIP}
+          />
           <DoubleInput
+            handleChange={handleChange}
+            values={values}
+            setValues={setValues}
+            name={['phone', 'behance']}
             firstLabel="Телефон"
             secondLabel="Ссылка на Behance"
             doubleInput
@@ -78,6 +117,10 @@ const PersonalData = () => {
             ordinaryInputSecond
           />
           <DoubleInput
+            handleChange={handleChange}
+            values={values}
+            setValues={setValues}
+            name={['telegram', 'githab']}
             firstLabel="Телеграм"
             secondLabel="Ссылка на GitHub"
             doubleInput
@@ -85,6 +128,10 @@ const PersonalData = () => {
             ordinaryInputSecond
           />
           <DoubleInput
+            handleChange={handleChange}
+            values={values}
+            setValues={setValues}
+            name={['website_link', 'video_link']}
             firstLabel="Ссылка на другой сайт"
             secondLabel="Ссылка на видео о себе"
             doubleInput
@@ -98,6 +145,10 @@ const PersonalData = () => {
         {languages.map(lang => (
           <div className="personal-data__language-form" key={lang.id}>
             <LanguageInput
+              values={values}
+              handleChange={handleChange}
+              setValues={setValues}
+              name={['language', 'language_level']}
               firstLabel="Язык"
               secondLabel="Уровень"
               optionsInputFirst={LANGUAGE_OPTIONS}
