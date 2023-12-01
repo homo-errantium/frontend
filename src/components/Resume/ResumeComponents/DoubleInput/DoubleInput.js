@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import IMask from 'imask'
 import './DoubleInput.scss'
@@ -18,6 +18,7 @@ const DoubleInput = ({
   placeholder,
   selectedInputFirst,
   ordinaryInputFirst,
+  maskLinkInputFirst,
   selectedInputSecond,
   ordinaryInputSecond,
   optionsInputFirst,
@@ -26,6 +27,12 @@ const DoubleInput = ({
   handleChange,
   name,
 }) => {
+  const [username, setUsername] = useState('')
+
+  const handleChangeUsername = event => {
+    setUsername(event.target.value)
+  }
+
   const maskOptionsPhone = {
     mask: '+{7}(000)000-00-00',
   }
@@ -33,6 +40,7 @@ const DoubleInput = ({
     mask: Date,
     min: new Date(1900, 0, 1),
   }
+
   const maskInput = (dataValue, options) => {
     const inputElements = document.querySelectorAll(`[mask="${dataValue}"]`) // ищем поля ввода по селектору с переданным значением data-атрибута
     if (!inputElements) return // если таких полей ввода нет, прерываем функцию
@@ -44,6 +52,7 @@ const DoubleInput = ({
   useEffect(() => {
     maskInput('phone', maskOptionsPhone)
     maskInput('date', maskOptionsDate)
+    // maskInput('tgLink', maskOptionsLink)
   })
 
   return (
@@ -80,6 +89,7 @@ const DoubleInput = ({
           <input
             name={name[0]}
             onChange={handleChange}
+            // value={username}
             value={values[name[0]]}
             className="double-input__field"
             disabled={disabled}
@@ -87,6 +97,22 @@ const DoubleInput = ({
             mask={dataMask}
             type="text"
           />
+        )}
+        {maskLinkInputFirst && (
+          <div>
+            <input
+              name={name[0]}
+              onChange={handleChangeUsername}
+              value={username}
+              // value={values[name[0]]}
+              className="double-input__field"
+              disabled={disabled}
+              placeholder={placeholder}
+              // mask={dataMask}
+              type="text"
+            />
+            {username && <value>`https://t.me/{username}`</value>}
+          </div>
         )}
       </div>
       <div className="double-input__right-box">
@@ -150,6 +176,7 @@ DoubleInput.propTypes = {
   placeholder: PropTypes.node,
   selectedInputFirst: PropTypes.bool,
   ordinaryInputFirst: PropTypes.bool,
+  maskLinkInputFirst: PropTypes.bool,
   selectedInputSecond: PropTypes.bool,
   ordinaryInputSecond: PropTypes.bool,
   optionsInputFirst: PropTypes.arrayOf(PropTypes.string),
@@ -168,6 +195,7 @@ DoubleInput.defaultProps = {
   secondLabel: '',
   selectedInputFirst: false,
   ordinaryInputFirst: false,
+  maskLinkInputFirst: false,
   selectedInputSecond: false,
   ordinaryInputSecond: false,
   optionsInputFirst: [],
