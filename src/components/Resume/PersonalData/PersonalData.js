@@ -66,8 +66,9 @@ const PersonalData = ({ values, handleChange, setValues }) => {
             setValues={setValues}
             name={['birthday']}
             firstLabel="Дата рождения"
-            placeholder="ДД.ММ.ГГ"
+            placeholder="ДД.ММ.ГГГГ"
             ordinaryInputFirst
+            dataMask="date"
           />
           <DoubleInput
             setValues={setValues}
@@ -116,9 +117,11 @@ const PersonalData = ({ values, handleChange, setValues }) => {
             name={['phone', 'behance']}
             firstLabel="Телефон"
             secondLabel="Ссылка на Behance"
+            placeholder="+7"
             doubleInput
             ordinaryInputFirst
             ordinaryInputSecond
+            dataMask="phone"
           />
           <DoubleInput
             handleChange={handleChange}
@@ -128,6 +131,7 @@ const PersonalData = ({ values, handleChange, setValues }) => {
             firstLabel="Телеграм"
             secondLabel="Ссылка на GitHub"
             doubleInput
+            placeholder="t.me/name"
             ordinaryInputFirst
             ordinaryInputSecond
           />
