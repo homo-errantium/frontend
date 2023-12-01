@@ -18,7 +18,7 @@ const Recommendations = () => {
 
   return (
     <section className="recommend">
-      <ResumeTitle title="Рекоммендации" />
+      <ResumeTitle title="Рекомендации" />
       {isPersonalDataPage() && (
         <>
           <img

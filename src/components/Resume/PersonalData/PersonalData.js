@@ -20,25 +20,27 @@ import FormInput from '../ResumeComponents/FormInput/FormInput'
 import LanguageInput from '../ResumeComponents/LanguageInput/LanguageInput'
 
 const PersonalData = ({ values, handleChange, setValues }) => {
-  const [number, setNumber] = useState(1)
-  const [languages, setLanguages] = useState([{ id: number }])
-  console.log(number)
+  // const [number, setNumber] = useState(1)
+  const [languages, setLanguages] = useState([{ id: 1 }])
+  // console.log(number)
 
   const addLanguage = () => {
-    setNumber(number + 1)
-    setLanguages([...languages, { id: number }])
+    // setNumber(number + 1)
+    setLanguages([...languages, { id: languages.length + 1 }])
   }
 
   const deleteLanguage = langId => {
     if (languages.length === 1) {
-      setNumber(prevValue => prevValue + 1)
-      setLanguages([{ id: number }])
+      // setNumber(prevValue => prevValue + 1)
+      setLanguages([{ id: 1 }])
     } else {
       const languageToBeRemoved = languages.find(m => langId === m.id)
       setLanguages(languages.filter(item => item.id !== languageToBeRemoved.id))
     }
   }
 
+  console.log(`lang length ${languages.length}`)
+  console.log(`values ${JSON.stringify(values)}`)
   return (
     <section className="personal-data">
       <div className="personal-data__container">
@@ -164,7 +166,7 @@ const PersonalData = ({ values, handleChange, setValues }) => {
               i={lang.id}
               addLanguage={addLanguage}
               deleteLanguage={deleteLanguage}
-              number={number}
+              number={lang.id}
             />
           </div>
         ))}

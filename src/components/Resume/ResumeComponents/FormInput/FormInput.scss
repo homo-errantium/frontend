@@ -20,10 +20,21 @@
 .form-input__field {
   border-radius: 16px;
   border: 1px solid #9f9f9f;
+  outline: #000;
   background: #fff;
   min-height: 22px;
   padding: 12px;
   resize: none;
+}
+
+.form-input__field:active{
+  border-color: #000;
+  outline-offset: 0;
+}
+
+.form-input__field:focus {
+  border-color: #000;
+  outline-offset: 0;
 }
 
 .form-input__field_responsibilities {
