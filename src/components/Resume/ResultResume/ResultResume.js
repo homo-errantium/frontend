@@ -29,9 +29,13 @@ function ResultResume({ values, checkboxValues }) {
         <span className="result-resume__user-date-birth">
           {`Дата рождения: ${absentValues(values.birthday)}`}
         </span>
-        {/* <span className="result-resume__user-place-birth">
-          {`Город проживания: ${values.сity}`}
-        </span> */}
+        <span className="result-resume__user-place-birth">
+          {`Город проживания: ${values.city}`}
+        </span>
+        <br />
+        <span className="result-resume__user-desired-position">
+          {`Желаемая должность: ${values.desired_position}`}
+        </span>
       </div>
       {/* ------блок  фото ------*/}
       <img
@@ -94,8 +98,11 @@ function ResultResume({ values, checkboxValues }) {
         <span className="result-resume__link-Behance">
           {`Behance: ${absentValues(values.behance)}`}
         </span>
+        <span className="result-resume__link-another-site">
+          {`Персональная страница: ${absentValues(values.website_link)}`}
+        </span>
         <span className="result-resume__link-about-user">
-          {`Персональная страница: ${absentValues(values.video_link)}`}
+          {`Видео о себе: ${absentValues(values.video_link)}`}
         </span>
       </div>
       {/* ------ блок навыки ------*/}
