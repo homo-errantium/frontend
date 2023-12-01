@@ -16,6 +16,11 @@
   padding: 12px;
 }
 
+.month__input:disabled {
+  border: 1px solid #9f9f9f;
+  background: #e6e6e6;
+}
+
 .month__input:active{
   border-color: #000;
   outline-offset: 0;

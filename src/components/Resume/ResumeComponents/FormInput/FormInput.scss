@@ -11,7 +11,9 @@
   margin-bottom: 12px;
   text-align: left;
   color: #000;
-  font-family: Open Sans, sans-serif;
+  font-family:
+    Open Sans,
+    sans-serif;
   font-size: 20px;
   font-weight: 400;
   line-height: 1.21;
@@ -27,7 +29,12 @@
   resize: none;
 }
 
-.form-input__field:active{
+.form-input__field:disabled {
+  border: 1px solid #9f9f9f;
+  background: #e6e6e6;
+}
+
+.form-input__field:active {
   border-color: #000;
   outline-offset: 0;
 }
