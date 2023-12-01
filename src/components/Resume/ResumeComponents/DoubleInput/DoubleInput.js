@@ -28,9 +28,25 @@ const DoubleInput = ({
   name,
 }) => {
   const [username, setUsername] = useState('')
+  // function deleteNonLatin(text) {
+  //   return text.replace(/(?!https://t.me//)[^A-Za-z]/ig, '');
+  // }
+  // function deleteNonLatin (text) {
+  //   return text.replace(/[^A-Za-z]|https://t.me//ig, '');
+  //   }
 
   const handleChangeUsername = event => {
-    setUsername(event.target.value)
+    console.log(event.target.value.split('https://t.me/'))
+    if (event.target.value === '') {
+      setUsername('')
+    } else if (event.target.value === 'https://t.me/') {
+      setUsername('')
+    } else if (event.target.value.includes('https://t.me/')) {
+      setUsername(event.target.value)
+    } else {
+      setUsername(`https://t.me/${event.target.value}`)
+    }
+    // setUsername(event.target.value.slice(13))
   }
 
   const maskOptionsPhone = {
@@ -99,20 +115,18 @@ const DoubleInput = ({
           />
         )}
         {maskLinkInputFirst && (
-          <div>
-            <input
-              name={name[0]}
-              onChange={handleChangeUsername}
-              value={username}
-              // value={values[name[0]]}
-              className="double-input__field"
-              disabled={disabled}
-              placeholder={placeholder}
-              // mask={dataMask}
-              type="text"
-            />
-            {username && <value>`https://t.me/{username}`</value>}
-          </div>
+          <input
+            name={name[0]}
+            // onChange={handleChange}
+            onChange={handleChangeUsername}
+            // value={values[name[7]]}
+            value={username}
+            className="double-input__field"
+            disabled={disabled}
+            placeholder={placeholder}
+            // mask={dataMask}
+            type="text"
+          />
         )}
       </div>
       <div className="double-input__right-box">
