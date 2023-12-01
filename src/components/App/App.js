@@ -331,6 +331,8 @@ function App() {
         />
         {/* Попап подтверждения */}
         <PopupConfirmation
+          setCheckboxValues={setCheckboxValues}
+          setValues={setValues}
           isOpen={isConfirmPopupOpen}
           onClose={closeAllPopup}
         />
