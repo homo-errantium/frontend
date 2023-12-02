@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import IMask from 'imask'
 import './DoubleInput.scss'
@@ -18,7 +18,6 @@ const DoubleInput = ({
   placeholder,
   selectedInputFirst,
   ordinaryInputFirst,
-  maskLinkInputFirst,
   selectedInputSecond,
   ordinaryInputSecond,
   optionsInputFirst,
@@ -27,28 +26,6 @@ const DoubleInput = ({
   handleChange,
   name,
 }) => {
-  const [username, setUsername] = useState('')
-  // function deleteNonLatin(text) {
-  //   return text.replace(/(?!https://t.me//)[^A-Za-z]/ig, '');
-  // }
-  // function deleteNonLatin (text) {
-  //   return text.replace(/[^A-Za-z]|https://t.me//ig, '');
-  //   }
-
-  const handleChangeUsername = event => {
-    console.log(event.target.value.split('https://t.me/'))
-    if (event.target.value === '') {
-      setUsername('')
-    } else if (event.target.value === 'https://t.me/') {
-      setUsername('')
-    } else if (event.target.value.includes('https://t.me/')) {
-      setUsername(event.target.value)
-    } else {
-      setUsername(`https://t.me/${event.target.value}`)
-    }
-    // setUsername(event.target.value.slice(13))
-  }
-
   const maskOptionsPhone = {
     mask: '+{7}(000)000-00-00',
   }
@@ -68,7 +45,6 @@ const DoubleInput = ({
   useEffect(() => {
     maskInput('phone', maskOptionsPhone)
     maskInput('date', maskOptionsDate)
-    // maskInput('tgLink', maskOptionsLink)
   })
 
   return (
@@ -106,25 +82,11 @@ const DoubleInput = ({
             name={name[0]}
             onChange={handleChange}
             // value={username}
-            value={values[name[0]]}
+            value={values[name[0]] || ''}
             className="double-input__field"
             disabled={disabled}
             placeholder={placeholder}
             mask={dataMask}
-            type="text"
-          />
-        )}
-        {maskLinkInputFirst && (
-          <input
-            name={name[0]}
-            // onChange={handleChange}
-            onChange={handleChangeUsername}
-            // value={values[name[7]]}
-            value={username}
-            className="double-input__field"
-            disabled={disabled}
-            placeholder={placeholder}
-            // mask={dataMask}
             type="text"
           />
         )}
@@ -190,7 +152,6 @@ DoubleInput.propTypes = {
   placeholder: PropTypes.node,
   selectedInputFirst: PropTypes.bool,
   ordinaryInputFirst: PropTypes.bool,
-  maskLinkInputFirst: PropTypes.bool,
   selectedInputSecond: PropTypes.bool,
   ordinaryInputSecond: PropTypes.bool,
   optionsInputFirst: PropTypes.arrayOf(PropTypes.string),
@@ -209,7 +170,6 @@ DoubleInput.defaultProps = {
   secondLabel: '',
   selectedInputFirst: false,
   ordinaryInputFirst: false,
-  maskLinkInputFirst: false,
   selectedInputSecond: false,
   ordinaryInputSecond: false,
   optionsInputFirst: [],

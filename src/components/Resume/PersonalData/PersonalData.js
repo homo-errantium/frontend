@@ -133,8 +133,8 @@ const PersonalData = ({ values, handleChange, setValues }) => {
             doubleInput
             placeholder="t.me/name"
             dataMask="tgLink"
-            // ordinaryInputFirst
-            maskLinkInputFirst
+            ordinaryInputFirst
+            // maskLinkInputFirst
             ordinaryInputSecond
           />
           <DoubleInput
