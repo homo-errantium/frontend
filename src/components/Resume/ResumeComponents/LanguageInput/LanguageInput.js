@@ -12,10 +12,11 @@ const LanguageInput = ({
   addLanguage,
   deleteLanguage,
   values,
-  handleChange,
-  number,
+  handleLanguageChange,
+  handleLanguageLevelChange,
 }) => {
   const handleDelete = () => deleteLanguage(i)
+
   return (
     <div className="language-input" id={i} key={i}>
       <div className="language-input__left-box">
@@ -29,10 +30,10 @@ const LanguageInput = ({
         </div>
         <div className="language-input__select-wrapper">
           <select
-            name={`language_${number}`}
-            onChange={handleChange}
-            value={values[`language_${number}`]}
-            id={`language_${number}`}
+            name={`language_${i}`}
+            onChange={handleLanguageChange}
+            value={values.language}
+            id={`language_${i}`}
             className="language-input__field"
           >
             <option
@@ -66,10 +67,10 @@ const LanguageInput = ({
         </div>
         <div className="language-input__select-wrapper">
           <select
-            name={`language_level_${number}`}
-            onChange={handleChange}
-            value={values[`language_level_${number}`]}
-            id={`language_level_${number}`}
+            name={`language_level_${i}`}
+            onChange={handleLanguageLevelChange}
+            value={values.level}
+            id={`language_level_${i}`}
             className="language-input__field"
           >
             <option
@@ -117,6 +118,8 @@ LanguageInput.propTypes = {
   i: PropTypes.number.isRequired,
   addLanguage: PropTypes.func,
   deleteLanguage: PropTypes.func,
+  handleLanguageChange: PropTypes.func.isRequired,
+  handleLanguageLevelChange: PropTypes.func.isRequired,
 }
 
 LanguageInput.defaultProps = {

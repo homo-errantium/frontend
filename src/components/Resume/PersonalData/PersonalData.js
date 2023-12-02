@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import './PersonalData.scss'
-import React, { useState } from 'react'
+import React from 'react'
 // import { v4 as uuidv4 } from 'uuid'
 import ResumeTitle from '../ResumeComponents/ResumeTitle/ResumeTitle'
 import DoubleInput from '../ResumeComponents/DoubleInput/DoubleInput'
@@ -19,28 +19,26 @@ import {
 import FormInput from '../ResumeComponents/FormInput/FormInput'
 import LanguageInput from '../ResumeComponents/LanguageInput/LanguageInput'
 
-const PersonalData = ({ values, handleChange, setValues }) => {
-  // const [number, setNumber] = useState(1)
-  const [languages, setLanguages] = useState([{ id: 1 }])
-  // console.log(number)
-
-  const addLanguage = () => {
-    // setNumber(number + 1)
-    setLanguages([...languages, { id: languages.length + 1 }])
+const PersonalData = ({
+  values,
+  handleChange,
+  handleLanguageChange,
+  handleLanguageLevelChange,
+  setValues,
+  addLanguage,
+  // handleDeleteLanguage,
+  setLanguagesAfterDeleting,
+}) => {
+  const deleteLanguage = i => {
+    const languageToBeRemoved = values.languages.find(item => item.id === i)
+    console.log(`to remove: ${JSON.stringify(languageToBeRemoved)}`)
+    const remainingLanguages = values.languages.filter(
+      item => item.id !== languageToBeRemoved.id
+    )
+    setLanguagesAfterDeleting(remainingLanguages)
+    return remainingLanguages
   }
 
-  const deleteLanguage = langId => {
-    if (languages.length === 1) {
-      // setNumber(prevValue => prevValue + 1)
-      setLanguages([{ id: 1 }])
-    } else {
-      const languageToBeRemoved = languages.find(m => langId === m.id)
-      setLanguages(languages.filter(item => item.id !== languageToBeRemoved.id))
-    }
-  }
-
-  console.log(`lang length ${languages.length}`)
-  console.log(`values ${JSON.stringify(values)}`)
   return (
     <section className="personal-data">
       <div className="personal-data__container">
@@ -152,11 +150,12 @@ const PersonalData = ({ values, handleChange, setValues }) => {
           />
         </div>
         <ResumeTitle title="Владение языками" />
-        {languages.map(lang => (
+        {values.languages.map(lang => (
           <div className="personal-data__language-form" key={lang.id}>
             <LanguageInput
-              values={values}
-              handleChange={handleChange}
+              values={lang}
+              handleLanguageChange={handleLanguageChange}
+              handleLanguageLevelChange={handleLanguageLevelChange}
               setValues={setValues}
               firstLabel="Язык"
               secondLabel="Уровень"
@@ -166,7 +165,6 @@ const PersonalData = ({ values, handleChange, setValues }) => {
               i={lang.id}
               addLanguage={addLanguage}
               deleteLanguage={deleteLanguage}
-              number={lang.id}
             />
           </div>
         ))}
@@ -174,5 +172,12 @@ const PersonalData = ({ values, handleChange, setValues }) => {
     </section>
   )
 }
+
+// PersonalData.propTypes = {
+//   values: PropTypes.arrayOf.isRequired,
+//   handleChange: PropTypes.func.isRequired,
+//   setValues: PropTypes.func.isRequired,
+//   addLanguage: PropTypes.func.isRequired,
+// }
 
 export default PersonalData

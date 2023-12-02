@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.scss'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
@@ -52,9 +52,46 @@ function App() {
 
   // Записываем в объект данные из полей
   const [values, setValues] = React.useState(
-    JSON.parse(localStorage.getItem('formData')) || {}
+    JSON.parse(localStorage.getItem('formData')) || {
+      languages: [{ id: 1 }],
+      jobs: {},
+    }
   )
-  console.log(values)
+
+  // LANGUAGES:
+  const addLanguage = () => {
+    setValues({
+      ...values,
+      languages: [...values.languages, { id: values.languages.length + 1 }],
+    })
+  }
+
+  const handleLanguageChange = evt => {
+    const { name, value } = evt.target
+    const index = Number(name.slice(9))
+    const languageToBeChanged = values.languages.find(m => m.id === index)
+    languageToBeChanged.language = value
+  }
+
+  const handleLanguageLevelChange = evt => {
+    const { name, value } = evt.target
+    const index = Number(name.slice(15))
+    const languageToBeChanged = values.languages.find(m => m.id === index)
+    languageToBeChanged.level = value
+  }
+
+  const [languagesAfterDeleting, setLanguagesAfterDeleting] = useState(
+    values.languages
+  )
+
+  useEffect(() => {
+    if (languagesAfterDeleting.length === 0) {
+      setValues({ ...values, languages: [{ id: 1 }] })
+    } else {
+      setValues({ ...values, languages: languagesAfterDeleting })
+    }
+  }, [languagesAfterDeleting])
+
   // // Если опыт есть, поля активны. Если нет, поля деактивируются:
   const [hasExperience, setHasExperience] = React.useState(
     JSON.parse(localStorage.getItem('hasExperience') || true)
@@ -80,7 +117,6 @@ function App() {
   // Функция, которая записывает данные полей форм
   const handleChange = evt => {
     const { name, value } = evt.target
-    console.log(evt.target.select)
     setValues({ ...values, [name]: value })
   }
   // Сохраняем данные полей в локалное хранилище
@@ -144,7 +180,11 @@ function App() {
         <PersonalData
           values={values}
           handleChange={handleChange}
+          handleLanguageChange={handleLanguageChange}
+          handleLanguageLevelChange={handleLanguageLevelChange}
           setValues={setValues}
+          addLanguage={addLanguage}
+          setLanguagesAfterDeleting={setLanguagesAfterDeleting}
         />
       ),
       id: 1,
