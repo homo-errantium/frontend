@@ -20,8 +20,10 @@ const Job = ({
   setValues,
   setAllTillPresent,
   allTillPresent,
+  setDuties,
 }) => {
   const handleDelete = () => deleteExperience(i)
+
   return (
     <>
       <div className="experience__job-container" id={i}>
@@ -79,6 +81,7 @@ const Job = ({
           extraInputClass="responsibilities"
           disabled={!hasExperience}
           setValues={setValues}
+          setDuties={setDuties}
         />
       </div>
       <div className="job__buttons-container">
@@ -122,6 +125,7 @@ Job.propTypes = {
   allTillPresent: PropTypes.shape({
     value: PropTypes.bool,
   }),
+  setDuties: PropTypes.func,
 }
 
 Job.defaultProps = {
@@ -133,6 +137,7 @@ Job.defaultProps = {
   setValues: () => {},
   setAllTillPresent: () => {},
   allTillPresent: {},
+  setDuties: () => {},
 }
 
 export default Job

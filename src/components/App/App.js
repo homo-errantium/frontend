@@ -93,6 +93,9 @@ function App() {
     }
   }, [languagesAfterDeleting])
 
+  // RECOMMENDATIONS:
+  const [duties, setDuties] = useState(false)
+
   // // Если опыт есть, поля активны. Если нет, поля деактивируются:
   const [hasExperience, setHasExperience] = React.useState(
     JSON.parse(localStorage.getItem('hasExperience') || true)
@@ -205,6 +208,7 @@ function App() {
           setValues={setValues}
           setAllTillPresent={setAllTillPresent}
           allTillPresent={allTillPresent}
+          setDuties={setDuties}
         />
       ),
       id: 2,
@@ -338,6 +342,7 @@ function App() {
                 // setCompletedStepsAbout={setCompletedStepsAbout}
                 // setCompletedLayouts={setCompletedLayouts}
                 onClick={handleClick}
+                duties={duties}
               />
             }
           >

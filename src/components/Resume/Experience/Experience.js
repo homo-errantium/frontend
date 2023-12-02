@@ -21,6 +21,7 @@ const Experience = ({
   setAllTillPresent,
   allTillPresent,
   setCheckboxValues,
+  setDuties,
 }) => {
   // Если появился добавленный опыт, основная кнопка "Добавить" удаляется
   const [noAddedExperience, setNoAddedExperience] = useState(true)
@@ -120,6 +121,7 @@ const Experience = ({
           extraInputClass="responsibilities"
           disabled={!hasExperience}
           setValues={setValues}
+          setDuties={setDuties}
         />
         {addedExperience.map(experience => (
           <Job
@@ -137,6 +139,7 @@ const Experience = ({
             setAllTillPresent={setAllTillPresent}
             allTillPresent={allTillPresent}
             setCheckboxValues={setCheckboxValues}
+            setDuties={setDuties}
           />
         ))}
         {noAddedExperience && (
@@ -164,6 +167,7 @@ Experience.propTypes = {
     value: PropTypes.bool,
   }),
   setCheckboxValues: PropTypes.func,
+  setDuties: PropTypes.func.isRequired,
 }
 
 Experience.defaultProps = {
