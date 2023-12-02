@@ -26,6 +26,9 @@ const PersonalData = ({
   addLanguage,
   setLanguagesAfterDeleting,
   setLanguagesChanges,
+  errors,
+  handleEmailChange,
+  handleBirthdayChange,
 }) => {
   const deleteLanguage = i => {
     const languageToBeRemoved = values.languages.find(item => item.id === i)
@@ -72,7 +75,7 @@ const PersonalData = ({
             ordinaryInputFirst
           />
           <DoubleInput
-            handleChange={handleChange}
+            handleChange={handleBirthdayChange}
             values={values}
             setValues={setValues}
             name={['birthday']}
@@ -80,6 +83,7 @@ const PersonalData = ({
             placeholder="ДД.ММ.ГГГГ"
             ordinaryInputFirst
             dataMask="date"
+            errors={errors}
           />
           <DoubleInput
             setValues={setValues}
@@ -114,12 +118,13 @@ const PersonalData = ({
         <div className="personal-data__form">
           <FormInput
             values={values}
-            handleChange={handleChange}
+            handleChange={handleEmailChange}
             setValues={setValues}
             name={['email']}
             label="Почта"
             tip
             tipText={EMAIL_TIP}
+            errors={errors}
           />
           <DoubleInput
             handleChange={handleChange}
