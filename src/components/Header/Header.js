@@ -128,7 +128,7 @@ function Header({
             className="header__button"
             type="button"
             label="button"
-            onClick={() => navigate('/resume')}
+            onClick={() => navigate('/resume/personal-data')}
           >
             Создать резюме
           </button>
