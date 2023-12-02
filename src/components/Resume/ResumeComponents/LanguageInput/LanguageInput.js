@@ -33,6 +33,7 @@ const LanguageInput = ({
             name={`language_${i}`}
             onChange={handleLanguageChange}
             value={values.language}
+            defaultValue=""
             id={`language_${i}`}
             className="language-input__field"
           >
@@ -40,7 +41,6 @@ const LanguageInput = ({
               value=""
               className="double-input__option"
               disabled
-              selected
               hidden
               aria-label="Выберите язык"
             />
@@ -70,6 +70,7 @@ const LanguageInput = ({
             name={`language_level_${i}`}
             onChange={handleLanguageLevelChange}
             value={values.level}
+            defaultValue=""
             id={`language_level_${i}`}
             className="language-input__field"
           >
@@ -77,7 +78,6 @@ const LanguageInput = ({
               value=""
               className="double-input__option"
               disabled
-              selected
               hidden
               aria-label="Выберите уровень знания языка"
             />
