@@ -115,7 +115,7 @@ LanguageInput.propTypes = {
   secondLabel: PropTypes.string,
   optionsInputFirst: PropTypes.arrayOf(PropTypes.string),
   optionsInputSecond: PropTypes.arrayOf(PropTypes.string),
-  i: PropTypes.number.isRequired,
+  i: PropTypes.string.isRequired,
   addLanguage: PropTypes.func,
   deleteLanguage: PropTypes.func,
   handleLanguageChange: PropTypes.func.isRequired,

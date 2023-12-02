@@ -1,6 +1,7 @@
 /* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react'
 import './App.scss'
+import { v4 as uuidv4 } from 'uuid'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import Main from '../Main/Main'
@@ -53,7 +54,7 @@ function App() {
   // Записываем в объект данные из полей
   const [values, setValues] = React.useState(
     JSON.parse(localStorage.getItem('formData')) || {
-      languages: [{ id: 1 }],
+      languages: [{ id: uuidv4() }],
       jobs: {},
     }
   )
@@ -62,20 +63,20 @@ function App() {
   const addLanguage = () => {
     setValues({
       ...values,
-      languages: [...values.languages, { id: values.languages.length + 1 }],
+      languages: [...values.languages, { id: uuidv4() }],
     })
   }
 
   const handleLanguageChange = evt => {
     const { name, value } = evt.target
-    const index = Number(name.slice(9))
+    const index = name.slice(9)
     const languageToBeChanged = values.languages.find(m => m.id === index)
     languageToBeChanged.language = value
   }
 
   const handleLanguageLevelChange = evt => {
     const { name, value } = evt.target
-    const index = Number(name.slice(15))
+    const index = name.slice(15)
     const languageToBeChanged = values.languages.find(m => m.id === index)
     languageToBeChanged.level = value
   }
@@ -86,7 +87,7 @@ function App() {
 
   useEffect(() => {
     if (languagesAfterDeleting.length === 0) {
-      setValues({ ...values, languages: [{ id: 1 }] })
+      setValues({ ...values, languages: [{ id: uuidv4() }] })
     } else {
       setValues({ ...values, languages: languagesAfterDeleting })
     }
