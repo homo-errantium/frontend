@@ -12,10 +12,11 @@ const LanguageInput = ({
   addLanguage,
   deleteLanguage,
   values,
-  handleChange,
-  number,
+  handleLanguageChange,
+  handleLanguageLevelChange,
 }) => {
   const handleDelete = () => deleteLanguage(i)
+
   return (
     <div className="language-input" id={i} key={i}>
       <div className="language-input__left-box">
@@ -29,17 +30,17 @@ const LanguageInput = ({
         </div>
         <div className="language-input__select-wrapper">
           <select
-            name={`language_${number}`}
-            onChange={handleChange}
-            value={values[`language_${number}`]}
-            id={`language_${number}`}
+            name={`language_${i}`}
+            onChange={handleLanguageChange}
+            value={values.language}
+            defaultValue=""
+            id={`language_${i}`}
             className="language-input__field"
           >
             <option
               value=""
               className="double-input__option"
               disabled
-              selected
               hidden
               aria-label="Выберите язык"
             />
@@ -66,17 +67,17 @@ const LanguageInput = ({
         </div>
         <div className="language-input__select-wrapper">
           <select
-            name={`language_level_${number}`}
-            onChange={handleChange}
-            value={values[`language_level_${number}`]}
-            id={`language_level_${number}`}
+            name={`language_level_${i}`}
+            onChange={handleLanguageLevelChange}
+            value={values.level}
+            defaultValue=""
+            id={`language_level_${i}`}
             className="language-input__field"
           >
             <option
               value=""
               className="double-input__option"
               disabled
-              selected
               hidden
               aria-label="Выберите уровень знания языка"
             />
@@ -114,9 +115,11 @@ LanguageInput.propTypes = {
   secondLabel: PropTypes.string,
   optionsInputFirst: PropTypes.arrayOf(PropTypes.string),
   optionsInputSecond: PropTypes.arrayOf(PropTypes.string),
-  i: PropTypes.number.isRequired,
+  i: PropTypes.string.isRequired,
   addLanguage: PropTypes.func,
   deleteLanguage: PropTypes.func,
+  handleLanguageChange: PropTypes.func.isRequired,
+  handleLanguageLevelChange: PropTypes.func.isRequired,
 }
 
 LanguageInput.defaultProps = {

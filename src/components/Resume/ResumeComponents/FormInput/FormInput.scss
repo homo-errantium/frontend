@@ -1,4 +1,5 @@
 .form-input {
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -11,7 +12,9 @@
   margin-bottom: 12px;
   text-align: left;
   color: #000;
-  font-family: Open Sans, sans-serif;
+  font-family:
+    Open Sans,
+    sans-serif;
   font-size: 20px;
   font-weight: 400;
   line-height: 1.21;
@@ -20,10 +23,26 @@
 .form-input__field {
   border-radius: 16px;
   border: 1px solid #9f9f9f;
+  outline: #000;
   background: #fff;
-  min-height: 22px;
+  height: 22px;
   padding: 12px;
   resize: none;
+}
+
+.form-input__field:disabled {
+  border: 1px solid #9f9f9f;
+  background: #e6e6e6;
+}
+
+.form-input__field:active {
+  border-color: #000;
+  outline-offset: 0;
+}
+
+.form-input__field:focus {
+  border-color: #000;
+  outline-offset: 0;
 }
 
 .form-input__field_responsibilities {
