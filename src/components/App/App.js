@@ -170,7 +170,7 @@ function App() {
     setErrors({ ...errors, [name]: evt.target.validationMessage })
   }
   // INPUTS  VALIDATION:
-  const handleEmailChange = evt => {
+  const handleChangeWithValidation = evt => {
     handleChange(evt)
     const { name, value } = evt.target
     if (name === 'email' && !EMAIL_REGEX.test(value)) {
@@ -185,12 +185,6 @@ function App() {
         email: 'Email должен быть длиной от 5 до 50 символов',
       })
     }
-  }
-
-  const handleBirthdayChange = evt => {
-    handleChange(evt)
-    const { name, value } = evt.target
-    console.log(evt.target.value)
     if (name === 'birthday' && !BIRTHDAY_REGEX.test(value)) {
       setErrors({
         ...errors,
@@ -198,6 +192,7 @@ function App() {
       })
     }
   }
+
   // Сохраняем данные полей в локалное хранилище
   const handleClick = () => {
     const checkboxData = { ...checkboxValues }
@@ -266,8 +261,7 @@ function App() {
           addLanguage={addLanguage}
           setLanguagesAfterDeleting={setLanguagesAfterDeleting}
           errors={errors}
-          handleEmailChange={handleEmailChange}
-          handleBirthdayChange={handleBirthdayChange}
+          handleChangeWithValidation={handleChangeWithValidation}
         />
       ),
       id: 1,
