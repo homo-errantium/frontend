@@ -12,10 +12,15 @@ const LanguageInput = ({
   addLanguage,
   deleteLanguage,
   values,
+  // handleLanguageChange,
+  // handleLanguageLevelChange,
   handleLanguageChange,
-  handleLanguageLevelChange,
 }) => {
   const handleDelete = () => deleteLanguage(i)
+  const handleChange = evt => {
+    const { name, value } = evt.target
+    handleLanguageChange({ i, name, value })
+  }
 
   return (
     <div className="language-input" id={i} key={i}>
@@ -31,9 +36,9 @@ const LanguageInput = ({
         <div className="language-input__select-wrapper">
           <select
             name={`language_${i}`}
-            onChange={handleLanguageChange}
-            value={values.language}
-            defaultValue=""
+            onChange={handleChange}
+            value={values.language || ''}
+            // defaultValue=""
             id={`language_${i}`}
             className="language-input__field"
           >
@@ -68,9 +73,9 @@ const LanguageInput = ({
         <div className="language-input__select-wrapper">
           <select
             name={`language_level_${i}`}
-            onChange={handleLanguageLevelChange}
-            value={values.level}
-            defaultValue=""
+            onChange={handleChange}
+            value={values.level || ''}
+            // defaultValue=""
             id={`language_level_${i}`}
             className="language-input__field"
           >
@@ -118,8 +123,9 @@ LanguageInput.propTypes = {
   i: PropTypes.string.isRequired,
   addLanguage: PropTypes.func,
   deleteLanguage: PropTypes.func,
+  // handleLanguageChange: PropTypes.func.isRequired,
+  // handleLanguageLevelChange: PropTypes.func.isRequired,
   handleLanguageChange: PropTypes.func.isRequired,
-  handleLanguageLevelChange: PropTypes.func.isRequired,
 }
 
 LanguageInput.defaultProps = {

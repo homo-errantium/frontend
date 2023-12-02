@@ -22,21 +22,32 @@ import LanguageInput from '../ResumeComponents/LanguageInput/LanguageInput'
 const PersonalData = ({
   values,
   handleChange,
-  handleLanguageChange,
-  handleLanguageLevelChange,
   setValues,
   addLanguage,
-  // handleDeleteLanguage,
   setLanguagesAfterDeleting,
+  setLanguagesChanges,
 }) => {
   const deleteLanguage = i => {
     const languageToBeRemoved = values.languages.find(item => item.id === i)
-    console.log(`to remove: ${JSON.stringify(languageToBeRemoved)}`)
     const remainingLanguages = values.languages.filter(
       item => item.id !== languageToBeRemoved.id
     )
     setLanguagesAfterDeleting(remainingLanguages)
     return remainingLanguages
+  }
+
+  const handleLanguageChange = ({ i, name, value }) => {
+    const languageToBeChanged = values.languages.find(item => item.id === i)
+    const indexToReplace = values.languages.findIndex(item => item.id === i)
+    const copy = { ...languageToBeChanged }
+    if (name.slice(0, 14) === 'language_level') {
+      copy.level = value
+    } else {
+      copy.language = value
+    }
+    const newLanguages = [...values.languages]
+    newLanguages[indexToReplace] = copy
+    setLanguagesChanges(newLanguages)
   }
 
   return (
@@ -155,7 +166,6 @@ const PersonalData = ({
             <LanguageInput
               values={lang}
               handleLanguageChange={handleLanguageChange}
-              handleLanguageLevelChange={handleLanguageLevelChange}
               setValues={setValues}
               firstLabel="Язык"
               secondLabel="Уровень"
@@ -172,12 +182,5 @@ const PersonalData = ({
     </section>
   )
 }
-
-// PersonalData.propTypes = {
-//   values: PropTypes.arrayOf.isRequired,
-//   handleChange: PropTypes.func.isRequired,
-//   setValues: PropTypes.func.isRequired,
-//   addLanguage: PropTypes.func.isRequired,
-// }
 
 export default PersonalData

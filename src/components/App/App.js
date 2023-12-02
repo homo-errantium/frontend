@@ -66,20 +66,27 @@ function App() {
       languages: [...values.languages, { id: uuidv4() }],
     })
   }
+  const [languagesAfterChanges, setLanguagesChanges] = useState(
+    values.languages
+  )
 
-  const handleLanguageChange = evt => {
-    const { name, value } = evt.target
-    const index = name.slice(9)
-    const languageToBeChanged = values.languages.find(m => m.id === index)
-    languageToBeChanged.language = value
-  }
+  useEffect(() => {
+    setValues({ ...values, languages: languagesAfterChanges })
+  }, [languagesAfterChanges])
 
-  const handleLanguageLevelChange = evt => {
-    const { name, value } = evt.target
-    const index = name.slice(15)
-    const languageToBeChanged = values.languages.find(m => m.id === index)
-    languageToBeChanged.level = value
-  }
+  // const handleLanguageChange = evt => {
+  //   const { name, value } = evt.target
+  //   const index = name.slice(9)
+  //   const languageToBeChanged = values.languages.find(m => m.id === index)
+  //   languageToBeChanged.language = value
+  // }
+
+  // const handleLanguageLevelChange = evt => {
+  //   const { name, value } = evt.target
+  //   const index = name.slice(15)
+  //   const languageToBeChanged = values.languages.find(m => m.id === index)
+  //   languageToBeChanged.level = value
+  // }
 
   const [languagesAfterDeleting, setLanguagesAfterDeleting] = useState(
     values.languages
@@ -184,8 +191,9 @@ function App() {
         <PersonalData
           values={values}
           handleChange={handleChange}
-          handleLanguageChange={handleLanguageChange}
-          handleLanguageLevelChange={handleLanguageLevelChange}
+          // handleLanguageChange={handleLanguageChange}
+          // handleLanguageLevelChange={handleLanguageLevelChange}
+          setLanguagesChanges={setLanguagesChanges}
           setValues={setValues}
           addLanguage={addLanguage}
           setLanguagesAfterDeleting={setLanguagesAfterDeleting}
