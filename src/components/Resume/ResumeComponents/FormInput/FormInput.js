@@ -14,6 +14,7 @@ const FormInput = ({
   values,
   handleChange,
   setValues,
+  setDuties,
 }) => {
   // console.log(`${name}: ${values[name]}`)
   // console.log(name)
@@ -29,6 +30,14 @@ const FormInput = ({
       }))
     }
   }, [disabled])
+
+  const handleFocus = () => {
+    setDuties(true)
+  }
+
+  const handleBlur = () => {
+    setDuties(false)
+  }
 
   return (
     <div className="form-input">
@@ -48,6 +57,8 @@ const FormInput = ({
           'form-input__field',
           extraInputClass && `form-input__field_${extraInputClass}`
         )}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
       />
     </div>
   )
@@ -66,6 +77,7 @@ FormInput.propTypes = {
     PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ),
   setValues: PropTypes.func,
+  setDuties: PropTypes.func,
 }
 
 FormInput.defaultProps = {
@@ -77,6 +89,7 @@ FormInput.defaultProps = {
   handleChange: () => {},
   name: [],
   setValues: () => {},
+  setDuties: () => {},
 }
 
 export default FormInput
