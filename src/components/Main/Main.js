@@ -31,7 +31,7 @@ function Main({ isLoggedIn, onOpenPopup }) {
             <button
               type="button"
               className="main__create-button link"
-              onClick={() => navigate('/resume')}
+              onClick={() => navigate('/resume/personal-data')}
             >
               Создать резюме
             </button>

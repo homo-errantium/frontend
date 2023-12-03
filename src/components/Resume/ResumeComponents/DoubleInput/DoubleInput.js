@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import IMask from 'imask'
+import classNames from 'classnames'
 import './DoubleInput.scss'
 import Tip from '../Tip/Tip'
 
@@ -25,6 +26,7 @@ const DoubleInput = ({
   values,
   handleChange,
   name,
+  errors,
 }) => {
   const maskOptionsPhone = {
     mask: '+{7}(000)000-00-00',
@@ -33,6 +35,7 @@ const DoubleInput = ({
     mask: Date,
     min: new Date(1900, 0, 1),
   }
+
   const maskInput = (dataValue, options) => {
     const inputElements = document.querySelectorAll(`[mask="${dataValue}"]`) // ищем поля ввода по селектору с переданным значением data-атрибута
     if (!inputElements) return // если таких полей ввода нет, прерываем функцию
@@ -80,13 +83,19 @@ const DoubleInput = ({
           <input
             name={name[0]}
             onChange={handleChange}
-            value={values[name[0]]}
-            className="double-input__field"
+            value={values[name[0]] || ''}
+            className={classNames(
+              'double-input__field',
+              errors[name[0]] && 'double-input__field_error'
+            )}
             disabled={disabled}
             placeholder={placeholder}
             mask={dataMask}
             type="text"
           />
+        )}
+        {errors && (
+          <span className="form-input__input-error">{errors[name[0]]}</span>
         )}
       </div>
       <div className="double-input__right-box">
@@ -106,10 +115,17 @@ const DoubleInput = ({
                 <select
                   name={name[1]}
                   onChange={handleChange}
-                  value={values[name[1]]}
+                  value={values[name[1]] || ''}
                   id={values[name[1]]}
                   className="double-input__field double-input__field_selected"
                 >
+                  <option
+                    value=""
+                    className="double-input__option"
+                    disabled
+                    hidden
+                    aria-label="Выберите нужную опцию"
+                  />
                   {optionsInputSecond.map(value => (
                     <option
                       value={value}
@@ -127,9 +143,15 @@ const DoubleInput = ({
                 name={name[1]}
                 onChange={handleChange}
                 value={values[name[1]]}
-                className="double-input__field double-input__field_short"
+                className={classNames(
+                  'double-input__field double-input__field_short',
+                  errors[name[1]] && 'double-input__field_error'
+                )}
                 disabled={disabled}
               />
+            )}
+            {errors && (
+              <span className="form-input__input-error">{errors[name[1]]}</span>
             )}
           </>
         )}
@@ -155,6 +177,7 @@ DoubleInput.propTypes = {
   optionsInputFirst: PropTypes.arrayOf(PropTypes.string),
   optionsInputSecond: PropTypes.arrayOf(PropTypes.string),
   dataMask: PropTypes.string,
+  errors: PropTypes.objectOf(PropTypes.string),
 }
 
 DoubleInput.defaultProps = {
@@ -173,6 +196,7 @@ DoubleInput.defaultProps = {
   optionsInputFirst: [],
   optionsInputSecond: [],
   dataMask: '',
+  errors: {},
 }
 
 export default DoubleInput

@@ -1,6 +1,7 @@
 /* eslint-disable array-callback-return */
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.scss'
+import { v4 as uuidv4 } from 'uuid'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import Main from '../Main/Main'
@@ -11,6 +12,16 @@ import Register from '../Register/Register'
 import Login from '../Login/Login'
 import Profile from '../Profile/Profile'
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
+import {
+  NAME_REGEX,
+  EMAIL_REGEX,
+  BIRTHDAY_REGEX,
+  COMPANY_NAME_REGEX,
+  JOB_NAME_REGEX,
+  YEAR_REGEX,
+  DUTIES_REGEX,
+  SITE_REGEX,
+} from '../../constants/regex'
 // import About from '../Resume/About/About'
 // import Education from '../Resume/Education/Education'
 import Experience from '../Resume/Experience/Experience'
@@ -51,11 +62,106 @@ function App() {
 
   // --------------------------- Работа с данными через локальное хранилище -----------------------
 
+  // const [addedExperience, setAddedExperience] = React.useState([])
   // Записываем в объект данные из полей
   const [values, setValues] = React.useState(
-    JSON.parse(localStorage.getItem('formData')) || {}
+    JSON.parse(localStorage.getItem('formData')) || {
+      languages: [{ id: uuidv4() }],
+      jobs: [],
+    }
+    // {
+    //   languages: [
+    //     {
+    //       id: '14fd7a7e-5c9d-4551-8a41-24a27be682bb',
+    //       language: 'Английский',
+    //       level: 'B1',
+    //     },
+    //     {
+    //       id: '1842875f-cdce-422e-acad-157bfc6454ec',
+    //       language: 'B1',
+    //       level: 'B2',
+    //     },
+    //   ],
+    //   jobs: {},
+    //   month_work_end: '',
+    //   month_work_start: 6,
+    //   year_work_start: '2023',
+    //   year_work_end: '',
+    //   company: 'Яндекс Крауд / Специалист',
+    //   company_website: 'https://yandex.ru/project/remote-work/',
+    //   current_position: 'Специалист',
+    //   duties: `Разметка видео и изображений; для обучения ИИ в в программах CVAT, Supervisely;
+    //   Проверка разметки на наличие нарушений. Пользовательское тестирование.
+    //   `,
+    //   name: 'Павел',
+    //   surname: 'Чурунов',
+    //   birthday: '27.11.1987',
+    //   city: 'г. Москва',
+    //   desired_position: 'Аналитик',
+    //   email: 'ChPavel@mail.ru',
+    //   telegram: 't.me/chpavel',
+    //   github: 'https://github.com/cakamup1',
+    //   level_knowledge: 'Middle',
+    //   work_status: 'Принимаю предложения',
+    //   phone: '+7(916)545-43-32',
+    // }
   )
-  console.log(values)
+  // Функция, которая записывает данные дополнительных полей опыта работы
+  const handleAddJobChange = evt => {
+    const { name, value, id } = evt.target
+    const updatedJobs = values.jobs.map(job => {
+      if (job.id === id) {
+        return { ...job, [name]: value, id }
+      }
+      return job
+    })
+    setValues({ ...values, jobs: updatedJobs })
+  }
+
+  // LANGUAGES:
+  const addLanguage = () => {
+    setValues({
+      ...values,
+      languages: [...values.languages, { id: uuidv4() }],
+    })
+  }
+  const [languagesAfterChanges, setLanguagesChanges] = useState(
+    values.languages
+  )
+
+  useEffect(() => {
+    setValues({ ...values, languages: languagesAfterChanges })
+  }, [languagesAfterChanges])
+
+  // const handleLanguageChange = evt => {
+  //   const { name, value } = evt.target
+  //   const index = name.slice(9)
+  //   const languageToBeChanged = values.languages.find(m => m.id === index)
+  //   languageToBeChanged.language = value
+  // }
+
+  // const handleLanguageLevelChange = evt => {
+  //   const { name, value } = evt.target
+  //   const index = name.slice(15)
+  //   const languageToBeChanged = values.languages.find(m => m.id === index)
+  //   languageToBeChanged.level = value
+  // }
+
+  const [languagesAfterDeleting, setLanguagesAfterDeleting] = useState(
+    values.languages
+  )
+
+  useEffect(() => {
+    if (languagesAfterDeleting.length === 0) {
+      setValues({ ...values, languages: [{ id: uuidv4() }] })
+    } else {
+      setValues({ ...values, languages: languagesAfterDeleting })
+    }
+  }, [languagesAfterDeleting])
+
+  // RECOMMENDATIONS:
+  const [duties, setDuties] = useState(false)
+
   // // Если опыт есть, поля активны. Если нет, поля деактивируются:
   const [hasExperience, setHasExperience] = React.useState(
     JSON.parse(localStorage.getItem('hasExperience') || true)
@@ -77,13 +183,229 @@ function App() {
       [name]: !prevValues[name],
     }))
   }
-
+  const [errors, setErrors] = useState({})
+  function deleteNonLatin(text) {
+    return text.replace(/[^A-Za-z0-9:_//.]/gi, '')
+  }
+  function checkTgInput(name, value) {
+    const cleanValue = deleteNonLatin(value)
+    if (cleanValue === '') {
+      setValues({ ...values, [name]: '' })
+    } else if (cleanValue === 'https://t.me/') {
+      setValues({ ...values, [name]: '' })
+    } else if (cleanValue.includes('https://t.me/')) {
+      setValues({ ...values, [name]: cleanValue })
+    } else {
+      setValues({ ...values, [name]: `https://t.me/${cleanValue}` })
+    }
+  }
   // Функция, которая записывает данные полей форм
   const handleChange = evt => {
     const { name, value } = evt.target
     console.log(evt.target.select)
-    setValues({ ...values, [name]: value })
+    const cleanValue = deleteNonLatin(value)
+    if (name === 'telegram') {
+      checkTgInput(name, cleanValue)
+    } else {
+      setValues({ ...values, [name]: value })
+    }
+    setErrors({ ...errors, [name]: evt.target.validationMessage })
   }
+  // INPUTS  VALIDATION:
+  const handleChangeWithValidation = evt => {
+    handleChange(evt)
+    const { name, value } = evt.target
+    if (name === 'name' && !NAME_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        name: 'Имя может быть введено только кириллицей. Допускаются пробелы и дефисы',
+      })
+    }
+    if (
+      name === 'name' &&
+      (evt.target.value.length > 50 || evt.target.value.length < 2)
+    ) {
+      setErrors({
+        ...errors,
+        name: 'Имя должно быть длиной от 2 до 50 символов',
+      })
+    }
+    if (name === 'surname' && !NAME_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        surname:
+          'Фамилия может быть введена только кириллицей. Допускаются пробелы и дефисы',
+      })
+    }
+    if (
+      name === 'surname' &&
+      (evt.target.value.length > 50 || evt.target.value.length < 1)
+    ) {
+      setErrors({
+        ...errors,
+        surname: 'Фамилия должна быть длиной от 1 до 50 символов',
+      })
+    }
+    if (name === 'birthday' && !BIRTHDAY_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        birthday: 'Дата рождения введена некорректно',
+      })
+    }
+    // указанный год в дате рождениия больше текущего:
+    const currentYear = new Date().getFullYear()
+    if (name === 'birthday' && value.slice(6, 10) > currentYear) {
+      setErrors({
+        ...errors,
+        birthday: 'Путешествуете во времени?',
+      })
+    }
+    if (name === 'city' && !NAME_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        city: 'Название города может быть введено только кириллицей. Допускаются пробелы и дефисы',
+      })
+    }
+    if (
+      name === 'city' &&
+      (evt.target.value.length > 50 || evt.target.value.length < 2)
+    ) {
+      setErrors({
+        ...errors,
+        city: 'Название города должно быть длиной от 2 до 50 символов',
+      })
+    }
+    if (name === 'desired_position' && !NAME_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        desired_position:
+          'Название должности может быть введено только кириллицей. Допускаются пробелы и дефисы',
+      })
+    }
+    if (
+      name === 'desired_position' &&
+      (evt.target.value.length > 50 || evt.target.value.length < 2)
+    ) {
+      setErrors({
+        ...errors,
+        desired_position:
+          'Название должности должно быть длиной от 2 до 50 символов',
+      })
+    }
+    if (name === 'email' && !EMAIL_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        email: 'Введите email в формате address@domain.com',
+      })
+    }
+    if (name === 'email' && evt.target.value.length > 50) {
+      setErrors({
+        ...errors,
+        email: 'Email должен быть длиной от 5 до 50 символов',
+      })
+    }
+    if (name === 'phone' && evt.target.value.length < 16) {
+      setErrors({
+        ...errors,
+        phone: 'Введите полный номер телефона',
+      })
+    }
+    if (
+      name === 'company' &&
+      (evt.target.value.length > 50 || evt.target.value.length < 2)
+    ) {
+      setErrors({
+        ...errors,
+        company: 'Название компании должно быть длиной от 2 до 50 символов',
+      })
+    }
+    if (name === 'company' && !COMPANY_NAME_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        company:
+          'В названии компании допускаются только буквы, цифры, кавычки, пробелы и дефисы',
+      })
+    }
+    if (
+      name === 'current_position' &&
+      (evt.target.value.length > 50 || evt.target.value.length < 2)
+    ) {
+      setErrors({
+        ...errors,
+        current_position:
+          'Название должности должно быть длиной от 2 до 50 символов',
+      })
+    }
+    if (name === 'current_position' && !JOB_NAME_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        current_position:
+          'В названии должности допускаются только буквы, цифры, пробелы и дефисы',
+      })
+    }
+    if (name === 'year_work_start' && !YEAR_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        year_work_start: 'Введите год в формате ГГГГ (например, 2020)',
+      })
+    }
+    if (name === 'year_work_end' && !YEAR_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        year_work_end: 'Введите год в формате ГГГГ (например, 2020)',
+      })
+    }
+    if (
+      name === 'duties' &&
+      (evt.target.value.length > 100 || evt.target.value.length < 2)
+    ) {
+      setErrors({
+        ...errors,
+        duties: 'Описание обязанностей должно быть длиной от 2 до 100 символов',
+      })
+    }
+    if (name === 'duties' && !DUTIES_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        duties:
+          'Описание обязанностей может быть введено только кириллицей. Допускаются цифры, пробелы и дефисы',
+      })
+    }
+    if (name === 'company_website' && !SITE_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        company_website:
+          'Сайт введен некорректно. Адрес должен начинаться с https://',
+      })
+    }
+    if (name === 'website_link' && !SITE_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        website_link:
+          'Сайт введен некорректно. Адрес должен начинаться с https://',
+      })
+    }
+    if (name === 'behance' && !SITE_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        behance: 'Сайт введен некорректно. Адрес должен начинаться с https://',
+      })
+    }
+    if (name === 'github' && !SITE_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        github: 'Сайт введен некорректно. Адрес должен начинаться с https://',
+      })
+    }
+    if (name === 'video_link' && !SITE_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        video_link:
+          'Сайт введен некорректно. Адрес должен начинаться с https://',
+      })
+    }
+  }
+
   // Сохраняем данные полей в локалное хранилище
   const handleClick = () => {
     const checkboxData = { ...checkboxValues }
@@ -145,7 +467,14 @@ function App() {
         <PersonalData
           values={values}
           handleChange={handleChange}
+          // handleLanguageChange={handleLanguageChange}
+          // handleLanguageLevelChange={handleLanguageLevelChange}
+          setLanguagesChanges={setLanguagesChanges}
           setValues={setValues}
+          addLanguage={addLanguage}
+          setLanguagesAfterDeleting={setLanguagesAfterDeleting}
+          errors={errors}
+          handleChangeWithValidation={handleChangeWithValidation}
         />
       ),
       id: 1,
@@ -165,6 +494,10 @@ function App() {
           setValues={setValues}
           setAllTillPresent={setAllTillPresent}
           allTillPresent={allTillPresent}
+          setDuties={setDuties}
+          errors={errors}
+          handleChangeWithValidation={handleChangeWithValidation}
+          setErrors={setErrors}
         />
       ),
       id: 2,
@@ -298,6 +631,7 @@ function App() {
                 // setCompletedStepsAbout={setCompletedStepsAbout}
                 // setCompletedLayouts={setCompletedLayouts}
                 onClick={handleClick}
+                duties={duties}
               />
             }
           >

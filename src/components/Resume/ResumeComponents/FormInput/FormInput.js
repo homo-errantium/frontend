@@ -14,10 +14,10 @@ const FormInput = ({
   values,
   handleChange,
   setValues,
+  setDuties,
+  errors,
+  id,
 }) => {
-  // console.log(`${name}: ${values[name]}`)
-  // console.log(name)
-  // console.log(values)
   React.useEffect(() => {
     if (disabled) {
       setValues(prevValues => ({
@@ -25,10 +25,17 @@ const FormInput = ({
         company: '',
         company_website: '',
         current_position: '',
-        [name]: '',
       }))
     }
   }, [disabled])
+
+  const handleFocus = () => {
+    setDuties(true)
+  }
+
+  const handleBlur = () => {
+    setDuties(false)
+  }
 
   return (
     <div className="form-input">
@@ -40,15 +47,21 @@ const FormInput = ({
       </div>
       <textarea
         name={name}
-        value={values[name] || ''}
+        value={values[name]}
         onChange={handleChange}
         disabled={disabled}
-        id="form-input"
+        id={id}
         className={classNames(
           'form-input__field',
-          extraInputClass && `form-input__field_${extraInputClass}`
+          extraInputClass && `form-input__field_${extraInputClass}`,
+          errors[name] && 'form-input__field_error'
         )}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
       />
+      {errors && (
+        <span className="form-input__input-error">{errors[name]}</span>
+      )}
     </div>
   )
 }
@@ -62,10 +75,14 @@ FormInput.propTypes = {
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   }),
   handleChange: PropTypes.func,
-  name: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-  ),
+  name: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
   setValues: PropTypes.func,
+  setDuties: PropTypes.func,
+  errors: PropTypes.objectOf(PropTypes.string),
+  id: PropTypes.string,
 }
 
 FormInput.defaultProps = {
@@ -77,6 +94,9 @@ FormInput.defaultProps = {
   handleChange: () => {},
   name: [],
   setValues: () => {},
+  setDuties: () => {},
+  errors: {},
+  id: '',
 }
 
 export default FormInput

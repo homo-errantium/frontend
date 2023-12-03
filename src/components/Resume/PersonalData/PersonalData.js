@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import './PersonalData.scss'
-import React, { useState } from 'react'
+import React from 'react'
 // import { v4 as uuidv4 } from 'uuid'
 import ResumeTitle from '../ResumeComponents/ResumeTitle/ResumeTitle'
 import DoubleInput from '../ResumeComponents/DoubleInput/DoubleInput'
@@ -19,24 +19,37 @@ import {
 import FormInput from '../ResumeComponents/FormInput/FormInput'
 import LanguageInput from '../ResumeComponents/LanguageInput/LanguageInput'
 
-const PersonalData = ({ values, handleChange, setValues }) => {
-  const [number, setNumber] = useState(1)
-  const [languages, setLanguages] = useState([{ id: number }])
-  console.log(number)
-
-  const addLanguage = () => {
-    setNumber(number + 1)
-    setLanguages([...languages, { id: number }])
+const PersonalData = ({
+  values,
+  // handleChange,
+  setValues,
+  addLanguage,
+  setLanguagesAfterDeleting,
+  setLanguagesChanges,
+  errors,
+  handleChangeWithValidation,
+}) => {
+  const deleteLanguage = i => {
+    const languageToBeRemoved = values.languages.find(item => item.id === i)
+    const remainingLanguages = values.languages.filter(
+      item => item.id !== languageToBeRemoved.id
+    )
+    setLanguagesAfterDeleting(remainingLanguages)
+    return remainingLanguages
   }
 
-  const deleteLanguage = langId => {
-    if (languages.length === 1) {
-      setNumber(prevValue => prevValue + 1)
-      setLanguages([{ id: number }])
+  const handleLanguageChange = ({ i, name, value }) => {
+    const languageToBeChanged = values.languages.find(item => item.id === i)
+    const indexToReplace = values.languages.findIndex(item => item.id === i)
+    const copy = { ...languageToBeChanged }
+    if (name.slice(0, 14) === 'language_level') {
+      copy.level = value
     } else {
-      const languageToBeRemoved = languages.find(m => langId === m.id)
-      setLanguages(languages.filter(item => item.id !== languageToBeRemoved.id))
+      copy.language = value
     }
+    const newLanguages = [...values.languages]
+    newLanguages[indexToReplace] = copy
+    setLanguagesChanges(newLanguages)
   }
 
   return (
@@ -46,22 +59,24 @@ const PersonalData = ({ values, handleChange, setValues }) => {
         <div className="personal-data__form">
           <DoubleInput
             values={values}
-            handleChange={handleChange}
+            handleChange={handleChangeWithValidation}
             setValues={setValues}
             name={['name']}
             firstLabel="Имя"
             ordinaryInputFirst
+            errors={errors}
           />
           <DoubleInput
             values={values}
-            handleChange={handleChange}
+            handleChange={handleChangeWithValidation}
             setValues={setValues}
             name={['surname']}
             firstLabel="Фамилия"
             ordinaryInputFirst
+            errors={errors}
           />
           <DoubleInput
-            handleChange={handleChange}
+            handleChange={handleChangeWithValidation}
             values={values}
             setValues={setValues}
             name={['birthday']}
@@ -69,10 +84,11 @@ const PersonalData = ({ values, handleChange, setValues }) => {
             placeholder="ДД.ММ.ГГГГ"
             ordinaryInputFirst
             dataMask="date"
+            errors={errors}
           />
           <DoubleInput
             setValues={setValues}
-            handleChange={handleChange}
+            handleChange={handleChangeWithValidation}
             values={values}
             name={['city', 'work_status']}
             firstLabel="Город проживания"
@@ -83,10 +99,11 @@ const PersonalData = ({ values, handleChange, setValues }) => {
             optionsInputSecond={ACTUAL_STATUS_OPTIONS}
             tipSecond
             tipTextSecond={ACTUAL_STATUS_TIP}
+            errors={errors}
           />
           <DoubleInput
             setValues={setValues}
-            handleChange={handleChange}
+            handleChange={handleChangeWithValidation}
             values={values}
             name={['desired_position', 'level_knowledge']}
             firstLabel="Желаемая должность"
@@ -97,21 +114,23 @@ const PersonalData = ({ values, handleChange, setValues }) => {
             optionsInputSecond={LEVEL_OPTIONS}
             tipFirst
             tipTextFirst={CAREER_OBJECTIVE_TIP}
+            errors={errors}
           />
         </div>
         <ResumeTitle title="Контакты" />
         <div className="personal-data__form">
           <FormInput
             values={values}
-            handleChange={handleChange}
+            handleChange={handleChangeWithValidation}
             setValues={setValues}
             name={['email']}
             label="Почта"
             tip
             tipText={EMAIL_TIP}
+            errors={errors}
           />
           <DoubleInput
-            handleChange={handleChange}
+            handleChange={handleChangeWithValidation}
             values={values}
             setValues={setValues}
             name={['phone', 'behance']}
@@ -122,21 +141,25 @@ const PersonalData = ({ values, handleChange, setValues }) => {
             ordinaryInputFirst
             ordinaryInputSecond
             dataMask="phone"
+            errors={errors}
           />
           <DoubleInput
-            handleChange={handleChange}
+            handleChange={handleChangeWithValidation}
             values={values}
             setValues={setValues}
-            name={['telegram', 'githab']}
+            name={['telegram', 'github']}
             firstLabel="Телеграм"
             secondLabel="Ссылка на GitHub"
             doubleInput
             placeholder="t.me/name"
+            dataMask="tgLink"
             ordinaryInputFirst
+            // maskLinkInputFirst
             ordinaryInputSecond
+            errors={errors}
           />
           <DoubleInput
-            handleChange={handleChange}
+            handleChange={handleChangeWithValidation}
             values={values}
             setValues={setValues}
             name={['website_link', 'video_link']}
@@ -147,14 +170,15 @@ const PersonalData = ({ values, handleChange, setValues }) => {
             ordinaryInputSecond
             tipFirst
             tipTextFirst={OTHER__SITE_LINK_TIP}
+            errors={errors}
           />
         </div>
         <ResumeTitle title="Владение языками" />
-        {languages.map(lang => (
+        {values.languages.map(lang => (
           <div className="personal-data__language-form" key={lang.id}>
             <LanguageInput
-              values={values}
-              handleChange={handleChange}
+              values={lang}
+              handleLanguageChange={handleLanguageChange}
               setValues={setValues}
               firstLabel="Язык"
               secondLabel="Уровень"
@@ -164,7 +188,6 @@ const PersonalData = ({ values, handleChange, setValues }) => {
               i={lang.id}
               addLanguage={addLanguage}
               deleteLanguage={deleteLanguage}
-              number={number}
             />
           </div>
         ))}
