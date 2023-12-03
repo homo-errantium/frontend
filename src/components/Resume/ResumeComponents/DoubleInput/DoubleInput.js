@@ -27,14 +27,6 @@ const DoubleInput = ({
   name,
   errors,
 }) => {
-  const maskOptionsPhone = {
-    mask: '+{7}(000)000-00-00',
-  }
-  const maskOptionsDate = {
-    mask: Date,
-    min: new Date(1900, 0, 1),
-  }
-
   const maskInput = (dataValue, options) => {
     const inputElements = document.querySelectorAll(`[mask="${dataValue}"]`) // ищем поля ввода по селектору с переданным значением data-атрибута
     if (!inputElements) return // если таких полей ввода нет, прерываем функцию
@@ -43,9 +35,12 @@ const DoubleInput = ({
       IMask(el, options) // инициализируем плагин imask для необходимых полей ввода с переданными параметрами маски
     })
   }
+  const maskOptionsPhone = {
+    mask: '+{7}(000)000-00-00',
+  }
+
   useEffect(() => {
     maskInput('phone', maskOptionsPhone)
-    maskInput('date', maskOptionsDate)
   })
 
   return (

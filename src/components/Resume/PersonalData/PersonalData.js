@@ -9,6 +9,7 @@ import {
   ACTUAL_STATUS_TIP,
   EMAIL_TIP,
   OTHER__SITE_LINK_TIP,
+  PHOTO_TIP,
 } from '../../../constants/tips'
 import {
   ACTUAL_STATUS_OPTIONS,
@@ -18,6 +19,7 @@ import {
 } from '../../../constants/input-options'
 import FormInput from '../ResumeComponents/FormInput/FormInput'
 import LanguageInput from '../ResumeComponents/LanguageInput/LanguageInput'
+import ImageUploadForm from './ImageUploadForm/ImageUploadForm'
 
 const PersonalData = ({
   values,
@@ -57,33 +59,39 @@ const PersonalData = ({
       <div className="personal-data__container">
         <ResumeTitle title="Персональные данные" />
         <div className="personal-data__form">
-          <DoubleInput
-            values={values}
-            handleChange={handleChange}
-            setValues={setValues}
-            name={['name']}
-            firstLabel="Имя"
-            ordinaryInputFirst
-          />
-          <DoubleInput
-            values={values}
-            handleChange={handleChange}
-            setValues={setValues}
-            name={['surname']}
-            firstLabel="Фамилия"
-            ordinaryInputFirst
-          />
-          <DoubleInput
-            handleChange={handleChangeWithValidation}
-            values={values}
-            setValues={setValues}
-            name={['birthday']}
-            firstLabel="Дата рождения"
-            placeholder="ДД.ММ.ГГГГ"
-            ordinaryInputFirst
-            dataMask="date"
-            errors={errors}
-          />
+          <div className="personal-data__form-box">
+            <div className="personal-data__form-left-column">
+              <FormInput
+                values={values}
+                handleChange={handleChangeWithValidation}
+                setValues={setValues}
+                name={['name']}
+                label="Имя"
+                errors={errors}
+              />
+              <FormInput
+                values={values}
+                handleChange={handleChangeWithValidation}
+                setValues={setValues}
+                name={['surname']}
+                label="Фамилия"
+                errors={errors}
+              />
+              <FormInput
+                values={values}
+                handleChange={handleChangeWithValidation}
+                setValues={setValues}
+                name={['birthday']}
+                label="Дата рождения"
+                placeholder="ДД.ММ.ГГГГ"
+                dataMask="date"
+                errors={errors}
+              />
+            </div>
+            <div className="personal-data__form-right-column">
+              <ImageUploadForm label="Фото" tip tipText={PHOTO_TIP} />
+            </div>
+          </div>
           <DoubleInput
             setValues={setValues}
             handleChange={handleChange}
@@ -149,7 +157,6 @@ const PersonalData = ({
             placeholder="t.me/name"
             dataMask="tgLink"
             ordinaryInputFirst
-            // maskLinkInputFirst
             ordinaryInputSecond
           />
           <DoubleInput

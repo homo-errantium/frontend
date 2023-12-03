@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import IMask from 'imask'
 import classNames from 'classnames'
 import './FormInput.scss'
 import Tip from '../Tip/Tip'
@@ -13,10 +14,28 @@ const FormInput = ({
   name,
   values,
   handleChange,
+  dataMask,
   setValues,
   setDuties,
   errors,
+  placeholder,
 }) => {
+  const maskInput = (dataValue, options) => {
+    const inputElements = document.querySelectorAll(`[mask="${dataValue}"]`) // ищем поля ввода по селектору с переданным значением data-атрибута
+    if (!inputElements) return // если таких полей ввода нет, прерываем функцию
+    inputElements.forEach(el => {
+      // для каждого из полей ввода
+      IMask(el, options) // инициализируем плагин imask для необходимых полей ввода с переданными параметрами маски
+    })
+  }
+  const maskOptionsDate = {
+    mask: Date,
+    min: new Date(1900, 0, 1),
+  }
+  React.useEffect(() => {
+    maskInput('date', maskOptionsDate)
+  })
+
   // console.log(`${name}: ${values[name]}`)
   // console.log(name)
   // console.log(values)
@@ -53,6 +72,7 @@ const FormInput = ({
         value={values[name] || ''}
         onChange={handleChange}
         disabled={disabled}
+        placeholder={placeholder}
         id="form-input"
         className={classNames(
           'form-input__field',
@@ -60,6 +80,7 @@ const FormInput = ({
         )}
         onFocus={handleFocus}
         onBlur={handleBlur}
+        mask={dataMask}
       />
       {errors && (
         <span className="form-input__input-error">{errors[name]}</span>
@@ -71,12 +92,14 @@ FormInput.propTypes = {
   label: PropTypes.string.isRequired,
   tip: PropTypes.bool,
   tipText: PropTypes.node,
+  placeholder: PropTypes.node,
   extraInputClass: PropTypes.string,
   disabled: PropTypes.bool,
   values: PropTypes.shape({
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   }),
   handleChange: PropTypes.func,
+  dataMask: PropTypes.string,
   name: PropTypes.arrayOf(
     PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ),
@@ -88,10 +111,12 @@ FormInput.propTypes = {
 FormInput.defaultProps = {
   tip: false,
   tipText: '',
+  placeholder: '',
   extraInputClass: '',
   disabled: false,
   values: {},
   handleChange: () => {},
+  dataMask: '',
   name: [],
   setValues: () => {},
   setDuties: () => {},
