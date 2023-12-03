@@ -171,11 +171,31 @@ function App() {
     }))
   }
   const [errors, setErrors] = useState({})
-
+  function deleteNonLatin(text) {
+    return text.replace(/[^A-Za-z0-9:_//.]/gi, '')
+  }
+  function checkTgInput(name, value) {
+    const cleanValue = deleteNonLatin(value)
+    if (cleanValue === '') {
+      setValues({ ...values, [name]: '' })
+    } else if (cleanValue === 'https://t.me/') {
+      setValues({ ...values, [name]: '' })
+    } else if (cleanValue.includes('https://t.me/')) {
+      setValues({ ...values, [name]: cleanValue })
+    } else {
+      setValues({ ...values, [name]: `https://t.me/${cleanValue}` })
+    }
+  }
   // Функция, которая записывает данные полей форм
   const handleChange = evt => {
     const { name, value } = evt.target
-    setValues({ ...values, [name]: value })
+    console.log(evt.target.select)
+    const cleanValue = deleteNonLatin(value)
+    if (name === 'telegram') {
+      checkTgInput(name, cleanValue)
+    } else {
+      setValues({ ...values, [name]: value })
+    }
     setErrors({ ...errors, [name]: evt.target.validationMessage })
   }
   // INPUTS  VALIDATION:
