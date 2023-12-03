@@ -4,9 +4,19 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { months } from '../../../../../constants/months'
 
-const MonthPicker = ({ disabled, setValues, values, name }) => {
+const MonthPicker = ({ disabled, setValues, values, name, id, allValues }) => {
   const chooseMonth = month => {
-    setValues(prevValues => ({ ...prevValues, [name]: month.id }))
+    if (id === '0') {
+      setValues(prevValues => ({ ...prevValues, [name]: month.id }))
+    } else {
+      const updateMonth = allValues.jobs.map(job => {
+        if (job.id === id) {
+          return { ...job, [name]: month.id, id }
+        }
+        return job
+      })
+      setValues(prevValues => ({ ...prevValues, jobs: updateMonth }))
+    }
   }
 
   return (
@@ -15,7 +25,7 @@ const MonthPicker = ({ disabled, setValues, values, name }) => {
         name={name}
         type="text"
         placeholder="Месяц"
-        id={name}
+        id={id}
         className={classNames(
           'month__input',
           disabled && 'month__input_disabled'
@@ -56,9 +66,29 @@ MonthPicker.propTypes = {
   disabled: PropTypes.bool,
   setValues: PropTypes.func,
   values: PropTypes.shape({
-    value: PropTypes.number,
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+      ),
+    ]),
   }),
   name: PropTypes.string,
+  allValues: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([
+          PropTypes.objectOf(
+            PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+          ),
+        ])
+      ),
+    ])
+  ),
+  id: PropTypes.string.isRequired,
 }
 
 MonthPicker.defaultProps = {
@@ -66,6 +96,7 @@ MonthPicker.defaultProps = {
   setValues: () => {},
   values: {},
   name: '',
+  allValues: {},
 }
 
 export default MonthPicker
