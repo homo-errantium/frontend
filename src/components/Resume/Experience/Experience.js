@@ -117,8 +117,9 @@ const Experience = ({
           setValues={setValues}
           setAllTillPresent={setAllTillPresent}
           allTillPresent={allTillPresent}
-          handleChange={handleChange}
+          handleChange={handleChangeWithValidation}
           setCheckboxValues={setCheckboxValues}
+          errors={errors}
         />
         <FormInput
           name="duties"

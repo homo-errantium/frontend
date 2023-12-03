@@ -26,6 +26,7 @@ const PeriodInput = ({
   setAllTillPresent,
   allTillPresent,
   setCheckboxValues,
+  errors,
 }) => {
   const [disabledMonthChoice, setDisabledMonthChoice] = useState(false)
   const [isTillPresent, setIsTillPresent] = React.useState(
@@ -109,6 +110,9 @@ const PeriodInput = ({
             disabled={disabled}
           />
         </div>
+        {errors && (
+          <span className="form-input__input-error">{errors[year[0]]}</span>
+        )}
       </div>
 
       <div className="form-input">
@@ -146,7 +150,9 @@ const PeriodInput = ({
             disabled={disabled || isTillPresent}
           />
         </div>
-
+        {errors && (
+          <span className="form-input__input-error">{errors[year[1]]}</span>
+        )}
         {tillPresent && (
           <div className="period-input__checkbox-container">
             <Checkbox
@@ -193,6 +199,7 @@ PeriodInput.propTypes = {
     value: PropTypes.bool,
   }),
   setCheckboxValues: PropTypes.func,
+  errors: PropTypes.objectOf(PropTypes.string).isRequired,
 }
 
 PeriodInput.defaultProps = {

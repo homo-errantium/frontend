@@ -18,6 +18,7 @@ import {
   BIRTHDAY_REGEX,
   COMPANY_NAME_REGEX,
   JOB_NAME_REGEX,
+  YEAR_REGEX,
   DUTIES_REGEX,
 } from '../../constants/regex'
 // import About from '../Resume/About/About'
@@ -180,7 +181,6 @@ function App() {
   const handleChangeWithValidation = evt => {
     handleChange(evt)
     const { name, value } = evt.target
-    console.log(evt.target)
     if (name === 'name' && !NAME_REGEX.test(value)) {
       setErrors({
         ...errors,
@@ -227,7 +227,6 @@ function App() {
       })
     }
     if (name === 'city' && !NAME_REGEX.test(value)) {
-      console.log('check')
       setErrors({
         ...errors,
         city: 'Название города может быть введено только кириллицей. Допускаются пробелы и дефисы',
@@ -308,6 +307,18 @@ function App() {
         ...errors,
         current_position:
           'В названии должности допускаются только буквы, цифры, пробелы и дефисы',
+      })
+    }
+    if (name === 'year_work_start' && !YEAR_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        year_work_start: 'Введите год в формате ГГГГ (например, 1985)',
+      })
+    }
+    if (name === 'year_work_end' && !YEAR_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        year_work_end: 'Введите год в формате ГГГГ (например, 1985)',
       })
     }
     if (

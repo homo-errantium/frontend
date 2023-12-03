@@ -12,6 +12,7 @@ const BIRTHDAY_REGEX = /^(0[1-9]|[12][0-9]|3[01]).(0[1-9]|1[012]).((19|20)\d\d)/
 const COMPANY_NAME_REGEX = /^[а-яА-ЯЁё0-9a-zA-Z\-'"`«»\s]*$/
 
 const JOB_NAME_REGEX = /^[а-яА-ЯЁё0-9a-zA-Z\-\s]*$/
+const YEAR_REGEX = /^[0-9]{4}$/
 
 const DUTIES_REGEX = /^[а-яА-ЯЁё0-9\-\s]*$/
 
@@ -21,5 +22,6 @@ export {
   BIRTHDAY_REGEX,
   COMPANY_NAME_REGEX,
   JOB_NAME_REGEX,
+  YEAR_REGEX,
   DUTIES_REGEX,
 }
