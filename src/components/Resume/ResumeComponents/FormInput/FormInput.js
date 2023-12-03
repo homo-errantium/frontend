@@ -15,6 +15,7 @@ const FormInput = ({
   handleChange,
   setValues,
   setDuties,
+  errors,
 }) => {
   // console.log(`${name}: ${values[name]}`)
   // console.log(name)
@@ -60,6 +61,9 @@ const FormInput = ({
         onFocus={handleFocus}
         onBlur={handleBlur}
       />
+      {errors && (
+        <span className="form-input__input-error">{errors[name]}</span>
+      )}
     </div>
   )
 }
@@ -78,6 +82,7 @@ FormInput.propTypes = {
   ),
   setValues: PropTypes.func,
   setDuties: PropTypes.func,
+  errors: PropTypes.objectOf(PropTypes.string).isRequired,
 }
 
 FormInput.defaultProps = {

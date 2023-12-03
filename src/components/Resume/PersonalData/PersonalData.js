@@ -22,21 +22,34 @@ import LanguageInput from '../ResumeComponents/LanguageInput/LanguageInput'
 const PersonalData = ({
   values,
   handleChange,
-  handleLanguageChange,
-  handleLanguageLevelChange,
   setValues,
   addLanguage,
-  // handleDeleteLanguage,
   setLanguagesAfterDeleting,
+  setLanguagesChanges,
+  errors,
+  handleChangeWithValidation,
 }) => {
   const deleteLanguage = i => {
     const languageToBeRemoved = values.languages.find(item => item.id === i)
-    console.log(`to remove: ${JSON.stringify(languageToBeRemoved)}`)
     const remainingLanguages = values.languages.filter(
       item => item.id !== languageToBeRemoved.id
     )
     setLanguagesAfterDeleting(remainingLanguages)
     return remainingLanguages
+  }
+
+  const handleLanguageChange = ({ i, name, value }) => {
+    const languageToBeChanged = values.languages.find(item => item.id === i)
+    const indexToReplace = values.languages.findIndex(item => item.id === i)
+    const copy = { ...languageToBeChanged }
+    if (name.slice(0, 14) === 'language_level') {
+      copy.level = value
+    } else {
+      copy.language = value
+    }
+    const newLanguages = [...values.languages]
+    newLanguages[indexToReplace] = copy
+    setLanguagesChanges(newLanguages)
   }
 
   return (
@@ -61,7 +74,7 @@ const PersonalData = ({
             ordinaryInputFirst
           />
           <DoubleInput
-            handleChange={handleChange}
+            handleChange={handleChangeWithValidation}
             values={values}
             setValues={setValues}
             name={['birthday']}
@@ -69,6 +82,7 @@ const PersonalData = ({
             placeholder="ДД.ММ.ГГГГ"
             ordinaryInputFirst
             dataMask="date"
+            errors={errors}
           />
           <DoubleInput
             setValues={setValues}
@@ -103,12 +117,13 @@ const PersonalData = ({
         <div className="personal-data__form">
           <FormInput
             values={values}
-            handleChange={handleChange}
+            handleChange={handleChangeWithValidation}
             setValues={setValues}
             name={['email']}
             label="Почта"
             tip
             tipText={EMAIL_TIP}
+            errors={errors}
           />
           <DoubleInput
             handleChange={handleChange}
@@ -155,7 +170,6 @@ const PersonalData = ({
             <LanguageInput
               values={lang}
               handleLanguageChange={handleLanguageChange}
-              handleLanguageLevelChange={handleLanguageLevelChange}
               setValues={setValues}
               firstLabel="Язык"
               secondLabel="Уровень"
@@ -172,12 +186,5 @@ const PersonalData = ({
     </section>
   )
 }
-
-// PersonalData.propTypes = {
-//   values: PropTypes.arrayOf.isRequired,
-//   handleChange: PropTypes.func.isRequired,
-//   setValues: PropTypes.func.isRequired,
-//   addLanguage: PropTypes.func.isRequired,
-// }
 
 export default PersonalData
