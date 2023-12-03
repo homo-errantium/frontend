@@ -83,7 +83,7 @@ const DoubleInput = ({
           <input
             name={name[0]}
             onChange={handleChange}
-            value={values[name[0]]}
+            value={values[name[0]] || ''}
             className={classNames(
               'double-input__field',
               errors[name[0]] && 'double-input__field_error'
