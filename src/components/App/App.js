@@ -12,7 +12,15 @@ import Register from '../Register/Register'
 import Login from '../Login/Login'
 import Profile from '../Profile/Profile'
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
-import { EMAIL_REGEX, BIRTHDAY_REGEX } from '../../constants/regex'
+import {
+  NAME_REGEX,
+  EMAIL_REGEX,
+  BIRTHDAY_REGEX,
+  COMPANY_NAME_REGEX,
+  JOB_NAME_REGEX,
+  YEAR_REGEX,
+  SITE_REGEX,
+} from '../../constants/regex'
 // import About from '../Resume/About/About'
 // import Education from '../Resume/Education/Education'
 import Experience from '../Resume/Experience/Experience'
@@ -20,13 +28,14 @@ import Experience from '../Resume/Experience/Experience'
 import PersonalData from '../Resume/PersonalData/PersonalData'
 // import Portfolio from '../Resume/Portfolio/Portfolio'
 // import Qualification from '../Resume/Qualification/Qualification'
-import Result from '../Resume/Result/Result'
 // import Skills from '../Resume/Skills/Skills'
+import Result from '../Resume/Result/Result'
 
 import PopupRegister from '../PopupRegister/PopupRegister'
 import PopupConfirmation from '../PopupConfirmation/PopupConfirmation'
 import PopupResumeName from '../PopupResumeName/PopupResumeName'
 import PopupLogin from '../PopupLogin/PopupLogin'
+import ResultResume from '../Resume/ResultResume/ResultResume'
 
 function App() {
   // eslint-disable-next-line no-unused-vars
@@ -52,49 +61,77 @@ function App() {
 
   // --------------------------- Работа с данными через локальное хранилище -----------------------
 
+  // const [addedExperience, setAddedExperience] = React.useState([])
   // Записываем в объект данные из полей
   const [values, setValues] = React.useState(
     JSON.parse(localStorage.getItem('formData')) || {
-      languages: [{ id: uuidv4() }],
-      jobs: {},
+      languages: [
+        {
+          id: 'ef44b943-fb45-477e-85a5-e33fd63c4852',
+          language: 'Английский',
+          level: 'B1',
+        },
+        {
+          id: '662cc9cf-2b38-4feb-be0d-503b4a01e896',
+          level: 'B2',
+          language: 'Французский',
+        },
+      ],
+      jobs: [
+        {
+          id: '4bce3f6a-d8e9-4e6e-85d7-66039825e643',
+          'company_4bce3f6a-d8e9-4e6e-85d7-66039825e643': 'Экспресс-ТВ',
+          'current_position_4bce3f6a-d8e9-4e6e-85d7-66039825e643':
+            'Технический редактор',
+          'month_work_start_4bce3f6a-d8e9-4e6e-85d7-66039825e643': 6,
+          'year_work_start_4bce3f6a-d8e9-4e6e-85d7-66039825e643': '2017',
+          'month_work_end_4bce3f6a-d8e9-4e6e-85d7-66039825e643': 6,
+          'year_work_end_4bce3f6a-d8e9-4e6e-85d7-66039825e643': '2023',
+          'duties_4bce3f6a-d8e9-4e6e-85d7-66039825e643':
+            'Тестирование(ручное) программы на C++.\nВерификация и корректировка данных.\nАдминистрирование контента.\nАдаптация контента под разные группы пользователей.\nНаставничество: работа в программе на С++ с нуля, поиск, анализ и устранение ошибок, структурирование информации, оптимизация процессов визуализации выпускаемого продукта.\nПользовательское тестирование функционала.',
+          'company_website_4bce3f6a-d8e9-4e6e-85d7-66039825e643':
+            'https://tv-express.ru/',
+        },
+      ],
+      name: 'Павел',
+      surname: 'Чурунов',
+      birthday: '27.11.1987',
+      city: 'Москва',
+      desired_position: 'Аналитик',
+      email: 'ChPavel@mail.ru',
+      phone: '+7(916)545-43-32',
+      website_link: '',
+      company: 'Яндекс Крауд',
+      current_position: 'Специалист',
+      month_work_start: 6,
+      year_work_start: '2023',
+      year_work_end: '',
+      month_work_end: '',
+      duties:
+        'Разметка видео и изображений; для обучения ИИ в в программах CVAT, Supervisely;\nПроверка разметки на наличие нарушений. Пользовательское тестирование',
+      telegram: 'https://t.me/chpavel',
+      level_knowledge: 'Middle',
+      github: 'https://github.com/cakamup1',
+      company_website: 'https://yandex.ru/project/remote-work/',
+      work_status: 'Принимаю предложения',
     }
+    // после MVP вернуть
     // {
-    //   languages: [
-    //     {
-    //       id: '14fd7a7e-5c9d-4551-8a41-24a27be682bb',
-    //       language: 'Английский',
-    //       level: 'B1',
-    //     },
-    //     {
-    //       id: '1842875f-cdce-422e-acad-157bfc6454ec',
-    //       language: 'B1',
-    //       level: 'B2',
-    //     },
-    //   ],
-    //   jobs: {},
-    //   month_work_end: '',
-    //   month_work_start: 6,
-    //   year_work_start: '2023',
-    //   year_work_end: '',
-    //   company: 'Яндекс Крауд / Специалист',
-    //   company_website: 'https://yandex.ru/project/remote-work/',
-    //   current_position: 'Специалист',
-    //   duties: `Разметка видео и изображений; для обучения ИИ в в программах CVAT, Supervisely;
-    //   Проверка разметки на наличие нарушений. Пользовательское тестирование.
-    //   `,
-    //   name: 'Павел',
-    //   surname: 'Чурунов',
-    //   birthday: '27.11.1987',
-    //   city: 'г. Москва',
-    //   desired_position: 'Аналитик',
-    //   email: 'ChPavel@mail.ru',
-    //   telegram: 't.me/chpavel',
-    //   githab: 'https://github.com/cakamup1',
-    //   level_knowledge: 'Middle',
-    //   work_status: 'Принимаю предложения',
-    //   phone: '+7(916)545-43-32',
+    //   languages: [{ id: uuidv4() }],
+    //   jobs: [],
     // }
   )
+  // Функция, которая записывает данные дополнительных полей опыта работы
+  // const handleAddJobChange = evt => {
+  //   const { name, value, id } = evt.target
+  //   const updatedJobs = values.jobs.map(job => {
+  //     if (job.id === id) {
+  //       return { ...job, [name]: value, id }
+  //     }
+  //     return job
+  //   })
+  //   setValues({ ...values, jobs: updatedJobs })
+  // }
 
   // LANGUAGES:
   const addLanguage = () => {
@@ -109,6 +146,7 @@ function App() {
 
   useEffect(() => {
     setValues({ ...values, languages: languagesAfterChanges })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [languagesAfterChanges])
 
   // const handleLanguageChange = evt => {
@@ -135,6 +173,7 @@ function App() {
     } else {
       setValues({ ...values, languages: languagesAfterDeleting })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [languagesAfterDeleting])
 
   // RECOMMENDATIONS:
@@ -146,11 +185,17 @@ function App() {
   )
   // Записываем в объект данные чекбоксов
   const [checkboxValues, setCheckboxValues] = React.useState(
-    JSON.parse(localStorage.getItem('checkboxData')) || {}
+    JSON.parse(localStorage.getItem('checkboxData')) || {
+      work_period_checkbox: true,
+    }
+    // после MVP вернуть {}
   )
   // Записываем данные isTillPresent в один объект
   const [allTillPresent, setAllTillPresent] = React.useState(
-    JSON.parse(localStorage.getItem('isTillPresent')) || {}
+    JSON.parse(localStorage.getItem('isTillPresent')) || {
+      0: true,
+    }
+    // вернуть после MVP {}
   )
 
   // Функция, которая записывает данные чекбоксов
@@ -180,7 +225,6 @@ function App() {
   // Функция, которая записывает данные полей форм
   const handleChange = evt => {
     const { name, value } = evt.target
-    console.log(evt.target.select)
     const cleanValue = deleteNonLatin(value)
     if (name === 'telegram') {
       checkTgInput(name, cleanValue)
@@ -193,22 +237,186 @@ function App() {
   const handleChangeWithValidation = evt => {
     handleChange(evt)
     const { name, value } = evt.target
-    if (name === 'email' && !EMAIL_REGEX.test(value)) {
+    if (name === 'name' && !NAME_REGEX.test(value)) {
       setErrors({
         ...errors,
-        email: 'Введите email в формате address@domain.com',
+        name: 'Имя может быть введено только кириллицей. Допускаются пробелы и дефисы',
       })
     }
-    if (name === 'email' && evt.target.value.length > 55) {
+    if (
+      name === 'name' &&
+      (evt.target.value.length > 50 || evt.target.value.length < 2)
+    ) {
       setErrors({
         ...errors,
-        email: 'Email должен быть длиной от 5 до 50 символов',
+        name: 'Имя должно быть длиной от 2 до 50 символов',
+      })
+    }
+    if (name === 'surname' && !NAME_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        surname:
+          'Фамилия может быть введена только кириллицей. Допускаются пробелы и дефисы',
+      })
+    }
+    if (
+      name === 'surname' &&
+      (evt.target.value.length > 50 || evt.target.value.length < 1)
+    ) {
+      setErrors({
+        ...errors,
+        surname: 'Фамилия должна быть длиной от 1 до 50 символов',
       })
     }
     if (name === 'birthday' && !BIRTHDAY_REGEX.test(value)) {
       setErrors({
         ...errors,
         birthday: 'Дата рождения введена некорректно',
+      })
+    }
+    // указанный год в дате рождениия больше текущего:
+    const currentYear = new Date().getFullYear()
+    if (name === 'birthday' && value.slice(6, 10) > currentYear) {
+      setErrors({
+        ...errors,
+        birthday: 'Путешествуете во времени?',
+      })
+    }
+    if (name === 'city' && !NAME_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        city: 'Название города может быть введено только кириллицей. Допускаются пробелы и дефисы',
+      })
+    }
+    if (
+      name === 'city' &&
+      (evt.target.value.length > 50 || evt.target.value.length < 2)
+    ) {
+      setErrors({
+        ...errors,
+        city: 'Название города должно быть длиной от 2 до 50 символов',
+      })
+    }
+    if (name === 'desired_position' && !NAME_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        desired_position:
+          'Название должности может быть введено только кириллицей. Допускаются пробелы и дефисы',
+      })
+    }
+    if (
+      name === 'desired_position' &&
+      (evt.target.value.length > 50 || evt.target.value.length < 2)
+    ) {
+      setErrors({
+        ...errors,
+        desired_position:
+          'Название должности должно быть длиной от 2 до 50 символов',
+      })
+    }
+    if (name === 'email' && !EMAIL_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        email: 'Введите email в формате address@domain.com',
+      })
+    }
+    if (name === 'email' && evt.target.value.length > 50) {
+      setErrors({
+        ...errors,
+        email: 'Email должен быть длиной от 5 до 50 символов',
+      })
+    }
+    if (name === 'phone' && evt.target.value.length < 16) {
+      setErrors({
+        ...errors,
+        phone: 'Введите полный номер телефона',
+      })
+    }
+    if (
+      name === 'company' &&
+      (evt.target.value.length > 50 || evt.target.value.length < 2)
+    ) {
+      setErrors({
+        ...errors,
+        company: 'Название компании должно быть длиной от 2 до 50 символов',
+      })
+    }
+    if (name === 'company' && !COMPANY_NAME_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        company:
+          'В названии компании допускаются только буквы, цифры, кавычки, пробелы и дефисы',
+      })
+    }
+    if (
+      name === 'current_position' &&
+      (evt.target.value.length > 50 || evt.target.value.length < 2)
+    ) {
+      setErrors({
+        ...errors,
+        current_position:
+          'Название должности должно быть длиной от 2 до 50 символов',
+      })
+    }
+    if (name === 'current_position' && !JOB_NAME_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        current_position:
+          'В названии должности допускаются только буквы, цифры, пробелы и дефисы',
+      })
+    }
+    if (name === 'year_work_start' && !YEAR_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        year_work_start: 'Введите год в формате ГГГГ (например, 2020)',
+      })
+    }
+    if (name === 'year_work_end' && !YEAR_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        year_work_end: 'Введите год в формате ГГГГ (например, 2020)',
+      })
+    }
+    if (
+      name === 'duties' &&
+      (evt.target.value.length > 500 || evt.target.value.length < 2)
+    ) {
+      setErrors({
+        ...errors,
+        duties: 'Описание обязанностей должно быть длиной от 2 до 500 символов',
+      })
+    }
+    if (name === 'company_website' && !SITE_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        company_website:
+          'Сайт введен некорректно. Адрес должен начинаться с https://',
+      })
+    }
+    if (name === 'website_link' && !SITE_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        website_link:
+          'Сайт введен некорректно. Адрес должен начинаться с https://',
+      })
+    }
+    if (name === 'behance' && !SITE_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        behance: 'Сайт введен некорректно. Адрес должен начинаться с https://',
+      })
+    }
+    if (name === 'github' && !SITE_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        github: 'Сайт введен некорректно. Адрес должен начинаться с https://',
+      })
+    }
+    if (name === 'video_link' && !SITE_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        video_link:
+          'Сайт введен некорректно. Адрес должен начинаться с https://',
       })
     }
   }
@@ -302,6 +510,10 @@ function App() {
           setAllTillPresent={setAllTillPresent}
           allTillPresent={allTillPresent}
           setDuties={setDuties}
+          errors={errors}
+          handleChangeWithValidation={handleChangeWithValidation}
+          setErrors={setErrors}
+          // handleAddJobChange={handleAddJobChange}
         />
       ),
       id: 2,
@@ -454,6 +666,18 @@ function App() {
               />
             ))}
           </Route>
+          {/* может быть включить в состав роутов  resume?  */}
+          <Route
+            path="/result-resume"
+            element={
+              <ResultResume
+                values={values}
+                checkboxValues={checkboxValues}
+                isLoggedIn={isLoggedIn}
+                onOpenPopup={handleConfirmPopupOpen}
+              />
+            }
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
         {/* Попап регистрации */}

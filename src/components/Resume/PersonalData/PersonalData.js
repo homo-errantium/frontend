@@ -23,7 +23,7 @@ import ImageUploadForm from './ImageUploadForm/ImageUploadForm'
 
 const PersonalData = ({
   values,
-  handleChange,
+  // handleChange,
   setValues,
   addLanguage,
   setLanguagesAfterDeleting,
@@ -94,7 +94,7 @@ const PersonalData = ({
           </div>
           <DoubleInput
             setValues={setValues}
-            handleChange={handleChange}
+            handleChange={handleChangeWithValidation}
             values={values}
             name={['city', 'work_status']}
             firstLabel="Город проживания"
@@ -105,10 +105,11 @@ const PersonalData = ({
             optionsInputSecond={ACTUAL_STATUS_OPTIONS}
             tipSecond
             tipTextSecond={ACTUAL_STATUS_TIP}
+            errors={errors}
           />
           <DoubleInput
             setValues={setValues}
-            handleChange={handleChange}
+            handleChange={handleChangeWithValidation}
             values={values}
             name={['desired_position', 'level_knowledge']}
             firstLabel="Желаемая должность"
@@ -119,6 +120,7 @@ const PersonalData = ({
             optionsInputSecond={LEVEL_OPTIONS}
             tipFirst
             tipTextFirst={CAREER_OBJECTIVE_TIP}
+            errors={errors}
           />
         </div>
         <ResumeTitle title="Контакты" />
@@ -134,7 +136,7 @@ const PersonalData = ({
             errors={errors}
           />
           <DoubleInput
-            handleChange={handleChange}
+            handleChange={handleChangeWithValidation}
             values={values}
             setValues={setValues}
             name={['phone', 'behance']}
@@ -145,12 +147,13 @@ const PersonalData = ({
             ordinaryInputFirst
             ordinaryInputSecond
             dataMask="phone"
+            errors={errors}
           />
           <DoubleInput
-            handleChange={handleChange}
+            handleChange={handleChangeWithValidation}
             values={values}
             setValues={setValues}
-            name={['telegram', 'githab']}
+            name={['telegram', 'github']}
             firstLabel="Телеграм"
             secondLabel="Ссылка на GitHub"
             doubleInput
@@ -158,9 +161,10 @@ const PersonalData = ({
             dataMask="tgLink"
             ordinaryInputFirst
             ordinaryInputSecond
+            errors={errors}
           />
           <DoubleInput
-            handleChange={handleChange}
+            handleChange={handleChangeWithValidation}
             values={values}
             setValues={setValues}
             name={['website_link', 'video_link']}
@@ -171,6 +175,7 @@ const PersonalData = ({
             ordinaryInputSecond
             tipFirst
             tipTextFirst={OTHER__SITE_LINK_TIP}
+            errors={errors}
           />
         </div>
         <ResumeTitle title="Владение языками" />

@@ -1,12 +1,12 @@
+import React from 'react'
 import './ResultResume.scss'
 import PropTypes from 'prop-types'
 import Keanu from '../../../img/Keanu-Reeves.jpg'
 
-function ResultResume({ values, checkboxValues }) {
-  // eslint-disable-next-line no-console
-  console.log('🚀 ~ file: ResultResume.js:5 ~ ResultResume ~ values:', values)
-  // eslint-disable-next-line no-console
-  console.log(checkboxValues)
+//
+
+function ResultResume({ values /* checkboxValues */ }) {
+  const userAllLang = values.languages
 
   function changeMonth(month) {
     return month < 10 ? `0${month}` : `${month}`
@@ -23,18 +23,20 @@ function ResultResume({ values, checkboxValues }) {
         <span className="result-resume__user-name">
           {`ФИ: ${absentValues(values.name)} ${values.surname ?? ''}`}
         </span>
+        <br />
         {/* <span className="result-resume__user-status">
           {`Статус соискателя: ${values.status}`}
         </span> */}
         <span className="result-resume__user-date-birth">
           {`Дата рождения: ${absentValues(values.birthday)}`}
         </span>
+        <br />
         <span className="result-resume__user-place-birth">
-          {`Город проживания: ${values.city}`}
+          {`Город проживания: ${absentValues(values.city)}`}
         </span>
         <br />
         <span className="result-resume__user-desired-position">
-          {`Желаемая должность: ${values.desired_position}`}
+          {`Желаемая должность: ${absentValues(values.desired_position)}`}
         </span>
       </div>
       {/* ------блок  фото ------*/}
@@ -49,9 +51,11 @@ function ResultResume({ values, checkboxValues }) {
         <span className="result-resume__user-mail">
           {`Почта: ${absentValues(values.email)}`}
         </span>
+        <br />
         <span className="result-resume__user-telegram">
           {`Telegram: ${absentValues(values.telegram)}`}
         </span>
+        <br />
         <span className="result-resume__user-phone">
           {`Телефон: ${absentValues(values.phone)}`}
         </span>
@@ -62,29 +66,27 @@ function ResultResume({ values, checkboxValues }) {
         <span className="result-resume__experience-company">
           {`Название компании: ${absentValues(values.company)}`}
         </span>
-
+        <br />
         <span className="result-resume__experience-start">
           {`Дата начала работы: ${changeMonth(
             absentValues(values.month_work_start)
           )}${values.year_work_start ? `/${values.year_work_start}` : ''}`}
         </span>
+        <br />
         <span className="result-resume__experience-end">
           {`Дата окончания работы: ${changeMonth(
             absentValues(values.month_work_start)
           )}${values.year_work_end ? `/${values.year_work_end}` : ''}`}
         </span>
-        {/* <span className="result-resume__experience-end">
-          {`Дата окончания работы: ${changeMonth(values.month_work_end)}/${
-            values.year_work_end
-          }`}
-        </span> */}
 
         <span className="result-resume__experience-company-site">
           {`Сайт компании: ${absentValues(values.company_website)}`}
         </span>
+        <br />
         <span className="result-resume__experience-duty">
           {`Обязанности: ${absentValues(values.duties)}`}
         </span>
+        <br />
         {/* <span className="result-resume__experience-achiev">
           {`Достижения: ${values.userEmail}`}
         </span> */}
@@ -95,12 +97,15 @@ function ResultResume({ values, checkboxValues }) {
         <span className="result-resume__link-github">
           {`GitHub: ${absentValues(values.githab)}`}
         </span>
+        <br />
         <span className="result-resume__link-Behance">
           {`Behance: ${absentValues(values.behance)}`}
         </span>
+        <br />
         <span className="result-resume__link-another-site">
           {`Персональная страница: ${absentValues(values.website_link)}`}
         </span>
+        <br />
         <span className="result-resume__link-about-user">
           {`Видео о себе: ${absentValues(values.video_link)}`}
         </span>
@@ -130,15 +135,22 @@ function ResultResume({ values, checkboxValues }) {
           {`Описание полученного опыта: ${values.userEmail}`}
         </span>
       </div> */}
+
       {/* ------ блок языки ------*/}
       <div className="result-resume__language">
         <h2 className="result-resume__language-title">языки:</h2>
-        <p className="result-resume__language-description">
-          {`${absentValues(values.language_1)} (${
-            values.language_level_1 ?? ''
-          })`}
-        </p>
+        {userAllLang
+          ? userAllLang.map(item => (
+              <>
+                <p className="result-resume__language-description">
+                  {`${item.language} (${item.level})`}
+                </p>
+                <br />
+              </>
+            ))
+          : 'Отсутствует'}
       </div>
+
       {/* ------ блок образование ------*/}
       {/* <div className="result-resume__education">
         <h2 className="result-resume__education-title">образование:</h2>
@@ -177,13 +189,18 @@ function ResultResume({ values, checkboxValues }) {
 
 ResultResume.propTypes = {
   values: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.array,
+      PropTypes.object,
+    ])
   ),
-  checkboxValues: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-  ),
+  // checkboxValues: PropTypes.objectOf(
+  //   PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  // ),
 }
 
-ResultResume.defaultProps = { values: {}, checkboxValues: {} }
+ResultResume.defaultProps = { values: {} /* checkboxValues: {} */ }
 
 export default ResultResume

@@ -50,6 +50,10 @@
   resize: none;
 }
 
+.double-input__field_error {
+  border-color: #FF4B4B;
+}
+
 .double-input__field:active {
   border-color: #000;
   outline-offset: 0;
