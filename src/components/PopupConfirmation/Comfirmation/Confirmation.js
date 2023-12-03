@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router'
 import PropTypes from 'prop-types'
 import confirmLogo from '../../../img/back-to-profile.svg'
 
-function Confirmation({ onClose, setCheckboxValues, setValues }) {
+function Confirmation({ onClose /* setCheckboxValues, setValues */ }) {
   const navigate = useNavigate()
-  const resetAllValues = () => {
-    setCheckboxValues({})
-    setValues({})
-  }
+  // const resetAllValues = () => {
+  //   setCheckboxValues({})
+  //   setValues({})
+  // }
 
   return (
     <div className="confirmation">
@@ -23,7 +23,7 @@ function Confirmation({ onClose, setCheckboxValues, setValues }) {
           type="button"
           label="button"
           onClick={() => {
-            resetAllValues()
+            // resetAllValues()
             navigate('/')
             onClose()
           }}
@@ -49,8 +49,8 @@ function Confirmation({ onClose, setCheckboxValues, setValues }) {
 
 Confirmation.propTypes = {
   onClose: PropTypes.func.isRequired,
-  setCheckboxValues: PropTypes.func.isRequired,
-  setValues: PropTypes.func.isRequired,
+  // setCheckboxValues: PropTypes.func.isRequired,
+  // setValues: PropTypes.func.isRequired,
 }
 
 export default Confirmation

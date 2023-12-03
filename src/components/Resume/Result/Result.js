@@ -1,15 +1,13 @@
 import './Result.scss'
 import PropTypes from 'prop-types'
-// import jsPDF from 'jspdf'
+import { useNavigate } from 'react-router-dom'
 import { useRef } from 'react'
-import { useNavigate } from 'react-router'
-import ResultResume from '../ResultResume/ResultResume'
 import DownloadIcon from '../../../img/download-icon.svg'
+import ResultResume from '../ResultResume/ResultResume'
 
 function Result({ values /* checkboxValues */ }) {
   const resultResumeRef = useRef(null)
   const navigate = useNavigate()
-
   const handleGenerateWord = () => {
     const preHTML =
       "<html xmlns:o='urn:schemas-microsoft-com:office:office' " +
@@ -35,22 +33,6 @@ function Result({ values /* checkboxValues */ }) {
     window.print()
     navigate(-1)
   }
-  // const handleGeneratePdf = () => {
-  //   // eslint-disable-next-line new-cap
-  //   const document = new jsPDF({
-  //     format: 'a4',
-  //     unit: 'px',
-  //   })
-  //   // Adding the fonts.
-  //   document.setFont('open-sans', 'normal')
-
-  //   document.html(resultResumeRef.current, {
-  //     // eslint-disable-next-line no-shadow
-  //     async callback(doc) {
-  //       await doc.save('resume')
-  //     },
-  //   })
-  // }
 
   return (
     <section className="result">

@@ -29,14 +29,14 @@ import Experience from '../Resume/Experience/Experience'
 import PersonalData from '../Resume/PersonalData/PersonalData'
 // import Portfolio from '../Resume/Portfolio/Portfolio'
 // import Qualification from '../Resume/Qualification/Qualification'
-import Result from '../Resume/Result/Result'
-import ResultResume from '../Resume/ResultResume/ResultResume'
 // import Skills from '../Resume/Skills/Skills'
+import Result from '../Resume/Result/Result'
 
 import PopupRegister from '../PopupRegister/PopupRegister'
 import PopupConfirmation from '../PopupConfirmation/PopupConfirmation'
 import PopupResumeName from '../PopupResumeName/PopupResumeName'
 import PopupLogin from '../PopupLogin/PopupLogin'
+import ResultResume from '../Resume/ResultResume/ResultResume'
 
 function App() {
   // eslint-disable-next-line no-unused-vars
@@ -107,16 +107,16 @@ function App() {
     // }
   )
   // Функция, которая записывает данные дополнительных полей опыта работы
-  const handleAddJobChange = evt => {
-    const { name, value, id } = evt.target
-    const updatedJobs = values.jobs.map(job => {
-      if (job.id === id) {
-        return { ...job, [name]: value, id }
-      }
-      return job
-    })
-    setValues({ ...values, jobs: updatedJobs })
-  }
+  // const handleAddJobChange = evt => {
+  //   const { name, value, id } = evt.target
+  //   const updatedJobs = values.jobs.map(job => {
+  //     if (job.id === id) {
+  //       return { ...job, [name]: value, id }
+  //     }
+  //     return job
+  //   })
+  //   setValues({ ...values, jobs: updatedJobs })
+  // }
 
   // LANGUAGES:
   const addLanguage = () => {

@@ -5,12 +5,7 @@ import Keanu from '../../../img/Keanu-Reeves.jpg'
 
 //
 
-function ResultResume({ values, checkboxValues }) {
-  console.log(
-    '🚀 ~ file: ResultResume.js:9 ~ ResultResume ~ values:',
-    checkboxValues
-  )
-
+function ResultResume({ values /* checkboxValues */ }) {
   const userAllLang = values.languages
 
   function changeMonth(month) {
@@ -37,11 +32,11 @@ function ResultResume({ values, checkboxValues }) {
         </span>
         <br />
         <span className="result-resume__user-place-birth">
-          {`Город проживания: ${values.city}`}
+          {`Город проживания: ${absentValues(values.city)}`}
         </span>
         <br />
         <span className="result-resume__user-desired-position">
-          {`Желаемая должность: ${values.desired_position}`}
+          {`Желаемая должность: ${absentValues(values.desired_position)}`}
         </span>
       </div>
       {/* ------блок  фото ------*/}
@@ -83,6 +78,7 @@ function ResultResume({ values, checkboxValues }) {
             absentValues(values.month_work_start)
           )}${values.year_work_end ? `/${values.year_work_end}` : ''}`}
         </span>
+
         <span className="result-resume__experience-company-site">
           {`Сайт компании: ${absentValues(values.company_website)}`}
         </span>
@@ -193,11 +189,11 @@ ResultResume.propTypes = {
   values: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ),
-  checkboxValues: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-  ),
+  // checkboxValues: PropTypes.objectOf(
+  //   PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  // ),
 }
 
-ResultResume.defaultProps = { values: {}, checkboxValues: {} }
+ResultResume.defaultProps = { values: {} /* checkboxValues: {} */ }
 
 export default ResultResume
