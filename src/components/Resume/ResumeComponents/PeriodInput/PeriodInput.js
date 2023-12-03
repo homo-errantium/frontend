@@ -26,22 +26,29 @@ const PeriodInput = ({
   setAllTillPresent,
   allTillPresent,
   setCheckboxValues,
+  allValues,
 }) => {
   const [disabledMonthChoice, setDisabledMonthChoice] = useState(false)
   const [isTillPresent, setIsTillPresent] = React.useState(
     allTillPresent[i] || false
   )
-
-  // console.log(monthPeriod[1])
-  // console.log(values[monthPeriod[1]])
-
   useEffect(() => {
     if (isTillPresent) {
-      setValues(prevValue => ({
-        ...prevValue,
-        [monthPeriod[1]]: '',
-        [year[1]]: '',
-      }))
+      if (i === '0') {
+        setValues(prevValue => ({
+          ...prevValue,
+          [monthPeriod[1]]: '',
+          [year[1]]: '',
+        }))
+      } else {
+        const monthClear = allValues.jobs.map(job => {
+          if (i === job.id) {
+            return { ...job, [monthPeriod[1]]: '', [year[1]]: '' }
+          }
+          return job
+        })
+        setValues(prevValue => ({ ...prevValue, jobs: monthClear }))
+      }
     }
   }, [isTillPresent])
 
@@ -93,6 +100,8 @@ const PeriodInput = ({
               values={values}
               setValues={setValues}
               disabled={disabled}
+              id={i}
+              allValues={allValues}
             />
           )}
           <input
@@ -101,7 +110,7 @@ const PeriodInput = ({
             onChange={handleChange}
             type="text"
             placeholder="Год"
-            id={year[0]}
+            id={i}
             className={classNames(
               'period-input__field form-input__field',
               !month && 'period-input__field_year-only'
@@ -130,6 +139,8 @@ const PeriodInput = ({
               values={values}
               setValues={setValues}
               disabled={disabledMonthChoice || isTillPresent}
+              id={i}
+              allValues={allValues}
             />
           )}
           <input
@@ -138,7 +149,7 @@ const PeriodInput = ({
             onChange={handleChange}
             type="text"
             placeholder="Год"
-            id={year[1]}
+            id={i}
             className={classNames(
               'period-input__field form-input__field',
               !month && 'period-input__field_year-only'
@@ -174,7 +185,7 @@ PeriodInput.propTypes = {
   tip: PropTypes.bool,
   tipText: PropTypes.node,
   disabled: PropTypes.bool,
-  i: PropTypes.number.isRequired,
+  i: PropTypes.string.isRequired,
   tillPresent: PropTypes.bool,
   handleCheckboxChange: PropTypes.func,
   checkboxValues: PropTypes.shape({
@@ -184,15 +195,35 @@ PeriodInput.propTypes = {
   setValues: PropTypes.func,
   monthPeriod: PropTypes.arrayOf(PropTypes.string),
   year: PropTypes.arrayOf(PropTypes.string),
-  values: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-  ),
+  values: PropTypes.shape({
+    languages: PropTypes.arrayOf(
+      PropTypes.objectOf(PropTypes.string, PropTypes.number)
+    ),
+    jobs: PropTypes.arrayOf(
+      PropTypes.objectOf(
+        PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+      )
+    ),
+  }),
   handleChange: PropTypes.func,
   setAllTillPresent: PropTypes.func,
   allTillPresent: PropTypes.shape({
     value: PropTypes.bool,
   }),
   setCheckboxValues: PropTypes.func,
+  allValues: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([
+          PropTypes.objectOf(
+            PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+          ),
+        ])
+      ),
+    ])
+  ),
 }
 
 PeriodInput.defaultProps = {
@@ -212,6 +243,7 @@ PeriodInput.defaultProps = {
   setAllTillPresent: () => {},
   allTillPresent: {},
   setCheckboxValues: () => {},
+  allValues: {},
 }
 
 export default PeriodInput
