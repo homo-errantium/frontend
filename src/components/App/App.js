@@ -19,7 +19,6 @@ import {
   COMPANY_NAME_REGEX,
   JOB_NAME_REGEX,
   YEAR_REGEX,
-  DUTIES_REGEX,
   SITE_REGEX,
 } from '../../constants/regex'
 // import About from '../Resume/About/About'
@@ -66,44 +65,60 @@ function App() {
   // Записываем в объект данные из полей
   const [values, setValues] = React.useState(
     JSON.parse(localStorage.getItem('formData')) || {
-      languages: [{ id: uuidv4() }],
-      jobs: [],
+      languages: [
+        {
+          id: 'ef44b943-fb45-477e-85a5-e33fd63c4852',
+          language: 'Английский',
+          level: 'B1',
+        },
+        {
+          id: '662cc9cf-2b38-4feb-be0d-503b4a01e896',
+          level: 'B2',
+          language: 'Французский',
+        },
+      ],
+      jobs: [
+        {
+          id: '4bce3f6a-d8e9-4e6e-85d7-66039825e643',
+          'company_4bce3f6a-d8e9-4e6e-85d7-66039825e643': 'Экспресс-ТВ',
+          'current_position_4bce3f6a-d8e9-4e6e-85d7-66039825e643':
+            'Технический редактор',
+          'month_work_start_4bce3f6a-d8e9-4e6e-85d7-66039825e643': 6,
+          'year_work_start_4bce3f6a-d8e9-4e6e-85d7-66039825e643': '2017',
+          'month_work_end_4bce3f6a-d8e9-4e6e-85d7-66039825e643': 6,
+          'year_work_end_4bce3f6a-d8e9-4e6e-85d7-66039825e643': '2023',
+          'duties_4bce3f6a-d8e9-4e6e-85d7-66039825e643':
+            'Тестирование(ручное) программы на C++.\nВерификация и корректировка данных.\nАдминистрирование контента.\nАдаптация контента под разные группы пользователей.\nНаставничество: работа в программе на С++ с нуля, поиск, анализ и устранение ошибок, структурирование информации, оптимизация процессов визуализации выпускаемого продукта.\nПользовательское тестирование функционала.',
+          'company_website_4bce3f6a-d8e9-4e6e-85d7-66039825e643':
+            'https://tv-express.ru/',
+        },
+      ],
+      name: 'Павел',
+      surname: 'Чурунов',
+      birthday: '27.11.1987',
+      city: 'Москва',
+      desired_position: 'Аналитик',
+      email: 'ChPavel@mail.ru',
+      phone: '+7(916)545-43-32',
+      website_link: '',
+      company: 'Яндекс Крауд',
+      current_position: 'Специалист',
+      month_work_start: 6,
+      year_work_start: '2023',
+      year_work_end: '',
+      month_work_end: '',
+      duties:
+        'Разметка видео и изображений; для обучения ИИ в в программах CVAT, Supervisely;\nПроверка разметки на наличие нарушений. Пользовательское тестирование',
+      telegram: 'https://t.me/chpavel',
+      level_knowledge: 'Middle',
+      github: 'https://github.com/cakamup1',
+      company_website: 'https://yandex.ru/project/remote-work/',
+      work_status: 'Принимаю предложения',
     }
+    // после MVP вернуть
     // {
-    //   languages: [
-    //     {
-    //       id: '14fd7a7e-5c9d-4551-8a41-24a27be682bb',
-    //       language: 'Английский',
-    //       level: 'B1',
-    //     },
-    //     {
-    //       id: '1842875f-cdce-422e-acad-157bfc6454ec',
-    //       language: 'B1',
-    //       level: 'B2',
-    //     },
-    //   ],
-    //   jobs: {},
-    //   month_work_end: '',
-    //   month_work_start: 6,
-    //   year_work_start: '2023',
-    //   year_work_end: '',
-    //   company: 'Яндекс Крауд / Специалист',
-    //   company_website: 'https://yandex.ru/project/remote-work/',
-    //   current_position: 'Специалист',
-    //   duties: `Разметка видео и изображений; для обучения ИИ в в программах CVAT, Supervisely;
-    //   Проверка разметки на наличие нарушений. Пользовательское тестирование.
-    //   `,
-    //   name: 'Павел',
-    //   surname: 'Чурунов',
-    //   birthday: '27.11.1987',
-    //   city: 'г. Москва',
-    //   desired_position: 'Аналитик',
-    //   email: 'ChPavel@mail.ru',
-    //   telegram: 't.me/chpavel',
-    //   github: 'https://github.com/cakamup1',
-    //   level_knowledge: 'Middle',
-    //   work_status: 'Принимаю предложения',
-    //   phone: '+7(916)545-43-32',
+    //   languages: [{ id: uuidv4() }],
+    //   jobs: [],
     // }
   )
   // Функция, которая записывает данные дополнительных полей опыта работы
@@ -170,11 +185,17 @@ function App() {
   )
   // Записываем в объект данные чекбоксов
   const [checkboxValues, setCheckboxValues] = React.useState(
-    JSON.parse(localStorage.getItem('checkboxData')) || {}
+    JSON.parse(localStorage.getItem('checkboxData')) || {
+      work_period_checkbox: true,
+    }
+    // после MVP вернуть {}
   )
   // Записываем данные isTillPresent в один объект
   const [allTillPresent, setAllTillPresent] = React.useState(
-    JSON.parse(localStorage.getItem('isTillPresent')) || {}
+    JSON.parse(localStorage.getItem('isTillPresent')) || {
+      0: true,
+    }
+    // вернуть после MVP {}
   )
 
   // Функция, которая записывает данные чекбоксов
@@ -358,18 +379,11 @@ function App() {
     }
     if (
       name === 'duties' &&
-      (evt.target.value.length > 100 || evt.target.value.length < 2)
+      (evt.target.value.length > 500 || evt.target.value.length < 2)
     ) {
       setErrors({
         ...errors,
-        duties: 'Описание обязанностей должно быть длиной от 2 до 100 символов',
-      })
-    }
-    if (name === 'duties' && !DUTIES_REGEX.test(value)) {
-      setErrors({
-        ...errors,
-        duties:
-          'Описание обязанностей может быть введено только кириллицей. Допускаются цифры, пробелы и дефисы',
+        duties: 'Описание обязанностей должно быть длиной от 2 до 500 символов',
       })
     }
     if (name === 'company_website' && !SITE_REGEX.test(value)) {
