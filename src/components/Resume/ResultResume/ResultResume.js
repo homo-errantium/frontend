@@ -139,9 +139,11 @@ function ResultResume({ values /* checkboxValues */ }) {
       {/* ------ блок языки ------*/}
       <div className="result-resume__language">
         <h2 className="result-resume__language-title">языки:</h2>
-        {userAllLang.map(item => (
+        {userAllLang.map((item, index) => (
           <>
-            <p className="result-resume__language-description">
+            <p
+              className={`result-resume__language-description result-resume__language${index}`}
+            >
               {`${item.language} (${item.level})`}
             </p>
             <br />

@@ -51,6 +51,7 @@ const PeriodInput = ({
         setValues(prevValue => ({ ...prevValue, jobs: monthClear }))
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isTillPresent])
 
   useEffect(() => {
@@ -64,6 +65,7 @@ const PeriodInput = ({
       })
       setIsTillPresent(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [disabled])
 
   const handleCheckboxToggle = () => {

@@ -131,6 +131,7 @@ function App() {
 
   useEffect(() => {
     setValues({ ...values, languages: languagesAfterChanges })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [languagesAfterChanges])
 
   // const handleLanguageChange = evt => {
@@ -157,6 +158,7 @@ function App() {
     } else {
       setValues({ ...values, languages: languagesAfterDeleting })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [languagesAfterDeleting])
 
   // RECOMMENDATIONS:
@@ -202,7 +204,6 @@ function App() {
   // Функция, которая записывает данные полей форм
   const handleChange = evt => {
     const { name, value } = evt.target
-    console.log(evt.target.select)
     const cleanValue = deleteNonLatin(value)
     if (name === 'telegram') {
       checkTgInput(name, cleanValue)
@@ -498,7 +499,7 @@ function App() {
           errors={errors}
           handleChangeWithValidation={handleChangeWithValidation}
           setErrors={setErrors}
-          handleAddJobChange={handleAddJobChange}
+          // handleAddJobChange={handleAddJobChange}
         />
       ),
       id: 2,
