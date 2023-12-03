@@ -29,13 +29,14 @@ import Experience from '../Resume/Experience/Experience'
 import PersonalData from '../Resume/PersonalData/PersonalData'
 // import Portfolio from '../Resume/Portfolio/Portfolio'
 // import Qualification from '../Resume/Qualification/Qualification'
-import Result from '../Resume/Result/Result'
 // import Skills from '../Resume/Skills/Skills'
+import Result from '../Resume/Result/Result'
 
 import PopupRegister from '../PopupRegister/PopupRegister'
 import PopupConfirmation from '../PopupConfirmation/PopupConfirmation'
 import PopupResumeName from '../PopupResumeName/PopupResumeName'
 import PopupLogin from '../PopupLogin/PopupLogin'
+import ResultResume from '../Resume/ResultResume/ResultResume'
 
 function App() {
   // eslint-disable-next-line no-unused-vars
@@ -106,16 +107,16 @@ function App() {
     // }
   )
   // Функция, которая записывает данные дополнительных полей опыта работы
-  const handleAddJobChange = evt => {
-    const { name, value, id } = evt.target
-    const updatedJobs = values.jobs.map(job => {
-      if (job.id === id) {
-        return { ...job, [name]: value, id }
-      }
-      return job
-    })
-    setValues({ ...values, jobs: updatedJobs })
-  }
+  // const handleAddJobChange = evt => {
+  //   const { name, value, id } = evt.target
+  //   const updatedJobs = values.jobs.map(job => {
+  //     if (job.id === id) {
+  //       return { ...job, [name]: value, id }
+  //     }
+  //     return job
+  //   })
+  //   setValues({ ...values, jobs: updatedJobs })
+  // }
 
   // LANGUAGES:
   const addLanguage = () => {
@@ -130,6 +131,7 @@ function App() {
 
   useEffect(() => {
     setValues({ ...values, languages: languagesAfterChanges })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [languagesAfterChanges])
 
   // const handleLanguageChange = evt => {
@@ -156,6 +158,7 @@ function App() {
     } else {
       setValues({ ...values, languages: languagesAfterDeleting })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [languagesAfterDeleting])
 
   // RECOMMENDATIONS:
@@ -201,7 +204,6 @@ function App() {
   // Функция, которая записывает данные полей форм
   const handleChange = evt => {
     const { name, value } = evt.target
-    console.log(evt.target.select)
     const cleanValue = deleteNonLatin(value)
     if (name === 'telegram') {
       checkTgInput(name, cleanValue)
@@ -497,7 +499,7 @@ function App() {
           errors={errors}
           handleChangeWithValidation={handleChangeWithValidation}
           setErrors={setErrors}
-          handleAddJobChange={handleAddJobChange}
+          // handleAddJobChange={handleAddJobChange}
         />
       ),
       id: 2,
@@ -650,6 +652,18 @@ function App() {
               />
             ))}
           </Route>
+          {/* может быть включить в состав роутов  resume?  */}
+          <Route
+            path="/result-resume"
+            element={
+              <ResultResume
+                values={values}
+                checkboxValues={checkboxValues}
+                isLoggedIn={isLoggedIn}
+                onOpenPopup={handleConfirmPopupOpen}
+              />
+            }
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
         {/* Попап регистрации */}

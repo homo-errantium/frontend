@@ -27,6 +27,8 @@ const Experience = ({
   setErrors,
   handleAddJobChange,
 }) => {
+  // console.log('🚀 ~ file: Experience.js:30 ~ handleChange:', handleChange)
+  // console.log('🚀 ~ file: Experience.js:30 ~ handleChange:', handleAddJobChange)
   // Если появился добавленный опыт, основная кнопка "Добавить" удаляется
   const [noAddedExperience, setNoAddedExperience] = useState(true)
 

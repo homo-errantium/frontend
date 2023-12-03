@@ -9,6 +9,11 @@
   text-align: left;
 }
 
+br {
+  margin-top: 10px;
+  line-height: 1.2;
+}
+
 h2 {
   font-family: Space Grotesk;
   margin: 0;
@@ -149,4 +154,11 @@ p {
   border: 1px solid black;
   margin: 0 -1px -1px 0;
   padding: 5px;
+}
+
+// для теста, потом можно удалить
+@media print {
+  @page {
+    margin: 10px;
+  }
 }
