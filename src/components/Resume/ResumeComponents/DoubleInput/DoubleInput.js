@@ -34,6 +34,7 @@ const DoubleInput = ({
     mask: Date,
     min: new Date(1900, 0, 1),
   }
+
   const maskInput = (dataValue, options) => {
     const inputElements = document.querySelectorAll(`[mask="${dataValue}"]`) // ищем поля ввода по селектору с переданным значением data-атрибута
     if (!inputElements) return // если таких полей ввода нет, прерываем функцию
@@ -90,7 +91,7 @@ const DoubleInput = ({
           />
         )}
         {errors && (
-          <span className="form-input__input-error">{errors[name]}</span>
+          <span className="form-input__input-error">{errors[name[0]]}</span>
         )}
       </div>
       <div className="double-input__right-box">

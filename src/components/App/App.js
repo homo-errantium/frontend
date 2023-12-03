@@ -12,7 +12,14 @@ import Register from '../Register/Register'
 import Login from '../Login/Login'
 import Profile from '../Profile/Profile'
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
-import { EMAIL_REGEX, BIRTHDAY_REGEX } from '../../constants/regex'
+import {
+  NAME_REGEX,
+  EMAIL_REGEX,
+  BIRTHDAY_REGEX,
+  COMPANY_NAME_REGEX,
+  JOB_NAME_REGEX,
+  DUTIES_REGEX,
+} from '../../constants/regex'
 // import About from '../Resume/About/About'
 // import Education from '../Resume/Education/Education'
 import Experience from '../Resume/Experience/Experience'
@@ -173,22 +180,150 @@ function App() {
   const handleChangeWithValidation = evt => {
     handleChange(evt)
     const { name, value } = evt.target
-    if (name === 'email' && !EMAIL_REGEX.test(value)) {
+    console.log(evt.target)
+    if (name === 'name' && !NAME_REGEX.test(value)) {
       setErrors({
         ...errors,
-        email: 'Введите email в формате address@domain.com',
+        name: 'Имя может быть введено только кириллицей. Допускаются пробелы и дефисы',
       })
     }
-    if (name === 'email' && evt.target.value.length > 55) {
+    if (
+      name === 'name' &&
+      (evt.target.value.length > 50 || evt.target.value.length < 2)
+    ) {
       setErrors({
         ...errors,
-        email: 'Email должен быть длиной от 5 до 50 символов',
+        name: 'Имя должно быть длиной от 2 до 50 символов',
+      })
+    }
+    if (name === 'surname' && !NAME_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        surname:
+          'Фамилия может быть введена только кириллицей. Допускаются пробелы и дефисы',
+      })
+    }
+    if (
+      name === 'surname' &&
+      (evt.target.value.length > 50 || evt.target.value.length < 1)
+    ) {
+      setErrors({
+        ...errors,
+        surname: 'Фамилия должна быть длиной от 1 до 50 символов',
       })
     }
     if (name === 'birthday' && !BIRTHDAY_REGEX.test(value)) {
       setErrors({
         ...errors,
         birthday: 'Дата рождения введена некорректно',
+      })
+    }
+    // указанный год в дате рождениия больше текущего:
+    const currentYear = new Date().getFullYear()
+    if (name === 'birthday' && value.slice(6, 10) > currentYear) {
+      setErrors({
+        ...errors,
+        birthday: 'Путешествуете во времени?',
+      })
+    }
+    if (name === 'city' && !NAME_REGEX.test(value)) {
+      console.log('check')
+      setErrors({
+        ...errors,
+        city: 'Название города может быть введено только кириллицей. Допускаются пробелы и дефисы',
+      })
+    }
+    if (
+      name === 'city' &&
+      (evt.target.value.length > 50 || evt.target.value.length < 2)
+    ) {
+      setErrors({
+        ...errors,
+        city: 'Название города должно быть длиной от 2 до 50 символов',
+      })
+    }
+    if (name === 'desired_position' && !NAME_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        desired_position:
+          'Название должности может быть введено только кириллицей. Допускаются пробелы и дефисы',
+      })
+    }
+    if (
+      name === 'desired_position' &&
+      (evt.target.value.length > 50 || evt.target.value.length < 2)
+    ) {
+      setErrors({
+        ...errors,
+        desired_position:
+          'Название должности должно быть длиной от 2 до 50 символов',
+      })
+    }
+    if (name === 'email' && !EMAIL_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        email: 'Введите email в формате address@domain.com',
+      })
+    }
+    if (name === 'email' && evt.target.value.length > 50) {
+      setErrors({
+        ...errors,
+        email: 'Email должен быть длиной от 5 до 50 символов',
+      })
+    }
+    if (name === 'phone' && evt.target.value.length < 16) {
+      setErrors({
+        ...errors,
+        phone: 'Введите полный номер телефона',
+      })
+    }
+    if (
+      name === 'company' &&
+      (evt.target.value.length > 50 || evt.target.value.length < 2)
+    ) {
+      setErrors({
+        ...errors,
+        company: 'Название компании должно быть длиной от 2 до 50 символов',
+      })
+    }
+    if (name === 'company' && !COMPANY_NAME_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        company:
+          'В названии компании допускаются только буквы, цифры, кавычки, пробелы и дефисы',
+      })
+    }
+    if (
+      name === 'current_position' &&
+      (evt.target.value.length > 50 || evt.target.value.length < 2)
+    ) {
+      setErrors({
+        ...errors,
+        current_position:
+          'Название должности должно быть длиной от 2 до 50 символов',
+      })
+    }
+    if (name === 'current_position' && !JOB_NAME_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        current_position:
+          'В названии должности допускаются только буквы, цифры, пробелы и дефисы',
+      })
+    }
+    if (
+      name === 'duties' &&
+      (evt.target.value.length > 100 || evt.target.value.length < 2)
+    ) {
+      setErrors({
+        ...errors,
+        duties: 'Описание обязанностей должно быть длиной от 2 до 100 символов',
+      })
+    }
+    if (name === 'duties' && !DUTIES_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        duties:
+          'Описание обязанностей может быть введено только кириллицей. Допускаются цифры, пробелы и дефисы',
       })
     }
   }
@@ -282,6 +417,9 @@ function App() {
           setAllTillPresent={setAllTillPresent}
           allTillPresent={allTillPresent}
           setDuties={setDuties}
+          errors={errors}
+          handleChangeWithValidation={handleChangeWithValidation}
+          setErrors={setErrors}
         />
       ),
       id: 2,
