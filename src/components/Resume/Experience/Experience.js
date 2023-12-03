@@ -22,6 +22,9 @@ const Experience = ({
   allTillPresent,
   setCheckboxValues,
   setDuties,
+  errors,
+  handleChangeWithValidation,
+  setErrors,
   handleAddJobChange,
 }) => {
   // Если появился добавленный опыт, основная кнопка "Добавить" удаляется
@@ -31,6 +34,7 @@ const Experience = ({
     setHasExperience(!hasExperience)
     setValues({ ...values, jobs: [] })
     setNoAddedExperience(true)
+    setErrors({})
   }
 
   const addExperience = () => {
@@ -69,30 +73,33 @@ const Experience = ({
         <FormInput
           name="company"
           values={values}
-          handleChange={handleChange}
+          handleChange={handleChangeWithValidation}
           label="Название компании"
           disabled={!hasExperience}
           setValues={setValues}
-          id="0"
+          errors={errors}
+          id="0
         />
         <FormInput
           name="company_website"
           values={values}
-          handleChange={handleChange}
+          handleChange={handleChangeWithValidation}
           label="Сайт компании"
           disabled={!hasExperience}
           setValues={setValues}
+          errors={errors}
           id="0"
         />
         <FormInput
           name="current_position"
           values={values}
-          handleChange={handleChange}
+          handleChange={handleChangeWithValidation}
           label="Должность"
           tip
           tipText={JOB_TIP}
           disabled={!hasExperience}
           setValues={setValues}
+          errors={errors}
           id="0"
         />
         <PeriodInput
@@ -111,18 +118,20 @@ const Experience = ({
           setValues={setValues}
           setAllTillPresent={setAllTillPresent}
           allTillPresent={allTillPresent}
-          handleChange={handleChange}
+          handleChange={handleChangeWithValidation}
           setCheckboxValues={setCheckboxValues}
+          errors={errors}
         />
         <FormInput
           name="duties"
           values={values}
-          handleChange={handleChange}
+          handleChange={handleChangeWithValidation}
           label="Обязанности"
           extraInputClass="responsibilities"
           disabled={!hasExperience}
           setValues={setValues}
           setDuties={setDuties}
+          errors={errors}
           id="0"
         />
         {values.jobs.map(experience => (
@@ -170,6 +179,11 @@ Experience.propTypes = {
   }),
   setCheckboxValues: PropTypes.func,
   setDuties: PropTypes.func.isRequired,
+  errors: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ).isRequired,
+  handleChangeWithValidation: PropTypes.func.isRequired,
+  setErrors: PropTypes.func.isRequired,
   handleAddJobChange: PropTypes.func,
 }
 

@@ -53,7 +53,8 @@ const FormInput = ({
         id={id}
         className={classNames(
           'form-input__field',
-          extraInputClass && `form-input__field_${extraInputClass}`
+          extraInputClass && `form-input__field_${extraInputClass}`,
+          errors[name] && 'form-input__field_error'
         )}
         onFocus={handleFocus}
         onBlur={handleBlur}

@@ -26,6 +26,7 @@ const PeriodInput = ({
   setAllTillPresent,
   allTillPresent,
   setCheckboxValues,
+  errors,
   allValues,
 }) => {
   const [disabledMonthChoice, setDisabledMonthChoice] = useState(false)
@@ -113,11 +114,15 @@ const PeriodInput = ({
             id={i}
             className={classNames(
               'period-input__field form-input__field',
-              !month && 'period-input__field_year-only'
+              !month && 'period-input__field_year-only',
+              errors[year[0]] && 'form-input__field_error'
             )}
             disabled={disabled}
           />
         </div>
+        {errors && (
+          <span className="form-input__input-error">{errors[year[0]]}</span>
+        )}
       </div>
 
       <div className="form-input">
@@ -152,12 +157,15 @@ const PeriodInput = ({
             id={i}
             className={classNames(
               'period-input__field form-input__field',
-              !month && 'period-input__field_year-only'
+              !month && 'period-input__field_year-only',
+              errors[year[1]] && 'form-input__field_error'
             )}
             disabled={disabled || isTillPresent}
           />
         </div>
-
+        {errors && (
+          <span className="form-input__input-error">{errors[year[1]]}</span>
+        )}
         {tillPresent && (
           <div className="period-input__checkbox-container">
             <Checkbox
@@ -211,6 +219,7 @@ PeriodInput.propTypes = {
     value: PropTypes.bool,
   }),
   setCheckboxValues: PropTypes.func,
+  errors: PropTypes.objectOf(PropTypes.string).isRequired,
   allValues: PropTypes.objectOf(
     PropTypes.oneOfType([
       PropTypes.string,
