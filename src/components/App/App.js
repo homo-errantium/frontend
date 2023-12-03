@@ -118,6 +118,9 @@ function App() {
     setValues({ ...values, jobs: updatedJobs })
   }
 
+  // eslint-disable-next-line no-console
+  console.log(handleAddJobChange)
+
   // LANGUAGES:
   const addLanguage = () => {
     setValues({

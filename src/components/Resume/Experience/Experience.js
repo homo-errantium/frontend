@@ -27,6 +27,8 @@ const Experience = ({
   setErrors,
   handleAddJobChange,
 }) => {
+  console.log('🚀 ~ file: Experience.js:30 ~ handleChange:', handleChange)
+  console.log('🚀 ~ file: Experience.js:30 ~ handleChange:', handleAddJobChange)
   // Если появился добавленный опыт, основная кнопка "Добавить" удаляется
   const [noAddedExperience, setNoAddedExperience] = useState(true)
 
@@ -78,7 +80,7 @@ const Experience = ({
           disabled={!hasExperience}
           setValues={setValues}
           errors={errors}
-          id="0
+          id="0"
         />
         <FormInput
           name="company_website"

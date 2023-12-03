@@ -1,10 +1,7 @@
 import './Result.scss'
 import PropTypes from 'prop-types'
-import jsPDF from 'jspdf'
 import { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-// import { saveAs } from 'file-saver'
-// import ReactPDF from '@react-pdf/renderer'
 import ResultResume from '../ResultResume/ResultResume'
 import DownloadIcon from '../../../img/download-icon.svg'
 
@@ -35,53 +32,33 @@ function Result({ values, checkboxValues }) {
     document.body.removeChild(fileDownload)
   }
 
-  const handleGeneratePdfFromPrint = async () => {
+  const handleGeneratePdf = async () => {
     await navigate('/result-resume')
-    window.print({ saveAsPDF: true })
-    navigate('/')
+    window.print()
+    navigate(-1)
   }
 
-  const handleGeneratePdf = () => {
-    // eslint-disable-next-line new-cap
-    const document = new jsPDF({
-      format: 'a4',
-      unit: 'px',
-    })
-    // Adding the fonts.
-    document.setFont('open-sans', 'normal')
+  // const handleGeneratePdf = () => {
+  //   // eslint-disable-next-line new-cap
+  //   const document = new jsPDF({
+  //     format: 'a4',
+  //     unit: 'px',
+  //   })
+  //   // Adding the fonts.
+  //   document.setFont('open-sans', 'normal')
 
-    document.html(resultResumeRef.current, {
-      async callback(doc) {
-        await doc.save('resume')
-      },
-    })
-  }
-
-  console.log(
-    '🚀 ~ file: Result.js:54 ~ handleGeneratePdf ~ handleGeneratePdf:',
-    handleGeneratePdfFromPrint
-  )
+  //   document.html(resultResumeRef.current, {
+  //     async callback(doc) {
+  //       await doc.save('resume')
+  //     },
+  //   })
+  // }
 
   return (
     <section className="result">
       <div className="result__header">
         <h1 className="result__title">Готовое резюме</h1>
         <div className="result__buttons-container">
-          <button
-            className="result__button"
-            type="button"
-            label="button"
-            onClick={() => {
-              handleGeneratePdfFromPrint()
-            }}
-          >
-            <img
-              className="result__button-icon"
-              alt="стрелка вниз"
-              src={DownloadIcon}
-            />
-            PDF-test
-          </button>
           <button
             className="result__button"
             type="button"
