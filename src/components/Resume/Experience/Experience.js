@@ -13,7 +13,7 @@ import { JOB_TIP } from '../../../constants/tips'
 const Experience = ({
   values,
   setValues,
-  handleChange,
+  // handleChange,
   handleCheckboxChange,
   checkboxValues,
   hasExperience,
@@ -78,7 +78,7 @@ const Experience = ({
           disabled={!hasExperience}
           setValues={setValues}
           errors={errors}
-          id="0
+          id="0"
         />
         <FormInput
           name="company_website"
@@ -166,7 +166,7 @@ Experience.propTypes = {
     PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ),
   setValues: PropTypes.func,
-  handleChange: PropTypes.func,
+  // handleChange: PropTypes.func,
   handleCheckboxChange: PropTypes.func,
   checkboxValues: PropTypes.shape({
     checkbox: PropTypes.bool,
@@ -190,7 +190,7 @@ Experience.propTypes = {
 Experience.defaultProps = {
   values: {},
   setValues: () => {},
-  handleChange: () => {},
+  // handleChange: () => {},
   handleCheckboxChange: () => {},
   checkboxValues: {},
   setHasExperience: () => {},

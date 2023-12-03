@@ -497,6 +497,7 @@ function App() {
           errors={errors}
           handleChangeWithValidation={handleChangeWithValidation}
           setErrors={setErrors}
+          handleAddJobChange={handleAddJobChange}
         />
       ),
       id: 2,

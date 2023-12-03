@@ -219,7 +219,7 @@ PeriodInput.propTypes = {
     value: PropTypes.bool,
   }),
   setCheckboxValues: PropTypes.func,
-  errors: PropTypes.objectOf(PropTypes.string).isRequired,
+  errors: PropTypes.objectOf(PropTypes.string),
   allValues: PropTypes.objectOf(
     PropTypes.oneOfType([
       PropTypes.string,
@@ -253,6 +253,7 @@ PeriodInput.defaultProps = {
   allTillPresent: {},
   setCheckboxValues: () => {},
   allValues: {},
+  errors: {},
 }
 
 export default PeriodInput
