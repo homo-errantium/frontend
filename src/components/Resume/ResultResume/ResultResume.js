@@ -139,16 +139,16 @@ function ResultResume({ values /* checkboxValues */ }) {
       {/* ------ блок языки ------*/}
       <div className="result-resume__language">
         <h2 className="result-resume__language-title">языки:</h2>
-        {userAllLang.map((item, index) => (
-          <>
-            <p
-              className={`result-resume__language-description result-resume__language${index}`}
-            >
-              {`${item.language} (${item.level})`}
-            </p>
-            <br />
-          </>
-        ))}
+        {userAllLang
+          ? userAllLang.map(item => (
+              <>
+                <p className="result-resume__language-description">
+                  {`${item.language} (${item.level})`}
+                </p>
+                <br />
+              </>
+            ))
+          : 'Отсутствует'}
       </div>
 
       {/* ------ блок образование ------*/}
@@ -189,7 +189,12 @@ function ResultResume({ values /* checkboxValues */ }) {
 
 ResultResume.propTypes = {
   values: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.array,
+      PropTypes.object,
+    ])
   ),
   // checkboxValues: PropTypes.objectOf(
   //   PropTypes.oneOfType([PropTypes.string, PropTypes.number])

@@ -80,7 +80,12 @@ function Result({ values /* checkboxValues */ }) {
 
 Result.propTypes = {
   values: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.array,
+      PropTypes.object,
+    ])
   ),
   // checkboxValues: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.bool])),
 }
