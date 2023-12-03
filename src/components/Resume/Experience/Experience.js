@@ -13,7 +13,7 @@ import { JOB_TIP } from '../../../constants/tips'
 const Experience = ({
   values,
   setValues,
-  handleChange,
+  // handleChange,
   handleCheckboxChange,
   checkboxValues,
   hasExperience,
@@ -27,8 +27,8 @@ const Experience = ({
   setErrors,
   handleAddJobChange,
 }) => {
-  console.log('🚀 ~ file: Experience.js:30 ~ handleChange:', handleChange)
-  console.log('🚀 ~ file: Experience.js:30 ~ handleChange:', handleAddJobChange)
+  // console.log('🚀 ~ file: Experience.js:30 ~ handleChange:', handleChange)
+  // console.log('🚀 ~ file: Experience.js:30 ~ handleChange:', handleAddJobChange)
   // Если появился добавленный опыт, основная кнопка "Добавить" удаляется
   const [noAddedExperience, setNoAddedExperience] = useState(true)
 
@@ -168,7 +168,7 @@ Experience.propTypes = {
     PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ),
   setValues: PropTypes.func,
-  handleChange: PropTypes.func,
+  // handleChange: PropTypes.func,
   handleCheckboxChange: PropTypes.func,
   checkboxValues: PropTypes.shape({
     checkbox: PropTypes.bool,
@@ -192,7 +192,7 @@ Experience.propTypes = {
 Experience.defaultProps = {
   values: {},
   setValues: () => {},
-  handleChange: () => {},
+  // handleChange: () => {},
   handleCheckboxChange: () => {},
   checkboxValues: {},
   setHasExperience: () => {},

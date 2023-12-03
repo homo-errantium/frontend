@@ -1,12 +1,12 @@
+import React from 'react'
 import './ResultResume.scss'
 import PropTypes from 'prop-types'
 import Keanu from '../../../img/Keanu-Reeves.jpg'
 
-function ResultResume({ values, checkboxValues }) {
-  // eslint-disable-next-line no-console
-  console.log('🚀 ~ file: ResultResume.js:5 ~ ResultResume ~ values:', values)
-  // eslint-disable-next-line no-console
-  console.log(checkboxValues)
+//
+
+function ResultResume({ values /* checkboxValues */ }) {
+  const userAllLang = values.languages
 
   function changeMonth(month) {
     return month < 10 ? `0${month}` : `${month}`
@@ -78,12 +78,6 @@ function ResultResume({ values, checkboxValues }) {
             absentValues(values.month_work_start)
           )}${values.year_work_end ? `/${values.year_work_end}` : ''}`}
         </span>
-        <br />
-        {/* <span className="result-resume__experience-end">
-          {`Дата окончания работы: ${changeMonth(values.month_work_end)}/${
-            values.year_work_end
-          }`}
-        </span> */}
 
         <span className="result-resume__experience-company-site">
           {`Сайт компании: ${absentValues(values.company_website)}`}
@@ -141,15 +135,20 @@ function ResultResume({ values, checkboxValues }) {
           {`Описание полученного опыта: ${values.userEmail}`}
         </span>
       </div> */}
+
       {/* ------ блок языки ------*/}
       <div className="result-resume__language">
         <h2 className="result-resume__language-title">языки:</h2>
-        <p className="result-resume__language-description">
-          {`${absentValues(values.language_1)} (${
-            values.language_level_1 ?? ''
-          })`}
-        </p>
+        {userAllLang.map(item => (
+          <>
+            <p className="result-resume__language-description">
+              {`${item.language} (${item.level})`}
+            </p>
+            <br />
+          </>
+        ))}
       </div>
+
       {/* ------ блок образование ------*/}
       {/* <div className="result-resume__education">
         <h2 className="result-resume__education-title">образование:</h2>
@@ -190,11 +189,11 @@ ResultResume.propTypes = {
   values: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ),
-  checkboxValues: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-  ),
+  // checkboxValues: PropTypes.objectOf(
+  //   PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  // ),
 }
 
-ResultResume.defaultProps = { values: {}, checkboxValues: {} }
+ResultResume.defaultProps = { values: {} /* checkboxValues: {} */ }
 
 export default ResultResume

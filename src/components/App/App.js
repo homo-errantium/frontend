@@ -29,8 +29,8 @@ import Experience from '../Resume/Experience/Experience'
 import PersonalData from '../Resume/PersonalData/PersonalData'
 // import Portfolio from '../Resume/Portfolio/Portfolio'
 // import Qualification from '../Resume/Qualification/Qualification'
-import Result from '../Resume/Result/Result'
 // import Skills from '../Resume/Skills/Skills'
+import Result from '../Resume/Result/Result'
 
 import PopupRegister from '../PopupRegister/PopupRegister'
 import PopupConfirmation from '../PopupConfirmation/PopupConfirmation'
@@ -107,19 +107,16 @@ function App() {
     // }
   )
   // Функция, которая записывает данные дополнительных полей опыта работы
-  const handleAddJobChange = evt => {
-    const { name, value, id } = evt.target
-    const updatedJobs = values.jobs.map(job => {
-      if (job.id === id) {
-        return { ...job, [name]: value, id }
-      }
-      return job
-    })
-    setValues({ ...values, jobs: updatedJobs })
-  }
-
-  // eslint-disable-next-line no-console
-  console.log(handleAddJobChange)
+  // const handleAddJobChange = evt => {
+  //   const { name, value, id } = evt.target
+  //   const updatedJobs = values.jobs.map(job => {
+  //     if (job.id === id) {
+  //       return { ...job, [name]: value, id }
+  //     }
+  //     return job
+  //   })
+  //   setValues({ ...values, jobs: updatedJobs })
+  // }
 
   // LANGUAGES:
   const addLanguage = () => {
@@ -653,13 +650,15 @@ function App() {
               />
             ))}
           </Route>
-          {/* для тестирования, потом можно будет удалитьё */}
+          {/* может быть включить в состав роутов  resume?  */}
           <Route
             path="/result-resume"
             element={
               <ResultResume
+                values={values}
+                checkboxValues={checkboxValues}
                 isLoggedIn={isLoggedIn}
-                // onOpenPopup={handleConfirmPopupOpen}
+                onOpenPopup={handleConfirmPopupOpen}
               />
             }
           />
