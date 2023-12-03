@@ -21,6 +21,7 @@ import PersonalData from '../Resume/PersonalData/PersonalData'
 // import Portfolio from '../Resume/Portfolio/Portfolio'
 // import Qualification from '../Resume/Qualification/Qualification'
 import Result from '../Resume/Result/Result'
+import ResultResume from '../Resume/ResultResume/ResultResume'
 // import Skills from '../Resume/Skills/Skills'
 
 import PopupRegister from '../PopupRegister/PopupRegister'
@@ -454,6 +455,18 @@ function App() {
               />
             ))}
           </Route>
+          {/* может быть включить в состав роутов  resume?  */}
+          <Route
+            path="/result-resume"
+            element={
+              <ResultResume
+                values={values}
+                checkboxValues={checkboxValues}
+                isLoggedIn={isLoggedIn}
+                onOpenPopup={handleConfirmPopupOpen}
+              />
+            }
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
         {/* Попап регистрации */}
