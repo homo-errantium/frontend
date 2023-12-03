@@ -47,7 +47,7 @@ const CAREER_OBJECTIVE_TIP = (
 
 const EMAIL_TIP = (
   <p className="tip-paragraph">
-    Не укзывайте e-mail типа dominator69@mail.ru или почту с доменом своей
+    Не указывайте e-mail типа dominator69@mail.ru или почту с доменом своей
     текущей работы.
   </p>
 )

@@ -154,7 +154,7 @@ const PersonalData = ({
             values={values}
             setValues={setValues}
             name={['telegram', 'github']}
-            firstLabel="Телеграм"
+            firstLabel="Telegram"
             secondLabel="Ссылка на GitHub"
             doubleInput
             placeholder="t.me/name"
