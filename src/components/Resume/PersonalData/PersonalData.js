@@ -147,7 +147,9 @@ const PersonalData = ({
             secondLabel="Ссылка на GitHub"
             doubleInput
             placeholder="t.me/name"
+            dataMask="tgLink"
             ordinaryInputFirst
+            // maskLinkInputFirst
             ordinaryInputSecond
           />
           <DoubleInput
