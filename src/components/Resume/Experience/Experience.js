@@ -162,9 +162,16 @@ const Experience = ({
 }
 
 Experience.propTypes = {
-  values: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-  ),
+  values: PropTypes.shape({
+    languages: PropTypes.arrayOf(
+      PropTypes.objectOf(PropTypes.string, PropTypes.number)
+    ),
+    jobs: PropTypes.arrayOf(
+      PropTypes.objectOf(
+        PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+      )
+    ),
+  }),
   setValues: PropTypes.func,
   // handleChange: PropTypes.func,
   handleCheckboxChange: PropTypes.func,
