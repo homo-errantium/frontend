@@ -19,7 +19,6 @@ import {
   COMPANY_NAME_REGEX,
   JOB_NAME_REGEX,
   YEAR_REGEX,
-  DUTIES_REGEX,
   SITE_REGEX,
 } from '../../constants/regex'
 // import About from '../Resume/About/About'
@@ -358,18 +357,11 @@ function App() {
     }
     if (
       name === 'duties' &&
-      (evt.target.value.length > 100 || evt.target.value.length < 2)
+      (evt.target.value.length > 500 || evt.target.value.length < 2)
     ) {
       setErrors({
         ...errors,
-        duties: 'Описание обязанностей должно быть длиной от 2 до 100 символов',
-      })
-    }
-    if (name === 'duties' && !DUTIES_REGEX.test(value)) {
-      setErrors({
-        ...errors,
-        duties:
-          'Описание обязанностей может быть введено только кириллицей. Допускаются цифры, пробелы и дефисы',
+        duties: 'Описание обязанностей должно быть длиной от 2 до 500 символов',
       })
     }
     if (name === 'company_website' && !SITE_REGEX.test(value)) {
