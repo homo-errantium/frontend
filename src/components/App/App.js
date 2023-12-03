@@ -25,6 +25,7 @@ import PopupRegister from '../PopupRegister/PopupRegister'
 import PopupConfirmation from '../PopupConfirmation/PopupConfirmation'
 import PopupResumeName from '../PopupResumeName/PopupResumeName'
 import PopupLogin from '../PopupLogin/PopupLogin'
+import ResultResume from '../Resume/ResultResume/ResultResume'
 
 function App() {
   // eslint-disable-next-line no-unused-vars
@@ -315,6 +316,16 @@ function App() {
               />
             ))}
           </Route>
+          {/* для тестирования, потом можно будет удалитьё */}
+          <Route
+            path="/result-resume"
+            element={
+              <ResultResume
+                isLoggedIn={isLoggedIn}
+                // onOpenPopup={handleConfirmPopupOpen}
+              />
+            }
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
         {/* Попап регистрации */}

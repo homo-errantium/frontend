@@ -2,11 +2,18 @@ import './Result.scss'
 import PropTypes from 'prop-types'
 import jsPDF from 'jspdf'
 import { useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
+// import { saveAs } from 'file-saver'
+// import ReactPDF from '@react-pdf/renderer'
 import ResultResume from '../ResultResume/ResultResume'
 import DownloadIcon from '../../../img/download-icon.svg'
 
 function Result({ values, checkboxValues }) {
   const resultResumeRef = useRef(null)
+  const navigate = useNavigate()
+  // const savePDF = () => {
+  //   ReactPDF.render(<ResultResume />)
+  // }
 
   const handleGenerateWord = () => {
     const preHTML =
@@ -28,6 +35,12 @@ function Result({ values, checkboxValues }) {
     document.body.removeChild(fileDownload)
   }
 
+  const handleGeneratePdfFromPrint = async () => {
+    await navigate('/result-resume')
+    window.print({ saveAsPDF: true })
+    navigate('/')
+  }
+
   const handleGeneratePdf = () => {
     // eslint-disable-next-line new-cap
     const document = new jsPDF({
@@ -38,18 +51,37 @@ function Result({ values, checkboxValues }) {
     document.setFont('open-sans', 'normal')
 
     document.html(resultResumeRef.current, {
-      // eslint-disable-next-line no-shadow
       async callback(doc) {
         await doc.save('resume')
       },
     })
   }
 
+  console.log(
+    '🚀 ~ file: Result.js:54 ~ handleGeneratePdf ~ handleGeneratePdf:',
+    handleGeneratePdfFromPrint
+  )
+
   return (
     <section className="result">
       <div className="result__header">
         <h1 className="result__title">Готовое резюме</h1>
         <div className="result__buttons-container">
+          <button
+            className="result__button"
+            type="button"
+            label="button"
+            onClick={() => {
+              handleGeneratePdfFromPrint()
+            }}
+          >
+            <img
+              className="result__button-icon"
+              alt="стрелка вниз"
+              src={DownloadIcon}
+            />
+            PDF-test
+          </button>
           <button
             className="result__button"
             type="button"
