@@ -111,10 +111,17 @@ const DoubleInput = ({
                 <select
                   name={name[1]}
                   onChange={handleChange}
-                  value={values[name[1]]}
+                  value={values[name[1]] || ''}
                   id={values[name[1]]}
                   className="double-input__field double-input__field_selected"
                 >
+                  <option
+                    value=""
+                    className="double-input__option"
+                    disabled
+                    hidden
+                    aria-label="Выберите нужную опцию"
+                  />
                   {optionsInputSecond.map(value => (
                     <option
                       value={value}
@@ -135,6 +142,9 @@ const DoubleInput = ({
                 className="double-input__field double-input__field_short"
                 disabled={disabled}
               />
+            )}
+            {errors && (
+              <span className="form-input__input-error">{errors[name[1]]}</span>
             )}
           </>
         )}

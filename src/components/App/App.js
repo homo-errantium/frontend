@@ -20,6 +20,7 @@ import {
   JOB_NAME_REGEX,
   YEAR_REGEX,
   DUTIES_REGEX,
+  SITE_REGEX,
 } from '../../constants/regex'
 // import About from '../Resume/About/About'
 // import Education from '../Resume/Education/Education'
@@ -97,7 +98,7 @@ function App() {
     //   desired_position: 'Аналитик',
     //   email: 'ChPavel@mail.ru',
     //   telegram: 't.me/chpavel',
-    //   githab: 'https://github.com/cakamup1',
+    //   github: 'https://github.com/cakamup1',
     //   level_knowledge: 'Middle',
     //   work_status: 'Принимаю предложения',
     //   phone: '+7(916)545-43-32',
@@ -312,13 +313,13 @@ function App() {
     if (name === 'year_work_start' && !YEAR_REGEX.test(value)) {
       setErrors({
         ...errors,
-        year_work_start: 'Введите год в формате ГГГГ (например, 1985)',
+        year_work_start: 'Введите год в формате ГГГГ (например, 2020)',
       })
     }
     if (name === 'year_work_end' && !YEAR_REGEX.test(value)) {
       setErrors({
         ...errors,
-        year_work_end: 'Введите год в формате ГГГГ (например, 1985)',
+        year_work_end: 'Введите год в формате ГГГГ (например, 2020)',
       })
     }
     if (
@@ -335,6 +336,39 @@ function App() {
         ...errors,
         duties:
           'Описание обязанностей может быть введено только кириллицей. Допускаются цифры, пробелы и дефисы',
+      })
+    }
+    if (name === 'company_website' && !SITE_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        company_website:
+          'Сайт введен некорректно. Адрес должен начинаться с https://',
+      })
+    }
+    if (name === 'website_link' && !SITE_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        website_link:
+          'Сайт введен некорректно. Адрес должен начинаться с https://',
+      })
+    }
+    if (name === 'behance' && !SITE_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        behance: 'Сайт введен некорректно. Адрес должен начинаться с https://',
+      })
+    }
+    if (name === 'github' && !SITE_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        github: 'Сайт введен некорректно. Адрес должен начинаться с https://',
+      })
+    }
+    if (name === 'video_link' && !SITE_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        video_link:
+          'Сайт введен некорректно. Адрес должен начинаться с https://',
       })
     }
   }

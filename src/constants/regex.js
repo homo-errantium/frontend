@@ -16,6 +16,8 @@ const YEAR_REGEX = /^[0-9]{4}$/
 
 const DUTIES_REGEX = /^[а-яА-ЯЁё0-9\-\s]*$/
 
+const SITE_REGEX = /https?:\/\/(?:[-\w]+\.)?([-\w]+)\.\w+(?:\.\w+)?\/?.*/i
+
 export {
   NAME_REGEX,
   EMAIL_REGEX,
@@ -24,4 +26,5 @@ export {
   JOB_NAME_REGEX,
   YEAR_REGEX,
   DUTIES_REGEX,
+  SITE_REGEX,
 }

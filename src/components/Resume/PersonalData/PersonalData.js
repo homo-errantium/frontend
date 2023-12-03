@@ -21,7 +21,7 @@ import LanguageInput from '../ResumeComponents/LanguageInput/LanguageInput'
 
 const PersonalData = ({
   values,
-  handleChange,
+  // handleChange,
   setValues,
   addLanguage,
   setLanguagesAfterDeleting,
@@ -144,19 +144,20 @@ const PersonalData = ({
             errors={errors}
           />
           <DoubleInput
-            handleChange={handleChange}
+            handleChange={handleChangeWithValidation}
             values={values}
             setValues={setValues}
-            name={['telegram', 'githab']}
+            name={['telegram', 'github']}
             firstLabel="Телеграм"
             secondLabel="Ссылка на GitHub"
             doubleInput
             placeholder="t.me/name"
             ordinaryInputFirst
             ordinaryInputSecond
+            errors={errors}
           />
           <DoubleInput
-            handleChange={handleChange}
+            handleChange={handleChangeWithValidation}
             values={values}
             setValues={setValues}
             name={['website_link', 'video_link']}
@@ -167,6 +168,7 @@ const PersonalData = ({
             ordinaryInputSecond
             tipFirst
             tipTextFirst={OTHER__SITE_LINK_TIP}
+            errors={errors}
           />
         </div>
         <ResumeTitle title="Владение языками" />

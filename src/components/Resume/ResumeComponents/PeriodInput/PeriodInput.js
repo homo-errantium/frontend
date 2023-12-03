@@ -105,7 +105,8 @@ const PeriodInput = ({
             id={year[0]}
             className={classNames(
               'period-input__field form-input__field',
-              !month && 'period-input__field_year-only'
+              !month && 'period-input__field_year-only',
+              errors[year[0]] && 'form-input__field_error'
             )}
             disabled={disabled}
           />
@@ -145,7 +146,8 @@ const PeriodInput = ({
             id={year[1]}
             className={classNames(
               'period-input__field form-input__field',
-              !month && 'period-input__field_year-only'
+              !month && 'period-input__field_year-only',
+              errors[year[1]] && 'form-input__field_error'
             )}
             disabled={disabled || isTillPresent}
           />

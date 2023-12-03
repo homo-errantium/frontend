@@ -30,6 +30,10 @@
   resize: none;
 }
 
+.form-input__field_error {
+  border-color: #FF4B4B;
+}
+
 .form-input__field:disabled {
   border: 1px solid #9f9f9f;
   background: #e6e6e6;
