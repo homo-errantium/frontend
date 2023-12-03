@@ -177,7 +177,7 @@ DoubleInput.propTypes = {
   optionsInputFirst: PropTypes.arrayOf(PropTypes.string),
   optionsInputSecond: PropTypes.arrayOf(PropTypes.string),
   dataMask: PropTypes.string,
-  errors: PropTypes.objectOf(PropTypes.string).isRequired,
+  errors: PropTypes.objectOf(PropTypes.string),
 }
 
 DoubleInput.defaultProps = {
@@ -196,6 +196,7 @@ DoubleInput.defaultProps = {
   optionsInputFirst: [],
   optionsInputSecond: [],
   dataMask: '',
+  errors: {},
 }
 
 export default DoubleInput

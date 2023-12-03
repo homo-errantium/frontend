@@ -61,11 +61,12 @@ function App() {
 
   // --------------------------- Работа с данными через локальное хранилище -----------------------
 
+  // const [addedExperience, setAddedExperience] = React.useState([])
   // Записываем в объект данные из полей
   const [values, setValues] = React.useState(
     JSON.parse(localStorage.getItem('formData')) || {
       languages: [{ id: uuidv4() }],
-      jobs: {},
+      jobs: [],
     }
     // {
     //   languages: [
@@ -104,6 +105,17 @@ function App() {
     //   phone: '+7(916)545-43-32',
     // }
   )
+  // Функция, которая записывает данные дополнительных полей опыта работы
+  const handleAddJobChange = evt => {
+    const { name, value, id } = evt.target
+    const updatedJobs = values.jobs.map(job => {
+      if (job.id === id) {
+        return { ...job, [name]: value, id }
+      }
+      return job
+    })
+    setValues({ ...values, jobs: updatedJobs })
+  }
 
   // LANGUAGES:
   const addLanguage = () => {
