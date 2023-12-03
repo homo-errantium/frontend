@@ -25,6 +25,7 @@ const DoubleInput = ({
   values,
   handleChange,
   name,
+  errors,
 }) => {
   const maskOptionsPhone = {
     mask: '+{7}(000)000-00-00',
@@ -89,6 +90,9 @@ const DoubleInput = ({
             mask={dataMask}
             type="text"
           />
+        )}
+        {errors && (
+          <span className="form-input__input-error">{errors[name]}</span>
         )}
       </div>
       <div className="double-input__right-box">
@@ -157,6 +161,7 @@ DoubleInput.propTypes = {
   optionsInputFirst: PropTypes.arrayOf(PropTypes.string),
   optionsInputSecond: PropTypes.arrayOf(PropTypes.string),
   dataMask: PropTypes.string,
+  errors: PropTypes.objectOf(PropTypes.string).isRequired,
 }
 
 DoubleInput.defaultProps = {

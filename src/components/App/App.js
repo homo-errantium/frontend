@@ -12,6 +12,7 @@ import Register from '../Register/Register'
 import Login from '../Login/Login'
 import Profile from '../Profile/Profile'
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
+import { EMAIL_REGEX, BIRTHDAY_REGEX } from '../../constants/regex'
 // import About from '../Resume/About/About'
 // import Education from '../Resume/Education/Education'
 import Experience from '../Resume/Experience/Experience'
@@ -57,6 +58,42 @@ function App() {
       languages: [{ id: uuidv4() }],
       jobs: {},
     }
+    // {
+    //   languages: [
+    //     {
+    //       id: '14fd7a7e-5c9d-4551-8a41-24a27be682bb',
+    //       language: 'Английский',
+    //       level: 'B1',
+    //     },
+    //     {
+    //       id: '1842875f-cdce-422e-acad-157bfc6454ec',
+    //       language: 'B1',
+    //       level: 'B2',
+    //     },
+    //   ],
+    //   jobs: {},
+    //   month_work_end: '',
+    //   month_work_start: 6,
+    //   year_work_start: '2023',
+    //   year_work_end: '',
+    //   company: 'Яндекс Крауд / Специалист',
+    //   company_website: 'https://yandex.ru/project/remote-work/',
+    //   current_position: 'Специалист',
+    //   duties: `Разметка видео и изображений; для обучения ИИ в в программах CVAT, Supervisely;
+    //   Проверка разметки на наличие нарушений. Пользовательское тестирование.
+    //   `,
+    //   name: 'Павел',
+    //   surname: 'Чурунов',
+    //   birthday: '27.11.1987',
+    //   city: 'г. Москва',
+    //   desired_position: 'Аналитик',
+    //   email: 'ChPavel@mail.ru',
+    //   telegram: 't.me/chpavel',
+    //   githab: 'https://github.com/cakamup1',
+    //   level_knowledge: 'Middle',
+    //   work_status: 'Принимаю предложения',
+    //   phone: '+7(916)545-43-32',
+    // }
   )
 
   // LANGUAGES:
@@ -66,20 +103,27 @@ function App() {
       languages: [...values.languages, { id: uuidv4() }],
     })
   }
+  const [languagesAfterChanges, setLanguagesChanges] = useState(
+    values.languages
+  )
 
-  const handleLanguageChange = evt => {
-    const { name, value } = evt.target
-    const index = name.slice(9)
-    const languageToBeChanged = values.languages.find(m => m.id === index)
-    languageToBeChanged.language = value
-  }
+  useEffect(() => {
+    setValues({ ...values, languages: languagesAfterChanges })
+  }, [languagesAfterChanges])
 
-  const handleLanguageLevelChange = evt => {
-    const { name, value } = evt.target
-    const index = name.slice(15)
-    const languageToBeChanged = values.languages.find(m => m.id === index)
-    languageToBeChanged.level = value
-  }
+  // const handleLanguageChange = evt => {
+  //   const { name, value } = evt.target
+  //   const index = name.slice(9)
+  //   const languageToBeChanged = values.languages.find(m => m.id === index)
+  //   languageToBeChanged.language = value
+  // }
+
+  // const handleLanguageLevelChange = evt => {
+  //   const { name, value } = evt.target
+  //   const index = name.slice(15)
+  //   const languageToBeChanged = values.languages.find(m => m.id === index)
+  //   languageToBeChanged.level = value
+  // }
 
   const [languagesAfterDeleting, setLanguagesAfterDeleting] = useState(
     values.languages
@@ -117,6 +161,7 @@ function App() {
       [name]: !prevValues[name],
     }))
   }
+  const [errors, setErrors] = useState({})
   function deleteNonLatin(text) {
     return text.replace(/[^A-Za-z0-9:_//.]/gi, '')
   }
@@ -142,7 +187,32 @@ function App() {
     } else {
       setValues({ ...values, [name]: value })
     }
+    setErrors({ ...errors, [name]: evt.target.validationMessage })
   }
+  // INPUTS  VALIDATION:
+  const handleChangeWithValidation = evt => {
+    handleChange(evt)
+    const { name, value } = evt.target
+    if (name === 'email' && !EMAIL_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        email: 'Введите email в формате address@domain.com',
+      })
+    }
+    if (name === 'email' && evt.target.value.length > 55) {
+      setErrors({
+        ...errors,
+        email: 'Email должен быть длиной от 5 до 50 символов',
+      })
+    }
+    if (name === 'birthday' && !BIRTHDAY_REGEX.test(value)) {
+      setErrors({
+        ...errors,
+        birthday: 'Дата рождения введена некорректно',
+      })
+    }
+  }
+
   // Сохраняем данные полей в локалное хранилище
   const handleClick = () => {
     const checkboxData = { ...checkboxValues }
@@ -204,11 +274,14 @@ function App() {
         <PersonalData
           values={values}
           handleChange={handleChange}
-          handleLanguageChange={handleLanguageChange}
-          handleLanguageLevelChange={handleLanguageLevelChange}
+          // handleLanguageChange={handleLanguageChange}
+          // handleLanguageLevelChange={handleLanguageLevelChange}
+          setLanguagesChanges={setLanguagesChanges}
           setValues={setValues}
           addLanguage={addLanguage}
           setLanguagesAfterDeleting={setLanguagesAfterDeleting}
+          errors={errors}
+          handleChangeWithValidation={handleChangeWithValidation}
         />
       ),
       id: 1,
