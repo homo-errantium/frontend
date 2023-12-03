@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import IMask from 'imask'
+import classNames from 'classnames'
 import './DoubleInput.scss'
 import Tip from '../Tip/Tip'
 
@@ -83,7 +84,10 @@ const DoubleInput = ({
             name={name[0]}
             onChange={handleChange}
             value={values[name[0]]}
-            className="double-input__field"
+            className={classNames(
+              'double-input__field',
+              errors[name[0]] && 'double-input__field_error'
+            )}
             disabled={disabled}
             placeholder={placeholder}
             mask={dataMask}
@@ -139,7 +143,10 @@ const DoubleInput = ({
                 name={name[1]}
                 onChange={handleChange}
                 value={values[name[1]]}
-                className="double-input__field double-input__field_short"
+                className={classNames(
+                  'double-input__field double-input__field_short',
+                  errors[name[1]] && 'double-input__field_error'
+                )}
                 disabled={disabled}
               />
             )}
