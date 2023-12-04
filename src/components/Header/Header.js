@@ -173,7 +173,7 @@ function Header({
             </NavLink>
             <NavLink className="header__nav-link" to="/signin">
               <div className="header__exit-button">
-                <span className="header__main-button">Выйти</span>
+                <span className="header__main-button">Войти</span>
                 <img
                   className="header__exit-icon"
                   alt="Кнопка выхода"
