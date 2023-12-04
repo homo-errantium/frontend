@@ -22,9 +22,7 @@ function Main({ isLoggedIn, onOpenPopup }) {
       <main className="main">
         <div className="main__title-container">
           <div className="main__text-conteiner">
-            <h1 className="main__title">
-              Ваше Идеальное IT-резюме за несколько Шагов!
-            </h1>
+            <h1 className="main__title">Ваше IT-резюме за несколько Шагов!</h1>
             <span className="main__title-comment">
               Мгновенное создание, вечные результаты{' '}
             </span>

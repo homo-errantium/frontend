@@ -135,10 +135,12 @@ function App() {
 
   // LANGUAGES:
   const addLanguage = () => {
-    setValues({
-      ...values,
-      languages: [...values.languages, { id: uuidv4() }],
-    })
+    if (values.languages.length < 5) {
+      setValues({
+        ...values,
+        languages: [...values.languages, { id: uuidv4() }],
+      })
+    }
   }
   const [languagesAfterChanges, setLanguagesChanges] = useState(
     values.languages
