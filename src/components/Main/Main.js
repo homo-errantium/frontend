@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import './Main.scss'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
@@ -9,8 +9,6 @@ import Step1 from '../../img/main-step1.png'
 
 function Main({ isLoggedIn, onOpenPopup }) {
   const nextPage = '/resume'
-
-  const navigate = useNavigate()
 
   return (
     <>
@@ -29,7 +27,9 @@ function Main({ isLoggedIn, onOpenPopup }) {
             <button
               type="button"
               className="main__create-button link"
-              onClick={() => navigate('/resume/personal-data')}
+              onClick={() => {
+                onOpenPopup()
+              }}
             >
               Создать резюме
             </button>

@@ -32,10 +32,12 @@ import PersonalData from '../Resume/PersonalData/PersonalData'
 import Result from '../Resume/Result/Result'
 
 import PopupRegister from '../PopupRegister/PopupRegister'
-import PopupConfirmation from '../PopupConfirmation/PopupConfirmation'
+import PopupConfirmationExit from '../PopupConfirmationExit/PopupConfirmationExit'
 import PopupResumeName from '../PopupResumeName/PopupResumeName'
 import PopupLogin from '../PopupLogin/PopupLogin'
 import ResultResume from '../Resume/ResultResume/ResultResume'
+import PopupConfirmationDelete from '../PopupConfirmationDelete/PopupConfirmationDelete'
+import PopupConfirmationRegister from '../PopupConfirmationRegister/PopupConfirmationRegister'
 
 function App() {
   // eslint-disable-next-line no-unused-vars
@@ -436,7 +438,12 @@ function App() {
   /* ----------------------------------------- Popup -----------------------------------------------------*/
   const [isLoginPopupOpen, setIsLoginPopupOpen] = React.useState(false)
   const [isRegisterPopupOpen, setIsRegisterPopupOpen] = React.useState(false)
-  const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false)
+  const [isConfirmExitPopupOpen, setIsConfirmExitPopupOpen] =
+    React.useState(false)
+  const [isConfirmDeletePopupOpen, setIsConfirmDeletePopupOpen] =
+    React.useState(false)
+  const [isConfirmRegPopupOpen, setIsConfirmRegPopupOpen] =
+    React.useState(false)
   const [isResumeNamePopupOpen, setIsResumeNamePopupOpen] =
     React.useState(false)
 
@@ -444,7 +451,10 @@ function App() {
   const closeAllPopup = () => {
     setIsLoginPopupOpen(false)
     setIsRegisterPopupOpen(false)
-    setIsConfirmPopupOpen(false)
+    setIsConfirmExitPopupOpen(false)
+    setIsConfirmDeletePopupOpen(false)
+    setIsConfirmRegPopupOpen(false)
+    setIsConfirmExitPopupOpen(false)
     setIsResumeNamePopupOpen(false)
   }
 
@@ -461,20 +471,19 @@ function App() {
   const handleRegisterPopupOpen = () => {
     setIsRegisterPopupOpen(true)
   }
-  const handleConfirmPopupOpen = () => {
-    setIsConfirmPopupOpen(true)
+  const handleConfirmExitPopupOpen = () => {
+    setIsConfirmExitPopupOpen(true)
+  }
+  const handleConfirmDeletePopupOpen = () => {
+    setIsConfirmDeletePopupOpen(true)
+  }
+  const handleConfirmRegPopupOpen = () => {
+    setIsConfirmRegPopupOpen(true)
   }
 
-  // /* убрать эти консоли */
-  // // eslint-disable-next-line no-console
-  // console.log(handleLoginPopupOpen)
-  // // eslint-disable-next-line no-console
-  // console.log(handleRegisterPopupOpen)
-  // // eslint-disable-next-line no-console
-  // console.log(handleResumeNamePopupOpen)
-  // // eslint-disable-next-line no-console
-  // console.log(handleConfirmPopupOpen)
-  // /* --------- для Popup ---------*/
+  console.log(isConfirmDeletePopupOpen)
+  console.log(isConfirmRegPopupOpen)
+  console.log(handleConfirmDeletePopupOpen)
 
   // Объект для защиты дочерних роутов Resume
   const routesResumeArr = [
@@ -621,7 +630,7 @@ function App() {
             element={
               <Main
                 isLoggedIn={isLoggedIn}
-                onOpenPopup={handleConfirmPopupOpen}
+                onOpenPopup={handleConfirmRegPopupOpen}
               />
             }
           />
@@ -630,7 +639,7 @@ function App() {
             element={
               <Profession
                 isLoggedIn={isLoggedIn}
-                onOpenPopup={handleConfirmPopupOpen}
+                onOpenPopup={handleConfirmExitPopupOpen}
               />
             }
           />
@@ -639,7 +648,7 @@ function App() {
             element={
               <Resume
                 isLoggedIn={isLoggedIn}
-                onOpenPopup={handleConfirmPopupOpen}
+                onOpenPopup={handleConfirmExitPopupOpen}
                 setCompletedStepsPersonalData={setCompletedStepsPersonalData}
                 setCompletedStepsExperience={setCompletedStepsExperience}
                 // setCompletedStepsQualification={setCompletedStepsQualification}
@@ -668,7 +677,6 @@ function App() {
               />
             ))}
           </Route>
-          {/* может быть включить в состав роутов  resume?  */}
           <Route
             path="/result-resume"
             element={
@@ -676,7 +684,7 @@ function App() {
                 values={values}
                 checkboxValues={checkboxValues}
                 isLoggedIn={isLoggedIn}
-                onOpenPopup={handleConfirmPopupOpen}
+                onOpenPopup={handleConfirmExitPopupOpen}
               />
             }
           />
@@ -694,16 +702,24 @@ function App() {
           onClose={closeAllPopup}
           onLogin={handleLogin}
         />
-        {/* Попап подтверждения */}
-        <PopupConfirmation
-          setCheckboxValues={setCheckboxValues}
-          setValues={setValues}
-          isOpen={isConfirmPopupOpen}
+        {/* Попап подтверждения выхода */}
+        <PopupConfirmationExit
+          isOpen={isConfirmExitPopupOpen}
           onClose={closeAllPopup}
         />
         {/* попап добавления имени резюме */}
         <PopupResumeName
           isOpen={isResumeNamePopupOpen}
+          onClose={closeAllPopup}
+        />
+        {/* Попап подтверждения удаления */}
+        <PopupConfirmationDelete
+          isOpen={isConfirmDeletePopupOpen}
+          onClose={closeAllPopup}
+        />
+        {/* Попап подтверждения перехода */}
+        <PopupConfirmationRegister
+          isOpen={isConfirmRegPopupOpen}
           onClose={closeAllPopup}
         />
       </CurrentUserContext.Provider>

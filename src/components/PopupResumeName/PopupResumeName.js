@@ -4,7 +4,7 @@ import './PopupResumeName.scss'
 import PopupСontainer from '../PopupContainer/PopupContainer'
 import ResumeName from './ResumeName/ResumeName'
 
-function PopupConfirmation({ isOpen, onClose }) {
+function PopupConfirmationExit({ isOpen, onClose }) {
   return (
     <PopupСontainer
       isOpen={isOpen}
@@ -15,9 +15,9 @@ function PopupConfirmation({ isOpen, onClose }) {
   )
 }
 
-PopupConfirmation.propTypes = {
+PopupConfirmationExit.propTypes = {
   onClose: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
 }
 
-export default PopupConfirmation
+export default PopupConfirmationExit

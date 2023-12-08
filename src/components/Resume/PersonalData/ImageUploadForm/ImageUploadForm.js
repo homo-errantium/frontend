@@ -8,7 +8,6 @@ import Tip from '../../ResumeComponents/Tip/Tip'
 const ImageUploadForm = ({ label, tip, tipText }) => {
   const [file, setFile] = useState()
   function handleChange(e) {
-    console.log(e.target.files)
     setFile(URL.createObjectURL(e.target.files[0]))
   }
 
