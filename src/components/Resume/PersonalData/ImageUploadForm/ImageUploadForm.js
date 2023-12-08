@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control,
           jsx-a11y/label-has-for */
 import './ImageUploadForm.scss'
@@ -5,10 +6,9 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import Tip from '../../ResumeComponents/Tip/Tip'
 
-const ImageUploadForm = ({ label, tip, tipText }) => {
+const ImageUploadForm = ({ label, tip, tipText, name, values }) => {
   const [file, setFile] = useState()
   function handleChange(e) {
-    console.log(e.target.files)
     setFile(URL.createObjectURL(e.target.files[0]))
   }
 
@@ -26,6 +26,8 @@ const ImageUploadForm = ({ label, tip, tipText }) => {
           <label className="image-upload__button" htmlFor="image-input">
             <input
               className="image-upload__input"
+              name={name}
+              // value={values}
               id="image-input"
               type="file"
               accept=".png,.jpg,.jpeg,"
@@ -41,10 +43,22 @@ ImageUploadForm.propTypes = {
   label: PropTypes.string,
   tip: PropTypes.bool,
   tipText: PropTypes.node,
+  name: PropTypes.string.isRequired,
+  values: PropTypes.shape({
+    languages: PropTypes.arrayOf(
+      PropTypes.objectOf(PropTypes.string, PropTypes.number)
+    ),
+    jobs: PropTypes.arrayOf(
+      PropTypes.objectOf(
+        PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+      )
+    ),
+  }),
 }
 ImageUploadForm.defaultProps = {
   label: '',
   tip: false,
   tipText: '',
+  values: {},
 }
 export default ImageUploadForm

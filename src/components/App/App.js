@@ -65,73 +65,21 @@ function App() {
   // Записываем в объект данные из полей
   const [values, setValues] = React.useState(
     JSON.parse(localStorage.getItem('formData')) || {
-      languages: [
-        {
-          id: 'ef44b943-fb45-477e-85a5-e33fd63c4852',
-          language: 'Английский',
-          level: 'B1',
-        },
-        {
-          id: '662cc9cf-2b38-4feb-be0d-503b4a01e896',
-          level: 'B2',
-          language: 'Французский',
-        },
-      ],
-      jobs: [
-        {
-          id: '4bce3f6a-d8e9-4e6e-85d7-66039825e643',
-          'company_4bce3f6a-d8e9-4e6e-85d7-66039825e643': 'Экспресс-ТВ',
-          'current_position_4bce3f6a-d8e9-4e6e-85d7-66039825e643':
-            'Технический редактор',
-          'month_work_start_4bce3f6a-d8e9-4e6e-85d7-66039825e643': 6,
-          'year_work_start_4bce3f6a-d8e9-4e6e-85d7-66039825e643': '2017',
-          'month_work_end_4bce3f6a-d8e9-4e6e-85d7-66039825e643': 6,
-          'year_work_end_4bce3f6a-d8e9-4e6e-85d7-66039825e643': '2023',
-          'duties_4bce3f6a-d8e9-4e6e-85d7-66039825e643':
-            'Тестирование(ручное) программы на C++.\nВерификация и корректировка данных.\nАдминистрирование контента.\nАдаптация контента под разные группы пользователей.\nНаставничество: работа в программе на С++ с нуля, поиск, анализ и устранение ошибок, структурирование информации, оптимизация процессов визуализации выпускаемого продукта.\nПользовательское тестирование функционала.',
-          'company_website_4bce3f6a-d8e9-4e6e-85d7-66039825e643':
-            'https://tv-express.ru/',
-        },
-      ],
-      name: 'Павел',
-      surname: 'Чурунов',
-      birthday: '27.11.1987',
-      city: 'Москва',
-      desired_position: 'Аналитик',
-      email: 'ChPavel@mail.ru',
-      phone: '+7(916)545-43-32',
-      website_link: '',
-      company: 'Яндекс Крауд',
-      current_position: 'Специалист',
-      month_work_start: 6,
-      year_work_start: '2023',
-      year_work_end: '',
-      month_work_end: '',
-      duties:
-        'Разметка видео и изображений; для обучения ИИ в в программах CVAT, Supervisely;\nПроверка разметки на наличие нарушений. Пользовательское тестирование',
-      telegram: 'https://t.me/chpavel',
-      level_knowledge: 'Middle',
-      github: 'https://github.com/cakamup1',
-      company_website: 'https://yandex.ru/project/remote-work/',
-      work_status: 'Принимаю предложения',
+      languages: [{ id: uuidv4() }],
+      jobs: [],
     }
-    // после MVP вернуть
-    // {
-    //   languages: [{ id: uuidv4() }],
-    //   jobs: [],
-    // }
   )
   // Функция, которая записывает данные дополнительных полей опыта работы
-  // const handleAddJobChange = evt => {
-  //   const { name, value, id } = evt.target
-  //   const updatedJobs = values.jobs.map(job => {
-  //     if (job.id === id) {
-  //       return { ...job, [name]: value, id }
-  //     }
-  //     return job
-  //   })
-  //   setValues({ ...values, jobs: updatedJobs })
-  // }
+  const handleAddJobChange = evt => {
+    const { name, value, id } = evt.target
+    const updatedJobs = values.jobs.map(job => {
+      if (job.id === id) {
+        return { ...job, [name]: value, id }
+      }
+      return job
+    })
+    setValues({ ...values, jobs: updatedJobs })
+  }
 
   // LANGUAGES:
   const addLanguage = () => {
@@ -515,7 +463,7 @@ function App() {
           errors={errors}
           handleChangeWithValidation={handleChangeWithValidation}
           setErrors={setErrors}
-          // handleAddJobChange={handleAddJobChange}
+          handleAddJobChange={handleAddJobChange}
         />
       ),
       id: 2,

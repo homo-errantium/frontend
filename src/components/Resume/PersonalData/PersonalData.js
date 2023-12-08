@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import './PersonalData.scss'
 import React from 'react'
-// import { v4 as uuidv4 } from 'uuid'
 import ResumeTitle from '../ResumeComponents/ResumeTitle/ResumeTitle'
 import DoubleInput from '../ResumeComponents/DoubleInput/DoubleInput'
 import {
@@ -23,7 +22,6 @@ import ImageUploadForm from './ImageUploadForm/ImageUploadForm'
 
 const PersonalData = ({
   values,
-  // handleChange,
   setValues,
   addLanguage,
   setLanguagesAfterDeleting,
@@ -89,7 +87,13 @@ const PersonalData = ({
               />
             </div>
             <div className="personal-data__form-right-column">
-              <ImageUploadForm label="Фото" tip tipText={PHOTO_TIP} />
+              <ImageUploadForm
+                name="photo"
+                label="Фото"
+                tip
+                tipText={PHOTO_TIP}
+                values={values}
+              />
             </div>
           </div>
           <DoubleInput
