@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import './PopupConfirmation.scss'
 import PopupСontainer from '../PopupContainer/PopupContainer'
-import Confirmation from './Comfirmation/Confirmation'
+import Confirmation from './Confirmation/Confirmation'
 
 function PopupConfirmation({ isOpen, onClose, setCheckboxValues, setValues }) {
   return (

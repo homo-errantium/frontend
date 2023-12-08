@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import './RegistrationForm.scss'
 import RegistrationField from './RegistrationField/RegistrationField'
 import { EMAIL_REGEX } from '../../../constants/regex'
-import PlusIcon from '../../../img/plus-icon.svg'
 import DataProcessing from './DataProcessing/DataProcessing'
 import { DATA_PROCESSING_TEXT } from '../../../constants/text-templates'
 
@@ -119,7 +118,7 @@ const RegistrationForm = ({ buttonText, onSubmit }) => {
         <div className="registration-form__fields">
           <RegistrationField
             name="email"
-            placeholder="Электронная почта"
+            placeholder="e-mail"
             type="email"
             handleChange={handleEmailChange}
             values={values}
@@ -138,7 +137,7 @@ const RegistrationForm = ({ buttonText, onSubmit }) => {
           <RegistrationField
             label="Подтвердите пароль"
             name="passwordConfirmation"
-            placeholder="Повторите пароль"
+            placeholder="Подтвердите пароль"
             type="password"
             handleChange={handlePasswordConfirmationChange}
             values={values}
@@ -161,11 +160,6 @@ const RegistrationForm = ({ buttonText, onSubmit }) => {
           }`}
           disabled={!isValid}
         >
-          <img
-            className="registration-form__button-icon"
-            src={PlusIcon}
-            alt="plus icon"
-          />
           <span className="registration-form__button-text">{buttonText}</span>
         </button>
       </form>

@@ -31,10 +31,10 @@ import PersonalData from '../Resume/PersonalData/PersonalData'
 // import Skills from '../Resume/Skills/Skills'
 import Result from '../Resume/Result/Result'
 
-import PopupRegister from '../PopupRegister/PopupRegister'
-import PopupConfirmation from '../PopupConfirmation/PopupConfirmation'
-import PopupResumeName from '../PopupResumeName/PopupResumeName'
-import PopupLogin from '../PopupLogin/PopupLogin'
+import PopupRegister from '../Popups/PopupRegister/PopupRegister'
+import PopupConfirmation from '../Popups/PopupConfirmation/PopupConfirmation'
+import PopupResumeName from '../Popups/PopupResumeName/PopupResumeName'
+import PopupLogin from '../Popups/PopupLogin/PopupLogin'
 import ResultResume from '../Resume/ResultResume/ResultResume'
 
 function App() {
@@ -434,7 +434,7 @@ function App() {
   }
 
   /* ----------------------------------------- Popup -----------------------------------------------------*/
-  const [isLoginPopupOpen, setIsLoginPopupOpen] = React.useState(false)
+  const [isLoginPopupOpen, setIsLoginPopupOpen] = React.useState(true)
   const [isRegisterPopupOpen, setIsRegisterPopupOpen] = React.useState(false)
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false)
   const [isResumeNamePopupOpen, setIsResumeNamePopupOpen] =

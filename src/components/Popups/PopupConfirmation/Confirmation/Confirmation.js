@@ -1,7 +1,7 @@
 import './Confirmation.scss'
 import { useNavigate } from 'react-router'
 import PropTypes from 'prop-types'
-import confirmLogo from '../../../img/back-to-profile.svg'
+import confirmLogo from '../../../../img/back-to-profile.svg'
 
 function Confirmation({ onClose /* setCheckboxValues, setValues */ }) {
   const navigate = useNavigate()

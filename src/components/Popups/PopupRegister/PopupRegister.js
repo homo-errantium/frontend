@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import './PopupRegister.scss'
 import PopupСontainer from '../PopupContainer/PopupContainer'
-import Register from '../Register/Register'
+import Register from '../../Register/Register'
 // import RegistrationForm from '../Register/RegistrationForm/RegistrationForm'
 
 function PopupRegister({ isOpen, onClose, onRegister }) {
