@@ -4,24 +4,13 @@ import './PopupConfirmationExit.scss'
 import PopupСontainer from '../PopupContainer/PopupContainer'
 import Confirmation from './ComfirmationExit/ConfirmationExit'
 
-function PopupConfirmationExit({
-  isOpen,
-  onClose,
-  setCheckboxValues,
-  setValues,
-}) {
+function PopupConfirmationExit({ isOpen, onClose }) {
   return (
     <PopupСontainer
       isOpen={isOpen}
       onClose={onClose}
       popupName="popup-confirmation-exit"
-      element={
-        <Confirmation
-          onClose={onClose}
-          setValues={setValues}
-          setCheckboxValues={setCheckboxValues}
-        />
-      }
+      element={<Confirmation onClose={onClose} />}
     />
   )
 }
@@ -29,8 +18,6 @@ function PopupConfirmationExit({
 PopupConfirmationExit.propTypes = {
   onClose: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
-  setCheckboxValues: PropTypes.func.isRequired,
-  setValues: PropTypes.func.isRequired,
 }
 
 export default PopupConfirmationExit
