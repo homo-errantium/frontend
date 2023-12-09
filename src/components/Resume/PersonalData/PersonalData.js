@@ -1,6 +1,6 @@
-/* eslint-disable react/prop-types */
 import './PersonalData.scss'
 import React from 'react'
+import PropTypes from 'prop-types'
 import ResumeTitle from '../ResumeComponents/ResumeTitle/ResumeTitle'
 import DoubleInput from '../ResumeComponents/DoubleInput/DoubleInput'
 import {
@@ -28,6 +28,8 @@ const PersonalData = ({
   setLanguagesChanges,
   errors,
   handleChangeWithValidation,
+  setImage,
+  image,
 }) => {
   const deleteLanguage = i => {
     const languageToBeRemoved = values.languages.find(item => item.id === i)
@@ -92,7 +94,8 @@ const PersonalData = ({
                 label="Фото"
                 tip
                 tipText={PHOTO_TIP}
-                values={values}
+                setImage={setImage}
+                image={image}
               />
             </div>
           </div>
@@ -203,6 +206,39 @@ const PersonalData = ({
       </div>
     </section>
   )
+}
+
+PersonalData.propTypes = {
+  values: PropTypes.shape({
+    languages: PropTypes.arrayOf(
+      PropTypes.objectOf(PropTypes.string, PropTypes.number)
+    ),
+    jobs: PropTypes.arrayOf(
+      PropTypes.objectOf(
+        PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+      )
+    ),
+  }),
+  setValues: PropTypes.func,
+  addLanguage: PropTypes.func,
+  setLanguagesAfterDeleting: PropTypes.func,
+  setLanguagesChanges: PropTypes.func,
+  errors: PropTypes.objectOf(PropTypes.string),
+  handleChangeWithValidation: PropTypes.func,
+  setImage: PropTypes.func,
+  image: PropTypes.string,
+}
+
+PersonalData.defaultProps = {
+  values: {},
+  setValues: () => {},
+  addLanguage: () => {},
+  setLanguagesAfterDeleting: () => {},
+  setLanguagesChanges: () => {},
+  errors: {},
+  handleChangeWithValidation: () => {},
+  setImage: () => {},
+  image: undefined,
 }
 
 export default PersonalData

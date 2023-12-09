@@ -62,6 +62,7 @@ function App() {
   // --------------------------- Работа с данными через локальное хранилище -----------------------
 
   // const [addedExperience, setAddedExperience] = React.useState([])
+
   // Записываем в объект данные из полей
   const [values, setValues] = React.useState(
     JSON.parse(localStorage.getItem('formData')) || {
@@ -69,6 +70,30 @@ function App() {
       jobs: [],
     }
   )
+  const [languagesAfterChanges, setLanguagesChanges] = useState(
+    values.languages
+  )
+  const [languagesAfterDeleting, setLanguagesAfterDeleting] = useState(
+    values.languages
+  )
+  // RECOMMENDATIONS:
+  const [duties, setDuties] = useState(false)
+  // // Если опыт есть, поля активны. Если нет, поля деактивируются:
+  const [hasExperience, setHasExperience] = React.useState(
+    JSON.parse(localStorage.getItem('hasExperience') || true)
+  )
+  // Записываем данные isTillPresent в один объект
+  const [allTillPresent, setAllTillPresent] = React.useState(
+    JSON.parse(localStorage.getItem('isTillPresent')) || {}
+  )
+  // Записываем в объект данные чекбоксов
+  const [checkboxValues, setCheckboxValues] = React.useState(
+    JSON.parse(localStorage.getItem('checkboxData')) || {}
+  )
+  const [errors, setErrors] = useState({})
+  // Сохраняем ссылку изображения в переменную и вытягиваем из локального хранилища данные
+  const [image, setImage] = useState(localStorage.getItem('image'))
+
   // Функция, которая записывает данные дополнительных полей опыта работы
   const handleAddJobChange = evt => {
     const { name, value, id } = evt.target
@@ -90,9 +115,6 @@ function App() {
       })
     }
   }
-  const [languagesAfterChanges, setLanguagesChanges] = useState(
-    values.languages
-  )
 
   useEffect(() => {
     setValues({ ...values, languages: languagesAfterChanges })
@@ -113,10 +135,6 @@ function App() {
   //   languageToBeChanged.level = value
   // }
 
-  const [languagesAfterDeleting, setLanguagesAfterDeleting] = useState(
-    values.languages
-  )
-
   useEffect(() => {
     if (languagesAfterDeleting.length === 0) {
       setValues({ ...values, languages: [{ id: uuidv4() }] })
@@ -126,28 +144,6 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [languagesAfterDeleting])
 
-  // RECOMMENDATIONS:
-  const [duties, setDuties] = useState(false)
-
-  // // Если опыт есть, поля активны. Если нет, поля деактивируются:
-  const [hasExperience, setHasExperience] = React.useState(
-    JSON.parse(localStorage.getItem('hasExperience') || true)
-  )
-  // Записываем в объект данные чекбоксов
-  const [checkboxValues, setCheckboxValues] = React.useState(
-    JSON.parse(localStorage.getItem('checkboxData')) || {
-      work_period_checkbox: true,
-    }
-    // после MVP вернуть {}
-  )
-  // Записываем данные isTillPresent в один объект
-  const [allTillPresent, setAllTillPresent] = React.useState(
-    JSON.parse(localStorage.getItem('isTillPresent')) || {
-      0: true,
-    }
-    // вернуть после MVP {}
-  )
-
   // Функция, которая записывает данные чекбоксов
   const handleCheckboxChange = evt => {
     const { name } = evt.target
@@ -156,10 +152,11 @@ function App() {
       [name]: !prevValues[name],
     }))
   }
-  const [errors, setErrors] = useState({})
+
   function deleteNonLatin(text) {
     return text.replace(/[^A-Za-z0-9:_//.]/gi, '')
   }
+
   function checkTgInput(name, value) {
     const cleanValue = deleteNonLatin(value)
     if (cleanValue === '') {
@@ -172,9 +169,11 @@ function App() {
       setValues({ ...values, [name]: `https://t.me/${cleanValue}` })
     }
   }
+
   // Функция, которая записывает данные полей форм
   const handleChange = evt => {
     const { name, value } = evt.target
+    // console.log(value)
     const cleanValue = deleteNonLatin(value)
     if (name === 'telegram') {
       checkTgInput(name, cleanValue)
@@ -379,6 +378,7 @@ function App() {
     localStorage.setItem('formData', JSON.stringify(formData))
     localStorage.setItem('hasExperience', JSON.stringify(hasExperience))
     localStorage.setItem('isTillPresent', JSON.stringify(allTillPresent))
+    localStorage.setItem('image', image)
   }
 
   /* ----------------------------------------- Popup -----------------------------------------------------*/
@@ -440,6 +440,8 @@ function App() {
           setLanguagesAfterDeleting={setLanguagesAfterDeleting}
           errors={errors}
           handleChangeWithValidation={handleChangeWithValidation}
+          setImage={setImage}
+          image={image}
         />
       ),
       id: 1,
