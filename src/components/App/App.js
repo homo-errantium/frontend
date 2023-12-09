@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react'
 import './App.scss'
@@ -27,7 +28,7 @@ import Experience from '../Resume/Experience/Experience'
 // import Layouts from '../Resume/Layouts/Layouts'
 import PersonalData from '../Resume/PersonalData/PersonalData'
 // import Portfolio from '../Resume/Portfolio/Portfolio'
-// import Qualification from '../Resume/Qualification/Qualification'
+import Qualification from '../Resume/Qualification/Qualification'
 // import Skills from '../Resume/Skills/Skills'
 import Result from '../Resume/Result/Result'
 
@@ -49,8 +50,8 @@ function App() {
     React.useState(false)
   const [completedStepsExperience, setCompletedStepsExperience] =
     React.useState(false)
-  // const [completedStepsQualification, setCompletedStepsQualification] =
-  //   React.useState(false)
+  const [completedStepsQualification, setCompletedStepsQualification] =
+    React.useState(false)
   // const [completedStepsEducation, setCompletedStepsEducation] =
   //   React.useState(false)
   // const [completedStepsPortfolio, setCompletedStepsPortfolio] =
@@ -68,6 +69,7 @@ function App() {
     JSON.parse(localStorage.getItem('formData')) || {
       languages: [{ id: uuidv4() }],
       jobs: [],
+      qualifications: [],
     }
   )
   const [languagesAfterChanges, setLanguagesChanges] = useState(
@@ -82,6 +84,10 @@ function App() {
   const [hasExperience, setHasExperience] = React.useState(
     JSON.parse(localStorage.getItem('hasExperience') || true)
   )
+  // Если повышение квалицикации есть, поля активны. Если нет, поля деактивируются:
+  const [hasQualification, setHasQualification] = React.useState(
+    JSON.parse(localStorage.getItem('hasQualification') || true)
+  )
   // Записываем данные isTillPresent в один объект
   const [allTillPresent, setAllTillPresent] = React.useState(
     JSON.parse(localStorage.getItem('isTillPresent')) || {}
@@ -92,7 +98,7 @@ function App() {
   )
   const [errors, setErrors] = useState({})
   // Сохраняем ссылку изображения в переменную и вытягиваем из локального хранилища данные
-  const [image, setImage] = useState(localStorage.getItem('image'))
+  const [image, setImage] = useState(localStorage.getItem('image') || '')
 
   // Функция, которая записывает данные дополнительных полей опыта работы
   const handleAddJobChange = evt => {
@@ -104,6 +110,17 @@ function App() {
       return job
     })
     setValues({ ...values, jobs: updatedJobs })
+  }
+  // Функция, которая записывает данные дополнительных полей с квалификацией
+  const handleAddQualificationChange = evt => {
+    const { name, value, id } = evt.target
+    const updatedQualification = values.qualifications.map(qual => {
+      if (qual.id === id) {
+        return { ...qual, [name]: value, id }
+      }
+      return qual
+    })
+    setValues({ ...values, qualifications: updatedQualification })
   }
 
   // LANGUAGES:
@@ -374,11 +391,12 @@ function App() {
   const handleClick = () => {
     const checkboxData = { ...checkboxValues }
     const formData = { ...values }
-    localStorage.setItem('checkboxData', JSON.stringify(checkboxData))
-    localStorage.setItem('formData', JSON.stringify(formData))
     localStorage.setItem('hasExperience', JSON.stringify(hasExperience))
     localStorage.setItem('isTillPresent', JSON.stringify(allTillPresent))
     localStorage.setItem('image', image)
+    localStorage.setItem('checkboxData', JSON.stringify(checkboxData))
+    localStorage.setItem('formData', JSON.stringify(formData))
+    localStorage.setItem('hasQualification', JSON.stringify(hasQualification))
   }
 
   /* ----------------------------------------- Popup -----------------------------------------------------*/
@@ -471,12 +489,23 @@ function App() {
       id: 2,
       completedSteps: completedStepsExperience,
     },
-    // {
-    //   path: 'qualification',
-    //   element: <Qualification />,
-    //   id: 3,
-    //   completedSteps: completedStepsQualification,
-    // },
+    {
+      path: 'qualification',
+      element: (
+        <Qualification
+          handleCheckboxChange={handleCheckboxChange}
+          checkboxValues={checkboxValues}
+          setHasQualification={setHasQualification}
+          hasQualification={hasQualification}
+          values={values}
+          handleChangeWithValidation={handleChangeWithValidation}
+          setValues={setValues}
+          handleAddQualificationChange={handleAddQualificationChange}
+        />
+      ),
+      id: 3,
+      completedSteps: completedStepsQualification,
+    },
     // {
     //   path: 'education',
     //   element: <Education />,
@@ -592,7 +621,7 @@ function App() {
                 onOpenPopup={handleConfirmPopupOpen}
                 setCompletedStepsPersonalData={setCompletedStepsPersonalData}
                 setCompletedStepsExperience={setCompletedStepsExperience}
-                // setCompletedStepsQualification={setCompletedStepsQualification}
+                setCompletedStepsQualification={setCompletedStepsQualification}
                 // setCompletedStepsEducation={setCompletedStepsEducation}
                 // setCompletedStepsPortfolio={setCompletedStepsPortfolio}
                 // setCompletedStepsSkills={setCompletedStepsSkills}

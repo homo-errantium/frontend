@@ -2,20 +2,40 @@ import React from 'react'
 import './MonthPicker.scss'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
+import { useLocation } from 'react-router-dom'
 import { months } from '../../../../../constants/months'
 
 const MonthPicker = ({ disabled, setValues, values, name, id, allValues }) => {
+  const location = useLocation()
   const chooseMonth = month => {
-    if (id === '0') {
-      setValues(prevValues => ({ ...prevValues, [name]: month.id }))
-    } else {
-      const updateMonth = allValues.jobs.map(job => {
-        if (job.id === id) {
-          return { ...job, [name]: month.id, id }
-        }
-        return job
-      })
-      setValues(prevValues => ({ ...prevValues, jobs: updateMonth }))
+    if (location.pathname === '/resume/experience') {
+      if (id === '0') {
+        setValues(prevValues => ({ ...prevValues, [name]: month.id }))
+      } else {
+        const updateMonth = allValues.jobs.map(job => {
+          if (job.id === id) {
+            return { ...job, [name]: month.id, id }
+          }
+          return job
+        })
+        setValues(prevValues => ({ ...prevValues, jobs: updateMonth }))
+      }
+    }
+    if (location.pathname === '/resume/qualification') {
+      if (id === '0') {
+        setValues(prevValues => ({ ...prevValues, [name]: month.id }))
+      } else {
+        const updateMonth = allValues.qualifications.map(qualifications => {
+          if (qualifications.id === id) {
+            return { ...qualifications, [name]: month.id, id }
+          }
+          return qualifications
+        })
+        setValues(prevValues => ({
+          ...prevValues,
+          qualifications: updateMonth,
+        }))
+      }
     }
   }
 
@@ -64,7 +84,7 @@ const MonthPicker = ({ disabled, setValues, values, name, id, allValues }) => {
 
 MonthPicker.propTypes = {
   disabled: PropTypes.bool,
-  setValues: PropTypes.func,
+  setValues: PropTypes.func.isRequired,
   values: PropTypes.shape({
     value: PropTypes.oneOfType([
       PropTypes.string,
@@ -93,7 +113,6 @@ MonthPicker.propTypes = {
 
 MonthPicker.defaultProps = {
   disabled: false,
-  setValues: () => {},
   values: {},
   name: '',
   allValues: {},

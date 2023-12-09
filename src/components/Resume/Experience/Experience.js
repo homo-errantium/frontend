@@ -173,40 +173,38 @@ Experience.propTypes = {
         PropTypes.oneOfType([PropTypes.string, PropTypes.number])
       )
     ),
+    qualifications: PropTypes.arrayOf(
+      PropTypes.objectOf(
+        PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+      )
+    ),
   }),
-  setValues: PropTypes.func,
+  setValues: PropTypes.func.isRequired,
   // handleChange: PropTypes.func,
-  handleCheckboxChange: PropTypes.func,
+  handleCheckboxChange: PropTypes.func.isRequired,
   checkboxValues: PropTypes.shape({
     checkbox: PropTypes.bool,
   }),
   hasExperience: PropTypes.bool.isRequired,
-  setHasExperience: PropTypes.func,
-  setAllTillPresent: PropTypes.func,
+  setHasExperience: PropTypes.func.isRequired,
+  setAllTillPresent: PropTypes.func.isRequired,
   allTillPresent: PropTypes.shape({
     value: PropTypes.bool,
   }),
-  setCheckboxValues: PropTypes.func,
+  setCheckboxValues: PropTypes.func.isRequired,
   setDuties: PropTypes.func.isRequired,
   errors: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ).isRequired,
   handleChangeWithValidation: PropTypes.func.isRequired,
   setErrors: PropTypes.func.isRequired,
-  handleAddJobChange: PropTypes.func,
+  handleAddJobChange: PropTypes.func.isRequired,
 }
 
 Experience.defaultProps = {
   values: {},
-  setValues: () => {},
-  // handleChange: () => {},
-  handleCheckboxChange: () => {},
   checkboxValues: {},
-  setHasExperience: () => {},
-  setAllTillPresent: () => {},
   allTillPresent: {},
-  setCheckboxValues: () => {},
-  handleAddJobChange: () => {},
 }
 
 export default Experience

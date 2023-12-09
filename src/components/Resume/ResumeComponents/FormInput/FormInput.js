@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import IMask from 'imask'
 import classNames from 'classnames'
 import './FormInput.scss'
+import { useLocation } from 'react-router-dom'
 import Tip from '../Tip/Tip'
 
 const FormInput = ({
@@ -21,6 +22,7 @@ const FormInput = ({
   id,
   placeholder,
 }) => {
+  const location = useLocation()
   const maskInput = (dataValue, options) => {
     const inputElements = document.querySelectorAll(`[mask="${dataValue}"]`) // ищем поля ввода по селектору с переданным значением data-атрибута
     if (!inputElements) return // если таких полей ввода нет, прерываем функцию
@@ -38,13 +40,25 @@ const FormInput = ({
   })
 
   React.useEffect(() => {
-    if (disabled) {
+    if (disabled && location.pathname === '/resume/experience') {
       setValues(prevValues => ({
         ...prevValues,
         company: '',
         company_website: '',
         current_position: '',
         duties: '',
+      }))
+    }
+
+    if (disabled && location.pathname === '/resume/qualification') {
+      setValues(prevValues => ({
+        ...prevValues,
+        organization: '',
+        course_name: '',
+        specialization: '',
+        description_experience: '',
+        skills: '',
+        diploma_link: '',
       }))
     }
   }, [disabled])
@@ -97,12 +111,12 @@ FormInput.propTypes = {
   values: PropTypes.shape({
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   }),
-  handleChange: PropTypes.func,
+  handleChange: PropTypes.func.isRequired,
   dataMask: PropTypes.string,
   name: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.arrayOf(PropTypes.string),
-  ]),
+  ]).isRequired,
   setValues: PropTypes.func,
   setDuties: PropTypes.func,
   errors: PropTypes.objectOf(PropTypes.string),
@@ -116,13 +130,11 @@ FormInput.defaultProps = {
   extraInputClass: '',
   disabled: false,
   values: {},
-  handleChange: () => {},
   dataMask: '',
-  name: [],
-  setValues: () => {},
   setDuties: () => {},
   errors: {},
   id: '',
+  setValues: () => {},
 }
 
 export default FormInput

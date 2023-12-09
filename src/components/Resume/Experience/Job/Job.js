@@ -22,6 +22,7 @@ const Job = ({
   setDuties,
   allValues,
 }) => {
+  console.log(values)
   const handleDelete = () => deleteExperience(i)
 
   return (
@@ -33,7 +34,6 @@ const Job = ({
           handleChange={handleChange}
           label="Название компании"
           disabled={!hasExperience}
-          setValues={setValues}
           id={i}
         />
         <FormInput
@@ -42,7 +42,6 @@ const Job = ({
           handleChange={handleChange}
           label="Сайт компании"
           disabled={!hasExperience}
-          setValues={setValues}
           id={i}
         />
         <FormInput
@@ -52,7 +51,6 @@ const Job = ({
           label="Должность"
           tipText={JOB_TIP}
           disabled={!hasExperience}
-          setValues={setValues}
           id={i}
         />
         <PeriodInput
@@ -81,7 +79,6 @@ const Job = ({
           label="Обязанности"
           extraInputClass="responsibilities"
           disabled={!hasExperience}
-          setValues={setValues}
           setDuties={setDuties}
           id={i}
         />
@@ -116,17 +113,17 @@ Job.propTypes = {
   values: PropTypes.shape({
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   }),
-  handleChange: PropTypes.func,
+  handleChange: PropTypes.func.isRequired,
   checkboxValues: PropTypes.shape({
     checkbox: PropTypes.bool,
   }),
-  handleCheckboxChange: PropTypes.func,
-  setValues: PropTypes.func,
-  setAllTillPresent: PropTypes.func,
+  handleCheckboxChange: PropTypes.func.isRequired,
+  setValues: PropTypes.func.isRequired,
+  setAllTillPresent: PropTypes.func.isRequired,
   allTillPresent: PropTypes.shape({
     value: PropTypes.bool,
   }),
-  setDuties: PropTypes.func,
+  setDuties: PropTypes.func.isRequired,
   allValues: PropTypes.objectOf(
     PropTypes.oneOfType([
       PropTypes.string,
@@ -144,13 +141,8 @@ Job.propTypes = {
 
 Job.defaultProps = {
   values: {},
-  handleChange: () => {},
   checkboxValues: {},
-  handleCheckboxChange: () => {},
-  setValues: () => {},
-  setAllTillPresent: () => {},
   allTillPresent: {},
-  setDuties: () => {},
   allValues: {},
 }
 

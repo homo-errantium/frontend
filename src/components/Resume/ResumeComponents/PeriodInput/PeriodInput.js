@@ -202,7 +202,7 @@ PeriodInput.propTypes = {
     checkbox: PropTypes.bool,
   }),
   namePeriod: PropTypes.string,
-  setValues: PropTypes.func,
+  setValues: PropTypes.func.isRequired,
   monthPeriod: PropTypes.arrayOf(PropTypes.string),
   year: PropTypes.arrayOf(PropTypes.string),
   values: PropTypes.shape({
@@ -243,10 +243,8 @@ PeriodInput.defaultProps = {
   tipText: '',
   disabled: false,
   tillPresent: false,
-  handleCheckboxChange: () => {},
   checkboxValues: {},
   namePeriod: undefined,
-  setValues: () => {},
   monthPeriod: [],
   year: [],
   values: {},
@@ -256,6 +254,7 @@ PeriodInput.defaultProps = {
   setCheckboxValues: () => {},
   allValues: {},
   errors: {},
+  handleCheckboxChange: () => {},
 }
 
 export default PeriodInput

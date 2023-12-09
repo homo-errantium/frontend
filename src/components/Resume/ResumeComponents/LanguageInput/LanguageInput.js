@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react'
 import PropTypes from 'prop-types'
 import './LanguageInput.scss'
@@ -38,7 +37,6 @@ const LanguageInput = ({
             name={`language_${i}`}
             onChange={handleChange}
             value={values.language || ''}
-            // defaultValue=""
             id={`language_${i}`}
             className="language-input__field"
           >
@@ -75,7 +73,6 @@ const LanguageInput = ({
             name={`language_level_${i}`}
             onChange={handleChange}
             value={values.level || ''}
-            // defaultValue=""
             id={`language_level_${i}`}
             className="language-input__field"
           >
@@ -121,11 +118,12 @@ LanguageInput.propTypes = {
   optionsInputFirst: PropTypes.arrayOf(PropTypes.string),
   optionsInputSecond: PropTypes.arrayOf(PropTypes.string),
   i: PropTypes.string.isRequired,
-  addLanguage: PropTypes.func,
-  deleteLanguage: PropTypes.func,
+  addLanguage: PropTypes.func.isRequired,
+  deleteLanguage: PropTypes.func.isRequired,
   // handleLanguageChange: PropTypes.func.isRequired,
   // handleLanguageLevelChange: PropTypes.func.isRequired,
   handleLanguageChange: PropTypes.func.isRequired,
+  values: PropTypes.objectOf(PropTypes.string),
 }
 
 LanguageInput.defaultProps = {
@@ -133,8 +131,7 @@ LanguageInput.defaultProps = {
   secondLabel: '',
   optionsInputFirst: [],
   optionsInputSecond: [],
-  addLanguage: () => {},
-  deleteLanguage: () => {},
+  values: {},
 }
 
 export default LanguageInput

@@ -65,7 +65,7 @@ const PersonalData = ({
                 values={values}
                 handleChange={handleChangeWithValidation}
                 setValues={setValues}
-                name={['name']}
+                name="name"
                 label="Имя"
                 errors={errors}
               />
@@ -73,7 +73,7 @@ const PersonalData = ({
                 values={values}
                 handleChange={handleChangeWithValidation}
                 setValues={setValues}
-                name={['surname']}
+                name="surname"
                 label="Фамилия"
                 errors={errors}
               />
@@ -81,7 +81,7 @@ const PersonalData = ({
                 values={values}
                 handleChange={handleChangeWithValidation}
                 setValues={setValues}
-                name={['birthday']}
+                name="birthday"
                 label="Дата рождения"
                 placeholder="ДД.ММ.ГГГГ"
                 dataMask="date"
@@ -136,7 +136,7 @@ const PersonalData = ({
             values={values}
             handleChange={handleChangeWithValidation}
             setValues={setValues}
-            name={['email']}
+            name="email"
             label="Почта"
             tip
             tipText={EMAIL_TIP}
@@ -218,26 +218,25 @@ PersonalData.propTypes = {
         PropTypes.oneOfType([PropTypes.string, PropTypes.number])
       )
     ),
+    qualifications: PropTypes.arrayOf(
+      PropTypes.objectOf(
+        PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+      )
+    ),
   }),
-  setValues: PropTypes.func,
-  addLanguage: PropTypes.func,
-  setLanguagesAfterDeleting: PropTypes.func,
-  setLanguagesChanges: PropTypes.func,
+  setValues: PropTypes.func.isRequired,
+  addLanguage: PropTypes.func.isRequired,
+  setLanguagesAfterDeleting: PropTypes.func.isRequired,
+  setLanguagesChanges: PropTypes.func.isRequired,
   errors: PropTypes.objectOf(PropTypes.string),
-  handleChangeWithValidation: PropTypes.func,
-  setImage: PropTypes.func,
+  handleChangeWithValidation: PropTypes.func.isRequired,
+  setImage: PropTypes.func.isRequired,
   image: PropTypes.string,
 }
 
 PersonalData.defaultProps = {
   values: {},
-  setValues: () => {},
-  addLanguage: () => {},
-  setLanguagesAfterDeleting: () => {},
-  setLanguagesChanges: () => {},
   errors: {},
-  handleChangeWithValidation: () => {},
-  setImage: () => {},
   image: undefined,
 }
 

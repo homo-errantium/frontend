@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import IMask from 'imask'
@@ -173,6 +172,23 @@ DoubleInput.propTypes = {
   optionsInputSecond: PropTypes.arrayOf(PropTypes.string),
   dataMask: PropTypes.string,
   errors: PropTypes.objectOf(PropTypes.string),
+  values: PropTypes.shape({
+    languages: PropTypes.arrayOf(
+      PropTypes.objectOf(PropTypes.string, PropTypes.number)
+    ),
+    jobs: PropTypes.arrayOf(
+      PropTypes.objectOf(
+        PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+      )
+    ),
+    qualifications: PropTypes.arrayOf(
+      PropTypes.objectOf(
+        PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+      )
+    ),
+  }),
+  handleChange: PropTypes.func.isRequired,
+  name: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
 
 DoubleInput.defaultProps = {
@@ -192,6 +208,7 @@ DoubleInput.defaultProps = {
   optionsInputSecond: [],
   dataMask: '',
   errors: {},
+  values: {},
 }
 
 export default DoubleInput
