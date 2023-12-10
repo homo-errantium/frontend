@@ -62,76 +62,49 @@ function App() {
   // --------------------------- Работа с данными через локальное хранилище -----------------------
 
   // const [addedExperience, setAddedExperience] = React.useState([])
+
   // Записываем в объект данные из полей
   const [values, setValues] = React.useState(
     JSON.parse(localStorage.getItem('formData')) || {
-      languages: [
-        {
-          id: 'ef44b943-fb45-477e-85a5-e33fd63c4852',
-          language: 'Английский',
-          level: 'B1',
-        },
-        {
-          id: '662cc9cf-2b38-4feb-be0d-503b4a01e896',
-          level: 'B2',
-          language: 'Французский',
-        },
-      ],
-      jobs: [
-        {
-          id: '4bce3f6a-d8e9-4e6e-85d7-66039825e643',
-          'company_4bce3f6a-d8e9-4e6e-85d7-66039825e643': 'Экспресс-ТВ',
-          'current_position_4bce3f6a-d8e9-4e6e-85d7-66039825e643':
-            'Технический редактор',
-          'month_work_start_4bce3f6a-d8e9-4e6e-85d7-66039825e643': 6,
-          'year_work_start_4bce3f6a-d8e9-4e6e-85d7-66039825e643': '2017',
-          'month_work_end_4bce3f6a-d8e9-4e6e-85d7-66039825e643': 6,
-          'year_work_end_4bce3f6a-d8e9-4e6e-85d7-66039825e643': '2023',
-          'duties_4bce3f6a-d8e9-4e6e-85d7-66039825e643':
-            'Тестирование(ручное) программы на C++.\nВерификация и корректировка данных.\nАдминистрирование контента.\nАдаптация контента под разные группы пользователей.\nНаставничество: работа в программе на С++ с нуля, поиск, анализ и устранение ошибок, структурирование информации, оптимизация процессов визуализации выпускаемого продукта.\nПользовательское тестирование функционала.',
-          'company_website_4bce3f6a-d8e9-4e6e-85d7-66039825e643':
-            'https://tv-express.ru/',
-        },
-      ],
-      name: 'Павел',
-      surname: 'Чурунов',
-      birthday: '27.11.1987',
-      city: 'Москва',
-      desired_position: 'Аналитик',
-      email: 'ChPavel@mail.ru',
-      phone: '+7(916)545-43-32',
-      website_link: '',
-      company: 'Яндекс Крауд',
-      current_position: 'Специалист',
-      month_work_start: 6,
-      year_work_start: '2023',
-      year_work_end: '',
-      month_work_end: '',
-      duties:
-        'Разметка видео и изображений; для обучения ИИ в в программах CVAT, Supervisely;\nПроверка разметки на наличие нарушений. Пользовательское тестирование',
-      telegram: 'https://t.me/chpavel',
-      level_knowledge: 'Middle',
-      github: 'https://github.com/cakamup1',
-      company_website: 'https://yandex.ru/project/remote-work/',
-      work_status: 'Принимаю предложения',
+      languages: [{ id: uuidv4() }],
+      jobs: [],
     }
-    // после MVP вернуть
-    // {
-    //   languages: [{ id: uuidv4() }],
-    //   jobs: [],
-    // }
   )
+  const [languagesAfterChanges, setLanguagesChanges] = useState(
+    values.languages
+  )
+  const [languagesAfterDeleting, setLanguagesAfterDeleting] = useState(
+    values.languages
+  )
+  // RECOMMENDATIONS:
+  const [duties, setDuties] = useState(false)
+  // // Если опыт есть, поля активны. Если нет, поля деактивируются:
+  const [hasExperience, setHasExperience] = React.useState(
+    JSON.parse(localStorage.getItem('hasExperience') || true)
+  )
+  // Записываем данные isTillPresent в один объект
+  const [allTillPresent, setAllTillPresent] = React.useState(
+    JSON.parse(localStorage.getItem('isTillPresent')) || {}
+  )
+  // Записываем в объект данные чекбоксов
+  const [checkboxValues, setCheckboxValues] = React.useState(
+    JSON.parse(localStorage.getItem('checkboxData')) || {}
+  )
+  const [errors, setErrors] = useState({})
+  // Сохраняем ссылку изображения в переменную и вытягиваем из локального хранилища данные
+  const [image, setImage] = useState(localStorage.getItem('image'))
+
   // Функция, которая записывает данные дополнительных полей опыта работы
-  // const handleAddJobChange = evt => {
-  //   const { name, value, id } = evt.target
-  //   const updatedJobs = values.jobs.map(job => {
-  //     if (job.id === id) {
-  //       return { ...job, [name]: value, id }
-  //     }
-  //     return job
-  //   })
-  //   setValues({ ...values, jobs: updatedJobs })
-  // }
+  const handleAddJobChange = evt => {
+    const { name, value, id } = evt.target
+    const updatedJobs = values.jobs.map(job => {
+      if (job.id === id) {
+        return { ...job, [name]: value, id }
+      }
+      return job
+    })
+    setValues({ ...values, jobs: updatedJobs })
+  }
 
   // LANGUAGES:
   const addLanguage = () => {
@@ -142,9 +115,6 @@ function App() {
       })
     }
   }
-  const [languagesAfterChanges, setLanguagesChanges] = useState(
-    values.languages
-  )
 
   useEffect(() => {
     setValues({ ...values, languages: languagesAfterChanges })
@@ -165,10 +135,6 @@ function App() {
   //   languageToBeChanged.level = value
   // }
 
-  const [languagesAfterDeleting, setLanguagesAfterDeleting] = useState(
-    values.languages
-  )
-
   useEffect(() => {
     if (languagesAfterDeleting.length === 0) {
       setValues({ ...values, languages: [{ id: uuidv4() }] })
@@ -178,28 +144,6 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [languagesAfterDeleting])
 
-  // RECOMMENDATIONS:
-  const [duties, setDuties] = useState(false)
-
-  // // Если опыт есть, поля активны. Если нет, поля деактивируются:
-  const [hasExperience, setHasExperience] = React.useState(
-    JSON.parse(localStorage.getItem('hasExperience') || true)
-  )
-  // Записываем в объект данные чекбоксов
-  const [checkboxValues, setCheckboxValues] = React.useState(
-    JSON.parse(localStorage.getItem('checkboxData')) || {
-      work_period_checkbox: true,
-    }
-    // после MVP вернуть {}
-  )
-  // Записываем данные isTillPresent в один объект
-  const [allTillPresent, setAllTillPresent] = React.useState(
-    JSON.parse(localStorage.getItem('isTillPresent')) || {
-      0: true,
-    }
-    // вернуть после MVP {}
-  )
-
   // Функция, которая записывает данные чекбоксов
   const handleCheckboxChange = evt => {
     const { name } = evt.target
@@ -208,10 +152,11 @@ function App() {
       [name]: !prevValues[name],
     }))
   }
-  const [errors, setErrors] = useState({})
+
   function deleteNonLatin(text) {
     return text.replace(/[^A-Za-z0-9:_//.]/gi, '')
   }
+
   function checkTgInput(name, value) {
     const cleanValue = deleteNonLatin(value)
     if (cleanValue === '') {
@@ -224,9 +169,11 @@ function App() {
       setValues({ ...values, [name]: `https://t.me/${cleanValue}` })
     }
   }
+
   // Функция, которая записывает данные полей форм
   const handleChange = evt => {
     const { name, value } = evt.target
+    // console.log(value)
     const cleanValue = deleteNonLatin(value)
     if (name === 'telegram') {
       checkTgInput(name, cleanValue)
@@ -431,6 +378,7 @@ function App() {
     localStorage.setItem('formData', JSON.stringify(formData))
     localStorage.setItem('hasExperience', JSON.stringify(hasExperience))
     localStorage.setItem('isTillPresent', JSON.stringify(allTillPresent))
+    localStorage.setItem('image', image)
   }
 
   /* ----------------------------------------- Popup -----------------------------------------------------*/
@@ -492,6 +440,8 @@ function App() {
           setLanguagesAfterDeleting={setLanguagesAfterDeleting}
           errors={errors}
           handleChangeWithValidation={handleChangeWithValidation}
+          setImage={setImage}
+          image={image}
         />
       ),
       id: 1,
@@ -515,7 +465,7 @@ function App() {
           errors={errors}
           handleChangeWithValidation={handleChangeWithValidation}
           setErrors={setErrors}
-          // handleAddJobChange={handleAddJobChange}
+          handleAddJobChange={handleAddJobChange}
         />
       ),
       id: 2,

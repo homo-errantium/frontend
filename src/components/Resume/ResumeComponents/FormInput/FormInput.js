@@ -37,9 +37,6 @@ const FormInput = ({
     maskInput('date', maskOptionsDate)
   })
 
-  // console.log(`${name}: ${values[name]}`)
-  // console.log(name)
-  // console.log(values)
   React.useEffect(() => {
     if (disabled) {
       setValues(prevValues => ({
@@ -47,6 +44,7 @@ const FormInput = ({
         company: '',
         company_website: '',
         current_position: '',
+        duties: '',
       }))
     }
   }, [disabled])
