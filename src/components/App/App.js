@@ -434,8 +434,8 @@ function App() {
   }
 
   /* ----------------------------------------- Popup -----------------------------------------------------*/
-  const [isLoginPopupOpen, setIsLoginPopupOpen] = React.useState(false)
-  const [isRegisterPopupOpen, setIsRegisterPopupOpen] = React.useState(true)
+  const [isLoginPopupOpen, setIsLoginPopupOpen] = React.useState(true)
+  const [isRegisterPopupOpen, setIsRegisterPopupOpen] = React.useState(false)
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false)
   const [isResumeNamePopupOpen, setIsResumeNamePopupOpen] =
     React.useState(false)

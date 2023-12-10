@@ -107,9 +107,7 @@ const LoginForm = ({ buttonText, onSubmit, isOpen, popup }) => {
           } ${popup && 'registration-form__button_popup'}`}
           disabled={!isValid}
         >
-          <span className="login-form__button-text registration-form__button-text">
-            {buttonText}
-          </span>
+          {buttonText}
         </button>
       </form>
     </section>
