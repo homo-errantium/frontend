@@ -102,7 +102,7 @@ const FormInput = ({
   )
 }
 FormInput.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   tip: PropTypes.bool,
   tipText: PropTypes.node,
   placeholder: PropTypes.node,
@@ -135,6 +135,7 @@ FormInput.defaultProps = {
   errors: {},
   id: '',
   setValues: () => {},
+  label: undefined,
 }
 
 export default FormInput

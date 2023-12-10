@@ -17,7 +17,7 @@ function Resume({
   setCompletedStepsEducation,
   setCompletedStepsPortfolio,
   // setCompletedStepsSkills,
-  // setCompletedStepsAbout,
+  setCompletedStepsAbout,
   // setCompletedLayouts,
   onClick,
   duties,
@@ -40,7 +40,7 @@ function Resume({
       '/resume/education': setCompletedStepsEducation,
       '/resume/portfolio': setCompletedStepsPortfolio,
       // '/resume/skills': setCompletedStepsSkills,
-      // '/resume/about': setCompletedStepsAbout,
+      '/resume/about': setCompletedStepsAbout,
       // '/resume/layouts': setCompletedLayouts,
     }
 
@@ -80,7 +80,7 @@ Resume.propTypes = {
   setCompletedStepsEducation: PropTypes.func.isRequired,
   setCompletedStepsPortfolio: PropTypes.func.isRequired,
   // setCompletedStepsSkills: PropTypes.func.isRequired,
-  // setCompletedStepsAbout: PropTypes.func.isRequired,
+  setCompletedStepsAbout: PropTypes.func.isRequired,
   // setCompletedLayouts: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
   duties: PropTypes.bool,
