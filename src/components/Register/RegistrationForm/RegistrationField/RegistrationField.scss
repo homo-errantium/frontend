@@ -14,8 +14,28 @@
 	border-radius: 16px;
 	background: #fff;
 	border: 1px solid #9F9F9F;
+  outline: #000;
 }
 
+
+.registration-field__input_error {
+  border-color: #FF4B4B;
+}
+
+.registration-field__input:disabled {
+  border: 1px solid #9f9f9f;
+  background: #e6e6e6;
+}
+
+.registration-field__input:active {
+  border-color: #000;
+  outline-offset: 0;
+}
+
+.registration-field__input:focus {
+  border-color: #000;
+  outline-offset: 0;
+}
 .registration-field__eye {
 	background-image: url(../../../../img/eye-icon.svg);
 	background-repeat: no-repeat;
@@ -27,7 +47,7 @@
 	height: 24px;
 	position: absolute;
 	top: 11px;
-	left: 224px;
+	left: 255px;
 }
 
 .registration-field__eye_closed {
