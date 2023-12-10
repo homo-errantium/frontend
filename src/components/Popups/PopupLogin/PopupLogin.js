@@ -47,7 +47,7 @@ const PopupLogin = ({ isOpen, onClose, onLogin }) => {
           </div>
         </div>
         <button
-          className="popup__btn-close"
+          className="popup-login__btn-close"
           type="button"
           onClick={onClose}
           label="button"

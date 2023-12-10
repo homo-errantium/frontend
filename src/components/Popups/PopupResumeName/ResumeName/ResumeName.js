@@ -4,30 +4,32 @@ function PopupResumeName() {
   return (
     <div className="resume-name">
       <form action="submit" className="resume-name__form">
-        <label htmlFor="resume-name-input" className="resume-name__label">
-          <p className="resume-name__description">
-            Для удобства организации ваших резюме предлагаем добавить к каждому
-            из них уникальное название
-          </p>
-          <input
-            name="resume-name"
-            id="resume-name-input"
-            type="text"
-            className="resume-name__input"
-            placeholder="Название резюме"
-          />
-        </label>
+        <p className="resume-name__description">
+          Для удобства организации ваших резюме предлагаем добавить к каждому из
+          них уникальное название
+        </p>
+        <input
+          name="resume-name"
+          id="resume-name-input"
+          type="text"
+          className="resume-name__input"
+          placeholder="Название резюме"
+        />
       </form>
       <div className="resume-name__buttons">
         <button
-          className="resume-name__button resume-name__button_pink"
+          className="resume-name__button resume-name__button_delete"
           type="button"
           label="button"
         >
           Очистить
         </button>
 
-        <button className="resume-name__button" type="button" label="button">
+        <button
+          className="resume-name__button resume-name__button_save"
+          type="button"
+          label="button"
+        >
           Сохранить
         </button>
       </div>
