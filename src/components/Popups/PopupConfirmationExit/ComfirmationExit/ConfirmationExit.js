@@ -1,7 +1,7 @@
 import './ConfirmationExit.scss'
 import { useNavigate } from 'react-router'
 import PropTypes from 'prop-types'
-import confirmLogo from '../../../../img/back-to-profile.svg'
+import exitImage from '../../../../img/popups/exit-design.svg'
 
 function ConfirmationExit({ onClose }) {
   const navigate = useNavigate()
@@ -9,7 +9,7 @@ function ConfirmationExit({ onClose }) {
   return (
     <div className="confirmation-exit">
       <img
-        src={confirmLogo}
+        src={exitImage}
         alt="confirm popup icon"
         className="confirmation-exit__image"
       />

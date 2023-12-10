@@ -442,9 +442,10 @@ function App() {
     React.useState(false)
   const [isConfirmRegPopupOpen, setIsConfirmRegPopupOpen] =
     React.useState(false)
-  const [isResumeNamePopupOpen, setIsResumeNamePopupOpen] = React.useState(true)
-  const [isConfirmExitPopupOpen, setIsConfirmExitPopupOpen] =
+  const [isResumeNamePopupOpen, setIsResumeNamePopupOpen] =
     React.useState(false)
+  const [isConfirmExitPopupOpen, setIsConfirmExitPopupOpen] =
+    React.useState(true)
 
   // закрытие попапа
   const closeAllPopup = () => {
