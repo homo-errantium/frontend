@@ -24,11 +24,11 @@ const Login = ({ onLogin, isOpen, isLoggedIn }) => (
           isOpen && 'register__container_popup'
         }`}
       >
-        {isOpen && (
+        {/* {isOpen && (
           <p className="login__description register__description">
             Чтобы сохранить резюме, необходимо войти или зарегистрироваться
           </p>
-        )}
+        )} */}
         <FormTitle page="login" greeting="Вход" isOpen={isOpen} />
         <LoginForm buttonText="Войти" onSubmit={onLogin} isOpen={isOpen} />
         <a href="_blank" className="login__restore-password">

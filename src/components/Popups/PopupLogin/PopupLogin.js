@@ -1,14 +1,11 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import './PopupLogin.scss'
-// import PopupСontainer from '../PopupContainer/PopupContainer'
-// import LoginForm from '../Login/LoginForm/LoginForm'
-// import FormTitle from '../Register/FormTitle/FormTitle'
-// import FormRedirection from '../Register/FormRedirection/FormRedirection'
-// import Login from '../../Login/Login'
+import LoginForm from '../../Login/LoginForm/LoginForm'
 import LoginImg from '../../../img/popups/login.svg'
 
-const PopupLogin = ({ isOpen, onClose /* onLogin */ }) => {
+const PopupLogin = ({ isOpen, onClose, onLogin }) => {
   useEffect(() => {
     const close = e => {
       if (e.keyCode === 27) {
@@ -35,6 +32,18 @@ const PopupLogin = ({ isOpen, onClose /* onLogin */ }) => {
           </div>
           <div className="popup-login__form-container">
             <h1 className="popup-login__form-title">Вход</h1>
+            <LoginForm
+              buttonText="Войти"
+              onSubmit={onLogin}
+              isOpen={isOpen}
+              popup
+            />
+            <a href="_blank" className="popup-login__restore-password">
+              Не помню пароль
+            </a>
+            <Link className="popup-login__link link" to="/signup">
+              Зарегистрироваться
+            </Link>
           </div>
         </div>
         <button
@@ -46,31 +55,10 @@ const PopupLogin = ({ isOpen, onClose /* onLogin */ }) => {
       </div>
     </div>
   )
-  // <PopupСontainer
-  //   isOpen={isOpen}
-  //   onClose={onClose}
-  //   popupName="popup-login"
-  //   element={<Login onLogin={onLogin} isOpen={isOpen} />}
-  // element={
-  // 	<>
-  // 		<LoginForm buttonText="Войти" onSubmit={onLogin} />
-  // 		<a href="_blank" className="login__restore-password">
-  // 			Не помню пароль
-  // 		</a>
-  // 		<FormTitle page="login" greeting="Привет!" />
-  // 		<FormRedirection
-  // 			page="login"
-  // 			button="Зарегистрироваться"
-  // 			path="/signup"
-  // 		/>
-  // 	</>
-  // }
-  // />
-  // )
 }
 
 PopupLogin.propTypes = {
-  // onLogin: PropTypes.func.isRequired,
+  onLogin: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
 }

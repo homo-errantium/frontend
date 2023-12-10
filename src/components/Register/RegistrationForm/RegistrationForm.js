@@ -6,7 +6,7 @@ import { EMAIL_REGEX } from '../../../constants/regex'
 import DataProcessing from './DataProcessing/DataProcessing'
 import { DATA_PROCESSING_TEXT } from '../../../constants/text-templates'
 
-const RegistrationForm = ({ buttonText, onSubmit }) => {
+const RegistrationForm = ({ buttonText, onSubmit, popup }) => {
   const [values, setValues] = useState({})
   const [errors, setErrors] = useState({})
   const [isValid, setIsValid] = useState(false)
@@ -157,10 +157,10 @@ const RegistrationForm = ({ buttonText, onSubmit }) => {
           type="submit"
           className={`registration-form__button ${
             !isValid ? 'registration-form__button_inactive' : 'link'
-          }`}
+          } ${popup && 'registration-form__button_popup'}`}
           disabled={!isValid}
         >
-          <span className="registration-form__button-text">{buttonText}</span>
+          {buttonText}
         </button>
       </form>
     </section>
@@ -170,6 +170,11 @@ const RegistrationForm = ({ buttonText, onSubmit }) => {
 RegistrationForm.propTypes = {
   buttonText: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  popup: PropTypes.bool,
+}
+
+RegistrationForm.defaultProps = {
+  popup: false,
 }
 
 export default RegistrationForm
