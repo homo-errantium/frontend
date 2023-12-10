@@ -67,14 +67,13 @@ ImageUploadForm.propTypes = {
     ),
   }),
   image: PropTypes.string,
-  setImage: PropTypes.func,
+  setImage: PropTypes.func.isRequired,
 }
 ImageUploadForm.defaultProps = {
   label: '',
   tip: false,
   tipText: '',
   values: {},
-  image: undefined,
-  setImage: () => {},
+  image: '',
 }
 export default ImageUploadForm

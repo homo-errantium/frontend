@@ -2,7 +2,7 @@
 export const locationArr = [
   'personal-data',
   'experience',
-  // 'qualification',
+  'qualification',
   // 'education',
   // 'portfolio',
   // 'skills',
