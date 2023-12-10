@@ -445,7 +445,7 @@ function App() {
   const [isResumeNamePopupOpen, setIsResumeNamePopupOpen] =
     React.useState(false)
   const [isConfirmExitPopupOpen, setIsConfirmExitPopupOpen] =
-    React.useState(true)
+    React.useState(false)
 
   // закрытие попапа
   const closeAllPopup = () => {

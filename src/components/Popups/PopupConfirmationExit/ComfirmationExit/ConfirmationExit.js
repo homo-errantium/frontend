@@ -15,7 +15,7 @@ function ConfirmationExit({ onClose }) {
       />
       <div className="confirmation-exit__buttons">
         <button
-          className="confirmation-exit__button"
+          className="confirmation-exit__button confirmation-exit__button_exit"
           type="button"
           label="button"
           onClick={() => {
@@ -27,7 +27,7 @@ function ConfirmationExit({ onClose }) {
         </button>
 
         <button
-          className="confirmation-exit__button"
+          className="confirmation-exit__button confirmation-exit__button_save"
           type="button"
           label="button"
           onClick={() => {
