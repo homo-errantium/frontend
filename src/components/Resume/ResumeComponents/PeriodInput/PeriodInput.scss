@@ -10,6 +10,11 @@
   justify-content: flex-start;
 }
 
+.period-input__container_year-only-education {
+  width: 492px;
+  gap: 20px;
+}
+
 .period-input__inputs-container {
   display: flex;
   gap: 12px;
@@ -21,6 +26,14 @@
   justify-content: flex-start;
 }
 
+.period-input__inputs-container_year-only-education {
+  width: 301px;
+}
+
+.period-input__inputs-container_year-only-first {
+  width: 168px;
+}
+
 .period-input__field {
   width: 50%;
   padding: 12px;
@@ -28,6 +41,10 @@
 
 .period-input__field_year-only {
   width: 100%;
+}
+
+.period-input__field_year-only-education {
+  width: 142px;
 }
 
 .period-input__checkbox-container {

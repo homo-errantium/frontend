@@ -13,7 +13,6 @@ import { JOB_TIP } from '../../../constants/tips'
 const Experience = ({
   values,
   setValues,
-  // handleChange,
   handleCheckboxChange,
   checkboxValues,
   hasExperience,
@@ -151,7 +150,6 @@ const Experience = ({
             setValues={setValues}
             setAllTillPresent={setAllTillPresent}
             allTillPresent={allTillPresent}
-            setCheckboxValues={setCheckboxValues}
             setDuties={setDuties}
           />
         ))}
@@ -164,23 +162,20 @@ const Experience = ({
 }
 
 Experience.propTypes = {
-  values: PropTypes.shape({
-    languages: PropTypes.arrayOf(
-      PropTypes.objectOf(PropTypes.string, PropTypes.number)
-    ),
-    jobs: PropTypes.arrayOf(
-      PropTypes.objectOf(
-        PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-      )
-    ),
-    qualifications: PropTypes.arrayOf(
-      PropTypes.objectOf(
-        PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-      )
-    ),
-  }),
+  values: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([
+          PropTypes.objectOf(
+            PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+          ),
+        ])
+      ),
+    ])
+  ),
   setValues: PropTypes.func.isRequired,
-  // handleChange: PropTypes.func,
   handleCheckboxChange: PropTypes.func.isRequired,
   checkboxValues: PropTypes.shape({
     checkbox: PropTypes.bool,
