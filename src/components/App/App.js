@@ -27,7 +27,7 @@ import Education from '../Resume/Education/Education'
 import Experience from '../Resume/Experience/Experience'
 // import Layouts from '../Resume/Layouts/Layouts'
 import PersonalData from '../Resume/PersonalData/PersonalData'
-// import Portfolio from '../Resume/Portfolio/Portfolio'
+import Portfolio from '../Resume/Portfolio/Portfolio'
 import Qualification from '../Resume/Qualification/Qualification'
 // import Skills from '../Resume/Skills/Skills'
 import Result from '../Resume/Result/Result'
@@ -54,8 +54,8 @@ function App() {
     React.useState(false)
   const [completedStepsEducation, setCompletedStepsEducation] =
     React.useState(false)
-  // const [completedStepsPortfolio, setCompletedStepsPortfolio] =
-  //   React.useState(false)
+  const [completedStepsPortfolio, setCompletedStepsPortfolio] =
+    React.useState(false)
   // const [completedStepsSkills, setCompletedStepsSkills] = React.useState(false)
   // const [completedStepsAbout, setCompletedStepsAbout] = React.useState(false)
   // const [completedLayouts, setCompletedLayouts] = React.useState(false)
@@ -71,6 +71,7 @@ function App() {
       jobs: [],
       qualifications: [],
       educations: [],
+      portfolio: [],
     }
   )
   const [languagesAfterChanges, setLanguagesChanges] = useState(
@@ -134,6 +135,18 @@ function App() {
       return education
     })
     setValues({ ...values, educations: updatedEducation })
+  }
+
+  // Функция, которая записывает данные дополнительных полей с портфолио
+  const handleAddPortfolioChange = evt => {
+    const { name, value, id } = evt.target
+    const updatedPortfolio = values.portfolio.map(p => {
+      if (p.id === id) {
+        return { ...p, [name]: value, id }
+      }
+      return p
+    })
+    setValues({ ...values, portfolio: updatedPortfolio })
   }
 
   // LANGUAGES:
@@ -537,12 +550,19 @@ function App() {
       id: 4,
       completedSteps: completedStepsEducation,
     },
-    // {
-    //   path: 'portfolio',
-    //   element: <Portfolio />,
-    //   id: 5,
-    //   completedSteps: completedStepsPortfolio,
-    // },
+    {
+      path: 'portfolio',
+      element: (
+        <Portfolio
+          values={values}
+          setValues={setValues}
+          handleChangeWithValidation={handleChangeWithValidation}
+          handleAddPortfolioChange={handleAddPortfolioChange}
+        />
+      ),
+      id: 5,
+      completedSteps: completedStepsPortfolio,
+    },
     // {
     //   path: 'skills',
     //   element: <Skills />,
@@ -648,7 +668,7 @@ function App() {
                 setCompletedStepsExperience={setCompletedStepsExperience}
                 setCompletedStepsQualification={setCompletedStepsQualification}
                 setCompletedStepsEducation={setCompletedStepsEducation}
-                // setCompletedStepsPortfolio={setCompletedStepsPortfolio}
+                setCompletedStepsPortfolio={setCompletedStepsPortfolio}
                 // setCompletedStepsSkills={setCompletedStepsSkills}
                 // setCompletedStepsAbout={setCompletedStepsAbout}
                 // setCompletedLayouts={setCompletedLayouts}

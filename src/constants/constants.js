@@ -4,7 +4,7 @@ export const locationArr = [
   'experience',
   'qualification',
   'education',
-  // 'portfolio',
+  'portfolio',
   // 'skills',
   // 'about',
   // 'layouts',
