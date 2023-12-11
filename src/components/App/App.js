@@ -22,7 +22,7 @@ import {
   YEAR_REGEX,
   SITE_REGEX,
 } from '../../constants/regex'
-// import About from '../Resume/About/About'
+import About from '../Resume/About/About'
 import Education from '../Resume/Education/Education'
 import Experience from '../Resume/Experience/Experience'
 // import Layouts from '../Resume/Layouts/Layouts'
@@ -57,7 +57,7 @@ function App() {
   const [completedStepsPortfolio, setCompletedStepsPortfolio] =
     React.useState(false)
   // const [completedStepsSkills, setCompletedStepsSkills] = React.useState(false)
-  // const [completedStepsAbout, setCompletedStepsAbout] = React.useState(false)
+  const [completedStepsAbout, setCompletedStepsAbout] = React.useState(false)
   // const [completedLayouts, setCompletedLayouts] = React.useState(false)
 
   // --------------------------- Работа с данными через локальное хранилище -----------------------
@@ -569,12 +569,17 @@ function App() {
     //   id: 6,
     //   completedSteps: completedStepsSkills,
     // },
-    // {
-    //   path: 'about',
-    //   element: <About />,
-    //   id: 7,
-    //   completedSteps: completedStepsAbout,
-    // },
+    {
+      path: 'about',
+      element: (
+        <About
+          values={values}
+          handleChangeWithValidation={handleChangeWithValidation}
+        />
+      ),
+      id: 7,
+      completedSteps: completedStepsAbout,
+    },
     // {
     //   path: 'layouts',
     //   element: <Layouts />,
@@ -670,7 +675,7 @@ function App() {
                 setCompletedStepsEducation={setCompletedStepsEducation}
                 setCompletedStepsPortfolio={setCompletedStepsPortfolio}
                 // setCompletedStepsSkills={setCompletedStepsSkills}
-                // setCompletedStepsAbout={setCompletedStepsAbout}
+                setCompletedStepsAbout={setCompletedStepsAbout}
                 // setCompletedLayouts={setCompletedLayouts}
                 onClick={handleClick}
                 duties={duties}
