@@ -85,7 +85,7 @@ const Qualification = ({
           setValues={setValues}
         />
         <FormInput
-          name="specialization"
+          name="work_specialization"
           values={values}
           label="Специальность"
           disabled={!hasQualification}
@@ -161,21 +161,19 @@ Qualification.propTypes = {
   }),
   setHasQualification: PropTypes.func.isRequired,
   hasQualification: PropTypes.bool.isRequired,
-  values: PropTypes.shape({
-    languages: PropTypes.arrayOf(
-      PropTypes.objectOf(PropTypes.string, PropTypes.number)
-    ),
-    jobs: PropTypes.arrayOf(
-      PropTypes.objectOf(
-        PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-      )
-    ),
-    qualifications: PropTypes.arrayOf(
-      PropTypes.objectOf(
-        PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-      )
-    ),
-  }),
+  values: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([
+          PropTypes.objectOf(
+            PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+          ),
+        ])
+      ),
+    ])
+  ),
   handleChangeWithValidation: PropTypes.func.isRequired,
   setValues: PropTypes.func.isRequired,
   handleAddQualificationChange: PropTypes.func.isRequired,

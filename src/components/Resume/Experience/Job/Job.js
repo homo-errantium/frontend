@@ -22,7 +22,6 @@ const Job = ({
   setDuties,
   allValues,
 }) => {
-  console.log(values)
   const handleDelete = () => deleteExperience(i)
 
   return (

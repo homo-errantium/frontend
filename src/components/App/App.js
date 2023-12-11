@@ -23,7 +23,7 @@ import {
   SITE_REGEX,
 } from '../../constants/regex'
 // import About from '../Resume/About/About'
-// import Education from '../Resume/Education/Education'
+import Education from '../Resume/Education/Education'
 import Experience from '../Resume/Experience/Experience'
 // import Layouts from '../Resume/Layouts/Layouts'
 import PersonalData from '../Resume/PersonalData/PersonalData'
@@ -52,8 +52,8 @@ function App() {
     React.useState(false)
   const [completedStepsQualification, setCompletedStepsQualification] =
     React.useState(false)
-  // const [completedStepsEducation, setCompletedStepsEducation] =
-  //   React.useState(false)
+  const [completedStepsEducation, setCompletedStepsEducation] =
+    React.useState(false)
   // const [completedStepsPortfolio, setCompletedStepsPortfolio] =
   //   React.useState(false)
   // const [completedStepsSkills, setCompletedStepsSkills] = React.useState(false)
@@ -70,6 +70,7 @@ function App() {
       languages: [{ id: uuidv4() }],
       jobs: [],
       qualifications: [],
+      educations: [],
     }
   )
   const [languagesAfterChanges, setLanguagesChanges] = useState(
@@ -121,6 +122,18 @@ function App() {
       return qual
     })
     setValues({ ...values, qualifications: updatedQualification })
+  }
+
+  // Функция, которая записывает данные дополнительных полей с образованием
+  const handleAddEducationChange = evt => {
+    const { name, value, id } = evt.target
+    const updatedEducation = values.educations.map(education => {
+      if (education.id === id) {
+        return { ...education, [name]: value, id }
+      }
+      return education
+    })
+    setValues({ ...values, educations: updatedEducation })
   }
 
   // LANGUAGES:
@@ -506,12 +519,24 @@ function App() {
       id: 3,
       completedSteps: completedStepsQualification,
     },
-    // {
-    //   path: 'education',
-    //   element: <Education />,
-    //   id: 4,
-    //   completedSteps: completedStepsEducation,
-    // },
+    {
+      path: 'education',
+      element: (
+        <Education
+          values={values}
+          handleChangeWithValidation={handleChangeWithValidation}
+          setValues={setValues}
+          checkboxValues={checkboxValues}
+          handleCheckboxChange={handleCheckboxChange}
+          setAllTillPresent={setAllTillPresent}
+          allTillPresent={allTillPresent}
+          setCheckboxValues={setCheckboxValues}
+          handleAddEducationChange={handleAddEducationChange}
+        />
+      ),
+      id: 4,
+      completedSteps: completedStepsEducation,
+    },
     // {
     //   path: 'portfolio',
     //   element: <Portfolio />,
@@ -622,7 +647,7 @@ function App() {
                 setCompletedStepsPersonalData={setCompletedStepsPersonalData}
                 setCompletedStepsExperience={setCompletedStepsExperience}
                 setCompletedStepsQualification={setCompletedStepsQualification}
-                // setCompletedStepsEducation={setCompletedStepsEducation}
+                setCompletedStepsEducation={setCompletedStepsEducation}
                 // setCompletedStepsPortfolio={setCompletedStepsPortfolio}
                 // setCompletedStepsSkills={setCompletedStepsSkills}
                 // setCompletedStepsAbout={setCompletedStepsAbout}
