@@ -33,9 +33,9 @@ const Education = () => {
   }, [addedEducation.length])
 
   return (
-    <section className="personal-data education">
+    <section className="education personal-data">
       <ResumeTitle title="Образование" />
-      <div className="experience__form-container">
+      <div className="education__form-container experience__form-container">
         <FormInput label="Название вуза" />
         <PeriodInput
           labelOne="Год поступления"

@@ -17,21 +17,27 @@ const PopupRegister = ({ isOpen, onClose, onLogin }) => {
   }, [onClose])
 
   return (
-    <div className={`popup-login popup ${isOpen ? `popup_opened` : ''}`}>
+    <div
+      className={`popup-register popup-login popup ${
+        isOpen ? `popup_opened` : ''
+      }`}
+    >
       <div className="popup-register__container">
         <div className="popup-register__internal-container">
-          <div className="popup-login__image-container">
+          <div className="popup-register__image-container popup-login__image-container">
             <img
               alt="Девушка с ноутбуком"
               src={LoginImg}
-              className="popup-login__image"
+              className="popup-register__image popup-login__image"
             />
-            <span className="popup-login__image-text">
+            <span className="popup-register__image-text popup-login__image-text">
               Чтобы сохранить резюме, необходимо войти или зарегистрироваться
             </span>
           </div>
           <div className="popup-register__form-container">
-            <h1 className="popup-login__form-title">Регистрация</h1>
+            <h1 className="popup-register__form-title popup-login__form-title">
+              Регистрация
+            </h1>
             <RegistrationForm
               buttonText="Зарегистрироваться"
               onSubmit={onLogin}
@@ -44,7 +50,7 @@ const PopupRegister = ({ isOpen, onClose, onLogin }) => {
           </div>
         </div>
         <button
-          className="popup-login__btn-close"
+          className="popup-register__btn-close popup-login__btn-close"
           type="button"
           onClick={onClose}
           label="button"

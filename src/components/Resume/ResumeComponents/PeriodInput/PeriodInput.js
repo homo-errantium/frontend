@@ -123,13 +123,18 @@ const PeriodInput = ({
           />
         </div>
         {errors && (
-          <span className="form-input__input-error">{errors[year[0]]}</span>
+          <span className="period-input__input-error form-input__input-error">
+            {errors[year[0]]}
+          </span>
         )}
       </div>
 
-      <div className="form-input">
-        <div className="form-input__label-container">
-          <label className="form-input__label" htmlFor="form-input">
+      <div className="period-input form-input">
+        <div className="period-input__label-container form-input__label-container">
+          <label
+            className="period-input__label form-input__label"
+            htmlFor="form-input"
+          >
             {labelTwo}
           </label>
           {tip && <Tip text={tipText} />}
@@ -166,7 +171,9 @@ const PeriodInput = ({
           />
         </div>
         {errors && (
-          <span className="form-input__input-error">{errors[year[1]]}</span>
+          <span className="period-input__input-error form-input__input-error">
+            {errors[year[1]]}
+          </span>
         )}
         {tillPresent && (
           <div className="period-input__checkbox-container">

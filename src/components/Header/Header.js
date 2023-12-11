@@ -104,7 +104,7 @@ function Header({
 
   if (isNotFoundPage()) {
     return (
-      <header className="header ">
+      <header className="header">
         <button
           className="header__button"
           type="button"
@@ -187,34 +187,6 @@ function Header({
       </header>
     )
   }
-  // Код Айшата:
-  // if ((isMainPage() || isLogRegPage()) && !isLoggedIn) {
-  //   return (
-  //     <header className="header">
-  //       <NavLink className="header__link" to="/">
-  //         <img src={headerIcon} alt="header logo" className="header__logo" />
-  //       </NavLink>
-  //       <div className="header__buttons-container">
-  //         <button
-  //           className="header__button header__button_login"
-  //           type="button"
-  //           label="button"
-  //           onClick={() => navigate('/resume')}
-  //         >
-  //           Создать резюме
-  //         </button>
-  //         <button
-  //           className="header__button header__button_register"
-  //           type="button"
-  //           label="button"
-  //           onClick={() => navigate('/signin')}
-  //         >
-  //           Войти
-  //         </button>
-  //       </div>
-  //     </header>
-  //   )
-  // }
 
   // Логин и регистрация
   if (isLogRegPage()) {
@@ -284,39 +256,6 @@ function Header({
           </div>
         </div>
       </header>
-      // <header className="header ">
-      // <button
-      //   className="header__button"
-      //   type="button"
-      //   label="button"
-      //   onClick={onOpenPopup}
-      // >
-      //   Личный кабинет
-      // </button>
-      //   <div className="header__buttons-container">
-      //     {!isPersonDataPage() && (
-      //       <button
-      //         className="header__button header__button_prev"
-      //         type="button"
-      //         label="button"
-      //         onClick={() => navigate(-1)}
-      //       >
-      //         Предыдущий шаг
-      //       </button>
-      //     )}
-      //     <button
-      //       className="header__button header__button_next"
-      //       type="button"
-      //       label="button"
-      //       onClick={() => {
-      //         setCompletedSteps()
-      //         navigate(`${nextPage}`)
-      //       }}
-      //     >
-      //       Следующий шаг
-      //     </button>
-      //   </div>
-      // </header>
     )
   }
 }

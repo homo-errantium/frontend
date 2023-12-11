@@ -5,7 +5,7 @@ import ResumeTitle from '../ResumeComponents/ResumeTitle/ResumeTitle'
 import FormInput from '../ResumeComponents/FormInput/FormInput'
 
 const About = () => (
-  <section className="personal-data about">
+  <section className="about personal-data">
     <ResumeTitle title="Обо мне" />
     <div className="experience__form-container">
       <FormInput extraInputClass="about" />

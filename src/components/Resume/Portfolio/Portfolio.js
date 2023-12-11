@@ -32,9 +32,9 @@ const Portfolio = () => {
   }, [addedProjects.length])
 
   return (
-    <section className="personal-data portfolio">
+    <section className="portfolio personal-data">
       <ResumeTitle title="Проекты и портфолио" />
-      <div className="experience__form-container">
+      <div className="portfolio__form-container experience__form-container">
         <FormInput label="Название проекта" />
         <FormInput
           label="Краткое описание проекта"

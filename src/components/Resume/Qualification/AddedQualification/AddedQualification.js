@@ -15,7 +15,10 @@ const AddedQualification = ({
   const handleDelete = () => deleteQualification(i)
   return (
     <>
-      <div className="experience__job-container" id={i}>
+      <div
+        className="added-qualification__container experience__job-container"
+        id={i}
+      >
         <FormInput
           label="Проводившая организация"
           disabled={!hasQualification}
@@ -44,9 +47,9 @@ const AddedQualification = ({
           disabled={!hasQualification}
         />
       </div>
-      <div className="job__buttons-container">
+      <div className="added-qualification__buttons-container job__buttons-container">
         <button
-          className="job__delete-button link"
+          className="added-qualification__delete-button job__delete-button link"
           type="button"
           onClick={handleDelete}
         >
@@ -54,7 +57,7 @@ const AddedQualification = ({
           Удалить
         </button>
         <button
-          className="job__add-button link"
+          className="added-qualification__add-button job__add-button link"
           type="button"
           onClick={addQualification}
         >
