@@ -10,6 +10,7 @@ import BackToProfileIcon from '../../img/back-to-profile.svg'
 import LeftArrowIcon from '../../img/left-arrow.svg'
 import RightArrowIcon from '../../img/right-arrow.svg'
 import EditIcon from '../../img/edit-icon.svg'
+import ResumeLogoBlack from '../../img/resume-logo-black.svg'
 
 function Header({
   isLoggedIn,
@@ -117,7 +118,7 @@ function Header({
   }
 
   // старт страница + залогинены
-  if ((isMainPage() || isLogRegPage()) && isLoggedIn) {
+  if (isMainPage() && isLoggedIn) {
     return (
       <header className="header">
         <NavLink className="header__link" to="/">
@@ -153,7 +154,7 @@ function Header({
     )
   }
   // страница авт или рег + НЕ залогинены
-  if ((isMainPage() || isLogRegPage()) && !isLoggedIn) {
+  if (isMainPage() && !isLoggedIn) {
     return (
       <header className="header header_main">
         <div className="header__flex-container header__flex-container_main">
@@ -215,6 +216,20 @@ function Header({
   //   )
   // }
 
+  // Логин и регистрация
+  if (isLogRegPage()) {
+    return (
+      <header className="header_white">
+        <NavLink className="header__nav-link" to="/">
+          <img
+            alt="логотип компании"
+            src={ResumeLogoBlack}
+            className="header__logo-resume-plus"
+          />
+        </NavLink>
+      </header>
+    )
+  }
   // НЕ старт страница
   if (!(isMainPage() && isLogRegPage())) {
     return (
