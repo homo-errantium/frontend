@@ -5,7 +5,6 @@ import skillsSelectedIcon from '../../../img/skills-confirm-icon.svg'
 import skillsRollIcon from '../../../img/skills-roll-icon.svg'
 
 function Skills({ values, setValues }) {
-  // как приходит весь список навыков?
   const testArray = [
     'Дизайн UI',
     'CJM',
@@ -17,12 +16,17 @@ function Skills({ values, setValues }) {
   ]
 
   const [selectedSkills, setSelectedSkills] = useState(values.skills || [])
-
-  const templeArray = selectedSkills
+  // const templeArray = selectedSkills
 
   useEffect(() => {
     setValues({ ...values, skills: selectedSkills })
-  }, [])
+  }, [selectedSkills])
+
+  // let templeArray = [] // каждый раз сбрасывает?
+
+  // useEffect(() => {
+  //   templeArray = selectedSkills
+  // }, [])
 
   const [isOpenMenu, setIsOpenMenu] = useState(false)
 
@@ -55,13 +59,18 @@ function Skills({ values, setValues }) {
                   type="submit"
                   label="button"
                   onClick={() => {
-                    /* удаление из списка */
-                    const index = templeArray.indexOf(item)
-                    if (index > -1) {
-                      templeArray.splice(index, 1)
-                    }
-                    setSelectedSkills(templeArray)
+                    setSelectedSkills(prevSkills =>
+                      prevSkills.filter(skill => skill !== item)
+                    )
                   }}
+                  // onClick={() => {
+                  //   /* удаление из списка */
+                  //   const index = templeArray.indexOf(item)
+                  //   if (index > -1) {
+                  //     templeArray.splice(index, 1)
+                  //   }
+                  //   setSelectedSkills(templeArray)
+                  // }}
                 >
                   {`${item}`}
                 </button>
@@ -114,12 +123,19 @@ function Skills({ values, setValues }) {
                 type="submit"
                 label="button"
                 onClick={() => {
-                  // добавление в список выбранных
                   if (!selectedSkills.includes(item)) {
-                    templeArray.push(item)
-                    setSelectedSkills(templeArray)
+                    setSelectedSkills(prevSkills => [...prevSkills, item])
                   }
                 }}
+                // onClick={() => {
+                //   // добавление в список выбранных
+                //   if (!selectedSkills.includes(item)) {
+                //     templeArray.push(item)
+                //     setSelectedSkills(templeArray)
+                //   }
+                //   console.log(templeArray)
+                //   console.log(selectedSkills)
+                // }}
               >
                 {`${item}`}
               </button>
