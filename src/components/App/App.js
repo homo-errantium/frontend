@@ -29,7 +29,7 @@ import Experience from '../Resume/Experience/Experience'
 import PersonalData from '../Resume/PersonalData/PersonalData'
 import Portfolio from '../Resume/Portfolio/Portfolio'
 import Qualification from '../Resume/Qualification/Qualification'
-// import Skills from '../Resume/Skills/Skills'
+import Skills from '../Resume/Skills/Skills'
 import Result from '../Resume/Result/Result'
 
 import PopupRegister from '../Popups/PopupRegister/PopupRegister'
@@ -58,7 +58,7 @@ function App() {
     React.useState(false)
   const [completedStepsPortfolio, setCompletedStepsPortfolio] =
     React.useState(false)
-  // const [completedStepsSkills, setCompletedStepsSkills] = React.useState(false)
+  const [completedStepsSkills, setCompletedStepsSkills] = React.useState(false)
   const [completedStepsAbout, setCompletedStepsAbout] = React.useState(false)
   // const [completedLayouts, setCompletedLayouts] = React.useState(false)
 
@@ -570,12 +570,12 @@ function App() {
       id: 5,
       completedSteps: completedStepsPortfolio,
     },
-    // {
-    //   path: 'skills',
-    //   element: <Skills />,
-    //   id: 6,
-    //   completedSteps: completedStepsSkills,
-    // },
+    {
+      path: 'skills',
+      element: <Skills />,
+      id: 6,
+      completedSteps: completedStepsSkills,
+    },
     {
       path: 'about',
       element: (
@@ -584,6 +584,36 @@ function App() {
           handleChangeWithValidation={handleChangeWithValidation}
         />
       ),
+      id: 7,
+      completedSteps: completedStepsAbout,
+    },
+    // {
+    //   path: 'qualification',
+    //   element: <Qualification />,
+    //   id: 3,
+    //   completedSteps: completedStepsQualification,
+    // },
+    // {
+    //   path: 'education',
+    //   element: <Education />,
+    //   id: 4,
+    //   completedSteps: completedStepsEducation,
+    // },
+    // {
+    //   path: 'portfolio',
+    //   element: <Portfolio />,
+    //   id: 5,
+    //   completedSteps: completedStepsPortfolio,
+    // },
+    {
+      path: 'skills',
+      element: <Skills values={values} setValues={setValues} />,
+      id: 6,
+      completedSteps: completedStepsSkills,
+    },
+    {
+      path: 'about',
+      element: <About />,
       id: 7,
       completedSteps: completedStepsAbout,
     },
@@ -681,7 +711,7 @@ function App() {
                 setCompletedStepsQualification={setCompletedStepsQualification}
                 setCompletedStepsEducation={setCompletedStepsEducation}
                 setCompletedStepsPortfolio={setCompletedStepsPortfolio}
-                // setCompletedStepsSkills={setCompletedStepsSkills}
+                setCompletedStepsSkills={setCompletedStepsSkills}
                 setCompletedStepsAbout={setCompletedStepsAbout}
                 // setCompletedLayouts={setCompletedLayouts}
                 onClick={handleClick}
