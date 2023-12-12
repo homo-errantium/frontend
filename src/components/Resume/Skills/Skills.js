@@ -6,10 +6,12 @@ import skillsRollIcon from '../../../img/skills-roll-icon.svg'
 import { skillList } from '../../../constants/skills-list'
 
 function Skills({ values, setValues }) {
-  const [selectedSkills, setSelectedSkills] = useState(values.skills || [])
+  console.log('🚀 ~ file: Skills.js:9 ~ Skills ~ values:', values)
+
+  const [selectedSkills, setSelectedSkills] = useState(values.hardskills || [])
 
   useEffect(() => {
-    setValues({ ...values, skills: selectedSkills })
+    setValues({ ...values, hardskills: selectedSkills })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSkills])
 
@@ -35,22 +37,24 @@ function Skills({ values, setValues }) {
         >
           <ul className="skills__list skills__list_visible">
             {/* отрисовка выбранных навыков */}
-            {selectedSkills.map(item => (
-              <li className="skills__item">
-                <button
-                  className="skills__item-button"
-                  type="submit"
-                  label="button"
-                  onClick={() => {
-                    setSelectedSkills(prevSkills =>
-                      prevSkills.filter(skill => skill !== item)
-                    )
-                  }}
-                >
-                  {`${item}`}
-                </button>
-              </li>
-            ))}
+            {React.Children.toArray(
+              selectedSkills.map(item => (
+                <li className="skills__item">
+                  <button
+                    className="skills__item-button"
+                    type="submit"
+                    label="button"
+                    onClick={() => {
+                      setSelectedSkills(prevSkills =>
+                        prevSkills.filter(skill => skill !== item)
+                      )
+                    }}
+                  >
+                    {`${item}`}
+                  </button>
+                </li>
+              ))
+            )}
           </ul>
 
           {/* отрисовка двух состояний  меню */}
@@ -89,24 +93,27 @@ function Skills({ values, setValues }) {
 
         {/* отрисовка всех навыков */}
         <ul className={`skills__list ${isOpenMenu && ' skills__list_visible'}`}>
-          {skillList.map(item => (
-            <li className="skills__item">
-              <button
-                className={`skills__item-button ${
-                  selectedSkills.includes(item) && 'skills__item-button_active'
-                }`}
-                type="submit"
-                label="button"
-                onClick={() => {
-                  if (!selectedSkills.includes(item)) {
-                    setSelectedSkills(prevSkills => [...prevSkills, item])
-                  }
-                }}
-              >
-                {`${item}`}
-              </button>
-            </li>
-          ))}
+          {React.Children.toArray(
+            skillList.map(item => (
+              <li className="skills__item">
+                <button
+                  className={`skills__item-button ${
+                    selectedSkills.includes(item) &&
+                    'skills__item-button_active'
+                  }`}
+                  type="submit"
+                  label="button"
+                  onClick={() => {
+                    if (!selectedSkills.includes(item)) {
+                      setSelectedSkills(prevSkills => [...prevSkills, item])
+                    }
+                  }}
+                >
+                  {`${item}`}
+                </button>
+              </li>
+            ))
+          )}
         </ul>
       </div>
     </section>

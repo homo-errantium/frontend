@@ -8,8 +8,10 @@ import TrashIcon from '../../../../img/trash-icon.svg'
 const Project = ({ addProject, deleteProject, i, values, handleChange }) => {
   const handleDelete = () => deleteProject(i)
   return (
-    <div className="project__container experience__job-container" id={i}>
-      <FormInput label="Название проекта" />
+    <>
+      <div className="project__container experience__job-container" id={i}>
+        <FormInput label="Название проекта" />
+      </div>
       <div className="project__container experience__job-container" id={i}>
         <FormInput
           values={values}
@@ -52,7 +54,7 @@ const Project = ({ addProject, deleteProject, i, values, handleChange }) => {
           Добавить
         </button>
       </div>
-    </div>
+    </>
   )
 }
 

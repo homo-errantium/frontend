@@ -572,7 +572,7 @@ function App() {
     },
     {
       path: 'skills',
-      element: <Skills />,
+      element: <Skills values={values} setValues={setValues} />,
       id: 6,
       completedSteps: completedStepsSkills,
     },
