@@ -9,7 +9,9 @@ const Project = ({ addProject, deleteProject, i, values, handleChange }) => {
   const handleDelete = () => deleteProject(i)
   return (
     <>
-      <div className="experience__job-container" id={i}>
+      <div className="project__container experience__job-container" id={i}>
+        <FormInput label="Название проекта" />
+      <div className="project__container experience__job-container" id={i}>
         <FormInput
           values={values}
           handleChange={handleChange}
@@ -33,9 +35,9 @@ const Project = ({ addProject, deleteProject, i, values, handleChange }) => {
           label="Ссылка на проект"
         />
       </div>
-      <div className="job__buttons-container">
+      <div className="project__buttons-container job__buttons-container">
         <button
-          className="job__delete-button link"
+          className="project__delete-button job__delete-button link"
           type="button"
           onClick={handleDelete}
         >
@@ -43,7 +45,7 @@ const Project = ({ addProject, deleteProject, i, values, handleChange }) => {
           Удалить
         </button>
         <button
-          className="job__add-button link"
+          className="project__add-button job__add-button link"
           type="button"
           onClick={addProject}
         >

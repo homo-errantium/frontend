@@ -40,9 +40,9 @@ const Portfolio = ({
   }, [values.portfolio.length])
 
   return (
-    <section className="personal-data portfolio">
+    <section className="portfolio personal-data">
       <ResumeTitle title="Проекты и портфолио" />
-      <div className="experience__form-container">
+      <div className="eportfolio__form-container xperience__form-container">
         <FormInput
           name="project_name"
           values={values}

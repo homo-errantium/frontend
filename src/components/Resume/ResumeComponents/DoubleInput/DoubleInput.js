@@ -89,7 +89,9 @@ const DoubleInput = ({
           />
         )}
         {errors && (
-          <span className="form-input__input-error">{errors[name[0]]}</span>
+          <span className="double-input__input-error form-input__input-error">
+            {errors[name[0]]}
+          </span>
         )}
       </div>
       <div className="double-input__right-box">
@@ -145,7 +147,9 @@ const DoubleInput = ({
               />
             )}
             {errors && (
-              <span className="form-input__input-error">{errors[name[1]]}</span>
+              <span className="double-input__input-error form-input__input-error">
+                {errors[name[1]]}
+              </span>
             )}
           </>
         )}

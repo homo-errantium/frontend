@@ -26,7 +26,7 @@ const Job = ({
 
   return (
     <>
-      <div className="experience__job-container" id={i}>
+      <div className="job__job-container experience__job-container" id={i}>
         <FormInput
           name={`company_${i}`}
           values={values}

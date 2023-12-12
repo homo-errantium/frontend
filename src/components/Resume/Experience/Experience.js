@@ -59,7 +59,7 @@ const Experience = ({
   }, [values.jobs.length])
 
   return (
-    <section className="personal-data">
+    <section className="experience personal-data">
       <ResumeTitle
         name="work_experience_checkbox"
         values={checkboxValues}

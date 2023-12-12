@@ -5,8 +5,8 @@ import PropTypes from 'prop-types'
 import ResumeTitle from '../ResumeComponents/ResumeTitle/ResumeTitle'
 import FormInput from '../ResumeComponents/FormInput/FormInput'
 
-const About = ({ values, handleChangeWithValidation }) => (
-  <section className="personal-data about">
+const About = () => (
+  <section className="about personal-data">
     <ResumeTitle title="Обо мне" />
     <div className="experience__form-container">
       <FormInput

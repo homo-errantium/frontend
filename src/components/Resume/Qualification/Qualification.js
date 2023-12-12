@@ -56,7 +56,7 @@ const Qualification = ({
   }, [values.qualifications.length])
 
   return (
-    <section className="personal-data qualification">
+    <section className="qualification personal-data">
       <ResumeTitle
         title="Повышение квалификации"
         checkbox
@@ -67,7 +67,7 @@ const Qualification = ({
         name="qualification-checkbox"
         values={checkboxValues}
       />
-      <div className="experience__form-container">
+      <div className="qualification__form-container experience__form-container">
         <FormInput
           name="organization"
           values={values}

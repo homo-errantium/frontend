@@ -42,7 +42,7 @@ const LanguageInput = ({
           >
             <option
               value=""
-              className="double-input__option"
+              className="language-input__option double-input__option"
               disabled
               hidden
               aria-label="Выберите язык"
@@ -60,9 +60,9 @@ const LanguageInput = ({
         </div>
       </div>
       <div className="language-input__right-box">
-        <div className="double-input__label-container">
+        <div className="language-input__label-container double-input__label-container">
           <label
-            className="double-input__label"
+            className="language-input__label double-input__label"
             htmlFor="selected-input-second"
           >
             {secondLabel}
@@ -78,7 +78,7 @@ const LanguageInput = ({
           >
             <option
               value=""
-              className="double-input__option"
+              className="language-input__option double-input__option"
               disabled
               hidden
               aria-label="Выберите уровень знания языка"
@@ -86,7 +86,7 @@ const LanguageInput = ({
             {optionsInputSecond.map(value => (
               <option
                 value={value}
-                className="double-input__option"
+                className="language-input__option double-input__option"
                 key={value}
               >
                 {value}

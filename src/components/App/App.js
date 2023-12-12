@@ -32,10 +32,12 @@ import Qualification from '../Resume/Qualification/Qualification'
 // import Skills from '../Resume/Skills/Skills'
 import Result from '../Resume/Result/Result'
 
-import PopupRegister from '../PopupRegister/PopupRegister'
-import PopupConfirmation from '../PopupConfirmation/PopupConfirmation'
-import PopupResumeName from '../PopupResumeName/PopupResumeName'
-import PopupLogin from '../PopupLogin/PopupLogin'
+import PopupRegister from '../Popups/PopupRegister/PopupRegister'
+import PopupConfirmationExit from '../Popups/PopupConfirmationExit/PopupConfirmationExit'
+import PopupResumeName from '../Popups/PopupResumeName/PopupResumeName'
+import PopupLogin from '../Popups/PopupLogin/PopupLogin'
+import PopupConfirmationDelete from '../Popups/PopupConfirmationDelete/PopupConfirmationDelete'
+import PopupConfirmationRegister from '../Popups/PopupConfirmationRegister/PopupConfirmationRegister'
 import ResultResume from '../Resume/ResultResume/ResultResume'
 
 function App() {
@@ -426,17 +428,25 @@ function App() {
   }
 
   /* ----------------------------------------- Popup -----------------------------------------------------*/
-  const [isLoginPopupOpen, setIsLoginPopupOpen] = React.useState(false)
   const [isRegisterPopupOpen, setIsRegisterPopupOpen] = React.useState(false)
-  const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false)
+  const [isLoginPopupOpen, setIsLoginPopupOpen] = React.useState(false)
+  const [isConfirmDeletePopupOpen, setIsConfirmDeletePopupOpen] =
+    React.useState(false)
+  const [isConfirmRegPopupOpen, setIsConfirmRegPopupOpen] =
+    React.useState(false)
   const [isResumeNamePopupOpen, setIsResumeNamePopupOpen] =
+    React.useState(false)
+  const [isConfirmExitPopupOpen, setIsConfirmExitPopupOpen] =
     React.useState(false)
 
   // закрытие попапа
   const closeAllPopup = () => {
     setIsLoginPopupOpen(false)
     setIsRegisterPopupOpen(false)
-    setIsConfirmPopupOpen(false)
+    setIsConfirmExitPopupOpen(false)
+    setIsConfirmDeletePopupOpen(false)
+    setIsConfirmRegPopupOpen(false)
+    setIsConfirmExitPopupOpen(false)
     setIsResumeNamePopupOpen(false)
   }
 
@@ -453,8 +463,14 @@ function App() {
   const handleRegisterPopupOpen = () => {
     setIsRegisterPopupOpen(true)
   }
-  const handleConfirmPopupOpen = () => {
-    setIsConfirmPopupOpen(true)
+  const handleConfirmExitPopupOpen = () => {
+    setIsConfirmExitPopupOpen(true)
+  }
+  const handleConfirmDeletePopupOpen = () => {
+    setIsConfirmDeletePopupOpen(true)
+  }
+  const handleConfirmRegPopupOpen = () => {
+    setIsConfirmRegPopupOpen(true)
   }
 
   // /* убрать эти консоли */
@@ -650,7 +666,7 @@ function App() {
             element={
               <Main
                 isLoggedIn={isLoggedIn}
-                onOpenPopup={handleConfirmPopupOpen}
+                onOpenPopup={handleConfirmRegPopupOpen}
               />
             }
           />
@@ -659,7 +675,7 @@ function App() {
             element={
               <Profession
                 isLoggedIn={isLoggedIn}
-                onOpenPopup={handleConfirmPopupOpen}
+                onOpenPopup={handleConfirmDeletePopupOpen}
               />
             }
           />
@@ -668,7 +684,7 @@ function App() {
             element={
               <Resume
                 isLoggedIn={isLoggedIn}
-                onOpenPopup={handleConfirmPopupOpen}
+                onOpenPopup={handleConfirmDeletePopupOpen}
                 setCompletedStepsPersonalData={setCompletedStepsPersonalData}
                 setCompletedStepsExperience={setCompletedStepsExperience}
                 setCompletedStepsQualification={setCompletedStepsQualification}
@@ -705,7 +721,7 @@ function App() {
                 values={values}
                 checkboxValues={checkboxValues}
                 isLoggedIn={isLoggedIn}
-                onOpenPopup={handleConfirmPopupOpen}
+                onOpenPopup={handleConfirmExitPopupOpen}
               />
             }
           />
@@ -723,16 +739,24 @@ function App() {
           onClose={closeAllPopup}
           onLogin={handleLogin}
         />
-        {/* Попап подтверждения */}
-        <PopupConfirmation
-          setCheckboxValues={setCheckboxValues}
-          setValues={setValues}
-          isOpen={isConfirmPopupOpen}
+        {/* Попап подтверждения выхода */}
+        <PopupConfirmationExit
+          isOpen={isConfirmExitPopupOpen}
           onClose={closeAllPopup}
         />
         {/* попап добавления имени резюме */}
         <PopupResumeName
           isOpen={isResumeNamePopupOpen}
+          onClose={closeAllPopup}
+        />
+        {/* Попап подтверждения удаления */}
+        <PopupConfirmationDelete
+          isOpen={isConfirmDeletePopupOpen}
+          onClose={closeAllPopup}
+        />
+        {/* Попап подтверждения перехода */}
+        <PopupConfirmationRegister
+          isOpen={isConfirmRegPopupOpen}
           onClose={closeAllPopup}
         />
       </CurrentUserContext.Provider>

@@ -10,6 +10,7 @@ function PopupConfirmation({ isOpen, onClose }) {
       isOpen={isOpen}
       onClose={onClose}
       popupName="popup-confirmation"
+      closeButtonBlack
       element={<ResumeName />}
     />
   )

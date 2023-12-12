@@ -22,7 +22,9 @@ const AddedEducation = ({
   const handleDelete = () => deleteEducation(i)
   return (
     <>
-      <div className="experience__job-container" id={i}>
+      <div 
+        className="added-education__container experience__job-container" 
+        id={i}>
         <FormInput
           name={`university_name_${i}`}
           values={values}
@@ -63,9 +65,9 @@ const AddedEducation = ({
           id={i}
         />
       </div>
-      <div className="job__buttons-container">
+      <div className="added-education__buttons-container job__buttons-container">
         <button
-          className="job__delete-button link"
+          className="added-education__delete-button job__delete-button link"
           type="button"
           onClick={handleDelete}
         >
@@ -73,7 +75,7 @@ const AddedEducation = ({
           Удалить
         </button>
         <button
-          className="job__add-button link"
+          className="added-education__add-button job__add-button link"
           type="button"
           onClick={addEducation}
         >
