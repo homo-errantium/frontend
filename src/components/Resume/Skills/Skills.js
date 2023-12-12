@@ -1,25 +1,32 @@
 import './Skills.scss'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import skillsSelectedIcon from '../../../img/skills-confirm-icon.svg'
 import skillsRollIcon from '../../../img/skills-roll-icon.svg'
 
-function Skills() {
+function Skills({ values, setValues }) {
+  // как приходит весь список навыков?
   const testArray = [
-    'Дизайн интерфейсов',
+    'Дизайн UI',
     'CJM',
     'Прототипирование',
     'Дизайн интерфейсов',
-    'Прототипирование',
     'JTBD',
     'web design',
-    'CJM',
-    'JTBD',
-    'web design',
+    'mobile design',
   ]
 
-  const [isOpenMenu, setIsOpenMenu] = React.useState(false)
-  console.log('🚀 ~ file: Skills.js:8 ~ Skills ~ setIsOpenMenu:', setIsOpenMenu)
+  const [selectedSkills, setSelectedSkills] = useState(values.skills || [])
 
+  const templeArray = selectedSkills
+
+  useEffect(() => {
+    setValues({ ...values, skills: selectedSkills })
+  }, [])
+
+  const [isOpenMenu, setIsOpenMenu] = useState(false)
+
+  // открытие/закрытия нижней части
   function handleOpenMenu() {
     setIsOpenMenu(true)
   }
@@ -33,25 +40,48 @@ function Skills() {
       <h2 className="skills__subtitle">Выберите из списка</h2>
       <div className="skills__container">
         <div
-          className={`${
-            isOpenMenu
-              ? 'skills__field'
-              : 'skills__field skills__field_disabled-border-bottom'
+          className={`skills__field ${
+            !isOpenMenu && 'skills__field_disabled-border-bottom'
           }`}
         >
+          <ul
+            className={`skills__list ${isOpenMenu && ' skills__list_visible'}`}
+          >
+            {/* отрисовка выбранных навыков */}
+            {selectedSkills.map(item => (
+              <li className="skills__item">
+                <button
+                  className="skills__item-button"
+                  type="submit"
+                  label="button"
+                  onClick={() => {
+                    /* удаление из списка */
+                    const index = templeArray.indexOf(item)
+                    if (index > -1) {
+                      templeArray.splice(index, 1)
+                    }
+                    setSelectedSkills(templeArray)
+                  }}
+                >
+                  {`${item}`}
+                </button>
+              </li>
+            ))}
+          </ul>
+
+          {/* отрисовка двух состояний  меню */}
           {isOpenMenu ? (
             <button
               className="skills__field-selected-btn "
               type="submit"
               label="button"
               onClick={() => {
-                console.log(isOpenMenu)
                 handleCloseMenu()
               }}
             >
               <img
                 src={skillsSelectedIcon}
-                alt="skills selectied icon"
+                alt="skills selected icon"
                 className="skills__field-selected-img"
               />
             </button>
@@ -61,30 +91,35 @@ function Skills() {
               type="submit"
               label="button"
               onClick={() => {
-                console.log(isOpenMenu)
                 handleOpenMenu()
               }}
             >
               <img
                 src={skillsRollIcon}
-                alt="skills selectied icon"
+                alt="skills selected icon"
                 className="skills__field-selected-img"
               />
             </button>
           )}
         </div>
-        <ul
-          className={`${
-            isOpenMenu ? 'skills__list skills__list_visible' : 'skills__list'
-          }`}
-        >
+
+        {/* отрисовка всех навыков */}
+        <ul className={`skills__list ${isOpenMenu && ' skills__list_visible'}`}>
           {testArray.map(item => (
             <li className="skills__item">
               <button
-                className="skills__item-button"
+                className={`skills__item-button ${
+                  selectedSkills.includes(item) && 'skills__item-button_active'
+                }`}
                 type="submit"
                 label="button"
-                onClick={() => {}}
+                onClick={() => {
+                  // добавление в список выбранных
+                  if (!selectedSkills.includes(item)) {
+                    templeArray.push(item)
+                    setSelectedSkills(templeArray)
+                  }
+                }}
               >
                 {`${item}`}
               </button>
@@ -94,6 +129,23 @@ function Skills() {
       </div>
     </section>
   )
+}
+
+Skills.propTypes = {
+  values: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.array,
+      PropTypes.object,
+    ])
+  ),
+  setValues: PropTypes.func,
+}
+
+Skills.defaultProps = {
+  values: {},
+  setValues: () => {},
 }
 
 export default Skills

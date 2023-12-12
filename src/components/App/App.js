@@ -79,6 +79,7 @@ function App() {
           language: 'Французский',
         },
       ],
+      skills: ['CJM', 'JTBD', 'web design', 'CJM', 'JTBD', 'web design'],
       jobs: [
         {
           id: '4bce3f6a-d8e9-4e6e-85d7-66039825e643',
@@ -550,7 +551,7 @@ function App() {
     // },
     {
       path: 'skills',
-      element: <Skills />,
+      element: <Skills values={values} setValues={setValues} />,
       id: 6,
       completedSteps: completedStepsSkills,
     },
