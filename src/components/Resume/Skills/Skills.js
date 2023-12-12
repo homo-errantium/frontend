@@ -3,30 +3,15 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import skillsSelectedIcon from '../../../img/skills-confirm-icon.svg'
 import skillsRollIcon from '../../../img/skills-roll-icon.svg'
+import { skillList } from '../../../constants/skills-list'
 
 function Skills({ values, setValues }) {
-  const testArray = [
-    'Дизайн UI',
-    'CJM',
-    'Прототипирование',
-    'Дизайн интерфейсов',
-    'JTBD',
-    'web design',
-    'mobile design',
-  ]
-
   const [selectedSkills, setSelectedSkills] = useState(values.skills || [])
-  // const templeArray = selectedSkills
 
   useEffect(() => {
     setValues({ ...values, skills: selectedSkills })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSkills])
-
-  // let templeArray = [] // каждый раз сбрасывает?
-
-  // useEffect(() => {
-  //   templeArray = selectedSkills
-  // }, [])
 
   const [isOpenMenu, setIsOpenMenu] = useState(false)
 
@@ -48,9 +33,7 @@ function Skills({ values, setValues }) {
             !isOpenMenu && 'skills__field_disabled-border-bottom'
           }`}
         >
-          <ul
-            className={`skills__list ${isOpenMenu && ' skills__list_visible'}`}
-          >
+          <ul className="skills__list skills__list_visible">
             {/* отрисовка выбранных навыков */}
             {selectedSkills.map(item => (
               <li className="skills__item">
@@ -63,14 +46,6 @@ function Skills({ values, setValues }) {
                       prevSkills.filter(skill => skill !== item)
                     )
                   }}
-                  // onClick={() => {
-                  //   /* удаление из списка */
-                  //   const index = templeArray.indexOf(item)
-                  //   if (index > -1) {
-                  //     templeArray.splice(index, 1)
-                  //   }
-                  //   setSelectedSkills(templeArray)
-                  // }}
                 >
                   {`${item}`}
                 </button>
@@ -114,7 +89,7 @@ function Skills({ values, setValues }) {
 
         {/* отрисовка всех навыков */}
         <ul className={`skills__list ${isOpenMenu && ' skills__list_visible'}`}>
-          {testArray.map(item => (
+          {skillList.map(item => (
             <li className="skills__item">
               <button
                 className={`skills__item-button ${
@@ -127,15 +102,6 @@ function Skills({ values, setValues }) {
                     setSelectedSkills(prevSkills => [...prevSkills, item])
                   }
                 }}
-                // onClick={() => {
-                //   // добавление в список выбранных
-                //   if (!selectedSkills.includes(item)) {
-                //     templeArray.push(item)
-                //     setSelectedSkills(templeArray)
-                //   }
-                //   console.log(templeArray)
-                //   console.log(selectedSkills)
-                // }}
               >
                 {`${item}`}
               </button>
