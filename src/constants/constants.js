@@ -2,11 +2,11 @@
 export const locationArr = [
   'personal-data',
   'experience',
-  // 'qualification',
-  // 'education',
-  // 'portfolio',
+  'qualification',
+  'education',
+  'portfolio',
   // 'skills',
-  // 'about',
+  'about',
   // 'layouts',
   'result',
 ]

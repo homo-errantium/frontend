@@ -1,14 +1,22 @@
-/* eslint-disable jsx-a11y/label-has-associated-control,
-          jsx-a11y/label-has-for */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import './ImageUploadForm.scss'
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import Tip from '../../ResumeComponents/Tip/Tip'
 
-const ImageUploadForm = ({ label, tip, tipText }) => {
-  const [file, setFile] = useState()
+const ImageUploadForm = ({ label, tip, tipText, name, image, setImage }) => {
   function handleChange(e) {
-    setFile(URL.createObjectURL(e.target.files[0]))
+    const canvas = document.createElement('canvas')
+    const context = canvas.getContext('2d')
+    const img = new Image()
+    img.onload = () => {
+      canvas.width = img.width
+      canvas.height = img.height
+      context.drawImage(img, 0, 0)
+      const dataUrl = canvas.toDataURL(e.target.files[0].type)
+      setImage(dataUrl)
+    }
+    img.src = URL.createObjectURL(e.target.files[0])
   }
 
   return (
@@ -20,12 +28,19 @@ const ImageUploadForm = ({ label, tip, tipText }) => {
           </label>
           {tip && <Tip text={tipText} />}
         </div>
-        <div className="image-upload__photo-container">
-          <img className="image-upload__photo" alt={file} src={file} />
-          <label className="image-upload__button" htmlFor="image-input">
+        <div
+          className={`image-upload__photo-container ${
+            image && 'image-upload__photo-container_background-none'
+          }`}
+        >
+          {image && (
+            <img className="image-upload__photo" alt={image} src={image} />
+          )}
+          <label className="image-upload__button" htmlFor="image-input-photo">
             <input
               className="image-upload__input"
-              id="image-input"
+              name={name}
+              id="image-input-photo"
               type="file"
               accept=".png,.jpg,.jpeg,"
               onChange={handleChange}
@@ -40,10 +55,25 @@ ImageUploadForm.propTypes = {
   label: PropTypes.string,
   tip: PropTypes.bool,
   tipText: PropTypes.node,
+  name: PropTypes.string.isRequired,
+  values: PropTypes.shape({
+    languages: PropTypes.arrayOf(
+      PropTypes.objectOf(PropTypes.string, PropTypes.number)
+    ),
+    jobs: PropTypes.arrayOf(
+      PropTypes.objectOf(
+        PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+      )
+    ),
+  }),
+  image: PropTypes.string,
+  setImage: PropTypes.func.isRequired,
 }
 ImageUploadForm.defaultProps = {
   label: '',
   tip: false,
   tipText: '',
+  values: {},
+  image: '',
 }
 export default ImageUploadForm

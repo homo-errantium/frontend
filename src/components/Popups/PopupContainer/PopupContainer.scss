@@ -24,13 +24,18 @@
 	align-items: center;
 	justify-content: center;
 	position: relative;
+<<<<<<< HEAD:src/components/PopupContainer/PopupContainer.scss
 	border-radius: 8px;
+=======
+	// width: calc((100vw - 320px) / (1280 - 320) * (430 - 282) + 282px);
+	// padding: calc((100vw - 320px) / (1280 - 320) * (34 - 25) + 25px)
+	// 	calc((100vw - 320px) / (1280 - 320) * (36 - 22) + 22px)
+	// 	calc((100vw - 320px) / (1280 - 320) * (37 - 25) + 25px);
+	border-radius: 24px;
+>>>>>>> 30ac781c8258b1b8426fb5a833822a1b76acada1:src/components/Popups/PopupContainer/PopupContainer.scss
 	// background-color: transparent;
 	background-color: #fff;
 	// box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.15);
-}
-
-.popup__description {
 }
 
 .popup__btn-close {
@@ -42,9 +47,12 @@
 	height: 28px;
 	outline: none;
 	border: none;
-	background: transparent url(../../img/close-icon.svg) center center / cover
+	background: transparent url(../../../img/popups/close-icon-black.svg) center center / cover
 		no-repeat;
 	transition: opacity 0.2s linear;
+}
+.popup__btn-close_black {
+  background-image: url(../../../img/popups/close-icon-black.svg);
 }
 
 .popup__btn-close:hover {

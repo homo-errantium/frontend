@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import IMask from 'imask'
@@ -90,7 +89,9 @@ const DoubleInput = ({
           />
         )}
         {errors && (
-          <span className="form-input__input-error">{errors[name[0]]}</span>
+          <span className="double-input__input-error form-input__input-error">
+            {errors[name[0]]}
+          </span>
         )}
       </div>
       <div className="double-input__right-box">
@@ -146,7 +147,9 @@ const DoubleInput = ({
               />
             )}
             {errors && (
-              <span className="form-input__input-error">{errors[name[1]]}</span>
+              <span className="double-input__input-error form-input__input-error">
+                {errors[name[1]]}
+              </span>
             )}
           </>
         )}
@@ -173,6 +176,21 @@ DoubleInput.propTypes = {
   optionsInputSecond: PropTypes.arrayOf(PropTypes.string),
   dataMask: PropTypes.string,
   errors: PropTypes.objectOf(PropTypes.string),
+  values: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([
+          PropTypes.objectOf(
+            PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+          ),
+        ])
+      ),
+    ])
+  ),
+  handleChange: PropTypes.func.isRequired,
+  name: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
 
 DoubleInput.defaultProps = {
@@ -192,6 +210,7 @@ DoubleInput.defaultProps = {
   optionsInputSecond: [],
   dataMask: '',
   errors: {},
+  values: {},
 }
 
 export default DoubleInput
