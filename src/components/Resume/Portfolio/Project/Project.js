@@ -11,6 +11,7 @@ const Project = ({ addProject, deleteProject, i, values, handleChange }) => {
     <>
       <div className="project__container experience__job-container" id={i}>
         <FormInput label="Название проекта" />
+      </div>
       <div className="project__container experience__job-container" id={i}>
         <FormInput
           values={values}
