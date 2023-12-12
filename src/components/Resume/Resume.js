@@ -13,11 +13,11 @@ function Resume({
   onOpenPopup,
   setCompletedStepsPersonalData,
   setCompletedStepsExperience,
-  // setCompletedStepsQualification,
-  // setCompletedStepsEducation,
-  // setCompletedStepsPortfolio,
+  setCompletedStepsQualification,
+  setCompletedStepsEducation,
+  setCompletedStepsPortfolio,
   // setCompletedStepsSkills,
-  // setCompletedStepsAbout,
+  setCompletedStepsAbout,
   // setCompletedLayouts,
   onClick,
   duties,
@@ -36,11 +36,11 @@ function Resume({
     const locationToFanctionMap = {
       '/resume/personal-data': setCompletedStepsPersonalData,
       '/resume/experience': setCompletedStepsExperience,
-      // '/resume/qualification': setCompletedStepsQualification,
-      // '/resume/education': setCompletedStepsEducation,
-      // '/resume/portfolio': setCompletedStepsPortfolio,
+      '/resume/qualification': setCompletedStepsQualification,
+      '/resume/education': setCompletedStepsEducation,
+      '/resume/portfolio': setCompletedStepsPortfolio,
       // '/resume/skills': setCompletedStepsSkills,
-      // '/resume/about': setCompletedStepsAbout,
+      '/resume/about': setCompletedStepsAbout,
       // '/resume/layouts': setCompletedLayouts,
     }
 
@@ -76,18 +76,17 @@ Resume.propTypes = {
   onOpenPopup: PropTypes.func.isRequired,
   setCompletedStepsPersonalData: PropTypes.func.isRequired,
   setCompletedStepsExperience: PropTypes.func.isRequired,
-  // setCompletedStepsQualification: PropTypes.func.isRequired,
-  // setCompletedStepsEducation: PropTypes.func.isRequired,
-  // setCompletedStepsPortfolio: PropTypes.func.isRequired,
+  setCompletedStepsQualification: PropTypes.func.isRequired,
+  setCompletedStepsEducation: PropTypes.func.isRequired,
+  setCompletedStepsPortfolio: PropTypes.func.isRequired,
   // setCompletedStepsSkills: PropTypes.func.isRequired,
-  // setCompletedStepsAbout: PropTypes.func.isRequired,
+  setCompletedStepsAbout: PropTypes.func.isRequired,
   // setCompletedLayouts: PropTypes.func.isRequired,
-  onClick: PropTypes.func,
+  onClick: PropTypes.func.isRequired,
   duties: PropTypes.bool,
 }
 
 Resume.defaultProps = {
-  onClick: () => {},
   duties: false,
 }
 

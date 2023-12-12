@@ -13,7 +13,6 @@ import { JOB_TIP } from '../../../constants/tips'
 const Experience = ({
   values,
   setValues,
-  // handleChange,
   handleCheckboxChange,
   checkboxValues,
   hasExperience,
@@ -151,7 +150,6 @@ const Experience = ({
             setValues={setValues}
             setAllTillPresent={setAllTillPresent}
             allTillPresent={allTillPresent}
-            setCheckboxValues={setCheckboxValues}
             setDuties={setDuties}
           />
         ))}
@@ -164,49 +162,44 @@ const Experience = ({
 }
 
 Experience.propTypes = {
-  values: PropTypes.shape({
-    languages: PropTypes.arrayOf(
-      PropTypes.objectOf(PropTypes.string, PropTypes.number)
-    ),
-    jobs: PropTypes.arrayOf(
-      PropTypes.objectOf(
-        PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-      )
-    ),
-  }),
-  setValues: PropTypes.func,
-  // handleChange: PropTypes.func,
-  handleCheckboxChange: PropTypes.func,
+  values: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([
+          PropTypes.objectOf(
+            PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+          ),
+        ])
+      ),
+    ])
+  ),
+  setValues: PropTypes.func.isRequired,
+  handleCheckboxChange: PropTypes.func.isRequired,
   checkboxValues: PropTypes.shape({
     checkbox: PropTypes.bool,
   }),
   hasExperience: PropTypes.bool.isRequired,
-  setHasExperience: PropTypes.func,
-  setAllTillPresent: PropTypes.func,
+  setHasExperience: PropTypes.func.isRequired,
+  setAllTillPresent: PropTypes.func.isRequired,
   allTillPresent: PropTypes.shape({
     value: PropTypes.bool,
   }),
-  setCheckboxValues: PropTypes.func,
+  setCheckboxValues: PropTypes.func.isRequired,
   setDuties: PropTypes.func.isRequired,
   errors: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ).isRequired,
   handleChangeWithValidation: PropTypes.func.isRequired,
   setErrors: PropTypes.func.isRequired,
-  handleAddJobChange: PropTypes.func,
+  handleAddJobChange: PropTypes.func.isRequired,
 }
 
 Experience.defaultProps = {
   values: {},
-  setValues: () => {},
-  // handleChange: () => {},
-  handleCheckboxChange: () => {},
   checkboxValues: {},
-  setHasExperience: () => {},
-  setAllTillPresent: () => {},
   allTillPresent: {},
-  setCheckboxValues: () => {},
-  handleAddJobChange: () => {},
 }
 
 export default Experience

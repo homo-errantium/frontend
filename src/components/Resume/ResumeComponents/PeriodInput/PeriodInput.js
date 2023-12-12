@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import './PeriodInput.scss'
 import classNames from 'classnames'
@@ -28,7 +29,9 @@ const PeriodInput = ({
   setCheckboxValues,
   errors,
   allValues,
+  education,
 }) => {
+  const location = useLocation()
   const [disabledMonthChoice, setDisabledMonthChoice] = useState(false)
   const [isTillPresent, setIsTillPresent] = React.useState(
     allTillPresent[i] || false
@@ -42,13 +45,25 @@ const PeriodInput = ({
           [year[1]]: '',
         }))
       } else {
-        const monthClear = allValues.jobs.map(job => {
-          if (i === job.id) {
-            return { ...job, [monthPeriod[1]]: '', [year[1]]: '' }
-          }
-          return job
-        })
-        setValues(prevValue => ({ ...prevValue, jobs: monthClear }))
+        if (location.pathname === '/resume/experience') {
+          const dateClear = allValues.jobs.map(job => {
+            if (i === job.id) {
+              return { ...job, [monthPeriod[1]]: '', [year[1]]: '' }
+            }
+            return job
+          })
+          setValues(prevValue => ({ ...prevValue, jobs: dateClear }))
+        }
+
+        if (location.pathname === '/resume/education') {
+          const yearClear = allValues.educations.map(ed => {
+            if (i === ed.id) {
+              return { ...ed, [year[1]]: '' }
+            }
+            return ed
+          })
+          setValues(prevValue => ({ ...prevValue, educations: yearClear }))
+        }
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -81,7 +96,8 @@ const PeriodInput = ({
     <div
       className={classNames(
         'period-input__container',
-        !month && 'period-input__container_year-only'
+        !month && 'period-input__container_year-only',
+        education && 'period-input__container_year-only-education'
       )}
     >
       <div className="form-input">
@@ -94,7 +110,8 @@ const PeriodInput = ({
         <div
           className={classNames(
             'period-input__inputs-container',
-            !month && 'period-input__inputs-container_year-only'
+            !month && 'period-input__inputs-container_year-only',
+            education && 'period-input__inputs-container_year-only-first'
           )}
         >
           {month && (
@@ -117,7 +134,8 @@ const PeriodInput = ({
             className={classNames(
               'period-input__field form-input__field',
               !month && 'period-input__field_year-only',
-              errors[year[0]] && 'form-input__field_error'
+              errors[year[0]] && 'form-input__field_error',
+              education && 'period-input__field_year-only-education'
             )}
             disabled={disabled}
           />
@@ -142,7 +160,8 @@ const PeriodInput = ({
         <div
           className={classNames(
             'period-input__inputs-container',
-            !month && 'period-input__inputs-container_year-only'
+            !month && 'period-input__inputs-container_year-only',
+            education && 'period-input__inputs-container_year-only-education'
           )}
         >
           {month && (
@@ -165,7 +184,8 @@ const PeriodInput = ({
             className={classNames(
               'period-input__field form-input__field',
               !month && 'period-input__field_year-only',
-              errors[year[1]] && 'form-input__field_error'
+              errors[year[1]] && 'form-input__field_error',
+              education && 'period-input__field_year-only-education'
             )}
             disabled={disabled || isTillPresent}
           />
@@ -209,7 +229,7 @@ PeriodInput.propTypes = {
     checkbox: PropTypes.bool,
   }),
   namePeriod: PropTypes.string,
-  setValues: PropTypes.func,
+  setValues: PropTypes.func.isRequired,
   monthPeriod: PropTypes.arrayOf(PropTypes.string),
   year: PropTypes.arrayOf(PropTypes.string),
   values: PropTypes.shape({
@@ -242,6 +262,7 @@ PeriodInput.propTypes = {
       ),
     ])
   ),
+  education: PropTypes.bool,
 }
 
 PeriodInput.defaultProps = {
@@ -250,10 +271,8 @@ PeriodInput.defaultProps = {
   tipText: '',
   disabled: false,
   tillPresent: false,
-  handleCheckboxChange: () => {},
   checkboxValues: {},
   namePeriod: undefined,
-  setValues: () => {},
   monthPeriod: [],
   year: [],
   values: {},
@@ -263,6 +282,8 @@ PeriodInput.defaultProps = {
   setCheckboxValues: () => {},
   allValues: {},
   errors: {},
+  handleCheckboxChange: () => {},
+  education: false,
 }
 
 export default PeriodInput
