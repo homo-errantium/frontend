@@ -8,8 +8,8 @@ import {
   CAREER_OBJECTIVE_TIP,
   ACTUAL_STATUS_TIP,
   EMAIL_TIP,
-  OTHER__SITE_LINK_TIP,
   PHOTO_TIP,
+  SITE_LINK_TIP,
 } from '../../../constants/tips'
 import {
   ACTUAL_STATUS_OPTIONS,
@@ -20,6 +20,7 @@ import {
 import FormInput from '../ResumeComponents/FormInput/FormInput'
 import LanguageInput from '../ResumeComponents/LanguageInput/LanguageInput'
 import ImageUploadForm from './ImageUploadForm/ImageUploadForm'
+import LinkInput from '../ResumeComponents/LinkInput/LinkInput'
 
 const PersonalData = ({
   values,
@@ -39,6 +40,15 @@ const PersonalData = ({
     setLanguagesAfterDeleting(remainingLanguages)
     return remainingLanguages
   }
+
+  // const deleteLink = i => {
+  //   const linkToBeRemoved = values.links.find(item => item.id === i)
+  //   const remainingLinks = values.links.filter(
+  //     item => item.id !== linkToBeRemoved.id
+  //   )
+  //   setLinksAfterDeleting(remainingLinks)
+  //   return remainingLinks
+  // }
 
   const handleLanguageChange = ({ i, name, value }) => {
     const languageToBeChanged = values.languages.find(item => item.id === i)
@@ -97,6 +107,7 @@ const PersonalData = ({
             handleChange={handleChangeWithValidation}
             values={values}
             name={['city', 'work_status']}
+            doubleLongInput
             firstLabel="Город проживания"
             secondLabel="Актуальный статус"
             doubleInput
@@ -112,6 +123,7 @@ const PersonalData = ({
             handleChange={handleChangeWithValidation}
             values={values}
             name={['desired_position', 'level_knowledge']}
+            doubleLongInput
             firstLabel="Желаемая должность"
             secondLabel="Уровень"
             doubleInput
@@ -139,43 +151,26 @@ const PersonalData = ({
             handleChange={handleChangeWithValidation}
             values={values}
             setValues={setValues}
-            name={['phone', 'behance']}
+            name={['phone', 'telegram']}
+            doubleShortInput
             firstLabel="Телефон"
-            secondLabel="Ссылка на Behance"
-            placeholder="+7"
-            doubleInput
-            ordinaryInputFirst
-            ordinaryInputSecond
-            dataMask="phone"
+            secondLabel="Telegram"
+            placeholderFirst="+7"
+            placeholderSecond="t.me/name"
+            dataMaskFirst="phone"
+            dataMaskSecond="tgLink"
             errors={errors}
           />
-          <DoubleInput
-            handleChange={handleChangeWithValidation}
-            values={values}
-            setValues={setValues}
-            name={['telegram', 'github']}
-            firstLabel="Telegram"
-            secondLabel="Ссылка на GitHub"
-            doubleInput
-            placeholder="t.me/name"
-            dataMask="tgLink"
-            ordinaryInputFirst
-            ordinaryInputSecond
-            errors={errors}
-          />
-          <DoubleInput
-            handleChange={handleChangeWithValidation}
-            values={values}
-            setValues={setValues}
-            name={['website_link', 'video_link']}
-            firstLabel="Ссылка на другой сайт"
-            secondLabel="Ссылка на видео о себе"
-            doubleInput
-            ordinaryInputFirst
-            ordinaryInputSecond
+          <LinkInput
+            // key={link.id}
+            // i={link.id}
+            // values={link}
+            // addLink={addLink}
+            // deleteLink={deleteLink}
+            firstLabel="Название ссылки"
+            secondLabel="Ссылка"
             tipFirst
-            tipTextFirst={OTHER__SITE_LINK_TIP}
-            errors={errors}
+            tipTextFirst={SITE_LINK_TIP}
           />
         </div>
         <ResumeTitle title="Владение языками" />
