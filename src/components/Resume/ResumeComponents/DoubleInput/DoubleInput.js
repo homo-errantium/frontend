@@ -259,6 +259,8 @@ DoubleInput.propTypes = {
   ),
   handleChange: PropTypes.func.isRequired,
   name: PropTypes.arrayOf(PropTypes.string).isRequired,
+  doubleShortInput: PropTypes.bool,
+  doubleLongInput: PropTypes.bool,
 }
 
 DoubleInput.defaultProps = {
@@ -280,6 +282,8 @@ DoubleInput.defaultProps = {
   dataMaskFirst: '',
   errors: {},
   values: {},
+  doubleShortInput: false,
+  doubleLongInput: false,
 }
 
 export default DoubleInput
