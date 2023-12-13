@@ -10,64 +10,59 @@ const LinkInput = ({
   disabled,
   tipFirst,
   tipTextFirst,
-  // deleteLink,
-  // handleLinkChange,
-  // addLink,
-  // i,
-}) => (
-  // const handleDelete = () => deleteLink(i)
-  // const handleChange = evt => {
-  //   const { name, value } = evt.target
-  //   handleLinkChange({ i, name, value })
-  // }
+  deleteLink,
+  addLink,
+  i,
+}) => {
+  const handleDelete = () => deleteLink(i)
 
-  <div className="link-input">
-    <div className="link-input__left-box">
-      <div className="link-input__label-container">
-        <label
-          className="link-input__label"
-          htmlFor="selected-link-input-first"
-        >
-          {firstLabel}
-        </label>
-        {tipFirst && <Tip text={tipTextFirst} />}
+  return (
+    <div className="link-input">
+      <div className="link-input__left-box">
+        <div className="link-input__label-container">
+          <label
+            className="link-input__label"
+            htmlFor="selected-link-input-first"
+          >
+            {firstLabel}
+          </label>
+          {tipFirst && <Tip text={tipTextFirst} />}
+        </div>
+        <input
+          // defaultValue=""
+          // onChange={handleChange}
+          className="link-input__short-field"
+          disabled={disabled}
+        />
       </div>
-      <input
-        // defaultValue=""
-        // onChange={handleChange}
-        className="link-input__short-field"
-        disabled={disabled}
-      />
-    </div>
-    <div className="link-input__right-box">
-      <div className="double-input__label-container">
-        <label className="double-input__label" htmlFor="selected-input-second">
-          {secondLabel}
-        </label>
+      <div className="link-input__right-box">
+        <div className="double-input__label-container">
+          <label
+            className="double-input__label"
+            htmlFor="selected-input-second"
+          >
+            {secondLabel}
+          </label>
+        </div>
+        <input className="link-input__short-field" disabled={disabled} />
       </div>
-      <input
-        // onChange={handleChange}
-        className="link-input__short-field"
-        disabled={disabled}
-      />
+      <div className="link-input__button-container">
+        <button
+          className="link-input__button-delete link"
+          type="button"
+          aria-label="Удалить"
+          onClick={handleDelete}
+        />
+        <button
+          className="link-input__button-add link"
+          type="button"
+          aria-label="Добавить"
+          onClick={addLink}
+        />
+      </div>
     </div>
-    <div className="link-input__button-container">
-      <button
-        className="link-input__button-delete link"
-        type="button"
-        aria-label="Удалить"
-        // onClick={handleDelete}
-      />
-      <button
-        className="link-input__button-add link"
-        type="button"
-        aria-label="Добавить"
-        // onClick={addLink}
-      />
-    </div>
-  </div>
-)
-
+  )
+}
 LinkInput.propTypes = {
   firstLabel: PropTypes.string,
   secondLabel: PropTypes.string,

@@ -25,6 +25,8 @@ const PersonalData = ({
   values,
   setValues,
   addLanguage,
+  addLink,
+  setLinksAfterDeleting,
   setLanguagesAfterDeleting,
   setLanguagesChanges,
   errors,
@@ -41,14 +43,14 @@ const PersonalData = ({
     return remainingLanguages
   }
 
-  // const deleteLink = i => {
-  //   const linkToBeRemoved = values.links.find(item => item.id === i)
-  //   const remainingLinks = values.links.filter(
-  //     item => item.id !== linkToBeRemoved.id
-  //   )
-  //   setLinksAfterDeleting(remainingLinks)
-  //   return remainingLinks
-  // }
+  const deleteLink = i => {
+    const linkToBeRemoved = values.links.find(item => item.id === i)
+    const remainingLinks = values.links.filter(
+      item => item.id !== linkToBeRemoved.id
+    )
+    setLinksAfterDeleting(remainingLinks)
+    return remainingLinks
+  }
 
   const handleLanguageChange = ({ i, name, value }) => {
     const languageToBeChanged = values.languages.find(item => item.id === i)
@@ -168,17 +170,19 @@ const PersonalData = ({
             dataMaskSecond="tgLink"
             errors={errors}
           />
-          <LinkInput
-            // key={link.id}
-            // i={link.id}
-            // values={link}
-            // addLink={addLink}
-            // deleteLink={deleteLink}
-            firstLabel="Название ссылки"
-            secondLabel="Ссылка"
-            tipFirst
-            tipTextFirst={SITE_LINK_TIP}
-          />
+          {values.links.map(link => (
+            <LinkInput
+              key={link.id}
+              i={link.id}
+              // values={link}
+              addLink={addLink}
+              deleteLink={deleteLink}
+              firstLabel="Название ссылки"
+              secondLabel="Ссылка"
+              tipFirst
+              tipTextFirst={SITE_LINK_TIP}
+            />
+          ))}
         </div>
         <ResumeTitle title="Владение языками" />
         {values.languages.map(lang => (
@@ -219,7 +223,9 @@ PersonalData.propTypes = {
   ),
   setValues: PropTypes.func.isRequired,
   addLanguage: PropTypes.func.isRequired,
+  addLink: PropTypes.func.isRequired,
   setLanguagesAfterDeleting: PropTypes.func.isRequired,
+  setLinksAfterDeleting: PropTypes.func.isRequired,
   setLanguagesChanges: PropTypes.func.isRequired,
   errors: PropTypes.objectOf(PropTypes.string),
   handleChangeWithValidation: PropTypes.func.isRequired,
