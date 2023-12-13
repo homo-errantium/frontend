@@ -1,15 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import './PopupConfirmation.scss'
+import './PopupConfirmationExit.scss'
 import PopupСontainer from '../PopupContainer/PopupContainer'
-import Confirmation from './Comfirmation/Confirmation'
+import Confirmation from './ComfirmationExit/ConfirmationExit'
 
-function PopupConfirmation({ isOpen, onClose, setCheckboxValues, setValues }) {
+function PopupConfirmationExit({
+  isOpen,
+  onClose,
+  setCheckboxValues,
+  setValues,
+}) {
   return (
     <PopupСontainer
       isOpen={isOpen}
       onClose={onClose}
-      popupName="popup-confirmation"
+      popupName="popup-confirmation-exit"
       element={
         <Confirmation
           onClose={onClose}
@@ -21,11 +26,11 @@ function PopupConfirmation({ isOpen, onClose, setCheckboxValues, setValues }) {
   )
 }
 
-PopupConfirmation.propTypes = {
+PopupConfirmationExit.propTypes = {
   onClose: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
   setCheckboxValues: PropTypes.func.isRequired,
   setValues: PropTypes.func.isRequired,
 }
 
-export default PopupConfirmation
+export default PopupConfirmationExit

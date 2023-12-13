@@ -2,15 +2,27 @@ import React from 'react'
 import './ResultResume.scss'
 import PropTypes from 'prop-types'
 import Keanu from '../../../img/Keanu-Reeves.jpg'
+import { months } from '../../../constants/months'
 
 //
 
 function ResultResume({ values /* checkboxValues */ }) {
   const userAllLang = values.languages
+  console.log('🚀 ~ file: ResultResume.js:11 ~ ResultResume ~ values:', values)
 
-  function changeMonth(month) {
-    return month < 10 ? `0${month}` : `${month}`
+  function monthConvert(monthNumber) {
+    let result = []
+    if (monthNumber !== '') {
+      result = months.find(({ id }) => id === monthNumber)
+      return result.long
+    }
+
+    return 'По настоящее время'
   }
+
+  // function changeMonth(month) {
+  //   return month < 10 ? `0${month}` : `${month}`
+  // }
   function absentValues(currentValue) {
     return currentValue ? `${currentValue}` : `Отсутствует`
   }
@@ -68,15 +80,15 @@ function ResultResume({ values /* checkboxValues */ }) {
         </span>
         <br />
         <span className="result-resume__experience-start">
-          {`Дата начала работы: ${changeMonth(
-            absentValues(values.month_work_start)
-          )}${values.year_work_start ? `/${values.year_work_start}` : ''}`}
+          {`Дата начала работы: ${monthConvert(values.month_work_start)}${
+            values.year_work_start ? ` ${values.year_work_start}` : ''
+          }`}
         </span>
         <br />
         <span className="result-resume__experience-end">
-          {`Дата окончания работы: ${changeMonth(
-            absentValues(values.month_work_start)
-          )}${values.year_work_end ? `/${values.year_work_end}` : ''}`}
+          {`Дата окончания работы: ${monthConvert(values.month_work_end)}${
+            values.year_work_end ? ` ${values.year_work_end}` : ''
+          }`}
         </span>
 
         <span className="result-resume__experience-company-site">

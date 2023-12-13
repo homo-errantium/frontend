@@ -1,7 +1,6 @@
-/* eslint-disable react/prop-types */
 import './PersonalData.scss'
 import React from 'react'
-// import { v4 as uuidv4 } from 'uuid'
+import PropTypes from 'prop-types'
 import ResumeTitle from '../ResumeComponents/ResumeTitle/ResumeTitle'
 import DoubleInput from '../ResumeComponents/DoubleInput/DoubleInput'
 import {
@@ -24,13 +23,14 @@ import LinkInput from '../ResumeComponents/LinkInput/LinkInput'
 
 const PersonalData = ({
   values,
-  // handleChange,
   setValues,
   addLanguage,
   setLanguagesAfterDeleting,
   setLanguagesChanges,
   errors,
   handleChangeWithValidation,
+  setImage,
+  image,
 }) => {
   const deleteLanguage = i => {
     const languageToBeRemoved = values.languages.find(item => item.id === i)
@@ -75,7 +75,7 @@ const PersonalData = ({
                 values={values}
                 handleChange={handleChangeWithValidation}
                 setValues={setValues}
-                name={['name']}
+                name="name"
                 label="Имя"
                 errors={errors}
               />
@@ -83,7 +83,7 @@ const PersonalData = ({
                 values={values}
                 handleChange={handleChangeWithValidation}
                 setValues={setValues}
-                name={['surname']}
+                name="surname"
                 label="Фамилия"
                 errors={errors}
               />
@@ -91,7 +91,7 @@ const PersonalData = ({
                 values={values}
                 handleChange={handleChangeWithValidation}
                 setValues={setValues}
-                name={['birthday']}
+                name="birthday"
                 label="Дата рождения"
                 placeholder="ДД.ММ.ГГГГ"
                 dataMask="date"
@@ -99,7 +99,14 @@ const PersonalData = ({
               />
             </div>
             <div className="personal-data__form-right-column">
-              <ImageUploadForm label="Фото" tip tipText={PHOTO_TIP} />
+              <ImageUploadForm
+                name="photo"
+                label="Фото"
+                tip
+                tipText={PHOTO_TIP}
+                setImage={setImage}
+                image={image}
+              />
             </div>
           </div>
           <DoubleInput
@@ -141,7 +148,7 @@ const PersonalData = ({
             values={values}
             handleChange={handleChangeWithValidation}
             setValues={setValues}
-            name={['email']}
+            name="email"
             label="Почта"
             tip
             tipText={EMAIL_TIP}
@@ -194,6 +201,36 @@ const PersonalData = ({
       </div>
     </section>
   )
+}
+
+PersonalData.propTypes = {
+  values: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([
+          PropTypes.objectOf(
+            PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+          ),
+        ])
+      ),
+    ])
+  ),
+  setValues: PropTypes.func.isRequired,
+  addLanguage: PropTypes.func.isRequired,
+  setLanguagesAfterDeleting: PropTypes.func.isRequired,
+  setLanguagesChanges: PropTypes.func.isRequired,
+  errors: PropTypes.objectOf(PropTypes.string),
+  handleChangeWithValidation: PropTypes.func.isRequired,
+  setImage: PropTypes.func.isRequired,
+  image: PropTypes.string,
+}
+
+PersonalData.defaultProps = {
+  values: {},
+  errors: {},
+  image: undefined,
 }
 
 export default PersonalData

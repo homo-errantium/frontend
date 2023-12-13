@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react'
 import './App.scss'
@@ -21,20 +22,22 @@ import {
   YEAR_REGEX,
   SITE_REGEX,
 } from '../../constants/regex'
-// import About from '../Resume/About/About'
-// import Education from '../Resume/Education/Education'
+import About from '../Resume/About/About'
+import Education from '../Resume/Education/Education'
 import Experience from '../Resume/Experience/Experience'
 // import Layouts from '../Resume/Layouts/Layouts'
 import PersonalData from '../Resume/PersonalData/PersonalData'
-// import Portfolio from '../Resume/Portfolio/Portfolio'
-// import Qualification from '../Resume/Qualification/Qualification'
+import Portfolio from '../Resume/Portfolio/Portfolio'
+import Qualification from '../Resume/Qualification/Qualification'
 // import Skills from '../Resume/Skills/Skills'
 import Result from '../Resume/Result/Result'
 
-import PopupRegister from '../PopupRegister/PopupRegister'
-import PopupConfirmation from '../PopupConfirmation/PopupConfirmation'
-import PopupResumeName from '../PopupResumeName/PopupResumeName'
-import PopupLogin from '../PopupLogin/PopupLogin'
+import PopupRegister from '../Popups/PopupRegister/PopupRegister'
+import PopupConfirmationExit from '../Popups/PopupConfirmationExit/PopupConfirmationExit'
+import PopupResumeName from '../Popups/PopupResumeName/PopupResumeName'
+import PopupLogin from '../Popups/PopupLogin/PopupLogin'
+import PopupConfirmationDelete from '../Popups/PopupConfirmationDelete/PopupConfirmationDelete'
+import PopupConfirmationRegister from '../Popups/PopupConfirmationRegister/PopupConfirmationRegister'
 import ResultResume from '../Resume/ResultResume/ResultResume'
 
 function App() {
@@ -49,100 +52,114 @@ function App() {
     React.useState(false)
   const [completedStepsExperience, setCompletedStepsExperience] =
     React.useState(false)
-  // const [completedStepsQualification, setCompletedStepsQualification] =
-  //   React.useState(false)
-  // const [completedStepsEducation, setCompletedStepsEducation] =
-  //   React.useState(false)
-  // const [completedStepsPortfolio, setCompletedStepsPortfolio] =
-  //   React.useState(false)
+  const [completedStepsQualification, setCompletedStepsQualification] =
+    React.useState(false)
+  const [completedStepsEducation, setCompletedStepsEducation] =
+    React.useState(false)
+  const [completedStepsPortfolio, setCompletedStepsPortfolio] =
+    React.useState(false)
   // const [completedStepsSkills, setCompletedStepsSkills] = React.useState(false)
-  // const [completedStepsAbout, setCompletedStepsAbout] = React.useState(false)
+  const [completedStepsAbout, setCompletedStepsAbout] = React.useState(false)
   // const [completedLayouts, setCompletedLayouts] = React.useState(false)
 
   // --------------------------- Работа с данными через локальное хранилище -----------------------
 
   // const [addedExperience, setAddedExperience] = React.useState([])
+
   // Записываем в объект данные из полей
   const [values, setValues] = React.useState(
     JSON.parse(localStorage.getItem('formData')) || {
-      languages: [
-        {
-          id: 'ef44b943-fb45-477e-85a5-e33fd63c4852',
-          language: 'Английский',
-          level: 'B1',
-        },
-        {
-          id: '662cc9cf-2b38-4feb-be0d-503b4a01e896',
-          level: 'B2',
-          language: 'Французский',
-        },
-      ],
-      jobs: [
-        {
-          id: '4bce3f6a-d8e9-4e6e-85d7-66039825e643',
-          'company_4bce3f6a-d8e9-4e6e-85d7-66039825e643': 'Экспресс-ТВ',
-          'current_position_4bce3f6a-d8e9-4e6e-85d7-66039825e643':
-            'Технический редактор',
-          'month_work_start_4bce3f6a-d8e9-4e6e-85d7-66039825e643': 6,
-          'year_work_start_4bce3f6a-d8e9-4e6e-85d7-66039825e643': '2017',
-          'month_work_end_4bce3f6a-d8e9-4e6e-85d7-66039825e643': 6,
-          'year_work_end_4bce3f6a-d8e9-4e6e-85d7-66039825e643': '2023',
-          'duties_4bce3f6a-d8e9-4e6e-85d7-66039825e643':
-            'Тестирование(ручное) программы на C++.\nВерификация и корректировка данных.\nАдминистрирование контента.\nАдаптация контента под разные группы пользователей.\nНаставничество: работа в программе на С++ с нуля, поиск, анализ и устранение ошибок, структурирование информации, оптимизация процессов визуализации выпускаемого продукта.\nПользовательское тестирование функционала.',
-          'company_website_4bce3f6a-d8e9-4e6e-85d7-66039825e643':
-            'https://tv-express.ru/',
-        },
-      ],
-      name: 'Павел',
-      surname: 'Чурунов',
-      birthday: '27.11.1987',
-      city: 'Москва',
-      desired_position: 'Аналитик',
-      email: 'ChPavel@mail.ru',
-      phone: '+7(916)545-43-32',
-      website_link: '',
-      company: 'Яндекс Крауд',
-      current_position: 'Специалист',
-      month_work_start: 6,
-      year_work_start: '2023',
-      year_work_end: '',
-      month_work_end: '',
-      duties:
-        'Разметка видео и изображений; для обучения ИИ в в программах CVAT, Supervisely;\nПроверка разметки на наличие нарушений. Пользовательское тестирование',
-      telegram: 'https://t.me/chpavel',
-      level_knowledge: 'Middle',
-      github: 'https://github.com/cakamup1',
-      company_website: 'https://yandex.ru/project/remote-work/',
-      work_status: 'Принимаю предложения',
+      languages: [{ id: uuidv4() }],
+      jobs: [],
+      qualifications: [],
+      educations: [],
+      portfolio: [],
     }
-    // после MVP вернуть
-    // {
-    //   languages: [{ id: uuidv4() }],
-    //   jobs: [],
-    // }
   )
-  // Функция, которая записывает данные дополнительных полей опыта работы
-  // const handleAddJobChange = evt => {
-  //   const { name, value, id } = evt.target
-  //   const updatedJobs = values.jobs.map(job => {
-  //     if (job.id === id) {
-  //       return { ...job, [name]: value, id }
-  //     }
-  //     return job
-  //   })
-  //   setValues({ ...values, jobs: updatedJobs })
-  // }
-
-  // LANGUAGES:
-  const addLanguage = () => {
-    setValues({
-      ...values,
-      languages: [...values.languages, { id: uuidv4() }],
-    })
-  }
   const [languagesAfterChanges, setLanguagesChanges] = useState(
     values.languages
   )
+  const [languagesAfterDeleting, setLanguagesAfterDeleting] = useState(
+    values.languages
+  )
+  // RECOMMENDATIONS:
+  const [duties, setDuties] = useState(false)
+  // // Если опыт есть, поля активны. Если нет, поля деактивируются:
+  const [hasExperience, setHasExperience] = React.useState(
+    JSON.parse(localStorage.getItem('hasExperience') || true)
+  )
+  // Если повышение квалицикации есть, поля активны. Если нет, поля деактивируются:
+  const [hasQualification, setHasQualification] = React.useState(
+    JSON.parse(localStorage.getItem('hasQualification') || true)
+  )
+  // Записываем данные isTillPresent в один объект
+  const [allTillPresent, setAllTillPresent] = React.useState(
+    JSON.parse(localStorage.getItem('isTillPresent')) || {}
+  )
+  // Записываем в объект данные чекбоксов
+  const [checkboxValues, setCheckboxValues] = React.useState(
+    JSON.parse(localStorage.getItem('checkboxData')) || {}
+  )
+  const [errors, setErrors] = useState({})
+  // Сохраняем ссылку изображения в переменную и вытягиваем из локального хранилища данные
+  const [image, setImage] = useState(localStorage.getItem('image') || '')
+
+  // Функция, которая записывает данные дополнительных полей опыта работы
+  const handleAddJobChange = evt => {
+    const { name, value, id } = evt.target
+    const updatedJobs = values.jobs.map(job => {
+      if (job.id === id) {
+        return { ...job, [name]: value, id }
+      }
+      return job
+    })
+    setValues({ ...values, jobs: updatedJobs })
+  }
+  // Функция, которая записывает данные дополнительных полей с квалификацией
+  const handleAddQualificationChange = evt => {
+    const { name, value, id } = evt.target
+    const updatedQualification = values.qualifications.map(qual => {
+      if (qual.id === id) {
+        return { ...qual, [name]: value, id }
+      }
+      return qual
+    })
+    setValues({ ...values, qualifications: updatedQualification })
+  }
+
+  // Функция, которая записывает данные дополнительных полей с образованием
+  const handleAddEducationChange = evt => {
+    const { name, value, id } = evt.target
+    const updatedEducation = values.educations.map(education => {
+      if (education.id === id) {
+        return { ...education, [name]: value, id }
+      }
+      return education
+    })
+    setValues({ ...values, educations: updatedEducation })
+  }
+
+  // Функция, которая записывает данные дополнительных полей с портфолио
+  const handleAddPortfolioChange = evt => {
+    const { name, value, id } = evt.target
+    const updatedPortfolio = values.portfolio.map(p => {
+      if (p.id === id) {
+        return { ...p, [name]: value, id }
+      }
+      return p
+    })
+    setValues({ ...values, portfolio: updatedPortfolio })
+  }
+
+  // LANGUAGES:
+  const addLanguage = () => {
+    if (values.languages.length < 5) {
+      setValues({
+        ...values,
+        languages: [...values.languages, { id: uuidv4() }],
+      })
+    }
+  }
 
   useEffect(() => {
     setValues({ ...values, languages: languagesAfterChanges })
@@ -163,10 +180,6 @@ function App() {
   //   languageToBeChanged.level = value
   // }
 
-  const [languagesAfterDeleting, setLanguagesAfterDeleting] = useState(
-    values.languages
-  )
-
   useEffect(() => {
     if (languagesAfterDeleting.length === 0) {
       setValues({ ...values, languages: [{ id: uuidv4() }] })
@@ -176,28 +189,6 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [languagesAfterDeleting])
 
-  // RECOMMENDATIONS:
-  const [duties, setDuties] = useState(false)
-
-  // // Если опыт есть, поля активны. Если нет, поля деактивируются:
-  const [hasExperience, setHasExperience] = React.useState(
-    JSON.parse(localStorage.getItem('hasExperience') || true)
-  )
-  // Записываем в объект данные чекбоксов
-  const [checkboxValues, setCheckboxValues] = React.useState(
-    JSON.parse(localStorage.getItem('checkboxData')) || {
-      work_period_checkbox: true,
-    }
-    // после MVP вернуть {}
-  )
-  // Записываем данные isTillPresent в один объект
-  const [allTillPresent, setAllTillPresent] = React.useState(
-    JSON.parse(localStorage.getItem('isTillPresent')) || {
-      0: true,
-    }
-    // вернуть после MVP {}
-  )
-
   // Функция, которая записывает данные чекбоксов
   const handleCheckboxChange = evt => {
     const { name } = evt.target
@@ -206,10 +197,11 @@ function App() {
       [name]: !prevValues[name],
     }))
   }
-  const [errors, setErrors] = useState({})
+
   function deleteNonLatin(text) {
     return text.replace(/[^A-Za-z0-9:_//.]/gi, '')
   }
+
   function checkTgInput(name, value) {
     const cleanValue = deleteNonLatin(value)
     if (cleanValue === '') {
@@ -222,9 +214,11 @@ function App() {
       setValues({ ...values, [name]: `https://t.me/${cleanValue}` })
     }
   }
+
   // Функция, которая записывает данные полей форм
   const handleChange = evt => {
     const { name, value } = evt.target
+    // console.log(value)
     const cleanValue = deleteNonLatin(value)
     if (name === 'telegram') {
       checkTgInput(name, cleanValue)
@@ -425,24 +419,34 @@ function App() {
   const handleClick = () => {
     const checkboxData = { ...checkboxValues }
     const formData = { ...values }
-    localStorage.setItem('checkboxData', JSON.stringify(checkboxData))
-    localStorage.setItem('formData', JSON.stringify(formData))
     localStorage.setItem('hasExperience', JSON.stringify(hasExperience))
     localStorage.setItem('isTillPresent', JSON.stringify(allTillPresent))
+    localStorage.setItem('image', image)
+    localStorage.setItem('checkboxData', JSON.stringify(checkboxData))
+    localStorage.setItem('formData', JSON.stringify(formData))
+    localStorage.setItem('hasQualification', JSON.stringify(hasQualification))
   }
 
   /* ----------------------------------------- Popup -----------------------------------------------------*/
-  const [isLoginPopupOpen, setIsLoginPopupOpen] = React.useState(false)
   const [isRegisterPopupOpen, setIsRegisterPopupOpen] = React.useState(false)
-  const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false)
+  const [isLoginPopupOpen, setIsLoginPopupOpen] = React.useState(false)
+  const [isConfirmDeletePopupOpen, setIsConfirmDeletePopupOpen] =
+    React.useState(false)
+  const [isConfirmRegPopupOpen, setIsConfirmRegPopupOpen] =
+    React.useState(false)
   const [isResumeNamePopupOpen, setIsResumeNamePopupOpen] =
+    React.useState(false)
+  const [isConfirmExitPopupOpen, setIsConfirmExitPopupOpen] =
     React.useState(false)
 
   // закрытие попапа
   const closeAllPopup = () => {
     setIsLoginPopupOpen(false)
     setIsRegisterPopupOpen(false)
-    setIsConfirmPopupOpen(false)
+    setIsConfirmExitPopupOpen(false)
+    setIsConfirmDeletePopupOpen(false)
+    setIsConfirmRegPopupOpen(false)
+    setIsConfirmExitPopupOpen(false)
     setIsResumeNamePopupOpen(false)
   }
 
@@ -459,8 +463,14 @@ function App() {
   const handleRegisterPopupOpen = () => {
     setIsRegisterPopupOpen(true)
   }
-  const handleConfirmPopupOpen = () => {
-    setIsConfirmPopupOpen(true)
+  const handleConfirmExitPopupOpen = () => {
+    setIsConfirmExitPopupOpen(true)
+  }
+  const handleConfirmDeletePopupOpen = () => {
+    setIsConfirmDeletePopupOpen(true)
+  }
+  const handleConfirmRegPopupOpen = () => {
+    setIsConfirmRegPopupOpen(true)
   }
 
   // /* убрать эти консоли */
@@ -490,6 +500,8 @@ function App() {
           setLanguagesAfterDeleting={setLanguagesAfterDeleting}
           errors={errors}
           handleChangeWithValidation={handleChangeWithValidation}
+          setImage={setImage}
+          image={image}
         />
       ),
       id: 1,
@@ -513,42 +525,77 @@ function App() {
           errors={errors}
           handleChangeWithValidation={handleChangeWithValidation}
           setErrors={setErrors}
-          // handleAddJobChange={handleAddJobChange}
+          handleAddJobChange={handleAddJobChange}
         />
       ),
       id: 2,
       completedSteps: completedStepsExperience,
     },
-    // {
-    //   path: 'qualification',
-    //   element: <Qualification />,
-    //   id: 3,
-    //   completedSteps: completedStepsQualification,
-    // },
-    // {
-    //   path: 'education',
-    //   element: <Education />,
-    //   id: 4,
-    //   completedSteps: completedStepsEducation,
-    // },
-    // {
-    //   path: 'portfolio',
-    //   element: <Portfolio />,
-    //   id: 5,
-    //   completedSteps: completedStepsPortfolio,
-    // },
+    {
+      path: 'qualification',
+      element: (
+        <Qualification
+          handleCheckboxChange={handleCheckboxChange}
+          checkboxValues={checkboxValues}
+          setHasQualification={setHasQualification}
+          hasQualification={hasQualification}
+          values={values}
+          handleChangeWithValidation={handleChangeWithValidation}
+          setValues={setValues}
+          handleAddQualificationChange={handleAddQualificationChange}
+        />
+      ),
+      id: 3,
+      completedSteps: completedStepsQualification,
+    },
+    {
+      path: 'education',
+      element: (
+        <Education
+          values={values}
+          handleChangeWithValidation={handleChangeWithValidation}
+          setValues={setValues}
+          checkboxValues={checkboxValues}
+          handleCheckboxChange={handleCheckboxChange}
+          setAllTillPresent={setAllTillPresent}
+          allTillPresent={allTillPresent}
+          setCheckboxValues={setCheckboxValues}
+          handleAddEducationChange={handleAddEducationChange}
+        />
+      ),
+      id: 4,
+      completedSteps: completedStepsEducation,
+    },
+    {
+      path: 'portfolio',
+      element: (
+        <Portfolio
+          values={values}
+          setValues={setValues}
+          handleChangeWithValidation={handleChangeWithValidation}
+          handleAddPortfolioChange={handleAddPortfolioChange}
+        />
+      ),
+      id: 5,
+      completedSteps: completedStepsPortfolio,
+    },
     // {
     //   path: 'skills',
     //   element: <Skills />,
     //   id: 6,
     //   completedSteps: completedStepsSkills,
     // },
-    // {
-    //   path: 'about',
-    //   element: <About />,
-    //   id: 7,
-    //   completedSteps: completedStepsAbout,
-    // },
+    {
+      path: 'about',
+      element: (
+        <About
+          values={values}
+          handleChangeWithValidation={handleChangeWithValidation}
+        />
+      ),
+      id: 7,
+      completedSteps: completedStepsAbout,
+    },
     // {
     //   path: 'layouts',
     //   element: <Layouts />,
@@ -619,7 +666,7 @@ function App() {
             element={
               <Main
                 isLoggedIn={isLoggedIn}
-                onOpenPopup={handleConfirmPopupOpen}
+                onOpenPopup={handleConfirmRegPopupOpen}
               />
             }
           />
@@ -628,7 +675,7 @@ function App() {
             element={
               <Profession
                 isLoggedIn={isLoggedIn}
-                onOpenPopup={handleConfirmPopupOpen}
+                onOpenPopup={handleConfirmDeletePopupOpen}
               />
             }
           />
@@ -637,14 +684,14 @@ function App() {
             element={
               <Resume
                 isLoggedIn={isLoggedIn}
-                onOpenPopup={handleConfirmPopupOpen}
+                onOpenPopup={handleConfirmDeletePopupOpen}
                 setCompletedStepsPersonalData={setCompletedStepsPersonalData}
                 setCompletedStepsExperience={setCompletedStepsExperience}
-                // setCompletedStepsQualification={setCompletedStepsQualification}
-                // setCompletedStepsEducation={setCompletedStepsEducation}
-                // setCompletedStepsPortfolio={setCompletedStepsPortfolio}
+                setCompletedStepsQualification={setCompletedStepsQualification}
+                setCompletedStepsEducation={setCompletedStepsEducation}
+                setCompletedStepsPortfolio={setCompletedStepsPortfolio}
                 // setCompletedStepsSkills={setCompletedStepsSkills}
-                // setCompletedStepsAbout={setCompletedStepsAbout}
+                setCompletedStepsAbout={setCompletedStepsAbout}
                 // setCompletedLayouts={setCompletedLayouts}
                 onClick={handleClick}
                 duties={duties}
@@ -674,7 +721,7 @@ function App() {
                 values={values}
                 checkboxValues={checkboxValues}
                 isLoggedIn={isLoggedIn}
-                onOpenPopup={handleConfirmPopupOpen}
+                onOpenPopup={handleConfirmExitPopupOpen}
               />
             }
           />
@@ -692,16 +739,24 @@ function App() {
           onClose={closeAllPopup}
           onLogin={handleLogin}
         />
-        {/* Попап подтверждения */}
-        <PopupConfirmation
-          setCheckboxValues={setCheckboxValues}
-          setValues={setValues}
-          isOpen={isConfirmPopupOpen}
+        {/* Попап подтверждения выхода */}
+        <PopupConfirmationExit
+          isOpen={isConfirmExitPopupOpen}
           onClose={closeAllPopup}
         />
         {/* попап добавления имени резюме */}
         <PopupResumeName
           isOpen={isResumeNamePopupOpen}
+          onClose={closeAllPopup}
+        />
+        {/* Попап подтверждения удаления */}
+        <PopupConfirmationDelete
+          isOpen={isConfirmDeletePopupOpen}
+          onClose={closeAllPopup}
+        />
+        {/* Попап подтверждения перехода */}
+        <PopupConfirmationRegister
+          isOpen={isConfirmRegPopupOpen}
           onClose={closeAllPopup}
         />
       </CurrentUserContext.Provider>

@@ -1,29 +1,24 @@
-import './Confirmation.scss'
+import './ConfirmationExit.scss'
 import { useNavigate } from 'react-router'
 import PropTypes from 'prop-types'
-import confirmLogo from '../../../img/back-to-profile.svg'
+import exitImage from '../../../../img/popups/exit-design.svg'
 
-function Confirmation({ onClose /* setCheckboxValues, setValues */ }) {
+function ConfirmationExit({ onClose }) {
   const navigate = useNavigate()
-  // const resetAllValues = () => {
-  //   setCheckboxValues({})
-  //   setValues({})
-  // }
 
   return (
-    <div className="confirmation">
+    <div className="confirmation-exit">
       <img
-        src={confirmLogo}
+        src={exitImage}
         alt="confirm popup icon"
-        className="confirmation__image"
+        className="confirmation-exit__image"
       />
-      <div className="confirmation__buttons">
+      <div className="confirmation-exit__buttons">
         <button
-          className="confirmation__button"
+          className="confirmation-exit__button confirmation-exit__button_exit"
           type="button"
           label="button"
           onClick={() => {
-            // resetAllValues()
             navigate('/')
             onClose()
           }}
@@ -32,7 +27,7 @@ function Confirmation({ onClose /* setCheckboxValues, setValues */ }) {
         </button>
 
         <button
-          className="confirmation__button"
+          className="confirmation-exit__button confirmation-exit__button_save"
           type="button"
           label="button"
           onClick={() => {
@@ -47,10 +42,8 @@ function Confirmation({ onClose /* setCheckboxValues, setValues */ }) {
   )
 }
 
-Confirmation.propTypes = {
+ConfirmationExit.propTypes = {
   onClose: PropTypes.func.isRequired,
-  // setCheckboxValues: PropTypes.func.isRequired,
-  // setValues: PropTypes.func.isRequired,
 }
 
-export default Confirmation
+export default ConfirmationExit
