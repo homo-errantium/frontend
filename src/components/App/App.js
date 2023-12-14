@@ -77,6 +77,7 @@ function App() {
       portfolio: [],
     }
   )
+
   const [languagesAfterChanges, setLanguagesChanges] = useState(
     values.languages
   )
