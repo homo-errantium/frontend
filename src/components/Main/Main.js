@@ -1,14 +1,42 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/no-array-index-key */
 import React from 'react'
 import PropTypes from 'prop-types'
 // import { useNavigate } from 'react-router-dom'
 import './Main.scss'
+import classNames from 'classnames'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
-import TitleImage from '../../img/main-page-title.svg'
-import Step1 from '../../img/main-step1.png'
+import TitleImage from '../../img/main_title.svg'
+// import Step1 from '../../img/main_step1.svg'
+import { onboardingTitle, imgMainArr } from '../../constants/constants'
 
 function Main({ isLoggedIn, onOpenPopup }) {
   const nextPage = '/resume'
+  const [img, setImg] = React.useState(imgMainArr[0])
+  const [subtitleObject, setSubtitleObject] = React.useState(onboardingTitle)
+
+  const handleClick = i => {
+    const elementIndex = onboardingTitle.findIndex(
+      (_item, index) => index === i
+    )
+
+    setSubtitleObject(prevState => {
+      const newState = { ...prevState }
+      // eslint-disable-next-line array-callback-return
+      Object.keys(newState).map((key, index) => {
+        if (index === elementIndex) {
+          newState[key].visible = true
+        } else {
+          newState[key].visible = false
+        }
+      })
+      return newState
+    })
+
+    setImg(imgMainArr[elementIndex])
+  }
 
   return (
     <>
@@ -20,9 +48,13 @@ function Main({ isLoggedIn, onOpenPopup }) {
       <main className="main">
         <div className="main__title-container">
           <div className="main__text-conteiner">
-            <h1 className="main__title">Ваше IT-резюме за несколько Шагов!</h1>
+            <h1 className="main__title">
+              Ваше идеальное резюме за несколько шагов!
+            </h1>
             <span className="main__title-comment">
-              Мгновенное создание, вечные результаты{' '}
+              С рекомендациями наших аналитиков, вы легко наполните резюме и
+              подчеркнёте свои сильные стороны. Мгновенно редактируйте,
+              скачивайте и создавайте несколько резюме.
             </span>
             <button
               type="button"
@@ -40,37 +72,42 @@ function Main({ isLoggedIn, onOpenPopup }) {
           <img
             className="main__onboarding-image"
             alt="Мужчина за ноутбуком"
-            src={Step1}
+            src={img}
           />
           <div className="main__onboarding-text-container">
-            <h2 className="main__onboarding-title">Как собрать резюме?</h2>
-            <ul className="main__onboarding-list">
-              <li className="main__onboarding-item">
-                <div className="main__onboarding-item-circle" />
-                <span className="main__onboarding-item-text">
-                  Зарегистрируйся, чтоб иметь возможность сохранить резюме
-                </span>
-              </li>
-              <li className="main__onboarding-item">
-                <div className="main__onboarding-item-circle" />
-                <span className="main__onboarding-item-text">
-                  Заполни информацию в форме, следуя подсказкам и рекомендациям
-                </span>
-              </li>
-              <li className="main__onboarding-item">
-                <div className="main__onboarding-item-circle" />
-                <span className="main__onboarding-item-text">
-                  Скачивай в Word, PDF, редактируй действующее резюме и сохраняй
-                  в личном кабинете
-                </span>
-              </li>
-              <li className="main__onboarding-item">
-                <div className="main__onboarding-item-circle" />
-                <span className="main__onboarding-item-text">
-                  Создавай новые резюме под каждого работодателя
-                </span>
-              </li>
-            </ul>
+            <h2 className="main__onboarding-title">Как это работает</h2>
+            <div className="main__onboarding-subtitle-container">
+              <div className="main__onboarding-progress-bar" />
+              <ul className="main__onboarding-item-list">
+                {onboardingTitle.map((item, i) => (
+                  <li className="main__onboarding-items" key={i}>
+                    <button
+                      onClick={() => {
+                        handleClick(i)
+                      }}
+                      type="button"
+                      className={classNames(
+                        'main__onboarding-button',
+                        subtitleObject[i].visible &&
+                          'main__onboarding-button_bold'
+                      )}
+                    >
+                      {item.title}
+                    </button>
+                    <div
+                      className={classNames(
+                        'main__onboarding-subtitle-element',
+                        subtitleObject[i].visible
+                          ? 'main__onboarding-subtitle-element_visible'
+                          : ''
+                      )}
+                    >
+                      {item.subtitle}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </main>
