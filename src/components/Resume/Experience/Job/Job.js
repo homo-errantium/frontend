@@ -28,7 +28,7 @@ const Job = ({
     <>
       <div className="job__job-container experience__job-container" id={i}>
         <FormInput
-          name={`company_${i}`}
+          name="company"
           values={values}
           handleChange={handleChange}
           label="Название компании"
@@ -36,7 +36,7 @@ const Job = ({
           id={i}
         />
         <FormInput
-          name={`company_website_${i}`}
+          name="company_website"
           values={values}
           handleChange={handleChange}
           label="Сайт компании"
@@ -44,7 +44,7 @@ const Job = ({
           id={i}
         />
         <FormInput
-          name={`current_position_${i}`}
+          name="current_position"
           values={values}
           handleChange={handleChange}
           label="Должность"
@@ -63,8 +63,8 @@ const Job = ({
           checkboxValues={checkboxValues}
           handleChange={handleChange}
           namePeriod={`work_period_checkbox_${i}`}
-          monthPeriod={[`month_work_start_${i}`, `month_work_end_${i}`]}
-          year={[`year_work_start_${i}`, `year_work_end_${i}`]}
+          monthPeriod={['month_work_start', 'month_work_end']}
+          year={['year_work_start', 'year_work_end']}
           handleCheckboxChange={handleCheckboxChange}
           setValues={setValues}
           setAllTillPresent={setAllTillPresent}
@@ -72,7 +72,7 @@ const Job = ({
           allValues={allValues}
         />
         <FormInput
-          name={`duties_${i}`}
+          name="duties"
           values={values}
           handleChange={handleChange}
           label="Обязанности"
