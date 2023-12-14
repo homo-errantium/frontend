@@ -8,7 +8,6 @@ import { months } from '../../../constants/months'
 
 function ResultResume({ values /* checkboxValues */ }) {
   const userAllLang = values.languages
-  console.log('🚀 ~ file: ResultResume.js:11 ~ ResultResume ~ values:', values)
 
   function monthConvert(monthNumber) {
     let result = []
@@ -20,9 +19,6 @@ function ResultResume({ values /* checkboxValues */ }) {
     return 'По настоящее время'
   }
 
-  // function changeMonth(month) {
-  //   return month < 10 ? `0${month}` : `${month}`
-  // }
   function absentValues(currentValue) {
     return currentValue ? `${currentValue}` : `Отсутствует`
   }
@@ -152,14 +148,16 @@ function ResultResume({ values /* checkboxValues */ }) {
       <div className="result-resume__language">
         <h2 className="result-resume__language-title">языки:</h2>
         {userAllLang
-          ? userAllLang.map(item => (
-              <>
-                <p className="result-resume__language-description">
-                  {`${item.language} (${item.level})`}
-                </p>
-                <br />
-              </>
-            ))
+          ? React.Children.toArray(
+              userAllLang.map(item => (
+                <>
+                  <p className="result-resume__language-description">
+                    {`${item.language} (${item.level})`}
+                  </p>
+                  <br />
+                </>
+              ))
+            )
           : 'Отсутствует'}
       </div>
 

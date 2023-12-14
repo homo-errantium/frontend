@@ -22,9 +22,10 @@ const AddedEducation = ({
   const handleDelete = () => deleteEducation(i)
   return (
     <>
-      <div 
-        className="added-education__container experience__job-container" 
-        id={i}>
+      <div
+        className="added-education__container experience__job-container"
+        id={i}
+      >
         <FormInput
           name={`university_name_${i}`}
           values={values}
