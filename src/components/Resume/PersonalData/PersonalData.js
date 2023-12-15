@@ -185,7 +185,7 @@ const PersonalData = ({
             dataMaskSecond="tgLink"
             errors={errors}
           />
-          {values.links.map(link => (
+          {values.links?.map(link => (
             <LinkInput
               key={link.id}
               i={link.id}

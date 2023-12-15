@@ -120,7 +120,7 @@ function App() {
     })
     setValues({ ...values, jobs: updatedJobs })
   }
-  console.log(values)
+
   // Функция, которая записывает данные дополнительных полей с квалификацией
   const handleAddQualificationChange = evt => {
     const { name, value, id } = evt.target
@@ -196,7 +196,7 @@ function App() {
   // }
 
   useEffect(() => {
-    if (languagesAfterDeleting.length === 0) {
+    if (languagesAfterDeleting?.length ?? 0) {
       setValues({ ...values, languages: [{ id: uuidv4() }] })
     } else {
       setValues({ ...values, languages: languagesAfterDeleting })
@@ -205,7 +205,7 @@ function App() {
   }, [languagesAfterDeleting])
 
   useEffect(() => {
-    if (linksAfterDeleting.length === 0) {
+    if (linksAfterDeleting?.length ?? 0) {
       setValues({ ...values, links: [{ id: uuidv4() }] })
     } else {
       setValues({ ...values, links: linksAfterDeleting })
