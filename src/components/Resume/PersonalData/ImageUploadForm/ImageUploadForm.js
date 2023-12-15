@@ -15,6 +15,8 @@ const ImageUploadForm = ({ label, tip, tipText, name, image, setImage }) => {
       context.drawImage(img, 0, 0)
       const dataUrl = canvas.toDataURL(e.target.files[0].type)
       setImage(dataUrl)
+      console.log(image)
+      console.log(typeof image)
     }
     img.src = URL.createObjectURL(e.target.files[0])
   }
@@ -34,7 +36,11 @@ const ImageUploadForm = ({ label, tip, tipText, name, image, setImage }) => {
           }`}
         >
           {image && (
-            <img className="image-upload__photo" alt={image} src={image} />
+            <img
+              className="image-upload__photo"
+              alt="user avatar"
+              src={image}
+            />
           )}
           <label className="image-upload__button" htmlFor="image-input-photo">
             <input
