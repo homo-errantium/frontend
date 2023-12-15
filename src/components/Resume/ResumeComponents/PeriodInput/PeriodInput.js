@@ -29,6 +29,7 @@ const PeriodInput = ({
   allValues,
   education,
 }) => {
+  console.log(values)
   const location = useLocation()
   const [disabledMonthChoice, setDisabledMonthChoice] = useState(false)
   const [isTillPresent, setIsTillPresent] = React.useState(
@@ -231,16 +232,25 @@ PeriodInput.propTypes = {
   setValues: PropTypes.func.isRequired,
   monthPeriod: PropTypes.arrayOf(PropTypes.string),
   year: PropTypes.arrayOf(PropTypes.string),
-  values: PropTypes.shape({
-    languages: PropTypes.arrayOf(
-      PropTypes.objectOf(PropTypes.string, PropTypes.number)
-    ),
-    jobs: PropTypes.arrayOf(
-      PropTypes.objectOf(
-        PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-      )
-    ),
-  }),
+  values: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.bool,
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.objectOf(
+            PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number,
+              PropTypes.bool,
+            ])
+          ),
+        ])
+      ),
+    ])
+  ),
   handleChange: PropTypes.func,
   setAllTillPresent: PropTypes.func,
   allTillPresent: PropTypes.shape({
