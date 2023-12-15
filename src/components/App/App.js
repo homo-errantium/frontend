@@ -588,36 +588,6 @@ function App() {
       completedSteps: completedStepsAbout,
     },
     // {
-    //   path: 'qualification',
-    //   element: <Qualification />,
-    //   id: 3,
-    //   completedSteps: completedStepsQualification,
-    // },
-    // {
-    //   path: 'education',
-    //   element: <Education />,
-    //   id: 4,
-    //   completedSteps: completedStepsEducation,
-    // },
-    // {
-    //   path: 'portfolio',
-    //   element: <Portfolio />,
-    //   id: 5,
-    //   completedSteps: completedStepsPortfolio,
-    // },
-    {
-      path: 'skills',
-      element: <Skills values={values} setValues={setValues} />,
-      id: 6,
-      completedSteps: completedStepsSkills,
-    },
-    {
-      path: 'about',
-      element: <About />,
-      id: 7,
-      completedSteps: completedStepsAbout,
-    },
-    // {
     //   path: 'layouts',
     //   element: <Layouts />,
     //   id: 8,
@@ -625,7 +595,9 @@ function App() {
     // },
     {
       path: 'result',
-      element: <Result values={values} checkboxValues={checkboxValues} />,
+      element: (
+        <Result values={values} checkboxValues={checkboxValues} image={image} />
+      ),
       id: 9,
       completedSteps: completedStepsPersonalData,
     },
@@ -734,17 +706,7 @@ function App() {
               />
             ))}
           </Route>
-          <Route
-            path="/result-resume"
-            element={
-              <ResultResume
-                values={values}
-                checkboxValues={checkboxValues}
-                isLoggedIn={isLoggedIn}
-                onOpenPopup={handleConfirmExitPopupOpen}
-              />
-            }
-          />
+          <Route path="/result-resume" element={<ResultResume />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         {/* Попап регистрации */}

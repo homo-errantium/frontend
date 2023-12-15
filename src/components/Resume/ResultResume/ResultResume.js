@@ -1,19 +1,21 @@
 import React from 'react'
 import './ResultResume.scss'
 import PropTypes from 'prop-types'
-import Keanu from '../../../img/Keanu-Reeves.jpg'
 import { months } from '../../../constants/months'
 
 //
 
-function ResultResume({ values /* checkboxValues */ }) {
+function ResultResume({ values, image }) {
+  console.log('🚀 ~ file: ResultResume.js:9 ~ ResultResume ~ values:', values)
+
   const userAllLang = values.languages
+  const userAllJobs = values.jobs
 
   function monthConvert(monthNumber) {
     let result = []
     if (monthNumber !== '') {
       result = months.find(({ id }) => id === monthNumber)
-      return result.long
+      if (result !== undefined) return result.long
     }
 
     return 'По настоящее время'
@@ -49,7 +51,7 @@ function ResultResume({ values /* checkboxValues */ }) {
       </div>
       {/* ------блок  фото ------*/}
       <img
-        src={Keanu}
+        src={image}
         alt="фото соискателя"
         className="result-resume__user-photo"
       />
@@ -68,6 +70,7 @@ function ResultResume({ values /* checkboxValues */ }) {
           {`Телефон: ${absentValues(values.phone)}`}
         </span>
       </div>
+
       {/* ------ блок опыта работы ------*/}
       <div className="result-resume__experience">
         <h2 className="result-resume__experience-title">опыт работы:</h2>
@@ -98,12 +101,46 @@ function ResultResume({ values /* checkboxValues */ }) {
         {/* <span className="result-resume__experience-achiev">
           {`Достижения: ${values.userEmail}`}
         </span> */}
+        {userAllJobs.length > -1 &&
+          React.Children.toArray(
+            userAllJobs.map(item => (
+              <>
+                <h2 className="result-resume__experience-title">
+                  опыт работы:
+                </h2>
+                <span className="result-resume__experience-company">
+                  {`Название компании: ${absentValues(item.company)}`}
+                </span>
+                <br />
+                <span className="result-resume__experience-start">
+                  {`Дата начала работы: ${monthConvert(item.month_work_start)}${
+                    item.year_work_start ? ` ${item.year_work_start}` : ''
+                  }`}
+                </span>
+                <br />
+                <span className="result-resume__experience-end">
+                  {`Дата окончания работы: ${monthConvert(
+                    item.month_work_end
+                  )}${item.year_work_end ? ` ${item.year_work_end}` : ''}`}
+                </span>
+                <span className="result-resume__experience-company-site">
+                  {`Сайт компании: ${absentValues(item.company_website)}`}
+                </span>
+                <br />
+                <span className="result-resume__experience-duty">
+                  {`Обязанности: ${absentValues(item.duties)}`}
+                </span>
+                <br />
+              </>
+            ))
+          )}
       </div>
+
       {/* ------ блок ссылки ------*/}
       <div className="result-resume__links">
         <h2 className="result-resume__links-title">ссылки:</h2>
         <span className="result-resume__link-github">
-          {`GitHub: ${absentValues(values.githab)}`}
+          {`GitHub: ${absentValues(values.github)}`}
         </span>
         <br />
         <span className="result-resume__link-Behance">
@@ -198,6 +235,7 @@ function ResultResume({ values /* checkboxValues */ }) {
 }
 
 ResultResume.propTypes = {
+  image: PropTypes.string,
   values: PropTypes.objectOf(
     PropTypes.oneOfType([
       PropTypes.string,
@@ -211,6 +249,9 @@ ResultResume.propTypes = {
   // ),
 }
 
-ResultResume.defaultProps = { values: {} /* checkboxValues: {} */ }
+ResultResume.defaultProps = {
+  values: {},
+  image: '' /* checkboxValues: {} */,
+}
 
 export default ResultResume

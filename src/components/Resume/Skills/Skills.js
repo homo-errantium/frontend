@@ -6,9 +6,6 @@ import skillsRollIcon from '../../../img/skills-roll-icon.svg'
 import { skillList } from '../../../constants/skills-list'
 
 function Skills({ values, setValues }) {
-  // eslint-disable-next-line no-console
-  console.log('🚀 ~ file: Skills.js:9 ~ Skills ~ values:', values)
-
   const [selectedSkills, setSelectedSkills] = useState(values.hardskills || [])
 
   useEffect(() => {
