@@ -33,11 +33,12 @@ About.propTypes = {
       ),
     ])
   ),
-  handleChangeWithValidation: PropTypes.func.isRequired,
+  handleChangeWithValidation: PropTypes.func,
 }
 
 About.defaultProps = {
   values: {},
+  handleChangeWithValidation: () => {},
 }
 
 export default About

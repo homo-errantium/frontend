@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import './PersonalData.scss'
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -7,8 +8,8 @@ import {
   CAREER_OBJECTIVE_TIP,
   ACTUAL_STATUS_TIP,
   EMAIL_TIP,
-  OTHER__SITE_LINK_TIP,
   PHOTO_TIP,
+  SITE_LINK_TIP,
 } from '../../../constants/tips'
 import {
   ACTUAL_STATUS_OPTIONS,
@@ -19,11 +20,14 @@ import {
 import FormInput from '../ResumeComponents/FormInput/FormInput'
 import LanguageInput from '../ResumeComponents/LanguageInput/LanguageInput'
 import ImageUploadForm from './ImageUploadForm/ImageUploadForm'
+import LinkInput from '../ResumeComponents/LinkInput/LinkInput'
 
 const PersonalData = ({
   values,
   setValues,
   addLanguage,
+  addLink,
+  setLinksAfterDeleting,
   setLanguagesAfterDeleting,
   setLanguagesChanges,
   errors,
@@ -40,6 +44,15 @@ const PersonalData = ({
     return remainingLanguages
   }
 
+  const deleteLink = i => {
+    const linkToBeRemoved = values.links.find(item => item.id === i)
+    const remainingLinks = values.links.filter(
+      item => item.id !== linkToBeRemoved.id
+    )
+    setLinksAfterDeleting(remainingLinks)
+    return remainingLinks
+  }
+
   const handleLanguageChange = ({ i, name, value }) => {
     const languageToBeChanged = values.languages.find(item => item.id === i)
     const indexToReplace = values.languages.findIndex(item => item.id === i)
@@ -52,6 +65,20 @@ const PersonalData = ({
     const newLanguages = [...values.languages]
     newLanguages[indexToReplace] = copy
     setLanguagesChanges(newLanguages)
+  }
+
+  const handleLinkChange = ({ i, name, value }) => {
+    const linkToBeChanged = values.links.find(item => item.id === i)
+    const indexToReplace = values.links.findIndex(item => item.id === i)
+    const copy = { ...linkToBeChanged }
+    if (name.slice(0, 9) === 'link_name') {
+      copy.link_name = value
+    } else {
+      copy.link = value
+    }
+    const newLinks = [...values.links]
+    newLinks[indexToReplace] = copy
+    setValues({ ...values, links: newLinks })
   }
 
   return (
@@ -104,6 +131,7 @@ const PersonalData = ({
             handleChange={handleChangeWithValidation}
             values={values}
             name={['city', 'work_status']}
+            doubleLongInput
             firstLabel="Город проживания"
             secondLabel="Актуальный статус"
             doubleInput
@@ -119,6 +147,7 @@ const PersonalData = ({
             handleChange={handleChangeWithValidation}
             values={values}
             name={['desired_position', 'level_knowledge']}
+            doubleLongInput
             firstLabel="Желаемая должность"
             secondLabel="Уровень"
             doubleInput
@@ -146,44 +175,30 @@ const PersonalData = ({
             handleChange={handleChangeWithValidation}
             values={values}
             setValues={setValues}
-            name={['phone', 'behance']}
+            name={['phone', 'telegram']}
+            doubleShortInput
             firstLabel="Телефон"
-            secondLabel="Ссылка на Behance"
-            placeholder="+7"
-            doubleInput
-            ordinaryInputFirst
-            ordinaryInputSecond
-            dataMask="phone"
+            secondLabel="Telegram"
+            placeholderFirst="+7"
+            placeholderSecond="t.me/name"
+            dataMaskFirst="phone"
+            dataMaskSecond="tgLink"
             errors={errors}
           />
-          <DoubleInput
-            handleChange={handleChangeWithValidation}
-            values={values}
-            setValues={setValues}
-            name={['telegram', 'github']}
-            firstLabel="Telegram"
-            secondLabel="Ссылка на GitHub"
-            doubleInput
-            placeholder="t.me/name"
-            dataMask="tgLink"
-            ordinaryInputFirst
-            ordinaryInputSecond
-            errors={errors}
-          />
-          <DoubleInput
-            handleChange={handleChangeWithValidation}
-            values={values}
-            setValues={setValues}
-            name={['website_link', 'video_link']}
-            firstLabel="Ссылка на другой сайт"
-            secondLabel="Ссылка на видео о себе"
-            doubleInput
-            ordinaryInputFirst
-            ordinaryInputSecond
-            tipFirst
-            tipTextFirst={OTHER__SITE_LINK_TIP}
-            errors={errors}
-          />
+          {values.links.map(link => (
+            <LinkInput
+              key={link.id}
+              i={link.id}
+              values={link}
+              addLink={addLink}
+              deleteLink={deleteLink}
+              firstLabel="Название ссылки"
+              secondLabel="Ссылка"
+              tipFirst
+              tipTextFirst={SITE_LINK_TIP}
+              handleLinkChange={handleLinkChange}
+            />
+          ))}
         </div>
         <ResumeTitle title="Владение языками" />
         {values.languages.map(lang => (
@@ -224,7 +239,9 @@ PersonalData.propTypes = {
   ),
   setValues: PropTypes.func.isRequired,
   addLanguage: PropTypes.func.isRequired,
+  addLink: PropTypes.func.isRequired,
   setLanguagesAfterDeleting: PropTypes.func.isRequired,
+  setLinksAfterDeleting: PropTypes.func.isRequired,
   setLanguagesChanges: PropTypes.func.isRequired,
   errors: PropTypes.objectOf(PropTypes.string),
   handleChangeWithValidation: PropTypes.func.isRequired,

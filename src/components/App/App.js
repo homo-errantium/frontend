@@ -70,18 +70,23 @@ function App() {
   const [values, setValues] = React.useState(
     JSON.parse(localStorage.getItem('formData')) || {
       languages: [{ id: uuidv4() }],
+      links: [{ id: uuidv4() }],
       jobs: [],
       qualifications: [],
       educations: [],
       portfolio: [],
     }
   )
+
   const [languagesAfterChanges, setLanguagesChanges] = useState(
     values.languages
   )
   const [languagesAfterDeleting, setLanguagesAfterDeleting] = useState(
     values.languages
   )
+
+  // const [links, setLinks] = useState(values.links)
+  const [linksAfterDeleting, setLinksAfterDeleting] = useState(values.links)
   // RECOMMENDATIONS:
   const [duties, setDuties] = useState(false)
   // // Если опыт есть, поля активны. Если нет, поля деактивируются:
@@ -115,6 +120,7 @@ function App() {
     })
     setValues({ ...values, jobs: updatedJobs })
   }
+  console.log(values)
   // Функция, которая записывает данные дополнительных полей с квалификацией
   const handleAddQualificationChange = evt => {
     const { name, value, id } = evt.target
@@ -149,6 +155,15 @@ function App() {
       return p
     })
     setValues({ ...values, portfolio: updatedPortfolio })
+  }
+
+  const addLink = () => {
+    if (values.links.length < 5) {
+      setValues({
+        ...values,
+        links: [...values.links, { id: uuidv4() }],
+      })
+    }
   }
 
   // LANGUAGES:
@@ -188,6 +203,15 @@ function App() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [languagesAfterDeleting])
+
+  useEffect(() => {
+    if (linksAfterDeleting.length === 0) {
+      setValues({ ...values, links: [{ id: uuidv4() }] })
+    } else {
+      setValues({ ...values, links: linksAfterDeleting })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [linksAfterDeleting])
 
   // Функция, которая записывает данные чекбоксов
   const handleCheckboxChange = evt => {
@@ -488,7 +512,9 @@ function App() {
           setLanguagesChanges={setLanguagesChanges}
           setValues={setValues}
           addLanguage={addLanguage}
+          addLink={addLink}
           setLanguagesAfterDeleting={setLanguagesAfterDeleting}
+          setLinksAfterDeleting={setLinksAfterDeleting}
           errors={errors}
           handleChangeWithValidation={handleChangeWithValidation}
           setImage={setImage}
