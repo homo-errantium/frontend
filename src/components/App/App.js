@@ -762,6 +762,7 @@ function App() {
                 values={values}
                 isLoggedIn={isLoggedIn}
                 onOpenPopup={handleConfirmExitPopupOpen}
+                image={image}
               />
             }
           />
