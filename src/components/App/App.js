@@ -646,9 +646,7 @@ function App() {
     // },
     {
       path: 'result',
-      element: (
-        <Result values={values} checkboxValues={checkboxValues} image={image} />
-      ),
+      element: <Result values={values} image={image} />,
       id: 9,
       completedSteps: completedStepsPersonalData,
     },
