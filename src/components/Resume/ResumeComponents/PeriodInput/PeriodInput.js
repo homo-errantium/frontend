@@ -36,7 +36,7 @@ const PeriodInput = ({
   )
   useEffect(() => {
     if (isTillPresent) {
-      if (i === '0') {
+      if (i === '0' || i === '1') {
         setValues(prevValue => ({
           ...prevValue,
           [monthPeriod[1]]: '',
@@ -63,6 +63,9 @@ const PeriodInput = ({
           setValues(prevValue => ({ ...prevValue, educations: yearClear }))
         }
       }
+    }
+    if (disabled) {
+      setIsTillPresent(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isTillPresent])

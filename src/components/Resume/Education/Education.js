@@ -69,7 +69,7 @@ const Education = ({
           education
           labelOne="Год поступления"
           labelTwo="Год окончания"
-          i="0"
+          i="1"
           tillPresent
           handleCheckboxChange={handleCheckboxChange}
           values={values}
@@ -121,6 +121,7 @@ Education.propTypes = {
       PropTypes.bool,
       PropTypes.arrayOf(
         PropTypes.oneOfType([
+          PropTypes.string,
           PropTypes.objectOf(
             PropTypes.oneOfType([
               PropTypes.string,

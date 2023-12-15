@@ -126,6 +126,7 @@ Skills.propTypes = {
       PropTypes.bool,
       PropTypes.arrayOf(
         PropTypes.oneOfType([
+          PropTypes.string,
           PropTypes.objectOf(
             PropTypes.oneOfType([
               PropTypes.string,

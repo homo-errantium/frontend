@@ -41,6 +41,7 @@ const Experience = ({
         ...prevValues,
         work_period_experience_checkbox: false,
       }))
+      setAllTillPresent({ ...allTillPresent, 0: false })
     }
   }
 
@@ -179,6 +180,7 @@ Experience.propTypes = {
       PropTypes.bool,
       PropTypes.arrayOf(
         PropTypes.oneOfType([
+          PropTypes.string,
           PropTypes.objectOf(
             PropTypes.oneOfType([
               PropTypes.string,
