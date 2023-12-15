@@ -27,7 +27,7 @@ const AddedEducation = ({
         id={i}
       >
         <FormInput
-          name={`university_name_${i}`}
+          name="university_name"
           values={values}
           handleChange={handleChange}
           label="Название вуза"
@@ -36,7 +36,7 @@ const AddedEducation = ({
         <PeriodInput
           education
           namePeriod={`education_period_checkbox_${i}`}
-          year={[`year_education_start_${i}`, `year_education_end_${i}`]}
+          year={['year_education_start', 'year_education_end']}
           monthPeriod={[]}
           labelOne="Год поступления"
           labelTwo="Год окончания"
@@ -52,14 +52,14 @@ const AddedEducation = ({
           allValues={allValues}
         />
         <FormInput
-          name={`university_specialization_${i}`}
+          name="university_specialization"
           values={values}
           handleChange={handleChange}
           label="Специальность"
           id={i}
         />
         <FormInput
-          name={`education_level_${i}`}
+          name="education_level"
           values={values}
           handleChange={handleChange}
           label="Степень"

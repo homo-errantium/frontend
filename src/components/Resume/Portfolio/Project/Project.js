@@ -17,14 +17,14 @@ const Project = ({ addProject, deleteProject, i, values, handleChange }) => {
           values={values}
           handleChange={handleChange}
           id={i}
-          name={`project_name_${i}`}
+          name="project_name"
           label="Название проекта"
         />
         <FormInput
           values={values}
           handleChange={handleChange}
           id={i}
-          name={`project_description_${i}`}
+          name="project_description"
           label="Краткое описание проекта"
           extraInputClass="portfolio"
         />
@@ -32,7 +32,7 @@ const Project = ({ addProject, deleteProject, i, values, handleChange }) => {
           values={values}
           handleChange={handleChange}
           id={i}
-          name={`project_link_${i}`}
+          name="project_link"
           label="Ссылка на проект"
         />
       </div>

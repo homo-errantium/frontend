@@ -120,6 +120,7 @@ function App() {
     })
     setValues({ ...values, jobs: updatedJobs })
   }
+  console.log(values)
   // Функция, которая записывает данные дополнительных полей с квалификацией
   const handleAddQualificationChange = evt => {
     const { name, value, id } = evt.target
