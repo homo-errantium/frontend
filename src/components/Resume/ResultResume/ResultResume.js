@@ -6,7 +6,9 @@ import { months } from '../../../constants/months'
 //
 
 function ResultResume({ values, image }) {
-  console.log('🚀 ~ file: ResultResume.js:9 ~ ResultResume ~ values:', values)
+  // console.log(values)
+  // console.log(values.hardskills)
+  // console.log(typeof values.hardskills)
 
   const userAllLang = values.languages
   const userAllJobs = values.jobs
