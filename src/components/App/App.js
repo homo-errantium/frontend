@@ -64,11 +64,13 @@ function App() {
 
   // --------------------------- Работа с данными через локальное хранилище -----------------------
 
-  // const [addedExperience, setAddedExperience] = React.useState([])
-
   // Записываем в объект данные из полей
   const [values, setValues] = React.useState(
     JSON.parse(localStorage.getItem('formData')) || {
+      work_experience_checkbox: false,
+      work_period_experience_checkbox: false,
+      education_period_checkbox: false,
+      qualification_checkbox: false,
       languages: [{ id: uuidv4() }],
       links: [{ id: uuidv4() }],
       jobs: [],
@@ -77,6 +79,7 @@ function App() {
       portfolio: [],
     }
   )
+
   const [languagesAfterChanges, setLanguagesChanges] = useState(
     values.languages
   )
@@ -100,10 +103,6 @@ function App() {
   const [allTillPresent, setAllTillPresent] = React.useState(
     JSON.parse(localStorage.getItem('isTillPresent')) || {}
   )
-  // Записываем в объект данные чекбоксов
-  const [checkboxValues, setCheckboxValues] = React.useState(
-    JSON.parse(localStorage.getItem('checkboxData')) || {}
-  )
   const [errors, setErrors] = useState({})
   // Сохраняем ссылку изображения в переменную и вытягиваем из локального хранилища данные
   const [image, setImage] = useState(localStorage.getItem('image') || '')
@@ -113,13 +112,32 @@ function App() {
     const { name, value, id } = evt.target
     const updatedJobs = values.jobs.map(job => {
       if (job.id === id) {
-        return { ...job, [name]: value, id }
+        return {
+          ...job,
+          [name]: value,
+          id,
+        }
       }
       return job
     })
     setValues({ ...values, jobs: updatedJobs })
   }
-  console.log(values)
+
+  // Функция, которая записывает данные ополнительных чекбоксов опыта работы
+  const handleAddJobCheckboxChange = evt => {
+    const { name, id } = evt.target
+    const checkboxId = id.slice(16)
+    const updatedJobs = values.jobs.map(job => {
+      if (job.id === checkboxId) {
+        return {
+          ...job,
+          [name]: !job[name],
+        }
+      }
+      return job
+    })
+    setValues({ ...values, jobs: updatedJobs })
+  }
   // Функция, которая записывает данные дополнительных полей с квалификацией
   const handleAddQualificationChange = evt => {
     const { name, value, id } = evt.target
@@ -138,6 +156,22 @@ function App() {
     const updatedEducation = values.educations.map(education => {
       if (education.id === id) {
         return { ...education, [name]: value, id }
+      }
+      return education
+    })
+    setValues({ ...values, educations: updatedEducation })
+  }
+
+  // Функция, которая записывает данные чекбоксов дополнительных полей с образованием
+  const handleAddEducationCheckboxChange = evt => {
+    const { name, id } = evt.target
+    const checkboxId = id.slice(16)
+    const updatedEducation = values.educations.map(education => {
+      if (education.id === checkboxId) {
+        return {
+          ...education,
+          [name]: !education[name],
+        }
       }
       return education
     })
@@ -212,13 +246,10 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [linksAfterDeleting])
 
-  // Функция, которая записывает данные чекбоксов
+  // Функция, которая записывает данные основных чекбоксов
   const handleCheckboxChange = evt => {
     const { name } = evt.target
-    setCheckboxValues(prevValues => ({
-      ...prevValues,
-      [name]: !prevValues[name],
-    }))
+    setValues(prevValues => ({ ...prevValues, [name]: !prevValues[name] }))
   }
 
   function deleteNonLatin(text) {
@@ -241,7 +272,6 @@ function App() {
   // Функция, которая записывает данные полей форм
   const handleChange = evt => {
     const { name, value } = evt.target
-    // console.log(value)
     const cleanValue = deleteNonLatin(value)
     if (name === 'telegram') {
       checkTgInput(name, cleanValue)
@@ -440,12 +470,10 @@ function App() {
 
   // Сохраняем данные полей в локалное хранилище
   const handleClick = () => {
-    const checkboxData = { ...checkboxValues }
     const formData = { ...values }
     localStorage.setItem('hasExperience', JSON.stringify(hasExperience))
     localStorage.setItem('isTillPresent', JSON.stringify(allTillPresent))
     localStorage.setItem('image', image)
-    localStorage.setItem('checkboxData', JSON.stringify(checkboxData))
     localStorage.setItem('formData', JSON.stringify(formData))
     localStorage.setItem('hasQualification', JSON.stringify(hasQualification))
   }
@@ -530,9 +558,7 @@ function App() {
           values={values}
           handleChange={handleChange}
           handleCheckboxChange={handleCheckboxChange}
-          checkboxValues={checkboxValues}
           hasExperience={hasExperience}
-          setCheckboxValues={setCheckboxValues}
           setHasExperience={setHasExperience}
           setValues={setValues}
           setAllTillPresent={setAllTillPresent}
@@ -542,6 +568,7 @@ function App() {
           handleChangeWithValidation={handleChangeWithValidation}
           setErrors={setErrors}
           handleAddJobChange={handleAddJobChange}
+          handleAddJobCheckboxChange={handleAddJobCheckboxChange}
         />
       ),
       id: 2,
@@ -552,7 +579,6 @@ function App() {
       element: (
         <Qualification
           handleCheckboxChange={handleCheckboxChange}
-          checkboxValues={checkboxValues}
           setHasQualification={setHasQualification}
           hasQualification={hasQualification}
           values={values}
@@ -571,12 +597,11 @@ function App() {
           values={values}
           handleChangeWithValidation={handleChangeWithValidation}
           setValues={setValues}
-          checkboxValues={checkboxValues}
           handleCheckboxChange={handleCheckboxChange}
           setAllTillPresent={setAllTillPresent}
           allTillPresent={allTillPresent}
-          setCheckboxValues={setCheckboxValues}
           handleAddEducationChange={handleAddEducationChange}
+          handleAddEducationCheckboxChange={handleAddEducationCheckboxChange}
         />
       ),
       id: 4,
@@ -650,7 +675,7 @@ function App() {
     // },
     {
       path: 'result',
-      element: <Result values={values} checkboxValues={checkboxValues} />,
+      element: <Result values={values} checkboxValues={values} />,
       id: 9,
       completedSteps: completedStepsPersonalData,
     },
@@ -764,7 +789,6 @@ function App() {
             element={
               <ResultResume
                 values={values}
-                checkboxValues={checkboxValues}
                 isLoggedIn={isLoggedIn}
                 onOpenPopup={handleConfirmExitPopupOpen}
               />

@@ -12,13 +12,12 @@ import AddedEducation from './AddedEducation/AddedEducation'
 const Education = ({
   values,
   handleChangeWithValidation,
-  checkboxValues,
   setValues,
   handleCheckboxChange,
   setAllTillPresent,
   allTillPresent,
-  setCheckboxValues,
   handleAddEducationChange,
+  handleAddEducationCheckboxChange,
 }) => {
   // Если появился добавленное образование, основная кнопка "Добавить" удаляется
   const [noAddedEducation, setNoAddedEducation] = useState(true)
@@ -27,7 +26,10 @@ const Education = ({
     setNoAddedEducation(false)
     setValues({
       ...values,
-      educations: [...values.educations, { id: uuidv4() }],
+      educations: [
+        ...values.educations,
+        { id: uuidv4(), education_period_checkbox: false },
+      ],
     })
   }
 
@@ -69,14 +71,12 @@ const Education = ({
           labelTwo="Год окончания"
           i="0"
           tillPresent
-          checkboxValues={checkboxValues}
           handleCheckboxChange={handleCheckboxChange}
           values={values}
           setValues={setValues}
           setAllTillPresent={setAllTillPresent}
           allTillPresent={allTillPresent}
           handleChange={handleChangeWithValidation}
-          setCheckboxValues={setCheckboxValues}
         />
         <FormInput
           values={values}
@@ -98,8 +98,7 @@ const Education = ({
             i={education.id}
             key={education.id}
             handleChange={handleAddEducationChange}
-            checkboxValues={checkboxValues}
-            handleCheckboxChange={handleCheckboxChange}
+            handleCheckboxChange={handleAddEducationCheckboxChange}
             setValues={setValues}
             setAllTillPresent={setAllTillPresent}
             allTillPresent={allTillPresent}
@@ -119,10 +118,15 @@ Education.propTypes = {
     PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
+      PropTypes.bool,
       PropTypes.arrayOf(
         PropTypes.oneOfType([
           PropTypes.objectOf(
-            PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+            PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number,
+              PropTypes.bool,
+            ])
           ),
         ])
       ),
@@ -137,9 +141,9 @@ Education.propTypes = {
   allTillPresent: PropTypes.shape({
     value: PropTypes.bool,
   }),
-  setCheckboxValues: PropTypes.func.isRequired,
   handleChangeWithValidation: PropTypes.func.isRequired,
   handleAddEducationChange: PropTypes.func.isRequired,
+  handleAddEducationCheckboxChange: PropTypes.func.isRequired,
 }
 
 Education.defaultProps = {

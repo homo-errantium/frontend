@@ -14,17 +14,16 @@ const Experience = ({
   values,
   setValues,
   handleCheckboxChange,
-  checkboxValues,
   hasExperience,
   setHasExperience,
   setAllTillPresent,
   allTillPresent,
-  setCheckboxValues,
   setDuties,
   errors,
   handleChangeWithValidation,
   setErrors,
   handleAddJobChange,
+  handleAddJobCheckboxChange,
 }) => {
   // console.log('🚀 ~ file: Experience.js:30 ~ handleChange:', handleChange)
   // console.log('🚀 ~ file: Experience.js:30 ~ handleChange:', handleAddJobChange)
@@ -36,11 +35,24 @@ const Experience = ({
     setValues({ ...values, jobs: [] })
     setNoAddedExperience(true)
     setErrors({})
+
+    if (hasExperience) {
+      setValues(prevValues => ({
+        ...prevValues,
+        work_period_experience_checkbox: false,
+      }))
+    }
   }
 
   const addExperience = () => {
     setNoAddedExperience(false)
-    setValues({ ...values, jobs: [...values.jobs, { id: uuidv4() }] })
+    setValues({
+      ...values,
+      jobs: [
+        ...values.jobs,
+        { id: uuidv4(), work_period_experience_checkbox: false },
+      ],
+    })
   }
 
   const deleteExperience = jobId => {
@@ -62,7 +74,7 @@ const Experience = ({
     <section className="experience personal-data">
       <ResumeTitle
         name="work_experience_checkbox"
-        values={checkboxValues}
+        values={values}
         handleCheckboxChange={handleCheckboxChange}
         title="Опыт работы"
         checkbox
@@ -110,18 +122,17 @@ const Experience = ({
           disabled={!hasExperience}
           i="0"
           tillPresent
-          checkboxValues={checkboxValues}
           handleCheckboxChange={handleCheckboxChange}
-          namePeriod="work_period_checkbox"
+          namePeriod="work_period_experience_checkbox"
           monthPeriod={['month_work_start', 'month_work_end']}
           year={['year_work_start', 'year_work_end']}
           values={values}
-          setValues={setValues}
           setAllTillPresent={setAllTillPresent}
           allTillPresent={allTillPresent}
           handleChange={handleChangeWithValidation}
-          setCheckboxValues={setCheckboxValues}
           errors={errors}
+          allValues={values}
+          setValues={setValues}
         />
         <FormInput
           name="duties"
@@ -145,8 +156,7 @@ const Experience = ({
             addExperience={addExperience}
             i={experience.id}
             key={experience.id}
-            checkboxValues={checkboxValues}
-            handleCheckboxChange={handleCheckboxChange}
+            handleCheckboxChange={handleAddJobCheckboxChange}
             setValues={setValues}
             setAllTillPresent={setAllTillPresent}
             allTillPresent={allTillPresent}
@@ -166,10 +176,15 @@ Experience.propTypes = {
     PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
+      PropTypes.bool,
       PropTypes.arrayOf(
         PropTypes.oneOfType([
           PropTypes.objectOf(
-            PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+            PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number,
+              PropTypes.bool,
+            ])
           ),
         ])
       ),
@@ -186,7 +201,6 @@ Experience.propTypes = {
   allTillPresent: PropTypes.shape({
     value: PropTypes.bool,
   }),
-  setCheckboxValues: PropTypes.func.isRequired,
   setDuties: PropTypes.func.isRequired,
   errors: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.string, PropTypes.number])
@@ -194,6 +208,7 @@ Experience.propTypes = {
   handleChangeWithValidation: PropTypes.func.isRequired,
   setErrors: PropTypes.func.isRequired,
   handleAddJobChange: PropTypes.func.isRequired,
+  handleAddJobCheckboxChange: PropTypes.func.isRequired,
 }
 
 Experience.defaultProps = {
