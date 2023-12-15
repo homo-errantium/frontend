@@ -11,7 +11,6 @@ import AddedQualification from './AddedQualification/AddedQualification'
 
 const Qualification = ({
   handleCheckboxChange,
-  checkboxValues,
   setHasQualification,
   hasQualification,
   values,
@@ -64,8 +63,8 @@ const Qualification = ({
         checkboxId="title-checkbox"
         onClick={handleTitleCheckboxClick}
         handleCheckboxChange={handleCheckboxChange}
-        name="qualification-checkbox"
-        values={checkboxValues}
+        name="qualification_checkbox"
+        values={values}
       />
       <div className="qualification__form-container experience__form-container">
         <FormInput
@@ -156,19 +155,21 @@ const Qualification = ({
 
 Qualification.propTypes = {
   handleCheckboxChange: PropTypes.func.isRequired,
-  checkboxValues: PropTypes.shape({
-    checkbox: PropTypes.bool,
-  }),
   setHasQualification: PropTypes.func.isRequired,
   hasQualification: PropTypes.bool.isRequired,
   values: PropTypes.objectOf(
     PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
+      PropTypes.bool,
       PropTypes.arrayOf(
         PropTypes.oneOfType([
           PropTypes.objectOf(
-            PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+            PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number,
+              PropTypes.bool,
+            ])
           ),
         ])
       ),
@@ -180,7 +181,6 @@ Qualification.propTypes = {
 }
 
 Qualification.defaultProps = {
-  checkboxValues: {},
   values: {},
 }
 

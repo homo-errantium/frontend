@@ -22,11 +22,9 @@ const PeriodInput = ({
   year,
   values,
   handleCheckboxChange,
-  checkboxValues,
   handleChange,
   setAllTillPresent,
   allTillPresent,
-  setCheckboxValues,
   errors,
   allValues,
   education,
@@ -200,13 +198,11 @@ const PeriodInput = ({
             <Checkbox
               disabled={disabled}
               name={namePeriod}
-              checkboxValues={checkboxValues}
+              values={values}
               handleCheckboxChange={handleCheckboxChange}
               checkboxText="Настоящее время"
-              checkboxId={`period-checkbox${i}`}
+              checkboxId={`period-checkbox_${i}`}
               onClick={handleCheckboxToggle}
-              setValues={setValues}
-              setCheckboxValues={setCheckboxValues}
             />
           </div>
         )}
@@ -247,16 +243,20 @@ PeriodInput.propTypes = {
   allTillPresent: PropTypes.shape({
     value: PropTypes.bool,
   }),
-  setCheckboxValues: PropTypes.func,
   errors: PropTypes.objectOf(PropTypes.string),
   allValues: PropTypes.objectOf(
     PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
+      PropTypes.bool,
       PropTypes.arrayOf(
         PropTypes.oneOfType([
           PropTypes.objectOf(
-            PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+            PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number,
+              PropTypes.bool,
+            ])
           ),
         ])
       ),
@@ -279,7 +279,6 @@ PeriodInput.defaultProps = {
   handleChange: () => {},
   setAllTillPresent: () => {},
   allTillPresent: {},
-  setCheckboxValues: () => {},
   allValues: {},
   errors: {},
   handleCheckboxChange: () => {},

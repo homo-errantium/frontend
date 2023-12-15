@@ -69,8 +69,18 @@ Result.propTypes = {
     PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
-      PropTypes.array,
-      PropTypes.object,
+      PropTypes.bool,
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([
+          PropTypes.objectOf(
+            PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number,
+              PropTypes.bool,
+            ])
+          ),
+        ])
+      ),
     ])
   ),
 }

@@ -18,7 +18,7 @@ const Toggle = ({
         id={checkboxId}
         className="toggle__input"
         onChange={handleCheckboxChange}
-        checked={values[name] || false}
+        checked={values[name]}
       />
       <span className="toggle__text">{checkboxText}</span>
     </label>
