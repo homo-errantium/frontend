@@ -13,8 +13,15 @@ const LinkInput = ({
   deleteLink,
   addLink,
   i,
+  values,
+  handleLinkChange,
 }) => {
   const handleDelete = () => deleteLink(i)
+
+  const handleChange = evt => {
+    const { name, value } = evt.target
+    handleLinkChange({ i, name, value })
+  }
 
   return (
     <div className="link-input">
@@ -29,8 +36,11 @@ const LinkInput = ({
           {tipFirst && <Tip text={tipTextFirst} />}
         </div>
         <input
+          name={`link_name_${i}`}
           // defaultValue=""
-          // onChange={handleChange}
+          onChange={handleChange}
+          value={values.link_name || ''}
+          id={`link_name_${i}`}
           className="link-input__short-field"
           disabled={disabled}
         />
@@ -44,7 +54,13 @@ const LinkInput = ({
             {secondLabel}
           </label>
         </div>
-        <input className="link-input__short-field" disabled={disabled} />
+        <input
+          name={`link_${i}`}
+          onChange={handleChange}
+          value={values.link || ''}
+          className="link-input__short-field"
+          disabled={disabled}
+        />
       </div>
       <div className="link-input__button-container">
         <button
