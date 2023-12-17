@@ -5,7 +5,7 @@ import RegistrationField from '../../Register/RegistrationForm/RegistrationField
 import './LoginForm.scss'
 import '../../Register/RegistrationForm/RegistrationForm.scss'
 
-const LoginForm = ({ buttonText, onSubmit, isOpen, popup }) => {
+const LoginForm = ({ buttonText, onSubmit, popup }) => {
   const [values, setValues] = useState({})
   const [errors, setErrors] = useState({})
   const [isValid, setIsValid] = useState(false)
@@ -60,11 +60,7 @@ const LoginForm = ({ buttonText, onSubmit, isOpen, popup }) => {
   }
 
   return (
-    <section
-      className={`login-form registration-form ${
-        isOpen && 'registration-form_popup'
-      }`}
-    >
+    <section className="login-form registration-form">
       <form
         className="login-form__form registration-form__form"
         name="login"
@@ -80,7 +76,6 @@ const LoginForm = ({ buttonText, onSubmit, isOpen, popup }) => {
             handleChange={handleEmailChange}
             values={values}
             errors={errors}
-            isOpen={isOpen}
           />
           <RegistrationField
             label="Пароль"
@@ -91,7 +86,6 @@ const LoginForm = ({ buttonText, onSubmit, isOpen, popup }) => {
             values={values}
             errors={errors}
             eye
-            isOpen={isOpen}
           />
         </div>
         {responseMessage && (
@@ -117,7 +111,6 @@ const LoginForm = ({ buttonText, onSubmit, isOpen, popup }) => {
 LoginForm.propTypes = {
   buttonText: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  isOpen: PropTypes.bool.isRequired,
   popup: PropTypes.bool,
 }
 

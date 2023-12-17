@@ -61,9 +61,12 @@ const PopupRegister = ({ isOpen, onClose, onLogin }) => {
 }
 
 PopupRegister.propTypes = {
-  onLogin: PropTypes.func.isRequired,
+  onLogin: PropTypes.func,
   onClose: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
 }
 
+PopupRegister.defaultProps = {
+  onLogin: () => {},
+}
 export default PopupRegister
