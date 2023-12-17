@@ -9,9 +9,9 @@ const Project = ({ addProject, deleteProject, i, values, handleChange }) => {
   const handleDelete = () => deleteProject(i)
   return (
     <>
-      <div className="project__container experience__job-container" id={i}>
+      {/* <div className="project__container experience__job-container" id={i}>
         <FormInput label="Название проекта" />
-      </div>
+      </div> */}
       <div className="project__container experience__job-container" id={i}>
         <FormInput
           values={values}

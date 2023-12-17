@@ -15,7 +15,6 @@ const Job = ({
   values,
   handleChange,
   handleCheckboxChange,
-  checkboxValues,
   setValues,
   setAllTillPresent,
   allTillPresent,
@@ -60,9 +59,8 @@ const Job = ({
           i={i}
           tillPresent
           values={values}
-          checkboxValues={checkboxValues}
           handleChange={handleChange}
-          namePeriod={`work_period_checkbox_${i}`}
+          namePeriod="work_period_experience_checkbox"
           monthPeriod={['month_work_start', 'month_work_end']}
           year={['year_work_start', 'year_work_end']}
           handleCheckboxChange={handleCheckboxChange}
@@ -127,10 +125,16 @@ Job.propTypes = {
     PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
+      PropTypes.bool,
       PropTypes.arrayOf(
         PropTypes.oneOfType([
+          PropTypes.string,
           PropTypes.objectOf(
-            PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+            PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number,
+              PropTypes.bool,
+            ])
           ),
         ])
       ),

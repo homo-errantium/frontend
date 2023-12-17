@@ -30,10 +30,10 @@
 }
 
 .result__button {
+  margin: 0;
+  line-height: normal;
   display: flex;
-  width: 106px;
-  height: 52px;
-  padding: 16px 20px;
+  padding: 10px 16px;
   justify-content: center;
   align-items: center;
   gap: 4px;
@@ -44,5 +44,9 @@
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
-  line-height: 120%; /* 24px */
+  // line-height: 120%; /* 24px */
+}
+
+.result__button:hover {
+  cursor: pointer;
 }

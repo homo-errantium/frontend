@@ -12,7 +12,6 @@ const AddedEducation = ({
   i,
   values,
   handleChange,
-  checkboxValues,
   handleCheckboxChange,
   setValues,
   setAllTillPresent,
@@ -35,7 +34,7 @@ const AddedEducation = ({
         />
         <PeriodInput
           education
-          namePeriod={`education_period_checkbox_${i}`}
+          namePeriod="education_period_checkbox"
           year={['year_education_start', 'year_education_end']}
           monthPeriod={[]}
           labelOne="Год поступления"
@@ -43,7 +42,6 @@ const AddedEducation = ({
           i={i}
           tillPresent
           values={values}
-          checkboxValues={checkboxValues}
           handleChange={handleChange}
           handleCheckboxChange={handleCheckboxChange}
           setValues={setValues}
@@ -109,10 +107,15 @@ AddedEducation.propTypes = {
     PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
+      PropTypes.bool,
       PropTypes.arrayOf(
         PropTypes.oneOfType([
           PropTypes.objectOf(
-            PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+            PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number,
+              PropTypes.bool,
+            ])
           ),
         ])
       ),

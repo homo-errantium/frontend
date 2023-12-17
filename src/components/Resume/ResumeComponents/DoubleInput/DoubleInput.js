@@ -248,10 +248,16 @@ DoubleInput.propTypes = {
     PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
+      PropTypes.bool,
       PropTypes.arrayOf(
         PropTypes.oneOfType([
+          PropTypes.string,
           PropTypes.objectOf(
-            PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+            PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number,
+              PropTypes.bool,
+            ])
           ),
         ])
       ),

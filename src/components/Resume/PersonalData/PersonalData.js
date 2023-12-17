@@ -185,7 +185,7 @@ const PersonalData = ({
             dataMaskSecond="tgLink"
             errors={errors}
           />
-          {values.links.map(link => (
+          {values.links?.map(link => (
             <LinkInput
               key={link.id}
               i={link.id}
@@ -228,10 +228,16 @@ PersonalData.propTypes = {
     PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
+      PropTypes.bool,
       PropTypes.arrayOf(
         PropTypes.oneOfType([
+          PropTypes.string,
           PropTypes.objectOf(
-            PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+            PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number,
+              PropTypes.bool,
+            ])
           ),
         ])
       ),

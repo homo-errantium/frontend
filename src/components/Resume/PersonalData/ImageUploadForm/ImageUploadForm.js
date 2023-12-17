@@ -34,7 +34,11 @@ const ImageUploadForm = ({ label, tip, tipText, name, image, setImage }) => {
           }`}
         >
           {image && (
-            <img className="image-upload__photo" alt={image} src={image} />
+            <img
+              className="image-upload__photo"
+              alt="user avatar"
+              src={image}
+            />
           )}
           <label className="image-upload__button" htmlFor="image-input-photo">
             <input
