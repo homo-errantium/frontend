@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable array-callback-return */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
+import debounce from 'lodash.debounce'
 import './App.scss'
 import { v4 as uuidv4 } from 'uuid'
 import { Routes, Route, Navigate } from 'react-router-dom'
@@ -42,7 +43,7 @@ import ResultResume from '../Resume/ResultResume/ResultResume'
 
 function App() {
   // eslint-disable-next-line no-unused-vars
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false) // Пользователь авторизован/неавторизован
+  const [isLoggedIn, setIsLoggedIn] = React.useState(true) // Пользователь авторизован/неавторизован
   // eslint-disable-next-line no-unused-vars
   const [currentUser, setCurrentUser] = React.useState({}) // Сохраняем данные пользователя
 
@@ -218,7 +219,6 @@ function App() {
   // Функция, которая записывает данные полей форм
   const handleChange = evt => {
     const { name, value } = evt.target
-    // console.log(value)
     const cleanValue = deleteNonLatin(value)
     if (name === 'telegram') {
       checkTgInput(name, cleanValue)
@@ -226,7 +226,13 @@ function App() {
       setValues({ ...values, [name]: value })
     }
     setErrors({ ...errors, [name]: evt.target.validationMessage })
+    // localStorage.setItem('formData', JSON.stringify(values))
   }
+  // Данные записываются в localStorage при каждом изменении values:
+  useEffect(() => {
+    localStorage.setItem('formData', JSON.stringify(values))
+  }, [values])
+
   // INPUTS  VALIDATION:
   const handleChangeWithValidation = evt => {
     handleChange(evt)
@@ -679,7 +685,15 @@ function App() {
           <Route
             path="/my-profile"
             element={
-              <ProtectedRoute element={Profile} isLoggedIn={isLoggedIn} />
+              <ProtectedRoute
+                element={Profile}
+                isLoggedIn={isLoggedIn}
+                deletePopupSetState={setIsConfirmDeletePopupOpen}
+                values={values}
+                handleChange={handleChangeWithValidation}
+                errors={errors}
+                setErrors={setErrors}
+              />
             }
           />
           <Route

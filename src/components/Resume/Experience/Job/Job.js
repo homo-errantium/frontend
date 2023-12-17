@@ -28,7 +28,7 @@ const Job = ({
     <>
       <div className="job__job-container experience__job-container" id={i}>
         <FormInput
-          name={`company_${i}`}
+          name="company"
           values={values}
           handleChange={handleChange}
           label="Название компании"

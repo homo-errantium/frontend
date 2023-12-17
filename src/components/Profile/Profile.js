@@ -1,16 +1,49 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import './Profile.scss'
+import IMask from 'imask'
 import classNames from 'classnames'
 import Header from '../Header/Header'
-import ImageUploadForm from '../Resume/PersonalData/ImageUploadForm/ImageUploadForm'
+import ImageUpload from './ImageUpload/ImageUpload'
 import cvExampleOne from '../../img/cv-examples/cv-1.png'
 import cvExampleTwo from '../../img/cv-examples/cv-2.svg'
+import Cv from './Cv/Cv'
 
-function Profile({ isLoggedIn }) {
+function Profile({
+  isLoggedIn,
+  deletePopupSetState,
+  values,
+  handleChange,
+  errors,
+}) {
   const nextPage = '/*'
   const [isProfileData, setIsProfileData] = useState(true)
   const [isContacts, setIsContacts] = useState(false)
+
+  const maskInput = (dataValue, options) => {
+    const inputElements = document.querySelectorAll(`[mask="${dataValue}"]`) // ищем поля ввода по селектору с переданным значением data-атрибута
+    if (!inputElements) return // если таких полей ввода нет, прерываем функцию
+    inputElements.forEach(el => {
+      // для каждого из полей ввода
+      IMask(el, options) // инициализируем плагин imask для необходимых полей ввода с переданными параметрами маски
+    })
+  }
+  const maskOptionsPhone = {
+    mask: '+{7}(000)000-00-00',
+  }
+
+  useEffect(() => {
+    maskInput('phone', maskOptionsPhone)
+  })
+
+  const maskOptionsDate = {
+    mask: Date,
+    min: new Date(1900, 0, 1),
+  }
+  useEffect(() => {
+    maskInput('date', maskOptionsDate)
+  })
+
   const openProfileData = () => {
     setIsContacts(false)
     setIsProfileData(true)
@@ -63,7 +96,7 @@ function Profile({ isLoggedIn }) {
               {isProfileData && (
                 <>
                   <div className="profile__photo">
-                    <ImageUploadForm />
+                    <ImageUpload />
                   </div>
                   <div className="profile__personal-data-form">
                     <label htmlFor="name" className="profile__input-label">
@@ -72,14 +105,15 @@ function Profile({ isLoggedIn }) {
                         name="name"
                         type="text"
                         id="name"
+                        value={values.name}
                         className="profile__input"
+                        onChange={handleChange}
                       />
-                      <button
-                        type="button"
-                        className="profile__input-edit-button link"
-                      >
-                        {' '}
-                      </button>
+                      {errors && (
+                        <span className="form-input__input-error">
+                          {errors.name}
+                        </span>
+                      )}
                     </label>
 
                     <label htmlFor="surname" className="profile__input-label">
@@ -89,13 +123,14 @@ function Profile({ isLoggedIn }) {
                         type="text"
                         id="surname"
                         className="profile__input"
+                        value={values.surname}
+                        onChange={handleChange}
                       />
-                      <button
-                        type="button"
-                        className="profile__input-edit-button link"
-                      >
-                        {' '}
-                      </button>
+                      {errors && (
+                        <span className="form-input__input-error">
+                          {errors.surname}
+                        </span>
+                      )}
                     </label>
                     <div className="profile__double-input-container">
                       <label
@@ -108,7 +143,16 @@ function Profile({ isLoggedIn }) {
                           type="text"
                           id="birthday"
                           className="profile__input"
+                          placeholder="ДД.ММ.ГГГГ"
+                          value={values.birthday}
+                          onChange={handleChange}
+                          mask="date"
                         />
+                        {errors && (
+                          <span className="form-input__input-error">
+                            {errors.birthday}
+                          </span>
+                        )}
                       </label>
                       <label
                         htmlFor="city"
@@ -120,22 +164,26 @@ function Profile({ isLoggedIn }) {
                           type="text"
                           id="city"
                           className="profile__input"
+                          value={values.city}
+                          onChange={handleChange}
                         />
-                        <button
-                          type="button"
-                          className="profile__input-edit-button link"
-                        >
-                          {' '}
-                        </button>
+                        {errors && (
+                          <span className="form-input__input-error">
+                            {errors.city}
+                          </span>
+                        )}
                       </label>
                     </div>
                     <label htmlFor="password" className="profile__input-label">
                       Пароль
                       <input
                         name="password"
-                        type="text"
+                        type="password"
                         id="password"
                         className="profile__input"
+                        value="1234"
+                        readOnly
+                        disabled={isEditPassword}
                       />
                       <div className="profile__checkbox-container">
                         <label
@@ -214,13 +262,14 @@ function Profile({ isLoggedIn }) {
                       type="text"
                       id="email"
                       className="profile__input"
+                      value={values.email}
+                      onChange={handleChange}
                     />
-                    <button
-                      type="button"
-                      className="profile__input-edit-button link"
-                    >
-                      {' '}
-                    </button>
+                    {errors && (
+                      <span className="form-input__input-error">
+                        {errors.email}
+                      </span>
+                    )}
                   </label>
                   <div className="profile__double-input-container">
                     <label htmlFor="phone" className="profile__input-label">
@@ -230,7 +279,15 @@ function Profile({ isLoggedIn }) {
                         type="text"
                         id="phone"
                         className="profile__input"
+                        value={values.phone}
+                        onChange={handleChange}
+                        mask="phone"
                       />
+                      {errors && (
+                        <span className="form-input__input-error">
+                          {errors.phone}
+                        </span>
+                      )}
                     </label>
                     <label htmlFor="telegram" className="profile__input-label">
                       Telegram
@@ -239,7 +296,15 @@ function Profile({ isLoggedIn }) {
                         type="text"
                         id="telegram"
                         className="profile__input"
+                        value={values.telegram}
+                        onChange={handleChange}
+                        mask="tgLink"
                       />
+                      {errors && (
+                        <span className="form-input__input-error">
+                          {errors.telegram}
+                        </span>
+                      )}
                     </label>
                   </div>
                 </div>
@@ -250,22 +315,7 @@ function Profile({ isLoggedIn }) {
             <h2 className="profile__saved-resumes-title">Сохраненные резюме</h2>
             <div className="profile__cvs-container">
               {cvArray.map(cv => (
-                <div className="profile__cv-container">
-                  <div className="profile__cv-image-container">
-                    <img
-                      src={cv.image}
-                      alt="резюме"
-                      className="profile__cv-image"
-                    />
-                    <button
-                      type="button"
-                      className="profile__cv-changes-button link"
-                    >
-                      {' '}
-                    </button>
-                  </div>
-                  <span className="profile__cv-name">{cv.name}</span>
-                </div>
+                <Cv cv={cv} deletePopupSetState={deletePopupSetState} />
               ))}
             </div>
           </div>
@@ -277,6 +327,28 @@ function Profile({ isLoggedIn }) {
 
 Profile.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
+  deletePopupSetState: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  errors: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ).isRequired,
+  values: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([
+          PropTypes.objectOf(
+            PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+          ),
+        ])
+      ),
+    ])
+  ),
+}
+
+Profile.defaultProps = {
+  values: {},
 }
 
 export default Profile
