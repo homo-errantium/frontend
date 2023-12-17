@@ -1,7 +1,6 @@
 .main__title-container {
   display: flex;
   width: 88%;
-  // min-height: 524px;
   border-radius: 16px;
   background: #da693f;
   margin: 48px auto 0;
@@ -138,6 +137,7 @@
 .main__onboarding-item-list {
   width: 100%;
   padding: 0;
+  margin: 0;
 }
 
 .main__onboarding-items {
@@ -181,4 +181,60 @@
 
 .main__onboarding-subtitle-element_visible {
   display: block;
+}
+
+.main__onboarding-progress-bar {
+  width: 8px;
+  height: 100%;
+  border-radius: 8px;
+  position: relative;
+}
+
+.main__onboarding-progress-bar_step1 {
+  background: linear-gradient(180deg, #FF4C00 0%, rgba(255, 76, 0, 0.00) 99.86%);
+}
+
+.main__onboarding-progress-bar_step2 {
+  background: linear-gradient(180deg, #FFF 0%, rgba(255, 76, 0, 0.92) 25.88%, rgba(255, 255, 255, 0.28) 118.33%);
+}
+
+.main__onboarding-progress-bar_step3 {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 76, 0, 0.92) 38.17%, rgba(255, 255, 255, 0.28) 118.33%);
+}
+
+.main__onboarding-progress-bar_step4 {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 76, 0, 0.92) 53.13%, rgba(255, 255, 255, 0.28) 118.33%);
+}
+
+.main__onboarding-progress-bar_step5 {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 76, 0, 0.92) 73.46%, rgba(255, 255, 255, 0.28) 118.33%);
+}
+
+.main__onboarding-circle {
+  width: 25px;
+  height: 27px;
+  background-color: #FF4C00;
+  border-radius: 50%;
+  position: absolute;
+  left: -9px;
+}
+
+.main__onboarding-circle_step1 {
+  top: 0px;
+}
+
+.main__onboarding-circle_step2 {
+  top: 51px;
+}
+
+.main__onboarding-circle_step3 {
+  top: 103px;
+}
+
+.main__onboarding-circle_step4 {
+  top: 155px;
+}
+
+.main__onboarding-circle_step5 {
+  top: 206px;
 }

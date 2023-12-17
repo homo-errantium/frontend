@@ -16,6 +16,7 @@ function Main({ isLoggedIn, onOpenPopup }) {
   const nextPage = '/resume'
   const [img, setImg] = React.useState(imgMainArr[0])
   const [subtitleObject, setSubtitleObject] = React.useState(onboardingTitle)
+  const [step, setStep] = React.useState(1)
 
   const handleClick = i => {
     const elementIndex = onboardingTitle.findIndex(
@@ -36,6 +37,7 @@ function Main({ isLoggedIn, onOpenPopup }) {
     })
 
     setImg(imgMainArr[elementIndex])
+    setStep(i + 1)
   }
 
   return (
@@ -77,7 +79,19 @@ function Main({ isLoggedIn, onOpenPopup }) {
           <div className="main__onboarding-text-container">
             <h2 className="main__onboarding-title">Как это работает</h2>
             <div className="main__onboarding-subtitle-container">
-              <div className="main__onboarding-progress-bar" />
+              <div
+                className={classNames(
+                  'main__onboarding-progress-bar',
+                  `main__onboarding-progress-bar_step${step}`
+                )}
+              >
+                <div
+                  className={classNames(
+                    'main__onboarding-circle',
+                    `main__onboarding-circle_step${step}`
+                  )}
+                />
+              </div>
               <ul className="main__onboarding-item-list">
                 {onboardingTitle.map((item, i) => (
                   <li className="main__onboarding-items" key={i}>
