@@ -20,6 +20,7 @@ function Profile({
   const [isProfileData, setIsProfileData] = useState(true)
   const [isContacts, setIsContacts] = useState(false)
 
+  // МАСКИ ДЛЯ ПОЛЕЙ:
   const maskInput = (dataValue, options) => {
     const inputElements = document.querySelectorAll(`[mask="${dataValue}"]`) // ищем поля ввода по селектору с переданным значением data-атрибута
     if (!inputElements) return // если таких полей ввода нет, прерываем функцию
@@ -44,6 +45,7 @@ function Profile({
     maskInput('date', maskOptionsDate)
   })
 
+  // ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК
   const openProfileData = () => {
     setIsContacts(false)
     setIsProfileData(true)
@@ -53,14 +55,95 @@ function Profile({
     setIsContacts(true)
   }
 
+  // ПРИМЕРЫ ДАННЫХ ДЛЯ РЕЗЮМЕ
   const cvArray = [
     { id: 1, image: cvExampleOne, name: 'Резюме 1' },
     { id: 2, image: cvExampleTwo, name: 'Резюме 2' },
   ]
 
+  // ОТКРЫТИЕ ДОПОЛНИТЕЛЬНЫХ ПОЛЕЙ ДЛЯ СМЕНЫ ПАРОЛЯ
   const [isEditPassword, setIsEditPassword] = useState(false)
   const handleCheckboxChange = () => {
     setIsEditPassword(!isEditPassword)
+  }
+
+  // ЛОГИКА СМЕНЫ ПАРОЛЯ
+  const [passwordValues, setPasswordValues] = useState({})
+  const [passwordErrors, setPasswordErrors] = useState({})
+  const [isValid, setIsValid] = useState(false)
+
+  const currentPassword = 'qwerty'
+
+  const handlePreviousPasswordChange = evt => {
+    const { name, value } = evt.target
+    setPasswordValues({ ...passwordValues, [name]: value })
+    setIsValid(evt.target.closest('form').checkValidity())
+    if (name === 'previousPassword' && evt.target.value.length < 2) {
+      setIsValid(false)
+      setPasswordErrors({
+        ...passwordErrors,
+        previousPassword: 'Пароль должен иметь не менее 2 символов',
+      })
+    } else {
+      setPasswordErrors({
+        ...passwordErrors,
+        [name]: evt.target.validationMessage,
+      })
+    }
+  }
+  const handlePasswordChange = evt => {
+    const { name, value } = evt.target
+    setPasswordValues({ ...passwordValues, [name]: value })
+    setIsValid(evt.target.closest('form').checkValidity())
+    if (name === 'newPassword' && evt.target.value.length < 2) {
+      setIsValid(false)
+      setPasswordErrors({
+        ...passwordErrors,
+        newPassword: 'Пароль должен иметь не менее 2 символов',
+      })
+    } else {
+      setPasswordErrors({
+        ...passwordErrors,
+        [name]: evt.target.validationMessage,
+      })
+    }
+  }
+
+  const handlePasswordConfirmationChange = evt => {
+    const { name, value } = evt.target
+    setIsValid(evt.target.closest('form').checkValidity())
+    if (name === 'confirmPassword' && evt.target.value.length < 1) {
+      setIsValid(false)
+      setPasswordErrors({
+        ...passwordErrors,
+        passwordConfirmation: 'Необходимо повторно ввести пароль',
+      })
+    } else {
+      setPasswordValues({ ...passwordValues, [name]: value })
+    }
+  }
+
+  const handleChangePasswordSubmit = e => {
+    e.preventDefault()
+    if (passwordValues.newPassword !== passwordValues.passwordConfirmation) {
+      setIsValid(false)
+      setPasswordErrors({
+        ...passwordErrors,
+        passwordConfirmation: 'Пароли не совпадают',
+      })
+    } else if (passwordValues.previousPassword !== currentPassword) {
+      setIsValid(false)
+      setPasswordErrors({
+        ...passwordErrors,
+        passwordConfirmation: 'Старый пароль указан неверно',
+      })
+    } else {
+      setPasswordErrors({
+        ...passwordErrors,
+        passwordConfirmation: '',
+      })
+      console.log('alright')
+    }
   }
 
   return (
@@ -181,7 +264,7 @@ function Profile({
                         type="password"
                         id="password"
                         className="profile__input"
-                        value="1234"
+                        value={currentPassword}
                         readOnly
                         disabled={isEditPassword}
                       />
@@ -204,51 +287,81 @@ function Profile({
                       </div>
                     </label>
                     {isEditPassword && (
-                      <>
+                      <form
+                        className="profile__change-password-form"
+                        name="change-password"
+                        onSubmit={handleChangePasswordSubmit}
+                        noValidate
+                      >
                         <label
-                          htmlFor="previous-password"
+                          htmlFor="previousPassword"
                           className="profile__input-label"
                         >
                           Введите старый пароль
                           <input
-                            name="previous-password"
+                            name="previousPassword"
                             type="text"
-                            id="previous-password"
+                            id="previousPassword"
                             className="profile__input"
+                            value={passwordValues.previousPassword}
+                            onChange={handlePreviousPasswordChange}
+                            required
                           />
+                          {passwordErrors && (
+                            <span className="profile__password-error">
+                              {passwordErrors.previousPassword}
+                            </span>
+                          )}
                         </label>
                         <label
-                          htmlFor="new-password"
+                          htmlFor="newPassword"
                           className="profile__input-label"
                         >
                           Введите новый пароль
                           <input
-                            name="new-password"
+                            name="newPassword"
                             type="text"
-                            id="new-password"
+                            id="newPassword"
                             className="profile__input"
+                            value={passwordValues.newPassword}
+                            onChange={handlePasswordChange}
+                            required
                           />
+                          {passwordErrors && (
+                            <span className="profile__password-error">
+                              {passwordErrors.newPassword}
+                            </span>
+                          )}
                         </label>
                         <label
-                          htmlFor="confirm-password"
+                          htmlFor="passwordConfirmation"
                           className="profile__input-label"
                         >
                           Подтвердите пароль
                           <input
-                            name="confirm-password"
+                            name="passwordConfirmation"
                             type="text"
-                            id="confirm-password"
+                            id="passwordConfirmation"
                             className="profile__input"
+                            value={passwordValues.passwordConfirmation}
+                            required
+                            onChange={handlePasswordConfirmationChange}
                           />
+                          {passwordErrors && (
+                            <span className="profile__password-error">
+                              {passwordErrors.passwordConfirmation}
+                            </span>
+                          )}
                         </label>
 
                         <button
                           className="profile__save-button link"
-                          type="button"
+                          type="submit"
+                          disabled={!isValid}
                         >
                           Сохранить изменения
                         </button>
-                      </>
+                      </form>
                     )}
                   </div>
                 </>
