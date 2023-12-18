@@ -88,7 +88,6 @@ function App() {
     values.languages
   )
 
-  // const [links, setLinks] = useState(values.links)
   const [linksAfterDeleting, setLinksAfterDeleting] = useState(values.links)
   // RECOMMENDATIONS:
   const [duties, setDuties] = useState(false)
@@ -240,7 +239,7 @@ function App() {
   }, [languagesAfterDeleting])
 
   useEffect(() => {
-    if (linksAfterDeleting?.length ?? 0) {
+    if (linksAfterDeleting.length === 0) {
       setValues({ ...values, links: [{ id: uuidv4() }] })
     } else {
       setValues({ ...values, links: linksAfterDeleting })
