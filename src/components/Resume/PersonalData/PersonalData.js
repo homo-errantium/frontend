@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import './PersonalData.scss'
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -64,6 +65,20 @@ const PersonalData = ({
     const newLanguages = [...values.languages]
     newLanguages[indexToReplace] = copy
     setLanguagesChanges(newLanguages)
+  }
+
+  const handleLinkChange = ({ i, name, value }) => {
+    const linkToBeChanged = values.links.find(item => item.id === i)
+    const indexToReplace = values.links.findIndex(item => item.id === i)
+    const copy = { ...linkToBeChanged }
+    if (name.slice(0, 9) === 'link_name') {
+      copy.link_name = value
+    } else {
+      copy.link = value
+    }
+    const newLinks = [...values.links]
+    newLinks[indexToReplace] = copy
+    setValues({ ...values, links: newLinks })
   }
 
   return (
@@ -170,17 +185,18 @@ const PersonalData = ({
             dataMaskSecond="tgLink"
             errors={errors}
           />
-          {values.links.map(link => (
+          {values.links?.map(link => (
             <LinkInput
               key={link.id}
               i={link.id}
-              // values={link}
+              values={link}
               addLink={addLink}
               deleteLink={deleteLink}
               firstLabel="Название ссылки"
               secondLabel="Ссылка"
               tipFirst
               tipTextFirst={SITE_LINK_TIP}
+              handleLinkChange={handleLinkChange}
             />
           ))}
         </div>
@@ -212,10 +228,16 @@ PersonalData.propTypes = {
     PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
+      PropTypes.bool,
       PropTypes.arrayOf(
         PropTypes.oneOfType([
+          PropTypes.string,
           PropTypes.objectOf(
-            PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+            PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number,
+              PropTypes.bool,
+            ])
           ),
         ])
       ),

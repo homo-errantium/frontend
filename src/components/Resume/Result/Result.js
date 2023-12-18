@@ -2,30 +2,15 @@ import './Result.scss'
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
 import { useRef } from 'react'
+import createLinkIcon from '../../../img/create-link-icon.svg'
 import DownloadIcon from '../../../img/download-icon.svg'
 import ResultResume from '../ResultResume/ResultResume'
 
-function Result({ values /* checkboxValues */ }) {
+function Result({ values, image /* checkboxValues */ }) {
   const resultResumeRef = useRef(null)
   const navigate = useNavigate()
-  const handleGenerateWord = () => {
-    const preHTML =
-      "<html xmlns:o='urn:schemas-microsoft-com:office:office' " +
-      "xmlns:w='urn:schemas-microsoft-com:office:word' " +
-      "xmlns='http://www.w3.org/TR/REC-html40'>" +
-      "<head><meta charset='utf-8'><title>Export HTML to Word Document with JavaScript</title></head><body>"
-    const postHTML = '</body></html>'
-    const sourceHTML = preHTML + resultResumeRef.current.innerHTML + postHTML
-
-    const source = `data:application/vnd.ms-word;charset=utf-8,${encodeURIComponent(
-      sourceHTML
-    )}`
-    const fileDownload = document.createElement('a')
-    document.body.appendChild(fileDownload)
-    fileDownload.href = source
-    fileDownload.download = 'resume.doc'
-    fileDownload.click()
-    document.body.removeChild(fileDownload)
+  const handleGenerateLink = () => {
+    console.log('тут должен быть другой код')
   }
 
   const handleGeneratePdf = async () => {
@@ -44,6 +29,21 @@ function Result({ values /* checkboxValues */ }) {
             type="button"
             label="button"
             onClick={() => {
+              handleGenerateLink()
+            }}
+          >
+            <img
+              className="result__button-icon"
+              alt="стрелка вниз"
+              src={createLinkIcon}
+            />
+            Создать ссылку
+          </button>
+          <button
+            className="result__button"
+            type="button"
+            label="button"
+            onClick={() => {
               handleGeneratePdf()
             }}
           >
@@ -54,42 +54,38 @@ function Result({ values /* checkboxValues */ }) {
             />
             PDF
           </button>
-          <button
-            className="result__button"
-            type="button"
-            label="button"
-            onClick={() => {
-              handleGenerateWord()
-            }}
-          >
-            <img
-              className="result__button-icon"
-              alt="стрелка вниз"
-              src={DownloadIcon}
-            />
-            Word
-          </button>
         </div>
       </div>
       <div className="result__content" ref={resultResumeRef}>
-        <ResultResume values={values} /* checkboxValues={checkboxValues} */ />
+        <ResultResume values={values} image={image} />
       </div>
     </section>
   )
 }
 
 Result.propTypes = {
+  image: PropTypes.string,
   values: PropTypes.objectOf(
     PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
-      PropTypes.array,
-      PropTypes.object,
+      PropTypes.bool,
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.objectOf(
+            PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number,
+              PropTypes.bool,
+            ])
+          ),
+        ])
+      ),
     ])
   ),
-  // checkboxValues: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.bool])),
 }
 
-Result.defaultProps = { values: {} /* checkboxValues: {} */ }
+Result.defaultProps = { values: {}, image: '' }
 
 export default Result

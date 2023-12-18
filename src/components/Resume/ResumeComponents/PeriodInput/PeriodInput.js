@@ -22,15 +22,14 @@ const PeriodInput = ({
   year,
   values,
   handleCheckboxChange,
-  checkboxValues,
   handleChange,
   setAllTillPresent,
   allTillPresent,
-  setCheckboxValues,
   errors,
   allValues,
   education,
 }) => {
+  console.log(values)
   const location = useLocation()
   const [disabledMonthChoice, setDisabledMonthChoice] = useState(false)
   const [isTillPresent, setIsTillPresent] = React.useState(
@@ -38,7 +37,7 @@ const PeriodInput = ({
   )
   useEffect(() => {
     if (isTillPresent) {
-      if (i === '0') {
+      if (i === '0' || i === '1') {
         setValues(prevValue => ({
           ...prevValue,
           [monthPeriod[1]]: '',
@@ -65,6 +64,9 @@ const PeriodInput = ({
           setValues(prevValue => ({ ...prevValue, educations: yearClear }))
         }
       }
+    }
+    if (disabled) {
+      setIsTillPresent(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isTillPresent])
@@ -200,13 +202,11 @@ const PeriodInput = ({
             <Checkbox
               disabled={disabled}
               name={namePeriod}
-              checkboxValues={checkboxValues}
+              values={values}
               handleCheckboxChange={handleCheckboxChange}
               checkboxText="Настоящее время"
-              checkboxId={`period-checkbox${i}`}
+              checkboxId={`period-checkbox_${i}`}
               onClick={handleCheckboxToggle}
-              setValues={setValues}
-              setCheckboxValues={setCheckboxValues}
             />
           </div>
         )}
@@ -232,31 +232,44 @@ PeriodInput.propTypes = {
   setValues: PropTypes.func.isRequired,
   monthPeriod: PropTypes.arrayOf(PropTypes.string),
   year: PropTypes.arrayOf(PropTypes.string),
-  values: PropTypes.shape({
-    languages: PropTypes.arrayOf(
-      PropTypes.objectOf(PropTypes.string, PropTypes.number)
-    ),
-    jobs: PropTypes.arrayOf(
-      PropTypes.objectOf(
-        PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-      )
-    ),
-  }),
+  values: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.bool,
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.objectOf(
+            PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number,
+              PropTypes.bool,
+            ])
+          ),
+        ])
+      ),
+    ])
+  ),
   handleChange: PropTypes.func,
   setAllTillPresent: PropTypes.func,
   allTillPresent: PropTypes.shape({
     value: PropTypes.bool,
   }),
-  setCheckboxValues: PropTypes.func,
   errors: PropTypes.objectOf(PropTypes.string),
   allValues: PropTypes.objectOf(
     PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
+      PropTypes.bool,
       PropTypes.arrayOf(
         PropTypes.oneOfType([
           PropTypes.objectOf(
-            PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+            PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number,
+              PropTypes.bool,
+            ])
           ),
         ])
       ),
@@ -279,7 +292,6 @@ PeriodInput.defaultProps = {
   handleChange: () => {},
   setAllTillPresent: () => {},
   allTillPresent: {},
-  setCheckboxValues: () => {},
   allValues: {},
   errors: {},
   handleCheckboxChange: () => {},

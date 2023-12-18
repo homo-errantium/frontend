@@ -24,7 +24,7 @@ const AddedQualification = ({
         id={i}
       >
         <FormInput
-          name={`organization_${i}`}
+          name="organization"
           values={values}
           handleChange={handleChange}
           label="Проводившая организация"
@@ -32,7 +32,7 @@ const AddedQualification = ({
           id={i}
         />
         <FormInput
-          name={`course_name_${i}`}
+          name="course_name"
           values={values}
           handleChange={handleChange}
           label="Название курса"
@@ -40,7 +40,7 @@ const AddedQualification = ({
           id={i}
         />
         <FormInput
-          name={`specialization_${i}`}
+          name="specialization"
           values={values}
           handleChange={handleChange}
           label="Специальность"
@@ -56,13 +56,13 @@ const AddedQualification = ({
           values={values}
           handleChange={handleChange}
           namePeriod={`qual_period_checkbox_${i}`}
-          monthPeriod={[`month_qual_start_${i}`, `month_qual_end_${i}`]}
-          year={[`year_qual_start_${i}`, `year_qual_end_${i}`]}
+          monthPeriod={['month_qual_start', 'month_qual_end']}
+          year={['year_qual_start', 'year_qual_end']}
           setValues={setValues}
           allValues={allValues}
         />
         <FormInput
-          name={`description_experience_${i}`}
+          name="description_experience"
           values={values}
           handleChange={handleChange}
           label="Описание полученного опыта"
@@ -71,7 +71,7 @@ const AddedQualification = ({
           id={i}
         />
         <FormInput
-          name={`skills_${i}`}
+          name="skills"
           values={values}
           handleChange={handleChange}
           label="Навыки"
@@ -80,7 +80,7 @@ const AddedQualification = ({
           id={i}
         />
         <FormInput
-          name={`diploma_link_${i}`}
+          name="diploma_link"
           values={values}
           handleChange={handleChange}
           label="Ссылка на дипломную работу"
@@ -124,10 +124,16 @@ AddedQualification.propTypes = {
     PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
+      PropTypes.bool,
       PropTypes.arrayOf(
         PropTypes.oneOfType([
+          PropTypes.string,
           PropTypes.objectOf(
-            PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+            PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number,
+              PropTypes.bool,
+            ])
           ),
         ])
       ),
