@@ -4,11 +4,9 @@ import { Link } from 'react-router-dom'
 import './FormRedirection.scss'
 import classNames from 'classnames'
 
-const FormRedirection = ({ page, text, button, path, isOpen, whiteText }) => (
+const FormRedirection = ({ page, text, button, path, whiteText }) => (
   <div
-    className={`form-redirection__container form-redirection__container_${page} ${
-      isOpen && 'form-redirection__container_popup'
-    }`}
+    className={`form-redirection__container form-redirection__container_${page}`}
   >
     {text && (
       <span
@@ -37,13 +35,12 @@ FormRedirection.propTypes = {
   text: PropTypes.string,
   button: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
-  isOpen: PropTypes.bool.isRequired,
-  whiteText: PropTypes.string,
+  whiteText: PropTypes.bool,
 }
 
 FormRedirection.defaultProps = {
   text: '',
-  whiteText: 'false',
+  whiteText: false,
 }
 
 export default FormRedirection

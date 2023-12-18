@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable array-callback-return */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
+import debounce from 'lodash.debounce'
 import './App.scss'
 import { v4 as uuidv4 } from 'uuid'
 import { Routes, Route, Navigate } from 'react-router-dom'
@@ -280,7 +281,13 @@ function App() {
       setValues({ ...values, [name]: value })
     }
     setErrors({ ...errors, [name]: evt.target.validationMessage })
+    // localStorage.setItem('formData', JSON.stringify(values))
   }
+  // Данные записываются в localStorage при каждом изменении values:
+  useEffect(() => {
+    localStorage.setItem('formData', JSON.stringify(values))
+  }, [values])
+
   // INPUTS  VALIDATION:
   const handleChangeWithValidation = evt => {
     handleChange(evt)
@@ -700,7 +707,15 @@ function App() {
           <Route
             path="/my-profile"
             element={
-              <ProtectedRoute element={Profile} isLoggedIn={isLoggedIn} />
+              <ProtectedRoute
+                element={Profile}
+                isLoggedIn={isLoggedIn}
+                deletePopupSetState={setIsConfirmDeletePopupOpen}
+                values={values}
+                handleChange={handleChangeWithValidation}
+                errors={errors}
+                setErrors={setErrors}
+              />
             }
           />
           <Route
