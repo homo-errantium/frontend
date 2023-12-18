@@ -2,7 +2,6 @@
   width: 59.2%;
   height: 100%;
   min-height: 100vh;
-  padding-right: 20px;
   border-right: 1px solid #D0D0D0;
 }
 .personal-data__container {
@@ -17,6 +16,7 @@
   margin: 36px 0 64px;
   gap: 32px;
   width: 100%;
+  max-width: 729px;
 }
 .personal-data__form-box {
 display: flex;

@@ -69,4 +69,5 @@ PopupRegister.propTypes = {
 PopupRegister.defaultProps = {
   onLogin: () => {},
 }
+
 export default PopupRegister

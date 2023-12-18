@@ -65,24 +65,31 @@ function App() {
 
   // --------------------------- Работа с данными через локальное хранилище -----------------------
 
-  // const [addedExperience, setAddedExperience] = React.useState([])
-
   // Записываем в объект данные из полей
   const [values, setValues] = React.useState(
     JSON.parse(localStorage.getItem('formData')) || {
+      work_experience_checkbox: false,
+      work_period_experience_checkbox: false,
+      education_period_checkbox: false,
+      qualification_checkbox: false,
       languages: [{ id: uuidv4() }],
+      links: [{ id: uuidv4() }],
       jobs: [],
       qualifications: [],
       educations: [],
       portfolio: [],
     }
   )
+
   const [languagesAfterChanges, setLanguagesChanges] = useState(
     values.languages
   )
   const [languagesAfterDeleting, setLanguagesAfterDeleting] = useState(
     values.languages
   )
+
+  // const [links, setLinks] = useState(values.links)
+  const [linksAfterDeleting, setLinksAfterDeleting] = useState(values.links)
   // RECOMMENDATIONS:
   const [duties, setDuties] = useState(false)
   // // Если опыт есть, поля активны. Если нет, поля деактивируются:
@@ -97,10 +104,6 @@ function App() {
   const [allTillPresent, setAllTillPresent] = React.useState(
     JSON.parse(localStorage.getItem('isTillPresent')) || {}
   )
-  // Записываем в объект данные чекбоксов
-  const [checkboxValues, setCheckboxValues] = React.useState(
-    JSON.parse(localStorage.getItem('checkboxData')) || {}
-  )
   const [errors, setErrors] = useState({})
   // Сохраняем ссылку изображения в переменную и вытягиваем из локального хранилища данные
   const [image, setImage] = useState(localStorage.getItem('image') || '')
@@ -110,12 +113,33 @@ function App() {
     const { name, value, id } = evt.target
     const updatedJobs = values.jobs.map(job => {
       if (job.id === id) {
-        return { ...job, [name]: value, id }
+        return {
+          ...job,
+          [name]: value,
+          id,
+        }
       }
       return job
     })
     setValues({ ...values, jobs: updatedJobs })
   }
+
+  // Функция, которая записывает данные ополнительных чекбоксов опыта работы
+  const handleAddJobCheckboxChange = evt => {
+    const { name, id } = evt.target
+    const checkboxId = id.slice(16)
+    const updatedJobs = values.jobs.map(job => {
+      if (job.id === checkboxId) {
+        return {
+          ...job,
+          [name]: !job[name],
+        }
+      }
+      return job
+    })
+    setValues({ ...values, jobs: updatedJobs })
+  }
+
   // Функция, которая записывает данные дополнительных полей с квалификацией
   const handleAddQualificationChange = evt => {
     const { name, value, id } = evt.target
@@ -140,6 +164,22 @@ function App() {
     setValues({ ...values, educations: updatedEducation })
   }
 
+  // Функция, которая записывает данные чекбоксов дополнительных полей с образованием
+  const handleAddEducationCheckboxChange = evt => {
+    const { name, id } = evt.target
+    const checkboxId = id.slice(16)
+    const updatedEducation = values.educations.map(education => {
+      if (education.id === checkboxId) {
+        return {
+          ...education,
+          [name]: !education[name],
+        }
+      }
+      return education
+    })
+    setValues({ ...values, educations: updatedEducation })
+  }
+
   // Функция, которая записывает данные дополнительных полей с портфолио
   const handleAddPortfolioChange = evt => {
     const { name, value, id } = evt.target
@@ -150,6 +190,15 @@ function App() {
       return p
     })
     setValues({ ...values, portfolio: updatedPortfolio })
+  }
+
+  const addLink = () => {
+    if (values.links.length < 5) {
+      setValues({
+        ...values,
+        links: [...values.links, { id: uuidv4() }],
+      })
+    }
   }
 
   // LANGUAGES:
@@ -182,7 +231,7 @@ function App() {
   // }
 
   useEffect(() => {
-    if (languagesAfterDeleting.length === 0) {
+    if (languagesAfterDeleting?.length ?? 0) {
       setValues({ ...values, languages: [{ id: uuidv4() }] })
     } else {
       setValues({ ...values, languages: languagesAfterDeleting })
@@ -190,13 +239,19 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [languagesAfterDeleting])
 
-  // Функция, которая записывает данные чекбоксов
+  useEffect(() => {
+    if (linksAfterDeleting?.length ?? 0) {
+      setValues({ ...values, links: [{ id: uuidv4() }] })
+    } else {
+      setValues({ ...values, links: linksAfterDeleting })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [linksAfterDeleting])
+
+  // Функция, которая записывает данные основных чекбоксов
   const handleCheckboxChange = evt => {
     const { name } = evt.target
-    setCheckboxValues(prevValues => ({
-      ...prevValues,
-      [name]: !prevValues[name],
-    }))
+    setValues(prevValues => ({ ...prevValues, [name]: !prevValues[name] }))
   }
 
   function deleteNonLatin(text) {
@@ -423,12 +478,10 @@ function App() {
 
   // Сохраняем данные полей в локалное хранилище
   const handleClick = () => {
-    const checkboxData = { ...checkboxValues }
     const formData = { ...values }
     localStorage.setItem('hasExperience', JSON.stringify(hasExperience))
     localStorage.setItem('isTillPresent', JSON.stringify(allTillPresent))
     localStorage.setItem('image', image)
-    localStorage.setItem('checkboxData', JSON.stringify(checkboxData))
     localStorage.setItem('formData', JSON.stringify(formData))
     localStorage.setItem('hasQualification', JSON.stringify(hasQualification))
   }
@@ -494,7 +547,9 @@ function App() {
           setLanguagesChanges={setLanguagesChanges}
           setValues={setValues}
           addLanguage={addLanguage}
+          addLink={addLink}
           setLanguagesAfterDeleting={setLanguagesAfterDeleting}
+          setLinksAfterDeleting={setLinksAfterDeleting}
           errors={errors}
           handleChangeWithValidation={handleChangeWithValidation}
           setImage={setImage}
@@ -511,9 +566,7 @@ function App() {
           values={values}
           handleChange={handleChange}
           handleCheckboxChange={handleCheckboxChange}
-          checkboxValues={checkboxValues}
           hasExperience={hasExperience}
-          setCheckboxValues={setCheckboxValues}
           setHasExperience={setHasExperience}
           setValues={setValues}
           setAllTillPresent={setAllTillPresent}
@@ -523,6 +576,7 @@ function App() {
           handleChangeWithValidation={handleChangeWithValidation}
           setErrors={setErrors}
           handleAddJobChange={handleAddJobChange}
+          handleAddJobCheckboxChange={handleAddJobCheckboxChange}
         />
       ),
       id: 2,
@@ -533,7 +587,6 @@ function App() {
       element: (
         <Qualification
           handleCheckboxChange={handleCheckboxChange}
-          checkboxValues={checkboxValues}
           setHasQualification={setHasQualification}
           hasQualification={hasQualification}
           values={values}
@@ -552,12 +605,11 @@ function App() {
           values={values}
           handleChangeWithValidation={handleChangeWithValidation}
           setValues={setValues}
-          checkboxValues={checkboxValues}
           handleCheckboxChange={handleCheckboxChange}
           setAllTillPresent={setAllTillPresent}
           allTillPresent={allTillPresent}
-          setCheckboxValues={setCheckboxValues}
           handleAddEducationChange={handleAddEducationChange}
+          handleAddEducationCheckboxChange={handleAddEducationCheckboxChange}
         />
       ),
       id: 4,
@@ -594,36 +646,6 @@ function App() {
       completedSteps: completedStepsAbout,
     },
     // {
-    //   path: 'qualification',
-    //   element: <Qualification />,
-    //   id: 3,
-    //   completedSteps: completedStepsQualification,
-    // },
-    // {
-    //   path: 'education',
-    //   element: <Education />,
-    //   id: 4,
-    //   completedSteps: completedStepsEducation,
-    // },
-    // {
-    //   path: 'portfolio',
-    //   element: <Portfolio />,
-    //   id: 5,
-    //   completedSteps: completedStepsPortfolio,
-    // },
-    {
-      path: 'skills',
-      element: <Skills values={values} setValues={setValues} />,
-      id: 6,
-      completedSteps: completedStepsSkills,
-    },
-    {
-      path: 'about',
-      element: <About />,
-      id: 7,
-      completedSteps: completedStepsAbout,
-    },
-    // {
     //   path: 'layouts',
     //   element: <Layouts />,
     //   id: 8,
@@ -631,7 +653,7 @@ function App() {
     // },
     {
       path: 'result',
-      element: <Result values={values} checkboxValues={checkboxValues} />,
+      element: <Result values={values} image={image} />,
       id: 9,
       completedSteps: completedStepsPersonalData,
     },
@@ -753,9 +775,9 @@ function App() {
             element={
               <ResultResume
                 values={values}
-                checkboxValues={checkboxValues}
                 isLoggedIn={isLoggedIn}
                 onOpenPopup={handleConfirmExitPopupOpen}
+                image={image}
               />
             }
           />
