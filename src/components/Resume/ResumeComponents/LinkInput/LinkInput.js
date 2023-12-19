@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react'
 import PropTypes from 'prop-types'
 import './LinkInput.scss'
@@ -84,6 +83,12 @@ LinkInput.propTypes = {
   secondLabel: PropTypes.string,
   tipFirst: PropTypes.bool,
   tipTextFirst: PropTypes.node,
+  disabled: PropTypes.bool,
+  deleteLink: PropTypes.func.isRequired,
+  addLink: PropTypes.func.isRequired,
+  i: PropTypes.string.isRequired,
+  values: PropTypes.objectOf(PropTypes.string).isRequired,
+  handleLinkChange: PropTypes.func.isRequired,
   // optionsInputFirst: PropTypes.arrayOf(PropTypes.string),
   // optionsInputSecond: PropTypes.arrayOf(PropTypes.string),
   // i: PropTypes.string.isRequired,
@@ -99,6 +104,7 @@ LinkInput.defaultProps = {
   secondLabel: '',
   tipFirst: false,
   tipTextFirst: '',
+  disabled: false,
   // optionsInputFirst: [],
   // optionsInputSecond: [],
   // addLanguage: () => {},
