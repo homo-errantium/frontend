@@ -15,7 +15,7 @@ function Result({ values, image /* checkboxValues */ }) {
 
   const handleGeneratePdf = async () => {
     await navigate('/result-resume')
-    window.print()
+    await window.print()
     navigate(-1)
   }
 

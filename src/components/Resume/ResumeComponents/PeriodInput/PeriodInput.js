@@ -71,6 +71,8 @@ const PeriodInput = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isTillPresent])
 
+  console.log(typeof allValues.hardskills)
+
   useEffect(() => {
     if (disabled) {
       setValues({
@@ -271,6 +273,7 @@ PeriodInput.propTypes = {
               PropTypes.bool,
             ])
           ),
+          PropTypes.string,
         ])
       ),
     ])

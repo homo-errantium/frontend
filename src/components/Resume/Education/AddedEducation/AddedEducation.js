@@ -117,6 +117,7 @@ AddedEducation.propTypes = {
               PropTypes.bool,
             ])
           ),
+          PropTypes.string,
         ])
       ),
     ])
