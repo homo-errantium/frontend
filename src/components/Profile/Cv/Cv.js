@@ -84,8 +84,14 @@ const Cv = ({ cv, deletePopupSetState }) => {
 }
 
 Cv.propTypes = {
-  cv: PropTypes.bool.isRequired,
+  cv: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ),
   deletePopupSetState: PropTypes.func.isRequired,
+}
+
+Cv.defaultProps = {
+  cv: {},
 }
 
 export default Cv

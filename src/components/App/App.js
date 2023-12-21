@@ -43,9 +43,10 @@ import ResultResume from '../Resume/ResultResume/ResultResume'
 
 function App() {
   // eslint-disable-next-line no-unused-vars
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false) // Пользователь авторизован/неавторизован
-  // eslint-disable-next-line no-unused-vars
-  const [currentUser, setCurrentUser] = React.useState({}) // Сохраняем данные пользователя
+  const [isLoggedIn, setIsLoggedIn] = React.useState(true) // Пользователь авторизован/неавторизован
+  const [currentUser, setCurrentUser] = React.useState(
+    JSON.parse(localStorage.getItem('user')) || { currentPassword: 'qwerty' }
+  ) // Сохраняем данные пользователя
 
   // Переменные для защиты дочерних роутов компонента Resume
   // TODO: установить значение false для всех переменных ниже после сохранения резюме
@@ -106,6 +107,13 @@ function App() {
   const [errors, setErrors] = useState({})
   // Сохраняем ссылку изображения в переменную и вытягиваем из локального хранилища данные
   const [image, setImage] = useState(localStorage.getItem('image') || '')
+  const [imageProfile, setImageProfile] = useState(
+    localStorage.getItem('imageProfile') || ''
+  )
+
+  useEffect(() => {
+    setValues(prevValues => ({ ...prevValues, img: image }))
+  }, [image])
 
   // Функция, которая записывает данные дополнительных полей опыта работы
   const handleAddJobChange = evt => {
@@ -282,10 +290,6 @@ function App() {
     setErrors({ ...errors, [name]: evt.target.validationMessage })
     // localStorage.setItem('formData', JSON.stringify(values))
   }
-  // Данные записываются в localStorage при каждом изменении values:
-  useEffect(() => {
-    localStorage.setItem('formData', JSON.stringify(values))
-  }, [values])
 
   // INPUTS  VALIDATION:
   const handleChangeWithValidation = evt => {
@@ -710,10 +714,13 @@ function App() {
                 element={Profile}
                 isLoggedIn={isLoggedIn}
                 deletePopupSetState={setIsConfirmDeletePopupOpen}
-                values={values}
-                handleChange={handleChangeWithValidation}
+                // values={values}
+                // handleChange={handleChangeWithValidation}
                 errors={errors}
                 setErrors={setErrors}
+                setCurrentUser={setCurrentUser}
+                imageProfile={imageProfile}
+                setImageProfile={setImageProfile}
               />
             }
           />
