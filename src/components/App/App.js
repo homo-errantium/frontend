@@ -44,7 +44,7 @@ import ResultResume from '../Resume/ResultResume/ResultResume'
 function App() {
   const location = useLocation()
   // eslint-disable-next-line no-unused-vars
-  const [isLoggedIn, setIsLoggedIn] = React.useState(true) // Пользователь авторизован/неавторизован
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false) // Пользователь авторизован/неавторизован
   const [currentUser, setCurrentUser] = React.useState(
     JSON.parse(localStorage.getItem('user')) || {}
   ) // Сохраняем данные пользователя

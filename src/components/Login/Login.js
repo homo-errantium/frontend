@@ -24,6 +24,7 @@ const Login = ({ onLogin, isLoggedIn }) => (
           page="login"
           button="Зарегистрироваться"
           path="/signup"
+          whiteText
         />
       </div>
     </section>
