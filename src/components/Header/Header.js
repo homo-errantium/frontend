@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useNavigate, useLocation, NavLink } from 'react-router-dom'
@@ -18,6 +19,7 @@ function Header({
   onOpenPopup,
   setCompletedSteps,
   onClick,
+  handleResumeNamePopupOpen,
 }) {
   const navigate = useNavigate()
   const location = useLocation()
@@ -83,14 +85,15 @@ function Header({
               </button>
             </NavLink>
 
-            <NavLink className="header__nav-link" to="/">
+            <NavLink className="header__nav-link" to="#">
               <button
                 className="header__button header__button_orange"
                 type="button"
                 label="button"
                 onClick={() => {
+                  handleResumeNamePopupOpen()
                   setCompletedSteps()
-                  navigate(`${nextPage}`)
+                  // navigate(`${nextPage}`)
                 }}
               >
                 Сохранить

@@ -7,7 +7,6 @@ import DeleteIcon from '../../../img/trash-icon-red.svg'
 import ellipsesIcon from '../../../img/ellipses-icon.svg'
 
 const Cv = ({ cv, deletePopupSetState }) => {
-  const { image, name } = cv
   const [isEditCvPopupOpen, setIsEditCvPopupOpen] = useState(false)
 
   const openCvMenu = () => {
@@ -29,7 +28,7 @@ const Cv = ({ cv, deletePopupSetState }) => {
   return (
     <div className="profile__cv-container">
       <div className="profile__cv-image-container">
-        <img src={image} alt="резюме" className="profile__cv-image" />
+        <img src={cv.img} alt="резюме" className="profile__cv-image" />
         <button
           type="button"
           className="profile__cv-changes-button link"
@@ -38,7 +37,7 @@ const Cv = ({ cv, deletePopupSetState }) => {
           <img src={ellipsesIcon} alt="многоточие" className="link" />
         </button>
       </div>
-      <span className="profile__cv-name">{name}</span>
+      <span className="profile__cv-name">{cv.resume_name}</span>
       {isEditCvPopupOpen && (
         <div className="profile__cv-menu">
           <button
@@ -85,7 +84,23 @@ const Cv = ({ cv, deletePopupSetState }) => {
 
 Cv.propTypes = {
   cv: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.bool,
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.objectOf(
+            PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number,
+              PropTypes.bool,
+            ])
+          ),
+        ])
+      ),
+    ])
   ),
   deletePopupSetState: PropTypes.func.isRequired,
 }

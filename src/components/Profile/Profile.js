@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-bind */
 import React, { useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 import './Profile.scss'
@@ -6,8 +5,6 @@ import IMask from 'imask'
 import classNames from 'classnames'
 import Header from '../Header/Header'
 import ImageUpload from './ImageUpload/ImageUpload'
-import cvExampleOne from '../../img/cv-examples/cv-1.png'
-import cvExampleTwo from '../../img/cv-examples/cv-2.svg'
 import Cv from './Cv/Cv'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
@@ -18,6 +15,7 @@ function Profile({
   setCurrentUser,
   imageProfile,
   setImageProfile,
+  arrValues,
 }) {
   const nextPage = '/*'
   const [isProfileData, setIsProfileData] = useState(true)
@@ -31,7 +29,6 @@ function Profile({
   }
 
   // ЛОГИКА СМЕНЫ ПАРОЛЯ
-  // const [passwordValues, setPasswordValues] = useState({})
   const [passwordErrors, setPasswordErrors] = useState({})
   const [isValid, setIsValid] = useState(false)
 
@@ -135,12 +132,6 @@ function Profile({
     setIsProfileData(false)
     setIsContacts(true)
   }
-
-  // ПРИМЕРЫ ДАННЫХ ДЛЯ РЕЗЮМЕ
-  const cvArray = [
-    { id: 1, image: cvExampleOne, name: 'Резюме 1' },
-    { id: 2, image: cvExampleTwo, name: 'Резюме 2' },
-  ]
 
   const handleChangePasswordSubmit = e => {
     e.preventDefault()
@@ -450,7 +441,7 @@ function Profile({
           <div className="profile__saved-resumes">
             <h2 className="profile__saved-resumes-title">Сохраненные резюме</h2>
             <div className="profile__cvs-container">
-              {cvArray.map(cv => (
+              {arrValues.map(cv => (
                 <Cv
                   key={cv.id}
                   cv={cv}
@@ -474,10 +465,32 @@ Profile.propTypes = {
   setCurrentUser: PropTypes.func.isRequired,
   imageProfile: PropTypes.string,
   setImageProfile: PropTypes.func.isRequired,
+  arrValues: PropTypes.arrayOf(
+    PropTypes.objectOf(
+      PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.bool,
+        PropTypes.arrayOf(
+          PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.objectOf(
+              PropTypes.oneOfType([
+                PropTypes.string,
+                PropTypes.number,
+                PropTypes.bool,
+              ])
+            ),
+          ])
+        ),
+      ])
+    )
+  ),
 }
 
 Profile.defaultProps = {
   imageProfile: '',
+  arrValues: [],
 }
 
 export default Profile
