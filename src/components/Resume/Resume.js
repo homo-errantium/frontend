@@ -21,6 +21,7 @@ function Resume({
   // setCompletedLayouts,
   onClick,
   duties,
+  handleResumeNamePopupOpen,
 }) {
   const location = useLocation()
   // Находим индекс элемента в массиве с локациями
@@ -59,6 +60,7 @@ function Resume({
         onOpenPopup={onOpenPopup}
         setCompletedSteps={setCompletedSteps}
         onClick={onClick}
+        handleResumeNamePopupOpen={handleResumeNamePopupOpen}
       />
       <main className="resume">
         {location.pathname === '/resume/result' ? (
@@ -85,10 +87,12 @@ Resume.propTypes = {
   // setCompletedLayouts: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
   duties: PropTypes.bool,
+  handleResumeNamePopupOpen:PropTypes.func,
 }
 
 Resume.defaultProps = {
   duties: false,
+  handleResumeNamePopupOpen: () => {},
 }
 
 export default Resume
