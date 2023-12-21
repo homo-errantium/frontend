@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useNavigate, useLocation, NavLink } from 'react-router-dom'
 import './Header.scss'
-import headerIcon from '../../logo.svg'
+// import headerIcon from '../../logo.svg'
 import ResumeLogo from '../../img/resume.svg'
 import PlusLogo from '../../img/plus-logo.svg'
 import ExitIcon from '../../img/exit-icon.svg'
@@ -18,6 +18,7 @@ function Header({
   onOpenPopup,
   setCompletedSteps,
   onClick,
+  handleResumeNamePopupOpen,
 }) {
   const navigate = useNavigate()
   const location = useLocation()
@@ -30,6 +31,8 @@ function Header({
   const isPersonDataPage = () => !!(path === '/resume/personal-data')
 
   const isResultPage = () => !!(path === '/resume/result')
+
+  const isProfilePage = () => !!(path === '/my-profile')
 
   const isNotFoundPage = () =>
     !!(
@@ -47,7 +50,48 @@ function Header({
       path !== '/resume/layouts' &&
       path !== '/profession'
     )
-
+  // Личный кабинет
+  if (isProfilePage()) {
+    return (
+      <header className="header header_main">
+        <div className="header__flex-container header__flex-container_main">
+          <NavLink className="header__nav-link" to="/">
+            <div className="header__logo">
+              <img
+                alt="резюме "
+                src={ResumeLogo}
+                className="header__logo-resume"
+              />
+              <img alt="плюс" src={PlusLogo} className="header__logo-plus" />
+            </div>
+          </NavLink>
+          <div className="header__main-buttons">
+            <NavLink className="header__nav-link" to="/resume">
+              <span className="header__main-button">Создать резюме</span>
+            </NavLink>
+            <button
+              className="header__main-button header__logout-button"
+              type="button"
+              label="button"
+              onClick={() => {
+                navigate('/')
+                // TODO очистить localStorage?
+              }}
+            >
+              Выйти
+              <div className="header__button-icon_flex-container">
+                <img
+                  className="header__button-icon header__button-icon_exit"
+                  alt="стрелка назад"
+                  src={ExitIcon}
+                />
+              </div>
+            </button>
+          </div>
+        </div>
+      </header>
+    )
+  }
   // на странице готового  резюме
   if (isResultPage()) {
     return (
@@ -59,43 +103,49 @@ function Header({
             label="button"
             onClick={onOpenPopup}
           >
-            <img
-              className="header__button-icon"
-              alt="стрелка назад"
-              src={BackToProfileIcon}
-            />
+            <div className="header__button-icon_flex-container">
+              <img
+                className="header__button-icon header__button-icon_personal"
+                alt="стрелка назад"
+                src={BackToProfileIcon}
+              />
+            </div>
             Личный кабинет
           </button>
           <div className="header__steps-buttons">
-            <NavLink className="header__nav-link" to="/resume/personal-data">
-              <button
-                className="header__button header__button_black header__button_prev"
-                type="button"
-                label="button"
-                onClick={() => navigate('/resume/personal-data')}
-              >
+            {/* <NavLink className="header__nav-link" to="/resume/personal-data"> */}
+            <button
+              className="header__button header__button_black header__button_prev"
+              type="button"
+              label="button"
+              onClick={() => navigate('/resume/personal-data')}
+            >
+              <div className="header__button-icon_flex-container">
                 <img
-                  className="header__button-icon"
+                  className="header__button-icon header__button-icon_edit"
                   alt="стрелка влево"
                   src={EditIcon}
                 />
-                Редактировать
-              </button>
-            </NavLink>
+              </div>
+              Редактировать
+            </button>
+            {/* </NavLink> */}
 
-            <NavLink className="header__nav-link" to="/">
-              <button
-                className="header__button header__button_orange"
-                type="button"
-                label="button"
-                onClick={() => {
-                  setCompletedSteps()
-                  navigate(`${nextPage}`)
-                }}
-              >
-                Сохранить
-              </button>
-            </NavLink>
+            {/* <NavLink className="header__nav-link" to="/"> */}
+            <button
+              className="header__button header__button_orange"
+              type="button"
+              label="button"
+              onClick={() => {
+                handleResumeNamePopupOpen()
+                // onOpenPopup()
+                // setCompletedSteps()
+                // navigate(`${nextPage}`)
+              }}
+            >
+              Сохранить
+            </button>
+            {/* </NavLink> */}
           </div>
         </div>
       </header>
@@ -120,35 +170,44 @@ function Header({
   // старт страница + залогинены
   if (isMainPage() && isLoggedIn) {
     return (
-      <header className="header">
-        <NavLink className="header__link" to="/">
-          <img src={headerIcon} alt="header logo" className="header__logo" />
-        </NavLink>
-        <div className="header__buttons-container">
-          <button
-            className="header__button"
-            type="button"
-            label="button"
-            onClick={() => navigate('/resume/personal-data')}
-          >
-            Создать резюме
-          </button>
-          <button
-            className="header__button"
-            type="button"
-            label="button"
-            onClick={() => navigate('/my-profile')}
-          >
-            Личный кабинет
-          </button>
-          <button
-            className="header__button"
-            type="button"
-            label="button"
-            onClick={() => navigate('/')}
-          >
-            Выйти
-          </button>
+      <header className="header header_main">
+        <div className="header__flex-container header__flex-container_main">
+          <NavLink className="header__nav-link" to="/">
+            <div className="header__logo">
+              <img
+                alt="резюме "
+                src={ResumeLogo}
+                className="header__logo-resume"
+              />
+              <img alt="плюс" src={PlusLogo} className="header__logo-plus" />
+            </div>
+          </NavLink>
+          <div className="header__main-buttons">
+            <NavLink className="header__nav-link" to="/my-profile">
+              <span className="header__main-button">Личный кабинет</span>
+            </NavLink>
+            <NavLink className="header__nav-link" to="/resume">
+              <span className="header__main-button">Создать резюме</span>
+            </NavLink>
+            <button
+              className="header__main-button header__logout-button"
+              type="button"
+              label="button"
+              onClick={() => {
+                navigate('/')
+                // TODO очистить localStorage?
+              }}
+            >
+              Выйти
+              <div className="header__button-icon_flex-container">
+                <img
+                  className="header__button-icon header__button-icon_exit"
+                  alt="стрелка назад"
+                  src={ExitIcon}
+                />
+              </div>
+            </button>
+          </div>
         </div>
       </header>
     )
@@ -207,19 +266,39 @@ function Header({
     return (
       <header className="header">
         <div className="header__flex-container">
-          <button
-            className="header__button"
-            type="button"
-            label="button"
-            onClick={onOpenPopup}
-          >
-            <img
-              className="header__button-icon"
-              alt="стрелка назад"
-              src={BackToProfileIcon}
-            />
-            Личный кабинет
-          </button>
+          {isLoggedIn ? (
+            <button
+              className="header__button"
+              type="button"
+              label="button"
+              onClick={() => navigate('/my-profile')}
+            >
+              <div className="header__button-icon_flex-container">
+                <img
+                  className="header__button-icon header__button-icon_personal"
+                  alt="стрелка назад"
+                  src={BackToProfileIcon}
+                />
+              </div>
+              Личный кабинет
+            </button>
+          ) : (
+            <button
+              className="header__button"
+              type="button"
+              label="button"
+              onClick={() => navigate('/')}
+            >
+              <div className="header__button-icon_flex-container">
+                <img
+                  className="header__button-icon header__button-icon_personal"
+                  alt="стрелка назад"
+                  src={BackToProfileIcon}
+                />
+              </div>
+              Главная страница
+            </button>
+          )}
           <div className="header__steps-buttons">
             {!isPersonDataPage() && (
               <button
@@ -228,16 +307,18 @@ function Header({
                 label="button"
                 onClick={() => navigate(-1)}
               >
-                <img
-                  className="header__button-icon"
-                  alt="стрелка влево"
-                  src={LeftArrowIcon}
-                />
+                <div className="header__button-icon_flex-container">
+                  <img
+                    className="header__button-icon header__button-icon_previous"
+                    alt="стрелка влево"
+                    src={LeftArrowIcon}
+                  />
+                </div>
                 Предыдущий шаг
               </button>
             )}
             <button
-              className="header__button header__button_black header__button_next"
+              className="header__button header__button_orange header__button_next"
               type="button"
               label="button"
               onClick={() => {
@@ -247,11 +328,13 @@ function Header({
               }}
             >
               Следующий шаг
-              <img
-                className="header__button-icon"
-                alt="стрелка вправо"
-                src={RightArrowIcon}
-              />
+              <div className="header__button-icon_flex-container">
+                <img
+                  className="header__button-icon header__button-icon-next"
+                  alt="стрелка вправо"
+                  src={RightArrowIcon}
+                />
+              </div>
             </button>
           </div>
         </div>
@@ -266,13 +349,15 @@ Header.propTypes = {
   onOpenPopup: PropTypes.func,
   setCompletedSteps: PropTypes.func,
   onClick: PropTypes.func,
+  handleResumeNamePopupOpen: PropTypes.func,
 }
 Header.defaultProps = {
-  isLoggedIn: false,
+  isLoggedIn: true,
   nextPage: '',
   onOpenPopup: () => {},
   setCompletedSteps: () => {},
   onClick: () => {},
+  handleResumeNamePopupOpen: () => {},
 }
 
 export default Header

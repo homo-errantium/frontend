@@ -16,11 +16,13 @@
 // }
 
 .header {
-  flex-grow: 0; /*чтобы header не рос*/
-  flex-shrink: 0; /*чтобы header не сжимался*/
+  flex-grow: 0;
+  /*чтобы header не рос*/
+  flex-shrink: 0;
+  /*чтобы header не сжимался*/
   background-color: #f7f7f7;
   width: 100%;
-  min-height: 116px;
+  // min-height: 116px;
   border-bottom: 1px solid #A6A6A6;
 }
 
@@ -36,6 +38,7 @@
   width: 100px;
   height: 16px;
 }
+
 .header_main {
   background-color: #1a1b22;
   min-height: 80px;
@@ -43,7 +46,7 @@
 }
 
 .header__flex-container {
-  margin: 32px auto;
+  margin: 24px auto;
   max-width: 88%;
   display: flex;
   justify-content: space-between;
@@ -79,11 +82,19 @@
 .header__main-button {
   color: #f7f7f7;
   text-align: center;
-  font-family: Open Sans, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 20px;
   font-weight: 400;
   line-height: 1.2;
   margin: 0;
+}
+
+.header__logout-button {
+  display: flex;
+  background-color: #1a1b22;
+  color: #f7f7f7;
+  border: none;
+  cursor: pointer;
 }
 
 .header__exit-button {
@@ -104,11 +115,46 @@
   margin-left: auto; // чтобы прижимался к правомуу краю
 }
 
-.header__button-icon {
+.header__button-icon_flex-container {
   cursor: pointer;
+  display: flex;
+  width: 20px;
+  height: 20px;
+}
+
+.header__button-icon {
+  margin: auto;
+}
+
+.header__button-icon_exit {
+  margin-left: 4px;
+  width: 24px;
+  height: 24px;
+
+}
+
+.header__button-icon_personal {
+  width: 12.5px;
+  height: 10px;
+}
+
+.header__button-icon_previous {
+  width: 13px;
+  height: 12px;
+}
+
+.header__button-icon-next {
+  width: 13px;
+  height: 12px;
+}
+
+.header__button-icon_edit {
+  width: 20px;
+  height: 20px;
 }
 
 .header__button {
+  height: 48px;
   display: flex;
   gap: 4px;
   justify-content: center;
@@ -120,10 +166,10 @@
   cursor: pointer;
   min-height: 20px;
   color: #1a1b22;
-  font-family: Open Sans, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 20px;
   font-weight: 400;
-  line-height: 1.2;
+  line-height: 120%;
 }
 
 .header__button_black {
@@ -135,11 +181,6 @@
   background-color: #DA693F;
   color: #fff;
   border-color: #DA693F;
-}
-
-.header__button-icon {
-  width: 20px;
-  height: 20px;
 }
 
 .header__nav-link {

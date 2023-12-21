@@ -751,6 +751,7 @@ function App() {
                 // setCompletedLayouts={setCompletedLayouts}
                 onClick={handleClick}
                 duties={duties}
+                handleResumeNamePopupOpen={handleResumeNamePopupOpen}
               />
             }
           >
