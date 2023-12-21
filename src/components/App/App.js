@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable array-callback-return */
-import React, { useState, useEffect, useCallback } from 'react'
-import debounce from 'lodash.debounce'
+import React, { useState, useEffect } from 'react'
+// import debounce from 'lodash.debounce'
 import './App.scss'
 import { v4 as uuidv4 } from 'uuid'
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import Main from '../Main/Main'
 import Profession from '../Profession/Profession'
@@ -42,10 +42,12 @@ import PopupConfirmationRegister from '../Popups/PopupConfirmationRegister/Popup
 import ResultResume from '../Resume/ResultResume/ResultResume'
 
 function App() {
+  const location = useLocation()
   // eslint-disable-next-line no-unused-vars
   const [isLoggedIn, setIsLoggedIn] = React.useState(true) // Пользователь авторизован/неавторизован
-  // eslint-disable-next-line no-unused-vars
-  const [currentUser, setCurrentUser] = React.useState({}) // Сохраняем данные пользователя
+  const [currentUser, setCurrentUser] = React.useState(
+    JSON.parse(localStorage.getItem('user')) || {}
+  ) // Сохраняем данные пользователя
 
   // Переменные для защиты дочерних роутов компонента Resume
   // TODO: установить значение false для всех переменных ниже после сохранения резюме
@@ -68,6 +70,10 @@ function App() {
   // Записываем в объект данные из полей
   const [values, setValues] = React.useState(
     JSON.parse(localStorage.getItem('formData')) || {
+      name: currentUser.name,
+      surname: currentUser.surname,
+      birthday: currentUser.birthday,
+      city: currentUser.city,
       work_experience_checkbox: false,
       work_period_experience_checkbox: false,
       education_period_checkbox: false,
@@ -80,6 +86,16 @@ function App() {
       portfolio: [],
     }
   )
+
+  const [arrValues, setArrValues] = useState(
+    JSON.parse(localStorage.getItem('allData')) || []
+  )
+
+  useEffect(() => {
+    if (location.pathname === '/resume/result') {
+      setValues({ ...values, id: uuidv4() })
+    }
+  }, [location.pathname])
 
   const [languagesAfterChanges, setLanguagesChanges] = useState(
     values.languages
@@ -106,6 +122,13 @@ function App() {
   const [errors, setErrors] = useState({})
   // Сохраняем ссылку изображения в переменную и вытягиваем из локального хранилища данные
   const [image, setImage] = useState(localStorage.getItem('image') || '')
+  const [imageProfile, setImageProfile] = useState(
+    localStorage.getItem('imageProfile') || ''
+  )
+
+  useEffect(() => {
+    setValues(prevValues => ({ ...prevValues, img: image }))
+  }, [image])
 
   // Функция, которая записывает данные дополнительных полей опыта работы
   const handleAddJobChange = evt => {
@@ -282,10 +305,6 @@ function App() {
     setErrors({ ...errors, [name]: evt.target.validationMessage })
     // localStorage.setItem('formData', JSON.stringify(values))
   }
-  // Данные записываются в localStorage при каждом изменении values:
-  useEffect(() => {
-    localStorage.setItem('formData', JSON.stringify(values))
-  }, [values])
 
   // INPUTS  VALIDATION:
   const handleChangeWithValidation = evt => {
@@ -477,6 +496,7 @@ function App() {
 
   // Сохраняем данные полей в локалное хранилище
   const handleClick = () => {
+    setValues(prevValues => ({ ...prevValues, img: image }))
     const formData = { ...values }
     localStorage.setItem('hasExperience', JSON.stringify(hasExperience))
     localStorage.setItem('isTillPresent', JSON.stringify(allTillPresent))
@@ -509,7 +529,6 @@ function App() {
   }
 
   // открытие попапа
-  // eslint-disable-next-line no-unused-vars
   const handleResumeNamePopupOpen = () => {
     setIsResumeNamePopupOpen(true)
   }
@@ -710,10 +729,12 @@ function App() {
                 element={Profile}
                 isLoggedIn={isLoggedIn}
                 deletePopupSetState={setIsConfirmDeletePopupOpen}
-                values={values}
-                handleChange={handleChangeWithValidation}
                 errors={errors}
                 setErrors={setErrors}
+                setCurrentUser={setCurrentUser}
+                imageProfile={imageProfile}
+                setImageProfile={setImageProfile}
+                arrValues={arrValues}
               />
             }
           />
@@ -804,6 +825,10 @@ function App() {
         <PopupResumeName
           isOpen={isResumeNamePopupOpen}
           onClose={closeAllPopup}
+          setValues={setValues}
+          values={values}
+          setArrValues={setArrValues}
+          arrValues={arrValues}
         />
         {/* Попап подтверждения удаления */}
         <PopupConfirmationDelete

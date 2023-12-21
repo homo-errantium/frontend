@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable prettier/prettier */
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -18,6 +19,7 @@ function Resume({
   setCompletedStepsPortfolio,
   setCompletedStepsSkills,
   setCompletedStepsAbout,
+  handleResumeNamePopupOpen,
   // setCompletedLayouts,
   onClick,
   duties,
