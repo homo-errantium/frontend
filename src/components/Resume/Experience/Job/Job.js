@@ -7,7 +7,7 @@ import FormInput from '../../ResumeComponents/FormInput/FormInput'
 import PeriodInput from '../../ResumeComponents/PeriodInput/PeriodInput'
 import { JOB_TIP } from '../../../../constants/tips'
 import PlusIcon from '../../../../img/plus-icon.svg'
-import TrashIcon from '../../../../img/trash-icon.svg'
+import TrashIcon from '../../../../img/trash-icon-red.svg'
 
 const Job = ({
   hasExperience,
