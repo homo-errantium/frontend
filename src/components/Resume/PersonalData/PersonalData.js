@@ -119,6 +119,7 @@ const PersonalData = ({
               <ImageUploadForm
                 name="photo"
                 label="Фото"
+                imageValues={values.img}
                 tip
                 tipText={PHOTO_TIP}
                 setImage={setImage}

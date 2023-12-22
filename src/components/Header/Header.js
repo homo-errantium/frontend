@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useNavigate, useLocation, NavLink } from 'react-router-dom'
@@ -74,8 +75,12 @@ function Header({
               type="button"
               label="button"
               onClick={() => {
+                localStorage.removeItem('formData')
+                localStorage.removeItem('hasExperience')
+                localStorage.removeItem('isTillPresent')
+                localStorage.removeItem('image')
+                localStorage.removeItem('hasQualification')
                 navigate('/')
-                // TODO очистить localStorage?
               }}
             >
               Выйти
@@ -195,6 +200,11 @@ function Header({
               label="button"
               onClick={() => {
                 navigate('/')
+                localStorage.removeItem('formData')
+                localStorage.removeItem('hasExperience')
+                localStorage.removeItem('isTillPresent')
+                localStorage.removeItem('image')
+                localStorage.removeItem('hasQualification')
                 // TODO очистить localStorage?
               }}
             >

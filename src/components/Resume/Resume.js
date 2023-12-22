@@ -18,10 +18,10 @@ function Resume({
   setCompletedStepsPortfolio,
   setCompletedStepsSkills,
   setCompletedStepsAbout,
+  handleResumeNamePopupOpen,
   // setCompletedLayouts,
   onClick,
   duties,
-  handleResumeNamePopupOpen,
 }) {
   const location = useLocation()
   // Находим индекс элемента в массиве с локациями

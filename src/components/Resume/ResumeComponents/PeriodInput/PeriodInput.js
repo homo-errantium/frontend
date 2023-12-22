@@ -29,7 +29,6 @@ const PeriodInput = ({
   allValues,
   education,
 }) => {
-  console.log(values)
   const location = useLocation()
   const [disabledMonthChoice, setDisabledMonthChoice] = useState(false)
   const [isTillPresent, setIsTillPresent] = React.useState(

@@ -1,9 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { useState } from 'react'
 import './ImageUpload.scss'
+import PropTypes from 'prop-types'
 
-const ImageUpload = () => {
-  const [image, setImage] = useState()
+const ImageUpload = ({ image, setImage, name, currentImage }) => {
   function handleChange(e) {
     const canvas = document.createElement('canvas')
     const context = canvas.getContext('2d')
@@ -23,16 +22,17 @@ const ImageUpload = () => {
       <div className="image-upload-form__form">
         <div className="image-upload-form__photo-container">
           {image && (
-            <img className="image-upload-form__photo" alt={image} src={image} />
+            <img
+              className="image-upload-form__photo"
+              alt={name}
+              src={currentImage || image}
+            />
           )}
-          <label
-            className="image-upload-form__button"
-            htmlFor="image-input-photo"
-          >
+          <label className="image-upload-form__button" htmlFor={name}>
             <input
               className="image-upload-form__input"
-              name="photo"
-              id="image-input-photo"
+              name={name}
+              id={name}
               type="file"
               accept=".png,.jpg,.jpeg,"
               onChange={handleChange}
@@ -42,6 +42,18 @@ const ImageUpload = () => {
       </div>
     </section>
   )
+}
+
+ImageUpload.propTypes = {
+  image: PropTypes.string,
+  setImage: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  currentImage: PropTypes.string,
+}
+
+ImageUpload.defaultProps = {
+  image: '',
+  currentImage: undefined,
 }
 
 export default ImageUpload
