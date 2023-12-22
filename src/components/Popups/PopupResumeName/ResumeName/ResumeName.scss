@@ -4,23 +4,25 @@
   align-items: center;
   border-radius: 44px;
   background: transparent;
-  padding: 76px 72px;
+  padding: 40px 72px 40px 40px;
+  width: 567px;
 }
 
 .resume-name__description {
   margin: 0;
-  max-width: 475px;
+  max-width: 567px;
   color: #212121;
   text-align: center;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 20px;
-  font-weight: 400;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
   line-height: 1.2;
+  text-align: left;
 }
 
 .resume-name__input {
   box-sizing: border-box;
-  width: 500px;
+  width: 567px;
   height: 48px;
   border-radius: 16px;
   border: 1px solid #9f9f9f;
@@ -30,7 +32,7 @@
   font-size: 20px;
   font-weight: 400;
   line-height: 1;
-  margin-top: 32px;
+  margin-top: 24px;
   outline: #000;
 }
 
@@ -45,8 +47,9 @@
 }
 .resume-name__buttons {
   display: flex;
+  width: 100%;
   margin-top: 35px;
-  gap: 20px;
+  gap: 27px;
 }
 
 .resume-name__button {
@@ -56,7 +59,7 @@
   line-height: 1.2;
   border-radius: 16px;
   border: 2px solid;
-  width: 240px;
+  width: 305px;
   height: 48px;
 }
 
@@ -69,6 +72,10 @@
   color: #ff4b4b;
   background-color: #fff;
   border-color: #ff4b4b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
 }
 
 .resume-name__button_save {
