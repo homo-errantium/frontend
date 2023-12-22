@@ -1,6 +1,6 @@
 import './ConfirmationRegister.scss'
 import { useNavigate } from 'react-router'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 function ConfirmationRegister({ onClose }) {
@@ -35,9 +35,16 @@ function ConfirmationRegister({ onClose }) {
           Зарегистрироваться
         </button>
       </div>
-      <Link className="confirmation-reg__link link" to="/signin">
+      <button
+        type="button"
+        className="confirmation-reg__link link"
+        onClick={() => {
+          navigate('/signin')
+          onClose()
+        }}
+      >
         Уже есть аккаунт? Войти
-      </Link>
+      </button>
     </div>
   )
 }

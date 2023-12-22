@@ -4,7 +4,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Tip from '../../ResumeComponents/Tip/Tip'
 
-const ImageUploadForm = ({ label, tip, tipText, name, image, setImage }) => {
+const ImageUploadForm = ({
+  label,
+  tip,
+  tipText,
+  name,
+  image,
+  setImage,
+  imageValues,
+}) => {
   function handleChange(e) {
     const canvas = document.createElement('canvas')
     const context = canvas.getContext('2d')
@@ -37,14 +45,14 @@ const ImageUploadForm = ({ label, tip, tipText, name, image, setImage }) => {
             <img
               className="image-upload__photo"
               alt="user avatar"
-              src={image}
+              src={imageValues || image}
             />
           )}
-          <label className="image-upload__button" htmlFor="image-input-photo">
+          <label className="image-upload__button" htmlFor={name}>
             <input
               className="image-upload__input"
               name={name}
-              id="image-input-photo"
+              id={name}
               type="file"
               accept=".png,.jpg,.jpeg,"
               onChange={handleChange}
@@ -72,6 +80,7 @@ ImageUploadForm.propTypes = {
   }),
   image: PropTypes.string,
   setImage: PropTypes.func.isRequired,
+  imageValues: PropTypes.string,
 }
 ImageUploadForm.defaultProps = {
   label: '',
@@ -79,5 +88,6 @@ ImageUploadForm.defaultProps = {
   tipText: '',
   values: {},
   image: '',
+  imageValues: undefined,
 }
 export default ImageUploadForm

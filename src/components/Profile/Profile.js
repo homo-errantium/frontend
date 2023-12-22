@@ -1,16 +1,129 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 import './Profile.scss'
+import IMask from 'imask'
 import classNames from 'classnames'
 import Header from '../Header/Header'
-import ImageUploadForm from '../Resume/PersonalData/ImageUploadForm/ImageUploadForm'
-import cvExampleOne from '../../img/cv-examples/cv-1.png'
-import cvExampleTwo from '../../img/cv-examples/cv-2.svg'
+import ImageUpload from './ImageUpload/ImageUpload'
+import Cv from './Cv/Cv'
+import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
-function Profile({ isLoggedIn }) {
+function Profile({
+  isLoggedIn,
+  deletePopupSetState,
+  errors,
+  setCurrentUser,
+  imageProfile,
+  setImageProfile,
+  arrValues,
+}) {
   const nextPage = '/*'
   const [isProfileData, setIsProfileData] = useState(true)
   const [isContacts, setIsContacts] = useState(false)
+  const currentUser = useContext(CurrentUserContext)
+
+  // ОТКРЫТИЕ ДОПОЛНИТЕЛЬНЫХ ПОЛЕЙ ДЛЯ СМЕНЫ ПАРОЛЯ
+  const [isEditPassword, setIsEditPassword] = useState(false)
+  const handleCheckboxChange = () => {
+    setIsEditPassword(!isEditPassword)
+  }
+
+  // ЛОГИКА СМЕНЫ ПАРОЛЯ
+  const [passwordErrors, setPasswordErrors] = useState({})
+  const [isValid, setIsValid] = useState(false)
+
+  const currentPassword = 'qwerty'
+
+  function handleChange(evt) {
+    const { name, value } = evt.target
+    if (name === 'previousPassword') {
+      setCurrentUser({ ...currentUser, [name]: value })
+      setIsValid(evt.target.closest('form').checkValidity())
+      if (evt.target.value.length < 2) {
+        setIsValid(false)
+        setPasswordErrors({
+          ...passwordErrors,
+          previousPassword: 'Пароль должен иметь не менее 2 символов',
+        })
+      } else {
+        setPasswordErrors({
+          ...passwordErrors,
+          [name]: evt.target.validationMessage,
+        })
+      }
+    }
+
+    if (name === 'confirmPassword') {
+      setIsValid(evt.target.closest('form').checkValidity())
+      if (evt.target.value.length < 1) {
+        setIsValid(false)
+        setPasswordErrors({
+          ...passwordErrors,
+          passwordConfirmation: 'Необходимо повторно ввести пароль',
+        })
+      } else {
+        setCurrentUser({ ...currentUser, [name]: value })
+      }
+    }
+
+    if (name === 'newPassword') {
+      setCurrentUser({ ...currentUser, [name]: value })
+      setIsValid(evt.target.closest('form').checkValidity())
+      if (evt.target.value.length < 2) {
+        setIsValid(false)
+        setPasswordErrors({
+          ...passwordErrors,
+          newPassword: 'Пароль должен иметь не менее 2 символов',
+        })
+      } else {
+        setPasswordErrors({
+          ...passwordErrors,
+          [name]: evt.target.validationMessage,
+        })
+      }
+    }
+
+    setCurrentUser({ ...currentUser, [name]: value })
+  }
+
+  useEffect(() => {
+    setCurrentUser(prevUser => ({
+      ...prevUser,
+      imageProfile,
+    }))
+  }, [imageProfile])
+
+  useEffect(() => {
+    localStorage.setItem('user', JSON.stringify(currentUser))
+    localStorage.setItem('imageProfile', imageProfile)
+  }, [currentUser])
+
+  // МАСКИ ДЛЯ ПОЛЕЙ:
+  const maskInput = (dataValue, options) => {
+    const inputElements = document.querySelectorAll(`[mask="${dataValue}"]`) // ищем поля ввода по селектору с переданным значением data-атрибута
+    if (!inputElements) return // если таких полей ввода нет, прерываем функцию
+    inputElements.forEach(el => {
+      // для каждого из полей ввода
+      IMask(el, options) // инициализируем плагин imask для необходимых полей ввода с переданными параметрами маски
+    })
+  }
+  const maskOptionsPhone = {
+    mask: '+{7}(000)000-00-00',
+  }
+
+  useEffect(() => {
+    maskInput('phone', maskOptionsPhone)
+  })
+
+  const maskOptionsDate = {
+    mask: Date,
+    min: new Date(1900, 0, 1),
+  }
+  useEffect(() => {
+    maskInput('date', maskOptionsDate)
+  })
+
+  // ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК
   const openProfileData = () => {
     setIsContacts(false)
     setIsProfileData(true)
@@ -20,14 +133,26 @@ function Profile({ isLoggedIn }) {
     setIsContacts(true)
   }
 
-  const cvArray = [
-    { id: 1, image: cvExampleOne, name: 'Резюме 1' },
-    { id: 2, image: cvExampleTwo, name: 'Резюме 2' },
-  ]
-
-  const [isEditPassword, setIsEditPassword] = useState(false)
-  const handleCheckboxChange = () => {
-    setIsEditPassword(!isEditPassword)
+  const handleChangePasswordSubmit = e => {
+    e.preventDefault()
+    if (currentUser.newPassword !== currentUser.passwordConfirmation) {
+      setIsValid(false)
+      setPasswordErrors({
+        ...passwordErrors,
+        passwordConfirmation: 'Пароли не совпадают',
+      })
+    } else if (currentUser.previousPassword !== currentPassword) {
+      setIsValid(false)
+      setPasswordErrors({
+        ...passwordErrors,
+        passwordConfirmation: 'Старый пароль указан неверно',
+      })
+    } else {
+      setPasswordErrors({
+        ...passwordErrors,
+        passwordConfirmation: '',
+      })
+    }
   }
 
   return (
@@ -63,7 +188,12 @@ function Profile({ isLoggedIn }) {
               {isProfileData && (
                 <>
                   <div className="profile__photo">
-                    <ImageUploadForm />
+                    <ImageUpload
+                      image={imageProfile}
+                      currentImage={currentUser.imageProfile}
+                      setImage={setImageProfile}
+                      name="image_profile"
+                    />
                   </div>
                   <div className="profile__personal-data-form">
                     <label htmlFor="name" className="profile__input-label">
@@ -72,14 +202,15 @@ function Profile({ isLoggedIn }) {
                         name="name"
                         type="text"
                         id="name"
+                        value={currentUser.name || ''}
                         className="profile__input"
+                        onChange={handleChange}
                       />
-                      <button
-                        type="button"
-                        className="profile__input-edit-button link"
-                      >
-                        {' '}
-                      </button>
+                      {errors && (
+                        <span className="form-input__input-error">
+                          {errors.name}
+                        </span>
+                      )}
                     </label>
 
                     <label htmlFor="surname" className="profile__input-label">
@@ -89,13 +220,14 @@ function Profile({ isLoggedIn }) {
                         type="text"
                         id="surname"
                         className="profile__input"
+                        value={currentUser.surname || ''}
+                        onChange={handleChange}
                       />
-                      <button
-                        type="button"
-                        className="profile__input-edit-button link"
-                      >
-                        {' '}
-                      </button>
+                      {errors && (
+                        <span className="form-input__input-error">
+                          {errors.surname}
+                        </span>
+                      )}
                     </label>
                     <div className="profile__double-input-container">
                       <label
@@ -108,7 +240,16 @@ function Profile({ isLoggedIn }) {
                           type="text"
                           id="birthday"
                           className="profile__input"
+                          placeholder="ДД.ММ.ГГГГ"
+                          value={currentUser.birthday || ''}
+                          onChange={handleChange}
+                          mask="date"
                         />
+                        {errors && (
+                          <span className="form-input__input-error">
+                            {errors.birthday}
+                          </span>
+                        )}
                       </label>
                       <label
                         htmlFor="city"
@@ -120,22 +261,26 @@ function Profile({ isLoggedIn }) {
                           type="text"
                           id="city"
                           className="profile__input"
+                          value={currentUser.city || ''}
+                          onChange={handleChange}
                         />
-                        <button
-                          type="button"
-                          className="profile__input-edit-button link"
-                        >
-                          {' '}
-                        </button>
+                        {errors && (
+                          <span className="form-input__input-error">
+                            {errors.city}
+                          </span>
+                        )}
                       </label>
                     </div>
                     <label htmlFor="password" className="profile__input-label">
                       Пароль
                       <input
                         name="password"
-                        type="text"
+                        type="password"
                         id="password"
                         className="profile__input"
+                        value={currentPassword || ''}
+                        readOnly
+                        disabled={isEditPassword}
                       />
                       <div className="profile__checkbox-container">
                         <label
@@ -156,51 +301,81 @@ function Profile({ isLoggedIn }) {
                       </div>
                     </label>
                     {isEditPassword && (
-                      <>
+                      <form
+                        className="profile__change-password-form"
+                        name="change-password"
+                        onSubmit={handleChangePasswordSubmit}
+                        noValidate
+                      >
                         <label
-                          htmlFor="previous-password"
+                          htmlFor="previousPassword"
                           className="profile__input-label"
                         >
                           Введите старый пароль
                           <input
-                            name="previous-password"
+                            name="previousPassword"
                             type="text"
-                            id="previous-password"
+                            id="previousPassword"
                             className="profile__input"
+                            value={currentUser.previousPassword || ''}
+                            onChange={handleChange}
+                            required
                           />
+                          {passwordErrors && (
+                            <span className="profile__password-error">
+                              {passwordErrors.previousPassword}
+                            </span>
+                          )}
                         </label>
                         <label
-                          htmlFor="new-password"
+                          htmlFor="newPassword"
                           className="profile__input-label"
                         >
                           Введите новый пароль
                           <input
-                            name="new-password"
+                            name="newPassword"
                             type="text"
-                            id="new-password"
+                            id="newPassword"
                             className="profile__input"
+                            value={currentUser.newPassword || ''}
+                            onChange={handleChange}
+                            required
                           />
+                          {passwordErrors && (
+                            <span className="profile__password-error">
+                              {passwordErrors.newPassword}
+                            </span>
+                          )}
                         </label>
                         <label
-                          htmlFor="confirm-password"
+                          htmlFor="passwordConfirmation"
                           className="profile__input-label"
                         >
                           Подтвердите пароль
                           <input
-                            name="confirm-password"
+                            name="passwordConfirmation"
                             type="text"
-                            id="confirm-password"
+                            id="passwordConfirmation"
                             className="profile__input"
+                            value={currentUser.passwordConfirmation || ''}
+                            required
+                            onChange={handleChange}
                           />
+                          {passwordErrors && (
+                            <span className="profile__password-error">
+                              {passwordErrors.passwordConfirmation}
+                            </span>
+                          )}
                         </label>
 
                         <button
                           className="profile__save-button link"
-                          type="button"
+                          type="submit"
+                          disabled={!isValid}
                         >
                           Сохранить изменения
                         </button>
-                      </>
+                      </form>
                     )}
                   </div>
                 </>
@@ -214,13 +389,14 @@ function Profile({ isLoggedIn }) {
                       type="text"
                       id="email"
                       className="profile__input"
+                      value={currentUser.email || ''}
+                      onChange={handleChange}
                     />
-                    <button
-                      type="button"
-                      className="profile__input-edit-button link"
-                    >
-                      {' '}
-                    </button>
+                    {errors && (
+                      <span className="form-input__input-error">
+                        {errors.email}
+                      </span>
+                    )}
                   </label>
                   <div className="profile__double-input-container">
                     <label htmlFor="phone" className="profile__input-label">
@@ -230,7 +406,15 @@ function Profile({ isLoggedIn }) {
                         type="text"
                         id="phone"
                         className="profile__input"
+                        value={currentUser.phone || ''}
+                        onChange={handleChange}
+                        mask="phone"
                       />
+                      {errors && (
+                        <span className="form-input__input-error">
+                          {errors.phone}
+                        </span>
+                      )}
                     </label>
                     <label htmlFor="telegram" className="profile__input-label">
                       Telegram
@@ -239,7 +423,15 @@ function Profile({ isLoggedIn }) {
                         type="text"
                         id="telegram"
                         className="profile__input"
+                        value={currentUser.telegram || ''}
+                        onChange={handleChange}
+                        mask="tgLink"
                       />
+                      {errors && (
+                        <span className="form-input__input-error">
+                          {errors.telegram}
+                        </span>
+                      )}
                     </label>
                   </div>
                 </div>
@@ -249,23 +441,12 @@ function Profile({ isLoggedIn }) {
           <div className="profile__saved-resumes">
             <h2 className="profile__saved-resumes-title">Сохраненные резюме</h2>
             <div className="profile__cvs-container">
-              {cvArray.map(cv => (
-                <div className="profile__cv-container">
-                  <div className="profile__cv-image-container">
-                    <img
-                      src={cv.image}
-                      alt="резюме"
-                      className="profile__cv-image"
-                    />
-                    <button
-                      type="button"
-                      className="profile__cv-changes-button link"
-                    >
-                      {' '}
-                    </button>
-                  </div>
-                  <span className="profile__cv-name">{cv.name}</span>
-                </div>
+              {arrValues.map(cv => (
+                <Cv
+                  key={cv.id}
+                  cv={cv}
+                  deletePopupSetState={deletePopupSetState}
+                />
               ))}
             </div>
           </div>
@@ -277,6 +458,39 @@ function Profile({ isLoggedIn }) {
 
 Profile.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
+  deletePopupSetState: PropTypes.func.isRequired,
+  errors: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ).isRequired,
+  setCurrentUser: PropTypes.func.isRequired,
+  imageProfile: PropTypes.string,
+  setImageProfile: PropTypes.func.isRequired,
+  arrValues: PropTypes.arrayOf(
+    PropTypes.objectOf(
+      PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.bool,
+        PropTypes.arrayOf(
+          PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.objectOf(
+              PropTypes.oneOfType([
+                PropTypes.string,
+                PropTypes.number,
+                PropTypes.bool,
+              ])
+            ),
+          ])
+        ),
+      ])
+    )
+  ),
+}
+
+Profile.defaultProps = {
+  imageProfile: '',
+  arrValues: [],
 }
 
 export default Profile

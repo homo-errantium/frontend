@@ -1,10 +1,11 @@
 import './ConfirmationDelete.scss'
+import { useNavigate } from 'react-router'
 import PropTypes from 'prop-types'
 import TrashIcon from '../../../../img/popups/trash-icon-red.svg'
 
 function ConfirmationDelete({ onClose }) {
   const resumeNumber = 1 // эту переменную надо привязать в конкретным резюме
-
+  const navigate = useNavigate()
   return (
     <div className="confirmation-delete">
       <p className="confirmation-delete__text">
@@ -16,6 +17,7 @@ function ConfirmationDelete({ onClose }) {
           type="button"
           label="button"
           onClick={() => {
+            navigate('/my-profile')
             onClose()
           }}
         >

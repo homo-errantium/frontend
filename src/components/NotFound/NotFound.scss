@@ -2,29 +2,29 @@ $bgc: #fff;
 
 .error {
   display: flex;
-  max-width: 636px;
   width: 100%;
-  margin: 9.4rem auto 9.13rem;
+  margin: 13.4rem auto 9.13rem;
   justify-content: center;
   align-items: center;
   flex-flow: column;
   align-content: center;
-  gap: 110px;
+  gap: 54px;
 
   &__image {
-    max-width: 90%;
-    height: auto;
+    width: 696px;
+    height: 269px;
     object-fit: cover;
   }
 
   &__subtitle {
-    max-width: 80%;
+    width: 633px;
+    font-family: Open Sans, sans-serif;
     text-align: center;
     margin: 0;
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
-    line-height: normal;
+    line-height: 120%;
   }
 
   @media (max-width: 768px) {
