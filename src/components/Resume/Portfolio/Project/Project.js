@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import './Project.scss'
 import FormInput from '../../ResumeComponents/FormInput/FormInput'
 import PlusIcon from '../../../../img/plus-icon.svg'
-import TrashIcon from '../../../../img/trash-icon.svg'
+import TrashIcon from '../../../../img/trash-icon-red.svg'
 
 const Project = ({ addProject, deleteProject, i, values, handleChange }) => {
   const handleDelete = () => deleteProject(i)
