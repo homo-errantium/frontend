@@ -12,7 +12,7 @@ import TitleImage from '../../img/main_title.svg'
 // import Step1 from '../../img/main_step1.svg'
 import { onboardingTitle, imgMainArr } from '../../constants/constants'
 
-function Main({ isLoggedIn, onOpenPopup }) {
+function Main({ isLoggedIn, onOpenPopup, isValid }) {
   const nextPage = '/resume'
   const [img, setImg] = React.useState(imgMainArr[0])
   const [subtitleObject, setSubtitleObject] = React.useState(onboardingTitle)
@@ -46,6 +46,7 @@ function Main({ isLoggedIn, onOpenPopup }) {
         isLoggedIn={isLoggedIn}
         nextPage={nextPage}
         onOpenPopup={onOpenPopup}
+        isValid={isValid}
       />
       <main className="main">
         <div className="main__title-container">
@@ -133,6 +134,7 @@ function Main({ isLoggedIn, onOpenPopup }) {
 Main.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   onOpenPopup: PropTypes.func.isRequired,
+  isValid: PropTypes.bool.isRequired,
 }
 
 export default Main

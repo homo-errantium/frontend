@@ -66,7 +66,7 @@ function App() {
   // const [completedLayouts, setCompletedLayouts] = React.useState(false)
 
   // --------------------------- Работа с данными через локальное хранилище -----------------------
-
+  const [isValid, setIsValid] = useState(false)
   // Записываем в объект данные из полей
   const [values, setValues] = React.useState(
     JSON.parse(localStorage.getItem('formData')) || {
@@ -315,8 +315,7 @@ function App() {
         ...errors,
         name: 'Имя может быть введено только кириллицей. Допускаются пробелы и дефисы',
       })
-    }
-    if (
+    } else if (
       name === 'name' &&
       (evt.target.value.length > 50 || evt.target.value.length < 2)
     ) {
@@ -324,14 +323,19 @@ function App() {
         ...errors,
         name: 'Имя должно быть длиной от 2 до 50 символов',
       })
-    }
-    if (name === 'surname' && !NAME_REGEX.test(value)) {
+    } else if (name === 'name' && evt.target.value.length === 0) {
+      setErrors({
+        ...errors,
+        name: 'Это поле должно быть заполнено',
+      })
+    } else if (name === 'surname' && !NAME_REGEX.test(value)) {
       setErrors({
         ...errors,
         surname:
           'Фамилия может быть введена только кириллицей. Допускаются пробелы и дефисы',
       })
-    }
+      // setIsValid(false)
+    } 
     if (
       name === 'surname' &&
       (evt.target.value.length > 50 || evt.target.value.length < 1)
@@ -340,12 +344,21 @@ function App() {
         ...errors,
         surname: 'Фамилия должна быть длиной от 1 до 50 символов',
       })
+      // setIsValid(false)
+    }
+    if (name === 'surname' && evt.target.value === '') {
+      setErrors({
+        ...errors,
+        surname: 'Это поле должно быть заполнено',
+      })
+      // setIsValid(false)
     }
     if (name === 'birthday' && !BIRTHDAY_REGEX.test(value)) {
       setErrors({
         ...errors,
         birthday: 'Дата рождения введена некорректно',
       })
+      // setIsValid(false)
     }
     // указанный год в дате рождениия больше текущего:
     const currentYear = new Date().getFullYear()
@@ -354,12 +367,14 @@ function App() {
         ...errors,
         birthday: 'Путешествуете во времени?',
       })
+      // setIsValid(false)
     }
     if (name === 'city' && !NAME_REGEX.test(value)) {
       setErrors({
         ...errors,
         city: 'Название города может быть введено только кириллицей. Допускаются пробелы и дефисы',
       })
+      // setIsValid(false)
     }
     if (
       name === 'city' &&
@@ -369,6 +384,7 @@ function App() {
         ...errors,
         city: 'Название города должно быть длиной от 2 до 50 символов',
       })
+      // setIsValid(false)
     }
     if (name === 'desired_position' && !NAME_REGEX.test(value)) {
       setErrors({
@@ -376,6 +392,7 @@ function App() {
         desired_position:
           'Название должности может быть введено только кириллицей. Допускаются пробелы и дефисы',
       })
+      // setIsValid(false)
     }
     if (
       name === 'desired_position' &&
@@ -386,24 +403,28 @@ function App() {
         desired_position:
           'Название должности должно быть длиной от 2 до 50 символов',
       })
+      // setIsValid(false)
     }
     if (name === 'email' && !EMAIL_REGEX.test(value)) {
       setErrors({
         ...errors,
         email: 'Введите email в формате address@domain.com',
       })
+      // setIsValid(false)
     }
     if (name === 'email' && evt.target.value.length > 50) {
       setErrors({
         ...errors,
         email: 'Email должен быть длиной от 5 до 50 символов',
       })
+      // setIsValid(false)
     }
     if (name === 'phone' && evt.target.value.length < 16) {
       setErrors({
         ...errors,
         phone: 'Введите полный номер телефона',
       })
+      // setIsValid(false)
     }
     if (
       name === 'company' &&
@@ -413,6 +434,7 @@ function App() {
         ...errors,
         company: 'Название компании должно быть длиной от 2 до 50 символов',
       })
+      // setIsValid(false)
     }
     if (name === 'company' && !COMPANY_NAME_REGEX.test(value)) {
       setErrors({
@@ -420,6 +442,7 @@ function App() {
         company:
           'В названии компании допускаются только буквы, цифры, кавычки, пробелы и дефисы',
       })
+      // setIsValid(false)
     }
     if (
       name === 'current_position' &&
@@ -430,6 +453,7 @@ function App() {
         current_position:
           'Название должности должно быть длиной от 2 до 50 символов',
       })
+      // setIsValid(false)
     }
     if (name === 'current_position' && !JOB_NAME_REGEX.test(value)) {
       setErrors({
@@ -437,6 +461,7 @@ function App() {
         current_position:
           'В названии должности допускаются только буквы, цифры, пробелы и дефисы',
       })
+      // setIsValid(false)
     }
     if (name === 'year_work_start' && !YEAR_REGEX.test(value)) {
       setErrors({
@@ -744,6 +769,7 @@ function App() {
               <Main
                 isLoggedIn={isLoggedIn}
                 onOpenPopup={handleConfirmRegPopupOpen}
+                isValid={isValid}
               />
             }
           />
