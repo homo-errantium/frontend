@@ -161,11 +161,18 @@ function Header({
     return (
       <header className="header">
         <button
-          className="header__button"
+          className="header__button header__button_margin"
           type="button"
           label="button"
           onClick={() => navigate('/')}
         >
+          <div className="header__button-icon_flex-container">
+            <img
+              className="header__button-icon header__button-icon_personal"
+              alt="стрелка назад"
+              src={BackToProfileIcon}
+            />
+          </div>
           Главная страница
         </button>
       </header>
