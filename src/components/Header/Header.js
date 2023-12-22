@@ -75,8 +75,12 @@ function Header({
               type="button"
               label="button"
               onClick={() => {
+                localStorage.removeItem('formData')
+                localStorage.removeItem('hasExperience')
+                localStorage.removeItem('isTillPresent')
+                localStorage.removeItem('image')
+                localStorage.removeItem('hasQualification')
                 navigate('/')
-                // TODO очистить localStorage?
               }}
             >
               Выйти
@@ -196,6 +200,11 @@ function Header({
               label="button"
               onClick={() => {
                 navigate('/')
+                localStorage.removeItem('formData')
+                localStorage.removeItem('hasExperience')
+                localStorage.removeItem('isTillPresent')
+                localStorage.removeItem('image')
+                localStorage.removeItem('hasQualification')
                 // TODO очистить localStorage?
               }}
             >

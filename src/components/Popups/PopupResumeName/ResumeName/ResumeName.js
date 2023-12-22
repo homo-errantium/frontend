@@ -14,17 +14,22 @@ function PopupResumeName({
     setValues(prevValues => ({ ...prevValues, [name]: value }))
   }
 
-  function handleSubmit() {
-    setArrValues(prevValues => {
-      const newValues = [...prevValues, values]
-      return newValues
-    })
-    onClose()
+  async function handleSubmit() {
+    try {
+      const newValues = [...arrValues, values]
+      setArrValues(newValues)
+      await localStorage.setItem('allData', JSON.stringify(newValues))
+      onClose()
+      await setValues({})
+      await localStorage.removeItem('formData')
+      await localStorage.removeItem('hasExperience')
+      await localStorage.removeItem('isTillPresent')
+      await localStorage.removeItem('image')
+      await localStorage.removeItem('hasQualification')
+    } catch (error) {
+      console.log(error)
+    }
   }
-
-  React.useEffect(() => {
-    localStorage.setItem('allData', JSON.stringify(arrValues))
-  }, [arrValues])
 
   function handleClick() {
     setValues(prevValues => ({ ...prevValues, resume_name: '' }))
