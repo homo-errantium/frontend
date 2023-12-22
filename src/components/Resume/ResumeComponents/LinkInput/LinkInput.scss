@@ -27,16 +27,16 @@
     font-weight: 400;
     line-height: 1.21;
   }
-  .link-input__select-wrapper {
-    position: relative;
-  }
-  .link-input__select-wrapper::after {
-    content: url(../../../../img/select-arrow.svg);
-    position: absolute;
-    bottom: 16px;
-    right: 16px;
-    pointer-events: none;
-  }
+  // .link-input__select-wrapper {
+  //   position: relative;
+  // }
+  // .link-input__select-wrapper::after {
+  //   content: url(../../../../img/select-arrow.svg);
+  //   position: absolute;
+  //   bottom: 12px;
+  //   right: 16px;
+  //   pointer-events: none;
+  // }
   .link-input__field{
     appearance: none;
     border-radius: 16px;
