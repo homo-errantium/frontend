@@ -174,6 +174,7 @@ const Experience = ({
             setAllTillPresent={setAllTillPresent}
             allTillPresent={allTillPresent}
             setDuties={setDuties}
+            handleBackToBasicRecommend={handleBackToBasicRecommend}
           />
         ))}
         {noAddedExperience && values.jobs.length === 0 && (

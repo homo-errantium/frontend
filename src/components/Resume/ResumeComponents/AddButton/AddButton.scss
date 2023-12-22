@@ -1,6 +1,6 @@
 .add-button {
-  height: 58px;
-	padding: 17px 0;
+  height: 52px;
+	padding: 15px 0;
 	color: #000;
 	text-align: center;
 	font-family: Open Sans, sans-serif;
@@ -10,6 +10,9 @@
 	border-radius: 16px;
 	border: 2px solid #1A1B22;
 	background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .add-button_inactive {
