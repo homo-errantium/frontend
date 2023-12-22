@@ -63,7 +63,7 @@ export function editProfile(
 
 // Запрос на получение массива с объектами данных
 export function getPersonalData() {
-  return fetch(`${BASE_URL}/personal-data`, {
+  return fetch(`${BASE_URL}/resume`, {
     method: 'GET',
     headers: {
       Accept: 'application/json',
@@ -82,7 +82,7 @@ export function getPersonalData() {
 
 // Запрос к серверу на создание объекта данных
 export function createPersonalData(data) {
-  return fetch(`${BASE_URL}/personal-data`, {
+  return fetch(`${BASE_URL}/resume`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -102,7 +102,7 @@ export function createPersonalData(data) {
 
 // Запрос на изменение объекта данных
 export function editPersonalData(data) {
-  return fetch(`${BASE_URL}/personal-data`, {
+  return fetch(`${BASE_URL}/resume`, {
     method: 'PATCH',
     headers: {
       Accept: 'application/json',
@@ -122,7 +122,7 @@ export function editPersonalData(data) {
 
 // Запрос на удаление объекта из общего массива резюме
 export function deletePersonalData(id) {
-  return fetch(`${BASE_URL}/personal-data/${id}`, {
+  return fetch(`${BASE_URL}/resume/${id}`, {
     method: 'DELETE',
     headers: {
       Accept: 'application/json',
