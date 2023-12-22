@@ -17,6 +17,8 @@
 .double-input__short-left-box {
   max-width: 316px;
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .double-input__right-box {
@@ -29,6 +31,9 @@
 .double-input__short-right-box {
   max-width: 393px;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 .double-input__label-container {
   display: flex;
@@ -63,7 +68,6 @@
   border: 1px solid #9f9f9f;
   outline: #000;
   width: 91.78%;
-  
   height: 22px;
   padding: 12px;
   margin: 0;
@@ -104,7 +108,7 @@
 .double-input__select-wrapper::after {
   content: url(../../../../img/select-arrow.svg);
   position: absolute;
-  bottom: 16px;
+  bottom: 8px;
   right: 16px;
   pointer-events: none;
 }
