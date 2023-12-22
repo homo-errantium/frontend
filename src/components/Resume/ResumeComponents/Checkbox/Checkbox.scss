@@ -40,6 +40,10 @@
   background: url(../../../../img/checkbox-icon.svg) 0 0 no-repeat;
 }
 
+.checkbox__label .checkbox__text_inactive:before {
+  background: url(../../../../img/checkboxInactive.svg) 0 0 no-repeat;
+}
+
 /* Checked */
 .checkbox__label .checkbox__input:checked + .checkbox__text:before {
   background: url(../../../../img/checkbox-checked.svg) 0 0 no-repeat;
@@ -55,4 +59,8 @@
   font-size: 20px;
   font-weight: 400;
   line-height: 1.21;
+}
+
+.checkbox__input-inactive {
+  background-color: #e6e6e6;
 }
