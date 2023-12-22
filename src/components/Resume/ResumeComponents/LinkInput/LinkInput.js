@@ -44,6 +44,7 @@ const LinkInput = ({
           disabled={disabled}
         />
       </div>
+
       <div className="link-input__right-box">
         <div className="double-input__label-container">
           <label

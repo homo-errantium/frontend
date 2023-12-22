@@ -253,7 +253,7 @@ function App() {
   // }
 
   useEffect(() => {
-    if (languagesAfterDeleting?.length ?? 0) {
+    if (languagesAfterDeleting?.length === 0) {
       setValues({ ...values, languages: [{ id: uuidv4() }] })
     } else {
       setValues({ ...values, languages: languagesAfterDeleting })
