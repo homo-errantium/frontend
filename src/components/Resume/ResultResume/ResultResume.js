@@ -5,11 +5,7 @@ import { months } from '../../../constants/months'
 
 //
 
-function ResultResume({ values, image }) {
-  // console.log(values)
-  // console.log(values.hardskills)
-  // console.log(typeof values.hardskills)
-
+function ResultResume({ values }) {
   const userAllLang = values.languages
   const userAllJobs = values.jobs
   const userAllQualifications = values.qualifications
@@ -57,7 +53,7 @@ function ResultResume({ values, image }) {
       </div>
       {/* ------блок  фото ------*/}
       <img
-        src={image}
+        src={values.img}
         alt="фото соискателя"
         className="result-resume__user-photo"
       />
@@ -363,7 +359,6 @@ function ResultResume({ values, image }) {
 }
 
 ResultResume.propTypes = {
-  image: PropTypes.string,
   values: PropTypes.objectOf(
     PropTypes.oneOfType([
       PropTypes.string,
@@ -390,7 +385,6 @@ ResultResume.propTypes = {
 
 ResultResume.defaultProps = {
   values: {},
-  image: '' /* checkboxValues: {} */,
 }
 
 export default ResultResume

@@ -48,6 +48,12 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState(
     JSON.parse(localStorage.getItem('user')) || {}
   ) // Сохраняем данные пользователя
+  const [currentResume, setCurrentResume] = React.useState('')
+
+  // // удалить
+  // useEffect(() => {
+  //   setIsLoggedIn(true)
+  // })
 
   // Переменные для защиты дочерних роутов компонента Resume
   // TODO: установить значение false для всех переменных ниже после сохранения резюме
@@ -95,6 +101,7 @@ function App() {
     if (location.pathname === '/resume/result') {
       setValues({ ...values, id: uuidv4() })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname])
 
   const [languagesAfterChanges, setLanguagesChanges] = useState(
@@ -550,8 +557,6 @@ function App() {
     setIsConfirmRegPopupOpen(true)
   }
 
-  // /* --------- для Popup ---------*/
-
   // Объект для защиты дочерних роутов Resume
   const routesResumeArr = [
     {
@@ -671,7 +676,7 @@ function App() {
     // },
     {
       path: 'result',
-      element: <Result values={values} image={image} />,
+      element: <Result values={values} />,
       id: 9,
       completedSteps: completedStepsPersonalData,
     },
@@ -735,6 +740,7 @@ function App() {
                 imageProfile={imageProfile}
                 setImageProfile={setImageProfile}
                 arrValues={arrValues}
+                setArrValues={setArrValues}
               />
             }
           />
@@ -791,17 +797,21 @@ function App() {
               />
             ))}
           </Route>
-          <Route
-            path="/result-resume"
-            element={
-              <ResultResume
-                values={values}
-                isLoggedIn={isLoggedIn}
-                onOpenPopup={handleConfirmExitPopupOpen}
-                image={image}
-              />
-            }
-          />
+          {arrValues.map(resume => (
+            <Route
+              key={resume.id}
+              path={`/resume/result/${resume.id}`}
+              element={
+                <ResultResume
+                  values={resume}
+                  isLoggedIn={isLoggedIn}
+                  onOpenPopup={handleConfirmExitPopupOpen}
+                  image={image}
+                />
+              }
+            />
+          ))}
+
           <Route path="*" element={<NotFound />} />
         </Routes>
         {/* Попап регистрации */}
@@ -834,6 +844,10 @@ function App() {
         <PopupConfirmationDelete
           isOpen={isConfirmDeletePopupOpen}
           onClose={closeAllPopup}
+          currentResume={currentResume}
+          setCurrentResume={setCurrentResume}
+          arrValues={arrValues}
+          setArrValues={setArrValues}
         />
         {/* Попап подтверждения перехода */}
         <PopupConfirmationRegister

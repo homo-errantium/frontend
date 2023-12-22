@@ -1,34 +1,48 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './Cv.scss'
 import EditIcon from '../../../img/edit-icon-black.svg'
 import DownloadIcon from '../../../img/download-icon.svg'
 import DeleteIcon from '../../../img/trash-icon-red.svg'
 import ellipsesIcon from '../../../img/ellipses-icon.svg'
+import ResultResume from '../../Resume/ResultResume/ResultResume'
+import { handleGeneratePdf } from '../../Utils/Utils'
 
-const Cv = ({ cv, deletePopupSetState }) => {
+const Cv = ({
+  cv,
+  deletePopupSetState,
+  // setArrValues,
+  // arrValues,
+  setCurrentResume,
+}) => {
+  const resumePath = `/resume/result/${cv.id}`
+  const navigate = useNavigate()
   const [isEditCvPopupOpen, setIsEditCvPopupOpen] = useState(false)
 
   const openCvMenu = () => {
     setIsEditCvPopupOpen(!isEditCvPopupOpen)
   }
 
-  const handleEdit = () => {
-    console.log('edit cv')
+  const handleDownload = () => {
+    handleGeneratePdf(navigate, resumePath)
   }
 
-  const handleDownload = () => {
-    console.log('download cv')
+  const handleEdit = () => {
+    navigate(`${resumePath}`)
   }
 
   const handleDelete = () => {
+    setCurrentResume(cv.id)
     deletePopupSetState(true)
   }
 
   return (
     <div className="profile__cv-container">
       <div className="profile__cv-image-container">
-        <img src={cv.img} alt="резюме" className="profile__cv-image" />
+        <div className="profile__cv-content">
+          <ResultResume values={cv} />
+        </div>
         <button
           type="button"
           className="profile__cv-changes-button link"
@@ -83,6 +97,28 @@ const Cv = ({ cv, deletePopupSetState }) => {
 }
 
 Cv.propTypes = {
+  // arrValues: PropTypes.arrayOf(
+  //   PropTypes.objectOf(
+  //     PropTypes.oneOfType([
+  //       PropTypes.string,
+  //       PropTypes.number,
+  //       PropTypes.bool,
+  //       PropTypes.arrayOf(
+  //         PropTypes.oneOfType([
+  //           PropTypes.string,
+  //           PropTypes.objectOf(
+  //             PropTypes.oneOfType([
+  //               PropTypes.string,
+  //               PropTypes.number,
+  //               PropTypes.bool,
+  //             ])
+  //           ),
+  //         ])
+  //       ),
+  //     ])
+  //   )
+  // ).isRequired,
+  // setArrValues: PropTypes.func.isRequired,
   cv: PropTypes.objectOf(
     PropTypes.oneOfType([
       PropTypes.string,
@@ -103,10 +139,12 @@ Cv.propTypes = {
     ])
   ),
   deletePopupSetState: PropTypes.func.isRequired,
+  setCurrentResume: PropTypes.func,
 }
 
 Cv.defaultProps = {
   cv: {},
+  setCurrentResume: () => {},
 }
 
 export default Cv

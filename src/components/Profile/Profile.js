@@ -9,6 +9,7 @@ import Cv from './Cv/Cv'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
 function Profile({
+  setCurrentResume,
   isLoggedIn,
   deletePopupSetState,
   errors,
@@ -16,6 +17,7 @@ function Profile({
   imageProfile,
   setImageProfile,
   arrValues,
+  setArrValues,
 }) {
   const nextPage = '/*'
   const [isProfileData, setIsProfileData] = useState(true)
@@ -91,11 +93,13 @@ function Profile({
       ...prevUser,
       imageProfile,
     }))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageProfile])
 
   useEffect(() => {
     localStorage.setItem('user', JSON.stringify(currentUser))
     localStorage.setItem('imageProfile', imageProfile)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser])
 
   // МАСКИ ДЛЯ ПОЛЕЙ:
@@ -443,6 +447,9 @@ function Profile({
             <div className="profile__cvs-container">
               {arrValues.map(cv => (
                 <Cv
+                  setCurrentResume={setCurrentResume}
+                  arrValues={arrValues}
+                  setArrValues={setArrValues}
                   key={cv.id}
                   cv={cv}
                   deletePopupSetState={deletePopupSetState}
@@ -485,12 +492,14 @@ Profile.propTypes = {
         ),
       ])
     )
-  ),
+  ).isRequired,
+  setArrValues: PropTypes.func.isRequired,
+  setCurrentResume: PropTypes.func,
 }
 
 Profile.defaultProps = {
   imageProfile: '',
-  arrValues: [],
+  setCurrentResume: () => {},
 }
 
 export default Profile

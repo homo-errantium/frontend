@@ -12,6 +12,7 @@ import LeftArrowIcon from '../../img/left-arrow.svg'
 import RightArrowIcon from '../../img/right-arrow.svg'
 import EditIcon from '../../img/edit-icon.svg'
 import ResumeLogoBlack from '../../img/resume-logo-black.svg'
+import { handleOpenPopup } from '../Utils/Utils'
 
 function Header({
   isLoggedIn,
@@ -67,9 +68,16 @@ function Header({
             </div>
           </NavLink>
           <div className="header__main-buttons">
-            <NavLink className="header__nav-link" to="/resume">
-              <span className="header__main-button">Создать резюме</span>
-            </NavLink>
+            <button
+              className="header__button header__button_transparent"
+              type="button"
+              label="button"
+              onClick={() => {
+                handleOpenPopup(navigate, isLoggedIn, onOpenPopup)
+              }}
+            >
+              Создать резюме
+            </button>
             <button
               className="header__main-button header__logout-button"
               type="button"
@@ -187,9 +195,16 @@ function Header({
             <NavLink className="header__nav-link" to="/my-profile">
               <span className="header__main-button">Личный кабинет</span>
             </NavLink>
-            <NavLink className="header__nav-link" to="/resume">
-              <span className="header__main-button">Создать резюме</span>
-            </NavLink>
+            <button
+              className="header__button header__button_transparent"
+              type="button"
+              label="button"
+              onClick={() => {
+                handleOpenPopup(navigate, isLoggedIn, onOpenPopup)
+              }}
+            >
+              Создать резюме
+            </button>
             <button
               className="header__main-button header__logout-button"
               type="button"
@@ -229,9 +244,16 @@ function Header({
             </div>
           </NavLink>
           <div className="header__main-buttons">
-            <NavLink className="header__nav-link" to="/resume">
-              <span className="header__main-button">Создать резюме</span>
-            </NavLink>
+            <button
+              className="header__button header__button_transparent"
+              type="button"
+              label="button"
+              onClick={() => {
+                handleOpenPopup(navigate, isLoggedIn, onOpenPopup)
+              }}
+            >
+              Создать резюме
+            </button>
             <NavLink className="header__nav-link" to="/signin">
               <div className="header__exit-button">
                 <span className="header__main-button">Войти</span>

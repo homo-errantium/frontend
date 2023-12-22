@@ -1,6 +1,7 @@
 import './ResumeName.scss'
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useNavigate } from 'react-router'
 
 function PopupResumeName({
   values,
@@ -9,6 +10,7 @@ function PopupResumeName({
   onClose,
   arrValues,
 }) {
+  const navigate = useNavigate()
   function handleChange(evt) {
     const { name, value } = evt.target
     setValues(prevValues => ({ ...prevValues, [name]: value }))
@@ -20,6 +22,7 @@ function PopupResumeName({
       return newValues
     })
     onClose()
+    navigate('/my-profile')
   }
 
   React.useEffect(() => {

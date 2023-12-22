@@ -114,6 +114,7 @@ MonthPicker.propTypes = {
               PropTypes.bool,
             ])
           ),
+          PropTypes.string,
         ])
       ),
     ])
