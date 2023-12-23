@@ -1,6 +1,7 @@
 import './ResumeName.scss'
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useNavigate } from 'react-router'
 
 function PopupResumeName({
   values,
@@ -8,7 +9,9 @@ function PopupResumeName({
   setArrValues,
   onClose,
   arrValues,
+  setIsEditMod,
 }) {
+  const navigate = useNavigate()
   function handleChange(evt) {
     const { name, value } = evt.target
     setValues(prevValues => ({ ...prevValues, [name]: value }))
@@ -21,12 +24,15 @@ function PopupResumeName({
       await localStorage.setItem('allData', JSON.stringify(newValues))
       onClose()
       await setValues({})
-      await localStorage.removeItem('formData')
+      await localStorage.removeItem('Data')
       await localStorage.removeItem('hasExperience')
       await localStorage.removeItem('isTillPresent')
       await localStorage.removeItem('image')
       await localStorage.removeItem('hasQualification')
+      setIsEditMod(false)
+      navigate('/my-profile')
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log(error)
     }
   }
@@ -76,6 +82,7 @@ function PopupResumeName({
 }
 
 PopupResumeName.propTypes = {
+  setIsEditMod: PropTypes.func,
   values: PropTypes.objectOf(
     PropTypes.oneOfType([
       PropTypes.string,
@@ -124,6 +131,7 @@ PopupResumeName.propTypes = {
 PopupResumeName.defaultProps = {
   values: {},
   arrValues: [],
+  setIsEditMod: () => {},
 }
 
 export default PopupResumeName

@@ -18,6 +18,7 @@ function ConfirmationRegister({ onClose }) {
           type="button"
           label="button"
           onClick={() => {
+            navigate('/resume/personal-data')
             onClose()
           }}
         >

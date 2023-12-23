@@ -49,10 +49,10 @@ const Qualification = ({
 
   // Если addedExperience пустой, то возвращается основная кнопка "Добавить"
   useEffect(() => {
-    if (values.qualifications.length === 0) {
+    if (values.qualifications?.length === 0) {
       setNoAddedQualification(true)
     }
-  }, [values.qualifications.length])
+  }, [values.qualifications?.length])
 
   return (
     <section className="qualification personal-data">
@@ -129,7 +129,7 @@ const Qualification = ({
           handleChange={handleChangeWithValidation}
           setValues={setValues}
         />
-        {values.qualifications.map(qualification => (
+        {values.qualifications?.map(qualification => (
           <AddedQualification
             values={qualification}
             hasQualification={hasQualification}
@@ -142,7 +142,7 @@ const Qualification = ({
             allValues={values}
           />
         ))}
-        {noAddedQualification && values.qualifications.length === 0 && (
+        {noAddedQualification && values.qualifications?.length === 0 && (
           <AddButton
             disabled={!hasQualification}
             handleClick={addQualification}
