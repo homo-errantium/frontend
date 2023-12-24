@@ -21,6 +21,7 @@ function Header({
   onClick,
   handleResumeNamePopupOpen,
   isValid,
+  inputsAreNotEmpty,
 }) {
   const navigate = useNavigate()
   const location = useLocation()
@@ -328,49 +329,30 @@ function Header({
                 Предыдущий шаг
               </button>
             )}
-            {isValid === false ? (
-              <button
-                className="header__button header__button_orange header__button_next"
-                type="button"
-                label="button"
-                onClick={() => {
-                  setCompletedSteps()
-                  onClick()
+            <button
+              className="header__button header__button_orange header__button_next"
+              type="button"
+              label="button"
+              onClick={e => {
+                e.preventDefault()
+                setCompletedSteps()
+                onClick(e)
+                console.log(inputsAreNotEmpty)
+                if (inputsAreNotEmpty) {
                   navigate(`${nextPage}`)
-                }}
-                disabled={!isValid}
-              >
-                Следующий шаг
-                <div className="header__button-icon_flex-container">
-                  <img
-                    className="header__button-icon header__button-icon-next"
-                    alt="стрелка вправо"
-                    src={RightArrowIcon}
-                  />
-                </div>
-              </button>
-            ) : (
-              <button
-                className="header__button header__button_orange header__button_next"
-                type="button"
-                label="button"
-                onClick={() => {
-                  setCompletedSteps()
-                  onClick()
-                  navigate(`${nextPage}`)
-                }}
-                disabled={!isValid}
-              >
-                Следующий шаг
-                <div className="header__button-icon_flex-container">
-                  <img
-                    className="header__button-icon header__button-icon-next"
-                    alt="стрелка вправо"
-                    src={RightArrowIcon}
-                  />
-                </div>
-              </button>
-            )}
+                }
+              }}
+              disabled={!isValid}
+            >
+              Следующий шаг
+              <div className="header__button-icon_flex-container">
+                <img
+                  className="header__button-icon header__button-icon-next"
+                  alt="стрелка вправо"
+                  src={RightArrowIcon}
+                />
+              </div>
+            </button>
           </div>
         </div>
       </header>

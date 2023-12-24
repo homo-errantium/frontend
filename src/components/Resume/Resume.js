@@ -19,9 +19,11 @@ function Resume({
   setCompletedStepsSkills,
   setCompletedStepsAbout,
   handleResumeNamePopupOpen,
+  inputsAreNotEmpty,
   // setCompletedLayouts,
   onClick,
   duties,
+  isValid,
 }) {
   const location = useLocation()
   // Находим индекс элемента в массиве с локациями
@@ -44,7 +46,6 @@ function Resume({
       '/resume/about': setCompletedStepsAbout,
       // '/resume/layouts': setCompletedLayouts,
     }
-
     const setCompletedFunction = locationToFanctionMap[location.pathname]
 
     if (setCompletedFunction) {
@@ -55,12 +56,14 @@ function Resume({
   return (
     <>
       <Header
+      isValid={isValid}
         isLoggedIn={isLoggedIn}
         nextPage={nextPage}
         onOpenPopup={onOpenPopup}
         setCompletedSteps={setCompletedSteps}
         onClick={onClick}
         handleResumeNamePopupOpen={handleResumeNamePopupOpen}
+        inputsAreNotEmpty={inputsAreNotEmpty}
       />
       <main className="resume">
         {location.pathname === '/resume/result' ? (
@@ -87,7 +90,9 @@ Resume.propTypes = {
   // setCompletedLayouts: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
   duties: PropTypes.bool,
-  handleResumeNamePopupOpen:PropTypes.func,
+  handleResumeNamePopupOpen: PropTypes.func,
+  isValid: PropTypes.bool.isRequired,
+  inputsAreNotEmpty: PropTypes.bool.isRequired,
 }
 
 Resume.defaultProps = {

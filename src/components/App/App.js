@@ -40,6 +40,7 @@ import PopupLogin from '../Popups/PopupLogin/PopupLogin'
 import PopupConfirmationDelete from '../Popups/PopupConfirmationDelete/PopupConfirmationDelete'
 import PopupConfirmationRegister from '../Popups/PopupConfirmationRegister/PopupConfirmationRegister'
 import ResultResume from '../Resume/ResultResume/ResultResume'
+// import { navigate } from '@storybook/addon-links/*'
 
 function App() {
   const location = useLocation()
@@ -66,13 +67,15 @@ function App() {
   // const [completedLayouts, setCompletedLayouts] = React.useState(false)
 
   // --------------------------- Работа с данными через локальное хранилище -----------------------
-  const [isValid, setIsValid] = useState(false)
+  const [isValid, setIsValid] = useState(true)
   // Записываем в объект данные из полей
   const [values, setValues] = React.useState(
     JSON.parse(localStorage.getItem('formData')) || {
       name: currentUser.name,
       surname: currentUser.surname,
       birthday: currentUser.birthday,
+      work_status: '',
+      email: '',
       city: currentUser.city,
       work_experience_checkbox: false,
       work_period_experience_checkbox: false,
@@ -103,6 +106,7 @@ function App() {
   const [languagesAfterDeleting, setLanguagesAfterDeleting] = useState(
     values.languages
   )
+  const [inputsAreNotEmpty, setInputsAreNotEmpty] = useState(false)
 
   const [linksAfterDeleting, setLinksAfterDeleting] = useState(values.links)
   // RECOMMENDATIONS:
@@ -306,15 +310,52 @@ function App() {
     // localStorage.setItem('formData', JSON.stringify(values))
   }
 
+  const checkValidity = evt => {
+    const { name, value } = evt.target
+    if (
+      name === 'name' &&
+      !!NAME_REGEX.test(value) &&
+      evt.target.value.length < 50 &&
+      evt.target.value.length >= 2 &&
+      evt.target.value.length !== 0 &&
+      evt.target.value !== undefined
+    ) {
+      setIsValid(true)
+    }
+    if (
+      name === 'surname' &&
+      !!NAME_REGEX.test(value) &&
+      evt.target.value.length < 50 &&
+      evt.target.value.length >= 1 &&
+      evt.target.value.length !== 0 &&
+      evt.target.value !== undefined
+    ) {
+      setIsValid(true)
+    }
+    if (
+      name === 'email' &&
+      !!EMAIL_REGEX.test(value) &&
+      evt.target.value.length < 50 &&
+      evt.target.value.length > 5 &&
+      evt.target.value.length !== 0 &&
+      evt.target.value !== undefined
+    ) {
+      setIsValid(true)
+    }
+  }
+
   // INPUTS  VALIDATION:
   const handleChangeWithValidation = evt => {
     handleChange(evt)
+    // console.log(isValid)
     const { name, value } = evt.target
     if (name === 'name' && !NAME_REGEX.test(value)) {
       setErrors({
         ...errors,
         name: 'Имя может быть введено только кириллицей. Допускаются пробелы и дефисы',
       })
+      setIsValid(false)
+      setInputsAreNotEmpty(false)
     } else if (
       name === 'name' &&
       (evt.target.value.length > 50 || evt.target.value.length < 2)
@@ -323,20 +364,22 @@ function App() {
         ...errors,
         name: 'Имя должно быть длиной от 2 до 50 символов',
       })
+      setIsValid(false)
+      setInputsAreNotEmpty(false)
     } else if (name === 'name' && evt.target.value.length === 0) {
       setErrors({
         ...errors,
         name: 'Это поле должно быть заполнено',
       })
+      setIsValid(false)
     } else if (name === 'surname' && !NAME_REGEX.test(value)) {
       setErrors({
         ...errors,
         surname:
           'Фамилия может быть введена только кириллицей. Допускаются пробелы и дефисы',
       })
-      // setIsValid(false)
-    } 
-    if (
+      setIsValid(false)
+    } else if (
       name === 'surname' &&
       (evt.target.value.length > 50 || evt.target.value.length < 1)
     ) {
@@ -344,21 +387,14 @@ function App() {
         ...errors,
         surname: 'Фамилия должна быть длиной от 1 до 50 символов',
       })
-      // setIsValid(false)
-    }
-    if (name === 'surname' && evt.target.value === '') {
-      setErrors({
-        ...errors,
-        surname: 'Это поле должно быть заполнено',
-      })
-      // setIsValid(false)
+      setIsValid(false)
     }
     if (name === 'birthday' && !BIRTHDAY_REGEX.test(value)) {
       setErrors({
         ...errors,
         birthday: 'Дата рождения введена некорректно',
       })
-      // setIsValid(false)
+      setIsValid(false)
     }
     // указанный год в дате рождениия больше текущего:
     const currentYear = new Date().getFullYear()
@@ -367,7 +403,7 @@ function App() {
         ...errors,
         birthday: 'Путешествуете во времени?',
       })
-      // setIsValid(false)
+      setIsValid(false)
     }
     if (name === 'city' && !NAME_REGEX.test(value)) {
       setErrors({
@@ -410,14 +446,14 @@ function App() {
         ...errors,
         email: 'Введите email в формате address@domain.com',
       })
-      // setIsValid(false)
+      setIsValid(false)
     }
     if (name === 'email' && evt.target.value.length > 50) {
       setErrors({
         ...errors,
         email: 'Email должен быть длиной от 5 до 50 символов',
       })
-      // setIsValid(false)
+      setIsValid(false)
     }
     if (name === 'phone' && evt.target.value.length < 16) {
       setErrors({
@@ -517,17 +553,89 @@ function App() {
           'Сайт введен некорректно. Адрес должен начинаться с https://',
       })
     }
+    console.log(inputsAreNotEmpty)
+    checkValidity(evt)
+    // console.log(isValid)
   }
+  useEffect(() => {
+    console.log(isValid)
+    const formData = { ...values }
+    if (
+      formData.name !== undefined &&
+      // NAME_REGEX.test(formData.name) &&
+      formData.name.length < 50 &&
+      formData.name.length >= 2 &&
+      formData.name.length !== 0 &&
+      formData.surname !== undefined &&
+      formData.surname !== '' &&
+      // NAME_REGEX.test(formData.surname) &&
+      formData.surname.length < 50 &&
+      formData.surname.length >= 1 &&
+      formData.surname.length !== 0
+      // formData.email !== undefined
+      // EMAIL_REGEX.test(formData.email) &&
+      // formData.email.length > 50 &&
+      // formData.email.length !== 0
+    ) {
+      setInputsAreNotEmpty(true)
+    }
+  })
 
   // Сохраняем данные полей в локалное хранилище
   const handleClick = () => {
     setValues(prevValues => ({ ...prevValues, img: image }))
+    console.log(isValid)
     const formData = { ...values }
-    localStorage.setItem('hasExperience', JSON.stringify(hasExperience))
-    localStorage.setItem('isTillPresent', JSON.stringify(allTillPresent))
-    localStorage.setItem('image', image)
-    localStorage.setItem('formData', JSON.stringify(formData))
-    localStorage.setItem('hasQualification', JSON.stringify(hasQualification))
+    console.log(formData)
+    let object = {}
+    if (formData.name === undefined || formData.name.length === 0) {
+      object = {
+        ...object,
+        name: 'Это поле должно быть заполнено',
+      }
+      // setInputsAreNotEmpty(false)
+    }
+    if (formData.surname === undefined || formData.surname === '') {
+      object = {
+        ...object,
+        surname: 'Это поле должно быть заполнено',
+      }
+      // setInputsAreNotEmpty(false)
+    }
+    if (formData.email === undefined || formData.email === '') {
+      object = {
+        ...object,
+        email: 'Это поле должно быть заполнено',
+      }
+      // setInputsAreNotEmpty(false)
+    }
+    if (
+      formData.name !== undefined &&
+      // NAME_REGEX.test(formData.name) &&
+      formData.name.length < 50 &&
+      formData.name.length >= 2 &&
+      formData.name.length !== 0 &&
+      formData.surname !== undefined &&
+      formData.surname !== '' &&
+      // NAME_REGEX.test(formData.surname) &&
+      formData.surname.length < 50 &&
+      formData.surname.length >= 1 &&
+      formData.surname.length !== 0
+      // formData.email !== undefined
+      // EMAIL_REGEX.test(formData.email) &&
+      // formData.email.length > 50 &&
+      // formData.email.length !== 0
+    ) {
+      setInputsAreNotEmpty(true)
+    } else {
+      localStorage.setItem('hasExperience', JSON.stringify(hasExperience))
+      localStorage.setItem('isTillPresent', JSON.stringify(allTillPresent))
+      localStorage.setItem('image', image)
+      localStorage.setItem('formData', JSON.stringify(formData))
+      localStorage.setItem('hasQualification', JSON.stringify(hasQualification))
+    }
+    // console.log(errors)
+    setErrors(object)
   }
 
   /* ----------------------------------------- Popup -----------------------------------------------------*/
@@ -770,6 +878,7 @@ function App() {
                 isLoggedIn={isLoggedIn}
                 onOpenPopup={handleConfirmRegPopupOpen}
                 isValid={isValid}
+                inputsAreNotEmpty={inputsAreNotEmpty}
               />
             }
           />
@@ -787,6 +896,8 @@ function App() {
             element={
               <Resume
                 isLoggedIn={isLoggedIn}
+                isValid={isValid}
+                inputsAreNotEmpty={inputsAreNotEmpty}
                 onOpenPopup={handleConfirmDeletePopupOpen}
                 setCompletedStepsPersonalData={setCompletedStepsPersonalData}
                 setCompletedStepsExperience={setCompletedStepsExperience}
