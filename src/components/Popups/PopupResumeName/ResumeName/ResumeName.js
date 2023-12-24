@@ -25,8 +25,7 @@ function PopupResumeName({
       const newValues = [...arrValues, values] /* добавление объекта в массив */
       setArrValues(newValues)
       localStorage.setItem('allData', JSON.stringify(newValues))
-      await setValues({}) // очистка текущего объекта?
-      console.log(values)
+      await setValues({})
       cleanLocalStorage()
       setIsEditMod(false)
       onClose()
