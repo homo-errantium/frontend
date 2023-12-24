@@ -15,6 +15,10 @@ import ResumeLogoBlack from '../../img/resume-logo-black.svg'
 import { handleOpenPopup, cleanLocalStorage } from '../Utils/Utils'
 
 function Header({
+  values,
+  // setValues,
+  // arrValues,
+  setArrValues,
   setIsEditMod,
   isEditMod,
   isLoggedIn,
@@ -28,16 +32,24 @@ function Header({
   const location = useLocation()
   const path = location.pathname
 
-  // кнопка сохранить
-  function handleSave() {
-    // режим редактирования
+  const updateResume = () => {
+    setArrValues(newArr =>
+      newArr.map(resume => {
+        if (resume.id === values.id) {
+          return { ...resume, ...values }
+        }
+        return resume
+      })
+    )
+  }
+
+  const handleSave = () => {
     if (!isEditMod) {
       handleResumeNamePopupOpen()
     } else {
-      // режим создания резюме
+      updateResume()
       setIsEditMod(false)
       navigate('/my-profile')
-      // отменить присваивание id
     }
   }
 
@@ -139,7 +151,6 @@ function Header({
             Личный кабинет
           </button>
           <div className="header__steps-buttons">
-            {/* <NavLink className="header__nav-link" to="/resume/personal-data"> */}
             <button
               className="header__button header__button_black header__button_prev"
               type="button"
@@ -155,24 +166,16 @@ function Header({
               </div>
               Редактировать
             </button>
-            {/* </NavLink> */}
-
-            {/* <NavLink className="header__nav-link" to="/"> */}
             <button
               className="header__button header__button_orange"
               type="button"
               label="button"
               onClick={() => {
                 handleSave()
-                // handleResumeNamePopupOpen()
-                // onOpenPopup()
-                // setCompletedSteps()
-                // navigate(`${nextPage}`)
               }}
             >
               Сохранить
             </button>
-            {/* </NavLink> */}
           </div>
         </div>
       </header>
@@ -405,8 +408,54 @@ Header.propTypes = {
   setCompletedSteps: PropTypes.func,
   onClick: PropTypes.func,
   handleResumeNamePopupOpen: PropTypes.func,
+  values: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.bool,
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.objectOf(
+            PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number,
+              PropTypes.bool,
+            ])
+          ),
+        ])
+      ),
+    ])
+  ),
+  // arrValues: PropTypes.arrayOf(
+  //   PropTypes.objectOf(
+  //     PropTypes.oneOfType([
+  //       PropTypes.string,
+  //       PropTypes.number,
+  //       PropTypes.bool,
+  //       PropTypes.arrayOf(
+  //         PropTypes.oneOfType([
+  //           PropTypes.string,
+  //           PropTypes.objectOf(
+  //             PropTypes.oneOfType([
+  //               PropTypes.string,
+  //               PropTypes.number,
+  //               PropTypes.bool,
+  //             ])
+  //           ),
+  //         ])
+  //       ),
+  //     ])
+  //   )
+  // ),
+  setArrValues: PropTypes.func,
+  // setValues: PropTypes.func,
 }
 Header.defaultProps = {
+  values: {},
+  // setValues: () => {},
+  // arrValues: {},
+  setArrValues: () => {},
   isEditMod: false,
   isLoggedIn: true,
   nextPage: '',

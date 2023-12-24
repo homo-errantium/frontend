@@ -67,10 +67,6 @@ function App() {
 
   // --------------------------- Работа с данными через локальное хранилище -----------------------
 
-  // useEffect(() => {
-  //   if (!isEditMod) setCurrentResume({})
-  // }, [isEditMod])
-
   // Записываем в объект данные из полей
   const [values, setValues] = React.useState(
     JSON.parse(localStorage.getItem('formData')) || {
@@ -95,20 +91,35 @@ function App() {
     JSON.parse(localStorage.getItem('allData')) || []
   )
 
-  console.log('🚀  values:', values)
-  console.log('🚀isEditMod ?', isEditMod)
-  console.log('🚀 currentResume:', currentResume)
-
   useEffect(() => {
     setValues({ ...currentResume })
   }, [currentResume])
 
   useEffect(() => {
-    if (location.pathname === '/resume/result') {
+    if (location.pathname === '/resume/result' && !isEditMod) {
       setValues({ ...values, id: uuidv4() })
+    }
+    if (location.pathname === '/resume/personal-data' && !isEditMod) {
+      setValues({})
+      setCurrentResume({
+        ...currentResume,
+        name: currentUser.name,
+        surname: currentUser.surname,
+        birthday: currentUser.birthday,
+        city: currentUser.city,
+      })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname])
+
+  // console.log('                                                ')
+  // console.log('🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀')
+  // console.log(' isEditMod:', isEditMod)
+  // console.log(' values:', values)
+  // console.log(' currentResume:', currentResume)
+  // console.log(' arrValues:', arrValues)
+  // console.log('🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀')
+  // console.log('                                                ')
 
   const [languagesAfterChanges, setLanguagesChanges] = useState(
     values.languages
@@ -778,6 +789,10 @@ function App() {
             path="/resume"
             element={
               <Resume
+                setArrValues={setArrValues}
+                arrValues={arrValues}
+                values={values}
+                setValues={setValues}
                 setIsEditMod={setIsEditMod}
                 isEditMod={isEditMod}
                 isLoggedIn={isLoggedIn}

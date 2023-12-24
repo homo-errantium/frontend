@@ -33,9 +33,7 @@ const Cv = ({
 
   const handleEdit = async () => {
     await setIsEditMod(true)
-    await setCurrentResume({ ...currentResume, ...cv }) // устанавливаем текщее резюме - работает
-    // await setValues({})
-    // await setValues({ ...values, ...currentResume })
+    await setCurrentResume({ ...currentResume, ...cv })
     navigate('/resume')
   }
 
