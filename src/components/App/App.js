@@ -95,6 +95,11 @@ function App() {
     setValues({ ...currentResume })
   }, [currentResume])
 
+  console.log('🚀 Arrvalues:', arrValues)
+  console.log('🚀 values:', values)
+  console.log('🚀 currentUser:', currentUser)
+  console.log('🚀 currentResume:', currentResume)
+
   useEffect(() => {
     if (location.pathname === '/resume/result' && !isEditMod) {
       setValues({ ...values, id: uuidv4() })
@@ -107,7 +112,9 @@ function App() {
         surname: currentUser.surname,
         birthday: currentUser.birthday,
         city: currentUser.city,
+        img: currentUser.imageProfile,
       })
+      localStorage.setItem('image', JSON.stringify(currentResume.img))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname])
@@ -138,8 +145,11 @@ function App() {
   // Сохраняем ссылку изображения в переменную и вытягиваем из локального хранилища данные
   const [image, setImage] = useState(localStorage.getItem('image') || '')
   const [imageProfile, setImageProfile] = useState(
-    localStorage.getItem('imageProfile') || ''
+    currentUser.imageProfile || ''
   )
+  // const [imageProfile, setImageProfile] = useState(
+  //   localStorage.getItem('imageProfile') || ''
+  // )
 
   useEffect(() => {
     setValues(prevValues => ({ ...prevValues, img: image }))

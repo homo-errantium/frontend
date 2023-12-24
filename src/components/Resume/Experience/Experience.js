@@ -175,7 +175,7 @@ const Experience = ({
             handleBackToBasicRecommend={handleBackToBasicRecommend}
           />
         ))}
-        {noAddedExperience && values.jobs.length === 0 && (
+        {noAddedExperience && values.jobs?.length === 0 && (
           <AddButton disabled={!hasExperience} handleClick={addExperience} />
         )}
       </div>
