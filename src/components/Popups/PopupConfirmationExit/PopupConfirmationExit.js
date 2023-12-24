@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import './PopupConfirmationExit.scss'
 import PopupСontainer from '../PopupContainer/PopupContainer'
-import Confirmation from './ComfirmationExit/ConfirmationExit'
+import Confirmation from './ConfirmationExit/ConfirmationExit'
 
 function PopupConfirmationExit({
   isOpen,

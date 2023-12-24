@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import './Checkbox.scss'
@@ -24,7 +25,14 @@ const Checkbox = ({
         onChange={handleCheckboxChange}
         checked={values[name]}
       />
-      <span className="checkbox__text">{checkboxText}</span>
+      <span
+        className={classNames(
+          'checkbox__text',
+          disabled && 'checkbox__text_inactive'
+        )}
+      >
+        {checkboxText}
+      </span>
     </label>
   </div>
 )

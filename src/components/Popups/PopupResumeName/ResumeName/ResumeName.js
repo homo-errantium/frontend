@@ -2,6 +2,7 @@ import './ResumeName.scss'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router'
+import TrashLogo from '../../../../img/trash-icon-red.svg'
 
 function PopupResumeName({
   values,
@@ -16,18 +17,23 @@ function PopupResumeName({
     setValues(prevValues => ({ ...prevValues, [name]: value }))
   }
 
-  function handleSubmit() {
-    setArrValues(prevValues => {
-      const newValues = [...prevValues, values]
-      return newValues
-    })
-    onClose()
-    navigate('/my-profile')
+  async function handleSubmit() {
+    try {
+      const newValues = [...arrValues, values]
+      setArrValues(newValues)
+      await localStorage.setItem('allData', JSON.stringify(newValues))
+      await setValues({})
+      await localStorage.removeItem('formData')
+      await localStorage.removeItem('hasExperience')
+      await localStorage.removeItem('isTillPresent')
+      await localStorage.removeItem('image')
+      await localStorage.removeItem('hasQualification')
+      onClose()
+      navigate('/my-profile')
+    } catch (error) {
+      console.log(error)
+    }
   }
-
-  React.useEffect(() => {
-    localStorage.setItem('allData', JSON.stringify(arrValues))
-  }, [arrValues])
 
   function handleClick() {
     setValues(prevValues => ({ ...prevValues, resume_name: '' }))
@@ -37,8 +43,8 @@ function PopupResumeName({
     <div className="resume-name">
       <form action="submit" className="resume-name__form">
         <p className="resume-name__description">
-          Для удобства организации ваших резюме предлагаем добавить к каждому из
-          них уникальное название
+          Для удобства организации ваших резюме предлагаем добавить уникальное
+          название
         </p>
         <input
           name="resume_name"
@@ -57,7 +63,8 @@ function PopupResumeName({
           label="button"
           onClick={handleClick}
         >
-          Очистить
+          <img alt="корзина" src={TrashLogo} />
+          Удалить
         </button>
 
         <button

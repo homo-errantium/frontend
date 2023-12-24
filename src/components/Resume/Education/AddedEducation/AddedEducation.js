@@ -4,7 +4,7 @@ import './AddedEducation.scss'
 import FormInput from '../../ResumeComponents/FormInput/FormInput'
 import PeriodInput from '../../ResumeComponents/PeriodInput/PeriodInput'
 import PlusIcon from '../../../../img/plus-icon.svg'
-import TrashIcon from '../../../../img/trash-icon.svg'
+import TrashIcon from '../../../../img/trash-icon-red.svg'
 
 const AddedEducation = ({
   addEducation,
