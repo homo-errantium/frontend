@@ -10,11 +10,14 @@ import ResultResume from '../../Resume/ResultResume/ResultResume'
 import { handleGeneratePdf } from '../../Utils/Utils'
 
 const Cv = ({
+  // isEditMod,
   cv,
   deletePopupSetState,
   currentResume,
   setCurrentResume,
   setIsEditMod,
+  // setValues,
+  // values,
 }) => {
   const resumePath = `/resume/result/${cv.id}`
   const navigate = useNavigate()
@@ -30,7 +33,9 @@ const Cv = ({
 
   const handleEdit = async () => {
     await setIsEditMod(true)
-    await setCurrentResume({ ...currentResume, ...cv })
+    await setCurrentResume({ ...currentResume, ...cv }) // устанавливаем текщее резюме - работает
+    // await setValues({})
+    // await setValues({ ...values, ...currentResume })
     navigate('/resume')
   }
 
@@ -99,6 +104,27 @@ const Cv = ({
 }
 
 Cv.propTypes = {
+  // isEditMod: PropTypes.bool.isRequired,
+  // values: PropTypes.objectOf(
+  //   PropTypes.oneOfType([
+  //     PropTypes.string,
+  //     PropTypes.number,
+  //     PropTypes.bool,
+  //     PropTypes.arrayOf(
+  //       PropTypes.oneOfType([
+  //         PropTypes.string,
+  //         PropTypes.objectOf(
+  //           PropTypes.oneOfType([
+  //             PropTypes.string,
+  //             PropTypes.number,
+  //             PropTypes.bool,
+  //           ])
+  //         ),
+  //       ])
+  //     ),
+  //   ])
+  // ),
+  // setValues: PropTypes.func.isRequired,
   setIsEditMod: PropTypes.func,
   cv: PropTypes.objectOf(
     PropTypes.oneOfType([
@@ -144,6 +170,7 @@ Cv.propTypes = {
 
 Cv.defaultProps = {
   cv: {},
+  // values: {},
   setCurrentResume: () => {},
   setIsEditMod: () => {},
 }

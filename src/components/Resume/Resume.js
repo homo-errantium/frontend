@@ -9,6 +9,8 @@ import ProgressBar from './ResumeComponents/ProgressBar/ProgressBar'
 import { locationArr } from '../../constants/constants'
 
 function Resume({
+  setIsEditMod,
+  isEditMod,
   isLoggedIn,
   onOpenPopup,
   setCompletedStepsPersonalData,
@@ -55,6 +57,8 @@ function Resume({
   return (
     <>
       <Header
+        setIsEditMod={setIsEditMod}
+        isEditMod={isEditMod}
         isLoggedIn={isLoggedIn}
         nextPage={nextPage}
         onOpenPopup={onOpenPopup}
@@ -75,6 +79,8 @@ function Resume({
 }
 
 Resume.propTypes = {
+  setIsEditMod: PropTypes.func,
+  isEditMod: PropTypes.bool,
   isLoggedIn: PropTypes.bool.isRequired,
   onOpenPopup: PropTypes.func.isRequired,
   setCompletedStepsPersonalData: PropTypes.func.isRequired,
@@ -87,12 +93,14 @@ Resume.propTypes = {
   // setCompletedLayouts: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
   duties: PropTypes.bool,
-  handleResumeNamePopupOpen:PropTypes.func,
+  handleResumeNamePopupOpen: PropTypes.func,
 }
 
 Resume.defaultProps = {
+  isEditMod: false,
   duties: false,
   handleResumeNamePopupOpen: () => {},
+  setIsEditMod: () => {},
 }
 
 export default Resume

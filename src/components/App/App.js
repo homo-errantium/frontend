@@ -42,7 +42,6 @@ import PopupConfirmationRegister from '../Popups/PopupConfirmationRegister/Popup
 
 function App() {
   const location = useLocation()
-  // eslint-disable-next-line no-unused-vars
   const [isLoggedIn, setIsLoggedIn] = React.useState(true) // Пользователь авторизован/неавторизован
   const [currentUser, setCurrentUser] = React.useState(
     JSON.parse(localStorage.getItem('user')) || {}
@@ -68,34 +67,41 @@ function App() {
 
   // --------------------------- Работа с данными через локальное хранилище -----------------------
 
+  // useEffect(() => {
+  //   if (!isEditMod) setCurrentResume({})
+  // }, [isEditMod])
+
   // Записываем в объект данные из полей
   const [values, setValues] = React.useState(
-    isEditMod
-      ? currentResume
-      : JSON.parse(localStorage.getItem('formData')) || {
-          name: currentUser.name,
-          surname: currentUser.surname,
-          birthday: currentUser.birthday,
-          city: currentUser.city,
-          work_experience_checkbox: false,
-          work_period_experience_checkbox: false,
-          education_period_checkbox: false,
-          qualification_checkbox: false,
-          languages: [{ id: uuidv4() }],
-          links: [{ id: uuidv4() }],
-          jobs: [],
-          qualifications: [],
-          educations: [],
-          portfolio: [],
-        }
+    JSON.parse(localStorage.getItem('formData')) || {
+      name: currentUser.name,
+      surname: currentUser.surname,
+      birthday: currentUser.birthday,
+      city: currentUser.city,
+      work_experience_checkbox: false,
+      work_period_experience_checkbox: false,
+      education_period_checkbox: false,
+      qualification_checkbox: false,
+      languages: [{ id: uuidv4() }],
+      links: [{ id: uuidv4() }],
+      jobs: [],
+      qualifications: [],
+      educations: [],
+      portfolio: [],
+    }
   )
 
-  console.log(currentResume)
-  console.log(values)
-  // console.log(currentUser)
   const [arrValues, setArrValues] = useState(
     JSON.parse(localStorage.getItem('allData')) || []
   )
+
+  console.log('🚀  values:', values)
+  console.log('🚀isEditMod ?', isEditMod)
+  console.log('🚀 currentResume:', currentResume)
+
+  useEffect(() => {
+    setValues({ ...currentResume })
+  }, [currentResume])
 
   useEffect(() => {
     if (location.pathname === '/resume/result') {
@@ -269,7 +275,6 @@ function App() {
   }, [languagesAfterDeleting])
 
   useEffect(() => {
-    console.log(linksAfterDeleting?.length)
     if (linksAfterDeleting?.length === 0) {
       setValues({ ...values, links: [{ id: uuidv4() }] })
     } else {
@@ -733,6 +738,9 @@ function App() {
             element={
               <ProtectedRoute
                 element={Profile}
+                isEditMod={isEditMod}
+                values={values}
+                setValues={setValues}
                 isLoggedIn={isLoggedIn}
                 deletePopupSetState={setIsConfirmDeletePopupOpen}
                 errors={errors}
@@ -770,6 +778,8 @@ function App() {
             path="/resume"
             element={
               <Resume
+                setIsEditMod={setIsEditMod}
+                isEditMod={isEditMod}
                 isLoggedIn={isLoggedIn}
                 onOpenPopup={handleConfirmDeletePopupOpen}
                 setCompletedStepsPersonalData={setCompletedStepsPersonalData}

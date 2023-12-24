@@ -9,6 +9,7 @@ import Cv from './Cv/Cv'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
 function Profile({
+  isEditMod,
   setCurrentResume,
   currentResume,
   isLoggedIn,
@@ -20,6 +21,8 @@ function Profile({
   arrValues,
   setArrValues,
   setIsEditMod,
+  values,
+  setValues,
 }) {
   const nextPage = '/*'
   const [isProfileData, setIsProfileData] = useState(true)
@@ -163,7 +166,11 @@ function Profile({
 
   return (
     <>
-      <Header isLoggedIn={isLoggedIn} nextPage={nextPage} />
+      <Header
+        isLoggedIn={isLoggedIn}
+        nextPage={nextPage}
+        setIsEditMod={setIsEditMod}
+      />
       <main className="profile">
         <h1 className="profile__title">Личный кабинет</h1>
         <div className="profile__page-layout">
@@ -449,6 +456,7 @@ function Profile({
             <div className="profile__cvs-container">
               {arrValues.map(cv => (
                 <Cv
+                  isEditMod={isEditMod}
                   setCurrentResume={setCurrentResume}
                   currentResume={currentResume}
                   arrValues={arrValues}
@@ -457,6 +465,8 @@ function Profile({
                   cv={cv}
                   deletePopupSetState={deletePopupSetState}
                   setIsEditMod={setIsEditMod}
+                  values={values}
+                  setValues={setValues}
                 />
               ))}
             </div>
@@ -468,6 +478,27 @@ function Profile({
 }
 
 Profile.propTypes = {
+  isEditMod: PropTypes.bool.isRequired,
+  values: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.bool,
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.objectOf(
+            PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number,
+              PropTypes.bool,
+            ])
+          ),
+        ])
+      ),
+    ])
+  ).isRequired,
+  setValues: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   deletePopupSetState: PropTypes.func.isRequired,
   errors: PropTypes.objectOf(

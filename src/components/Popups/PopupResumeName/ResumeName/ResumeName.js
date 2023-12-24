@@ -2,6 +2,7 @@ import './ResumeName.scss'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router'
+import { cleanLocalStorage } from '../../../Utils/Utils'
 
 function PopupResumeName({
   values,
@@ -12,6 +13,8 @@ function PopupResumeName({
   setIsEditMod,
 }) {
   const navigate = useNavigate()
+
+  // добавление имени резюме
   function handleChange(evt) {
     const { name, value } = evt.target
     setValues(prevValues => ({ ...prevValues, [name]: value }))
@@ -19,17 +22,14 @@ function PopupResumeName({
 
   async function handleSubmit() {
     try {
-      const newValues = [...arrValues, values]
+      const newValues = [...arrValues, values] /* добавление объекта в массив */
       setArrValues(newValues)
-      await localStorage.setItem('allData', JSON.stringify(newValues))
-      onClose()
-      await setValues({})
-      await localStorage.removeItem('Data')
-      await localStorage.removeItem('hasExperience')
-      await localStorage.removeItem('isTillPresent')
-      await localStorage.removeItem('image')
-      await localStorage.removeItem('hasQualification')
+      localStorage.setItem('allData', JSON.stringify(newValues))
+      await setValues({}) // очистка текущего объекта?
+      console.log(values)
+      cleanLocalStorage()
       setIsEditMod(false)
+      onClose()
       navigate('/my-profile')
     } catch (error) {
       // eslint-disable-next-line no-console

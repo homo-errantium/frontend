@@ -12,9 +12,11 @@ import LeftArrowIcon from '../../img/left-arrow.svg'
 import RightArrowIcon from '../../img/right-arrow.svg'
 import EditIcon from '../../img/edit-icon.svg'
 import ResumeLogoBlack from '../../img/resume-logo-black.svg'
-import { handleOpenPopup } from '../Utils/Utils'
+import { handleOpenPopup, cleanLocalStorage } from '../Utils/Utils'
 
 function Header({
+  setIsEditMod,
+  isEditMod,
   isLoggedIn,
   nextPage,
   onOpenPopup,
@@ -25,6 +27,19 @@ function Header({
   const navigate = useNavigate()
   const location = useLocation()
   const path = location.pathname
+
+  // кнопка сохранить
+  function handleSave() {
+    // режим редактирования
+    if (!isEditMod) {
+      handleResumeNamePopupOpen()
+    } else {
+      // режим создания резюме
+      setIsEditMod(false)
+      navigate('/my-profile')
+      // отменить присваивание id
+    }
+  }
 
   const isLogRegPage = () => !!(path === '/signin' || path === '/signup')
 
@@ -73,6 +88,8 @@ function Header({
               type="button"
               label="button"
               onClick={() => {
+                cleanLocalStorage()
+                setIsEditMod(false)
                 handleOpenPopup(navigate, isLoggedIn, onOpenPopup)
               }}
             >
@@ -83,11 +100,7 @@ function Header({
               type="button"
               label="button"
               onClick={() => {
-                localStorage.removeItem('formData')
-                localStorage.removeItem('hasExperience')
-                localStorage.removeItem('isTillPresent')
-                localStorage.removeItem('image')
-                localStorage.removeItem('hasQualification')
+                cleanLocalStorage()
                 navigate('/')
               }}
             >
@@ -150,7 +163,8 @@ function Header({
               type="button"
               label="button"
               onClick={() => {
-                handleResumeNamePopupOpen()
+                handleSave()
+                // handleResumeNamePopupOpen()
                 // onOpenPopup()
                 // setCompletedSteps()
                 // navigate(`${nextPage}`)
@@ -211,6 +225,8 @@ function Header({
               type="button"
               label="button"
               onClick={() => {
+                cleanLocalStorage()
+                setIsEditMod(false)
                 handleOpenPopup(navigate, isLoggedIn, onOpenPopup)
               }}
             >
@@ -221,12 +237,8 @@ function Header({
               type="button"
               label="button"
               onClick={() => {
+                cleanLocalStorage()
                 navigate('/')
-                localStorage.removeItem('formData')
-                localStorage.removeItem('hasExperience')
-                localStorage.removeItem('isTillPresent')
-                localStorage.removeItem('image')
-                localStorage.removeItem('hasQualification')
                 // TODO очистить localStorage?
               }}
             >
@@ -265,6 +277,8 @@ function Header({
               type="button"
               label="button"
               onClick={() => {
+                cleanLocalStorage()
+                setIsEditMod(false)
                 handleOpenPopup(navigate, isLoggedIn, onOpenPopup)
               }}
             >
@@ -383,6 +397,8 @@ function Header({
 }
 
 Header.propTypes = {
+  setIsEditMod: PropTypes.func,
+  isEditMod: PropTypes.bool,
   isLoggedIn: PropTypes.bool,
   nextPage: PropTypes.string,
   onOpenPopup: PropTypes.func,
@@ -391,12 +407,14 @@ Header.propTypes = {
   handleResumeNamePopupOpen: PropTypes.func,
 }
 Header.defaultProps = {
+  isEditMod: false,
   isLoggedIn: true,
   nextPage: '',
   onOpenPopup: () => {},
   setCompletedSteps: () => {},
   onClick: () => {},
   handleResumeNamePopupOpen: () => {},
+  setIsEditMod: () => {},
 }
 
 export default Header

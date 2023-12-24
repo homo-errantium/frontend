@@ -16,3 +16,11 @@ export const handleEditProfile = (navigate, resumePath) => {
 export function handleOpenPopup(navigate, isLoggedIn, onOpenPopup) {
   return isLoggedIn ? navigate('/resume') : onOpenPopup()
 }
+
+export function cleanLocalStorage() {
+  localStorage.removeItem('formData')
+  localStorage.removeItem('hasExperience')
+  localStorage.removeItem('isTillPresent')
+  localStorage.removeItem('image')
+  localStorage.removeItem('hasQualification')
+}

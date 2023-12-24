@@ -16,14 +16,14 @@ function ConfirmationDelete({
     : ''
 
   const handleDeleteResume = () => {
-    setArrValues(arrValues.filter(item => item.id !== currentResumeName.id))
+    setArrValues(arrValues.filter(item => item.id !== currentResumeName?.id))
     setCurrentResume({})
   }
 
   return (
     <div className="confirmation-delete">
       <p className="confirmation-delete__text">
-        {`Вы действительно хотите удалить резюме ${currentResumeName} без возможности восстановления?`}
+        {`Вы действительно хотите удалить резюме ${currentResumeName?.resume_name} без возможности восстановления?`}
       </p>
       <div className="confirmation-delete__buttons">
         <button
