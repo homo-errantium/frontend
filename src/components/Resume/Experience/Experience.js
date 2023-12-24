@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import '../PersonalData/PersonalData.scss'
 import React, { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
@@ -69,6 +70,9 @@ const Experience = ({
     }
   }, [values.jobs])
 
+  const handleBackToBasicRecommend = () => {
+    setDuties(false)
+  }
   return (
     <section className="experience personal-data">
       <ResumeTitle
@@ -80,59 +84,67 @@ const Experience = ({
         checkboxText="Нет опыта"
         checkboxId="title-checkbox"
         onClick={handleTitleCheckboxClick}
+        handleBackToBasicRecommend={handleBackToBasicRecommend}
       />
       <div className="experience__form-container">
-        <FormInput
-          name="company"
-          values={values}
-          handleChange={handleChangeWithValidation}
-          label="Название компании"
-          disabled={!hasExperience}
-          setValues={setValues}
-          errors={errors}
-          id="0"
-        />
-        <FormInput
-          name="company_website"
-          values={values}
-          handleChange={handleChangeWithValidation}
-          label="Сайт компании"
-          disabled={!hasExperience}
-          setValues={setValues}
-          errors={errors}
-          id="0"
-        />
-        <FormInput
-          name="current_position"
-          values={values}
-          handleChange={handleChangeWithValidation}
-          label="Должность"
-          tip
-          tipText={JOB_TIP}
-          disabled={!hasExperience}
-          setValues={setValues}
-          errors={errors}
-          id="0"
-        />
-        <PeriodInput
-          labelOne="Дата начала работы"
-          labelTwo="Дата окончания работы"
-          month
-          disabled={!hasExperience}
-          i="0"
-          tillPresent
-          handleCheckboxChange={handleCheckboxChange}
-          namePeriod="work_period_experience_checkbox"
-          monthPeriod={['month_work_start', 'month_work_end']}
-          year={['year_work_start', 'year_work_end']}
-          values={values}
-          setAllTillPresent={setAllTillPresent}
-          allTillPresent={allTillPresent}
-          handleChange={handleChangeWithValidation}
-          errors={errors}
-          allValues={values}
-          setValues={setValues}
-        />
+        <div
+          className="experience__basic-recommend"
+          onClick={handleBackToBasicRecommend}
+          onKeyDown={handleBackToBasicRecommend}
+          onFocus={handleBackToBasicRecommend}
+        >
+          <FormInput
+            name="company"
+            values={values}
+            handleChange={handleChangeWithValidation}
+            label="Название компании"
+            disabled={!hasExperience}
+            setValues={setValues}
+            errors={errors}
+            id="0"
+          />
+          <FormInput
+            name="company_website"
+            values={values}
+            handleChange={handleChangeWithValidation}
+            label="Сайт компании"
+            disabled={!hasExperience}
+            setValues={setValues}
+            errors={errors}
+            id="0"
+          />
+          <FormInput
+            name="current_position"
+            values={values}
+            handleChange={handleChangeWithValidation}
+            label="Должность"
+            tip
+            tipText={JOB_TIP}
+            disabled={!hasExperience}
+            setValues={setValues}
+            errors={errors}
+            id="0"
+          />
+          <PeriodInput
+            labelOne="Дата начала работы"
+            labelTwo="Дата окончания работы"
+            month
+            disabled={!hasExperience}
+            i="0"
+            tillPresent
+            handleCheckboxChange={handleCheckboxChange}
+            namePeriod="work_period_experience_checkbox"
+            monthPeriod={['month_work_start', 'month_work_end']}
+            year={['year_work_start', 'year_work_end']}
+            values={values}
+            setAllTillPresent={setAllTillPresent}
+            allTillPresent={allTillPresent}
+            handleChange={handleChangeWithValidation}
+            errors={errors}
+            allValues={values}
+            setValues={setValues}
+          />
+        </div>
         <FormInput
           name="duties"
           values={values}
@@ -145,26 +157,25 @@ const Experience = ({
           errors={errors}
           id="0"
         />
-        {React.Children.toArray(
-          values.jobs?.map(experience => (
-            <Job
-              values={experience}
-              allValues={values}
-              handleChange={handleAddJobChange}
-              hasExperience={hasExperience}
-              deleteExperience={deleteExperience}
-              addExperience={addExperience}
-              i={experience.id}
-              // key={experience.id}
-              handleCheckboxChange={handleAddJobCheckboxChange}
-              setValues={setValues}
-              setAllTillPresent={setAllTillPresent}
-              allTillPresent={allTillPresent}
-              setDuties={setDuties}
-            />
-          ))
-        )}
-        {noAddedExperience && values.jobs?.length === 0 && (
+        {values.jobs?.map(experience => (
+          <Job
+            values={experience}
+            allValues={values}
+            handleChange={handleAddJobChange}
+            hasExperience={hasExperience}
+            deleteExperience={deleteExperience}
+            addExperience={addExperience}
+            i={experience.id}
+            key={experience.id}
+            handleCheckboxChange={handleAddJobCheckboxChange}
+            setValues={setValues}
+            setAllTillPresent={setAllTillPresent}
+            allTillPresent={allTillPresent}
+            setDuties={setDuties}
+            handleBackToBasicRecommend={handleBackToBasicRecommend}
+          />
+        ))}
+        {noAddedExperience && values.jobs.length === 0 && (
           <AddButton disabled={!hasExperience} handleClick={addExperience} />
         )}
       </div>

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react'
 import PropTypes from 'prop-types'
 import './ResumeTitle.scss'
@@ -12,8 +13,14 @@ const ResumeTitle = ({
   name,
   values,
   handleCheckboxChange,
+  handleBackToBasicRecommend,
 }) => (
-  <div className="resume-title__container">
+  <div
+    className="resume-title__container"
+    onClick={handleBackToBasicRecommend}
+    onKeyDown={handleBackToBasicRecommend}
+    onFocus={handleBackToBasicRecommend}
+  >
     <h1 className="resume-title__text">{title}</h1>
     {checkbox && (
       <Toggle
@@ -41,6 +48,7 @@ ResumeTitle.propTypes = {
   values: PropTypes.shape({
     value: PropTypes.bool,
   }),
+  handleBackToBasicRecommend: PropTypes.func,
 }
 
 ResumeTitle.defaultProps = {
@@ -52,6 +60,7 @@ ResumeTitle.defaultProps = {
   checkboxValues: {},
   name: '',
   values: {},
+  handleBackToBasicRecommend: () => {},
 }
 
 export default ResumeTitle

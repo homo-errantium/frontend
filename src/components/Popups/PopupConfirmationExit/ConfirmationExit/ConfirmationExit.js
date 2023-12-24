@@ -8,6 +8,9 @@ function ConfirmationExit({ onClose }) {
 
   return (
     <div className="confirmation-exit">
+      <h1 className="confirmation-exit__title">
+        Вы уверены, что хотите покинуть страницу заполнения?
+      </h1>
       <img
         src={exitImage}
         alt="confirm popup icon"

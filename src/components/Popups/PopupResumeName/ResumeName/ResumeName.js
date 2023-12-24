@@ -3,6 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router'
 import { cleanLocalStorage } from '../../../Utils/Utils'
+import TrashLogo from '../../../../img/trash-icon-red.svg'
 
 function PopupResumeName({
   values,
@@ -44,8 +45,8 @@ function PopupResumeName({
     <div className="resume-name">
       <form action="submit" className="resume-name__form">
         <p className="resume-name__description">
-          Для удобства организации ваших резюме предлагаем добавить к каждому из
-          них уникальное название
+          Для удобства организации ваших резюме предлагаем добавить уникальное
+          название
         </p>
         <input
           name="resume_name"
@@ -64,7 +65,8 @@ function PopupResumeName({
           label="button"
           onClick={handleClick}
         >
-          Очистить
+          <img alt="корзина" src={TrashLogo} />
+          Удалить
         </button>
 
         <button
