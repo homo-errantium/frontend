@@ -112,15 +112,6 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname])
 
-  // console.log('                                                ')
-  // console.log('🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀')
-  // console.log(' isEditMod:', isEditMod)
-  // console.log(' values:', values)
-  // console.log(' currentResume:', currentResume)
-  // console.log(' arrValues:', arrValues)
-  // console.log('🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀')
-  // console.log('                                                ')
-
   const [languagesAfterChanges, setLanguagesChanges] = useState(
     values.languages
   )
