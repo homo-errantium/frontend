@@ -17,7 +17,7 @@ import { handleOpenPopup, cleanLocalStorage } from '../Utils/Utils'
 function Header({
   values,
   // setValues,
-  // arrValues,
+  arrValues,
   setArrValues,
   setIsEditMod,
   isEditMod,
@@ -41,6 +41,8 @@ function Header({
         return resume
       })
     )
+    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    localStorage.setItem('allData', JSON.stringify(arrValues))
   }
 
   const handleSave = () => {
@@ -427,34 +429,34 @@ Header.propTypes = {
       ),
     ])
   ),
-  // arrValues: PropTypes.arrayOf(
-  //   PropTypes.objectOf(
-  //     PropTypes.oneOfType([
-  //       PropTypes.string,
-  //       PropTypes.number,
-  //       PropTypes.bool,
-  //       PropTypes.arrayOf(
-  //         PropTypes.oneOfType([
-  //           PropTypes.string,
-  //           PropTypes.objectOf(
-  //             PropTypes.oneOfType([
-  //               PropTypes.string,
-  //               PropTypes.number,
-  //               PropTypes.bool,
-  //             ])
-  //           ),
-  //         ])
-  //       ),
-  //     ])
-  //   )
-  // ),
+  arrValues: PropTypes.arrayOf(
+    PropTypes.objectOf(
+      PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.bool,
+        PropTypes.arrayOf(
+          PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.objectOf(
+              PropTypes.oneOfType([
+                PropTypes.string,
+                PropTypes.number,
+                PropTypes.bool,
+              ])
+            ),
+          ])
+        ),
+      ])
+    )
+  ),
   setArrValues: PropTypes.func,
   // setValues: PropTypes.func,
 }
 Header.defaultProps = {
   values: {},
   // setValues: () => {},
-  // arrValues: {},
+  arrValues: {},
   setArrValues: () => {},
   isEditMod: false,
   isLoggedIn: true,

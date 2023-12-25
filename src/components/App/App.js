@@ -95,27 +95,29 @@ function App() {
     setValues({ ...currentResume })
   }, [currentResume])
 
+  console.log('🚀 isEditNod:', isEditMod)
   console.log('🚀 Arrvalues:', arrValues)
   console.log('🚀 values:', values)
-  console.log('🚀 currentUser:', currentUser)
+  // console.log('🚀 currentUser:', currentUser)
   console.log('🚀 currentResume:', currentResume)
 
   useEffect(() => {
     if (location.pathname === '/resume/result' && !isEditMod) {
       setValues({ ...values, id: uuidv4() })
     }
-    if (location.pathname === '/resume/personal-data' && !isEditMod) {
-      setValues({})
-      setCurrentResume({
-        ...currentResume,
-        name: currentUser.name,
-        surname: currentUser.surname,
-        birthday: currentUser.birthday,
-        city: currentUser.city,
-        img: currentUser.imageProfile,
-      })
-      localStorage.setItem('image', JSON.stringify(currentResume.img))
-    }
+    localStorage.setItem('allData', JSON.stringify(arrValues))
+    // if (location.pathname === '/resume/personal-data' && !isEditMod) {
+    //   setValues({})
+    //   setCurrentResume({
+    //     ...currentResume,
+    //     name: currentUser.name,
+    //     surname: currentUser.surname,
+    //     birthday: currentUser.birthday,
+    //     city: currentUser.city,
+    //     img: currentUser.imageProfile,
+    //   })
+    //   localStorage.setItem('image', JSON.stringify(currentResume.img))
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname])
 

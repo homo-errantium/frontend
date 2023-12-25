@@ -23,7 +23,7 @@ function PopupResumeName({
 
   async function handleSubmit() {
     try {
-      const newValues = [...arrValues, values] /* добавление объекта в массив */
+      const newValues = [...arrValues, values]
       setArrValues(newValues)
       localStorage.setItem('allData', JSON.stringify(newValues))
       await setValues({})
