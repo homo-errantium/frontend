@@ -105,7 +105,7 @@ function App() {
     if (location.pathname === '/resume/result' && !isEditMod) {
       setValues({ ...values, id: uuidv4() })
     }
-    // localStorage.setItem('allData', JSON.stringify(arrValues))
+    localStorage.setItem('allData', JSON.stringify(arrValues))
     // if (location.pathname === '/resume/personal-data' && !isEditMod) {
     //   setValues({})
     //   setCurrentResume({
