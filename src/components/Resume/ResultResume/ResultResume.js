@@ -18,38 +18,41 @@ function ResultResume({ values }) {
   function currentAge() {
     const birthdayArr = values.birthday?.split('.')
     // eslint-disable-next-line eqeqeq
-    const today = new Date()
-    const year = today.getFullYear() - birthdayArr[2]
-    switch (year) {
-      case 11:
-      case 12:
-      case 13:
-      case 14:
-        return `${year} лет`
+    if (birthdayArr) {
+      const today = new Date()
+      const year = today.getFullYear() - birthdayArr[2]
+      switch (year) {
+        case 11:
+        case 12:
+        case 13:
+        case 14:
+          return `${year} лет`
 
-      default:
-        switch (year % 10) {
-          case 1:
-            return `${year} год`
+        default:
+          switch (year % 10) {
+            case 1:
+              return `${year} год`
 
-          case 2:
-          case 3:
-          case 4:
-            return `${year} года`
+            case 2:
+            case 3:
+            case 4:
+              return `${year} года`
 
-          case 5:
-          case 6:
-          case 7:
-          case 8:
-          case 9:
-          case 0:
-            return `${year} лет`
-          default:
-            break
-        }
-        break
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 0:
+              return `${year} лет`
+            default:
+              break
+          }
+          break
+      }
+      return `${year} лет`
     }
-    return `${year} лет`
+    return ''
   }
 
   function monthConvert(monthNumber) {

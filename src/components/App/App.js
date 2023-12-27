@@ -95,17 +95,17 @@ function App() {
     setValues({ ...currentResume })
   }, [currentResume])
 
-  console.log('🚀 isEditNod:', isEditMod)
-  console.log('🚀 Arrvalues:', arrValues)
-  console.log('🚀 values:', values)
-  // console.log('🚀 currentUser:', currentUser)
-  console.log('🚀 currentResume:', currentResume)
+  // console.log('🚀 isEditNod:', isEditMod)
+  // console.log('🚀 Arrvalues:', arrValues)
+  // console.log('🚀 values:', values)
+  // // console.log('🚀 currentUser:', currentUser)
+  // console.log('🚀 currentResume:', currentResume)
 
   useEffect(() => {
     if (location.pathname === '/resume/result' && !isEditMod) {
       setValues({ ...values, id: uuidv4() })
     }
-    localStorage.setItem('allData', JSON.stringify(arrValues))
+    // localStorage.setItem('allData', JSON.stringify(arrValues))
     // if (location.pathname === '/resume/personal-data' && !isEditMod) {
     //   setValues({})
     //   setCurrentResume({

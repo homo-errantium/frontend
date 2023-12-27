@@ -451,12 +451,10 @@ Header.propTypes = {
     )
   ),
   setArrValues: PropTypes.func,
-  // setValues: PropTypes.func,
 }
 Header.defaultProps = {
   values: {},
-  // setValues: () => {},
-  arrValues: {},
+  arrValues: [],
   setArrValues: () => {},
   isEditMod: false,
   isLoggedIn: true,
