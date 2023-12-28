@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 import './Profile.scss'
@@ -23,6 +24,7 @@ function Profile({
   setIsEditMod,
   values,
   setValues,
+  setIsResumeNamePopupOpen,
 }) {
   const nextPage = '/*'
   const [isProfileData, setIsProfileData] = useState(true)
@@ -467,6 +469,7 @@ function Profile({
                   setIsEditMod={setIsEditMod}
                   values={values}
                   setValues={setValues}
+                  setIsResumeNamePopupOpen={setIsResumeNamePopupOpen}
                 />
               ))}
             </div>

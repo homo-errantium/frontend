@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import PropTypes from 'prop-types'
 import './PopupResumeName.scss'
@@ -12,6 +13,8 @@ function PopupConfirmationExit({
   setArrValues,
   arrValues,
   setIsEditMod,
+  currentResume,
+  setCurrentResume,
 }) {
   return (
     <PopupСontainer
@@ -27,6 +30,8 @@ function PopupConfirmationExit({
           onClose={onClose}
           arrValues={arrValues}
           setIsEditMod={setIsEditMod}
+          currentResume={currentResume}
+          setCurrentResume={setCurrentResume}
         />
       }
     />

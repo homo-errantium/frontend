@@ -18,13 +18,13 @@ const Cv = ({
   currentResume,
   setCurrentResume,
   setIsEditMod,
-  setArrValues,
+  // setArrValues,
   arrValues,
+  setIsResumeNamePopupOpen,
 }) => {
   const resumePath = `/resume/result/${cv.id}`
   const navigate = useNavigate()
   const [isEditCvPopupOpen, setIsEditCvPopupOpen] = useState(false)
-  const [isEditName, setIsEditName] = useState(false)
 
   const openCvMenu = () => {
     setIsEditCvPopupOpen(!isEditCvPopupOpen)
@@ -34,27 +34,20 @@ const Cv = ({
     handleGeneratePdf(navigate, resumePath)
   }
 
-  const handleEdit = async () => {
+  const handleEditResume = async () => {
     await setIsEditMod(true)
-    await setCurrentResume({ ...currentResume, ...cv })
+    await setCurrentResume(prevValue => ({ ...prevValue, ...cv }))
     navigate('/resume')
+  }
+
+  const handleEditName = async () => {
+    await setIsEditMod(true)
+    await setCurrentResume(prevValue => ({ ...prevValue, ...cv }))
   }
 
   const handleDelete = () => {
     setCurrentResume({ ...currentResume, ...cv })
     deletePopupSetState(true)
-  }
-
-  const handleChange = evt => {
-    const { name, value, id } = evt.target
-    setArrValues(prevValues =>
-      prevValues.map(el => {
-        if (id === el.id) {
-          return { ...el, [name]: value }
-        }
-        return el
-      })
-    )
   }
 
   useEffect(() => {
@@ -75,26 +68,13 @@ const Cv = ({
           <img src={ellipsesIcon} alt="многоточие" className="link" />
         </button>
       </div>
-      <label className="profile__cv-label" htmlFor="profile-input-name">
-        <input
-          className="profile__cv-resume-name"
-          id={cv.id}
-          name="resume_name"
-          value={cv.resume_name}
-          onChange={handleChange}
-          disabled={!isEditName}
-          onBlur={() => {
-            setIsEditName(false)
-          }}
-        />
-      </label>
-      {/* <span className="profile__cv-name">{cv.resume_name}</span> */}
+      <span className="profile__cv-name">{cv.resume_name}</span>
       {isEditCvPopupOpen && (
         <div className="profile__cv-menu">
           <button
             className="profile__cv-menu-option link"
             type="button"
-            onClick={handleEdit}
+            onClick={handleEditResume}
           >
             <img
               src={EditIcon}
@@ -131,11 +111,9 @@ const Cv = ({
             className="profile__cv-menu-option link"
             type="button"
             onClick={() => {
-              setIsEditName(true)
               setIsEditCvPopupOpen(false)
-              setTimeout(() => {
-                document.getElementById(cv.id).focus()
-              }, 0)
+              setIsResumeNamePopupOpen(true)
+              handleEditName()
             }}
           >
             <img
