@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 import './Profile.scss'
@@ -172,6 +171,7 @@ function Profile({
         isLoggedIn={isLoggedIn}
         nextPage={nextPage}
         setIsEditMod={setIsEditMod}
+        setValues={setValues}
       />
       <main className="profile">
         <h1 className="profile__title">Личный кабинет</h1>
@@ -553,6 +553,7 @@ Profile.propTypes = {
     ])
   ).isRequired,
   setIsEditMod: PropTypes.func,
+  setIsResumeNamePopupOpen: PropTypes.func.isRequired,
 }
 
 Profile.defaultProps = {

@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react'
 import './App.scss'
 import { v4 as uuidv4 } from 'uuid'
@@ -134,7 +133,6 @@ function App() {
     setValues({ ...currentResume })
     setImage(currentResume.img)
   }, [currentResume])
-  console.log(values)
 
   // console.log('🚀 isEditNod:', isEditMod)
   // console.log('🚀 Arrvalues:', arrValues)
@@ -776,6 +774,7 @@ function App() {
               <Main
                 isLoggedIn={isLoggedIn}
                 onOpenPopup={handleConfirmRegPopupOpen}
+                setValues={setValues}
               />
             }
           />

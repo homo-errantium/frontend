@@ -1,6 +1,3 @@
-/* eslint-disable consistent-return */
-/* eslint-disable array-callback-return */
-/* eslint-disable react/prop-types */
 import './ResumeName.scss'
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -26,13 +23,6 @@ function PopupResumeName({
     const { name, value } = evt.target
 
     if (location.pathname === '/my-profile') {
-      // setArrValues(prevValues =>
-      //   prevValues.map(el => {
-      //     if (values.id === el.id) {
-      //       return { ...el, [name]: value }
-      //     }
-      //   })
-      // )
       setCurrentResume(prevValues => ({ ...prevValues, [name]: value }))
     }
     setValues(prevValues => ({ ...prevValues, [name]: value }))
@@ -154,12 +144,33 @@ PopupResumeName.propTypes = {
       ])
     )
   ),
+  currentResume: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.bool,
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.objectOf(
+            PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number,
+              PropTypes.bool,
+            ])
+          ),
+        ])
+      ),
+    ])
+  ),
+  setCurrentResume: PropTypes.func.isRequired,
 }
 
 PopupResumeName.defaultProps = {
   values: {},
   arrValues: [],
   setIsEditMod: () => {},
+  currentResume: {},
 }
 
 export default PopupResumeName
