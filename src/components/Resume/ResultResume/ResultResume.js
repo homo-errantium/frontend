@@ -1,15 +1,17 @@
 import React from 'react'
 import './ResultResume.scss'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import classNames from 'classnames'
 import { months } from '../../../constants/months'
 
 function ResultResume({ values }) {
-  const userAllLang = values.languages
+  // const userAllLang = values.languages
   const userAllJobs = values.jobs
   const userAllQualifications = values.qualifications
   const userAllEducations = values.educations
   const userAllPortfolio = values.portfolio
+  const location = useLocation()
 
   // function checkboxConvert(value, text) {
   //   return value || text
@@ -69,7 +71,13 @@ function ResultResume({ values }) {
   }
 
   return (
-    <div className="result-resume" id="resultResume">
+    <div
+      className={classNames(
+        'result-resume',
+        location.pathname === '/my-profile' && 'result-resume_padding'
+      )}
+      id="resultResume"
+    >
       {/* ------блок  фото ------*/}
       <img
         src={values.img}
@@ -103,88 +111,93 @@ function ResultResume({ values }) {
       {/* ------ блок опыта работы ------*/}
 
       <div className="result-resume__experience">
-        <h2 className="result-resume__experience-title">Опыт работы</h2>
+        <h2 className="result-resume__title">Опыт работы</h2>
 
-        <div className="result-resume__experience-info">
-          <span className="result-resume__experience-time">
-            {`${monthConvert(values.month_work_start)}
+        <div className="result-resume__experience-children">
+          <div className="result-resume__info">
+            <span className="result-resume__date">
+              {`${monthConvert(values.month_work_start)}
             ${values.year_work_start} - ${monthConvert(values.month_work_end)}${
               values.year_work_end ? ` ${values.year_work_end}` : ''
             }`}
-          </span>
-          <span className="result-resume__experience-position">
-            {`${absentValues(values.current_position)}`}
-          </span>
-          <Link
-            to={values.company_website}
-            className="result-resume__experience-company"
-          >
-            {`${absentValues(values.company)}`}
-          </Link>
-        </div>
-
-        <div className="result-resume__experience-duty-info">
-          <h4 className="result-resume__experience-duty-title">Обязанности</h4>
-          <span className="result-resume__experience-duty">
-            {`${absentValues(values.duties)}`}
-          </span>
+            </span>
+            <span className="result-resume__experience-position">
+              {absentValues(values.current_position)}
+            </span>
+            <Link
+              to={values.company_website}
+              className="result-resume__organization result-resume__experience-company"
+            >
+              {absentValues(values.company)}
+            </Link>
+          </div>
+          <div className="result-resume__experience-duty-info">
+            <h4 className="result-resume__experience-duty-title">
+              Обязанности
+            </h4>
+            <span className="result-resume__experience-duty">
+              {absentValues(values.duties)}
+            </span>
+          </div>
         </div>
 
         {React.Children.toArray(
           userAllJobs?.map(item => (
-            <>
-              <span className="result-resume__experience-company">
-                {`Название компании: ${absentValues(item.company)}`}
-              </span>
-              <br />
-              <span className="result-resume__experience-start">
-                {`Дата начала работы: ${monthConvert(item.month_work_start)}${
-                  item.year_work_start ? ` ${item.year_work_start}` : ''
-                }`}
-              </span>
-              <br />
-              <span className="result-resume__experience-end">
-                {`Дата окончания работы: ${monthConvert(item.month_work_end)}${
-                  item.year_work_end ? ` ${item.year_work_end}` : ''
-                }`}
-              </span>
-              <span className="result-resume__experience-company-site">
-                {`Сайт компании: ${absentValues(item.company_website)}`}
-              </span>
-              <br />
-              <span className="result-resume__experience-duty">
-                {`Обязанности: ${absentValues(item.duties)}`}
-              </span>
-              <br />
-            </>
+            <div className="result-resume__experience-children">
+              <div className="result-resume__info">
+                <span className="result-resume__date">
+                  {`${monthConvert(item.month_work_start)}
+            ${item.year_work_start} - ${monthConvert(item.month_work_end)}${
+              item.year_work_end ? ` ${item.year_work_end}` : ''
+            }`}
+                </span>
+                <span className="result-resume__experience-position">
+                  {absentValues(item.current_position)}
+                </span>
+                <Link
+                  to={item.company_website}
+                  className="result-resume__organization result-resume__experience-company"
+                >
+                  {absentValues(item.company)}
+                </Link>
+              </div>
+              <div className="result-resume__experience-duty-info">
+                <h4 className="result-resume__experience-duty-title">
+                  Обязанности
+                </h4>
+                <span className="result-resume__experience-duty">
+                  {absentValues(item.duties)}
+                </span>
+              </div>
+            </div>
           ))
         )}
       </div>
 
       {/* ------ блок с контактами ------*/}
       <div className="result-resume__user-contacts">
-        <h2 className="result-resume__user-contacts-title">контакты:</h2>
+        <h2 className="result-resume__user-contacts-title">Контакты</h2>
         <span className="result-resume__user-mail">
-          {`Почта: ${absentValues(values.email)}`}
+          {absentValues(values.email)}
         </span>
         <br />
         <span className="result-resume__user-telegram">
-          {`Telegram: ${absentValues(values.telegram)}`}
+          {absentValues(values.telegram)}
         </span>
         <br />
         <span className="result-resume__user-phone">
-          {`Телефон: ${absentValues(values.phone)}`}
+          {absentValues(values.phone)}
         </span>
       </div>
 
       {/* ------ блок ссылки ------*/}
-      <div className="result-resume__links">
+      {/* <div className="result-resume__links">
         <h2 className="result-resume__links-title">ссылки:</h2>
         <br />
         <span className="result-resume__link-another-site">
           {`Персональная страница: ${absentValues(values.website_link)}`}
         </span>
-      </div>
+      </div> */}
       {/* ------ блок навыки ------*/}
       {/* <div className="result-resume__skills">
         <h2 className="result-resume__skills-title">навыки:</h2>
@@ -192,93 +205,145 @@ function ResultResume({ values }) {
           {`${values.userEmail}`}
         </p>
       </div> */}
+      {/* ------ блок образование ------*/}
+      <div className="result-resume__education">
+        <h2 className="result-resume__title">Образование</h2>
+        <div className="result-resume__info">
+          <span className="result-resume__date">
+            {`${
+              values.year_education_start
+                ? ` ${values.year_education_start}`
+                : ''
+            } - ${
+              values.year_education_end ? ` ${values.year_education_end}` : ''
+            }`}
+          </span>
+          <br />
+          <span className="result-resume__organization">
+            {values.university_name}
+          </span>
+        </div>
+        <div className="result-resume__info">
+          <span className="result-resume__education-speciality">
+            {values.university_specialization}
+          </span>
+          <br />
+          <span className="result-resume__education-degree">
+            {values.education_level}
+          </span>
+        </div>
+        {React.Children.toArray(
+          userAllEducations?.map(item => (
+            <div className="result-resume__education">
+              <div className="result-resume__info">
+                <span className="result-resume__date">
+                  {`${
+                    item.year_education_start
+                      ? ` ${item.year_education_start}`
+                      : ''
+                  } - ${
+                    item.year_education_end ? ` ${item.year_education_end}` : ''
+                  }`}
+                </span>
+                <br />
+                <span className="result-resume__organization">
+                  {item.university_name}
+                </span>
+              </div>
+              <div className="result-resume__info">
+                <span className="result-resume__education-speciality">
+                  {item.university_specialization}
+                </span>
+                <br />
+                <span className="result-resume__education-degree">
+                  {item.education_level}
+                </span>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
       {/* ------ блок повышение квалификации ------*/}
       <div className="result-resume__training">
-        <h2 className="result-resume__training-title">
-          повышение квалификации:
-        </h2>
-        <br />
-        <span className="result-resume__training-company">
-          {`Название компании, проводившей обучение: ${values.organization}`}
-        </span>
-        <br />
-        <span className="result-resume__training-course">
-          {`Пройденный курс: ${values.course_name}`}
-        </span>
-        <br />
-        <span className="result-resume__training-speciality">
-          {`Специальность: ${values.work_specialization}`}
-        </span>
-        <br />
-        <span className="result-resume__trainig-start">
-          {`Дата начала работы: ${monthConvert(values.qual_start)}${
-            values.year_qual_start ? ` ${values.year_qual_start}` : ''
-          }`}
-        </span>
-        <br />
-        <span className="result-resume__training-end">
-          {`Дата окончания работы: ${monthConvert(values.qual_end)}${
-            values.year_qual_end ? ` ${values.year_qual_end}` : ''
-          }`}
-        </span>
-        <span className="result-resume__training-description">
-          {`Описание полученного опыта: ${values.description_experience}`}
-        </span>
-        <br />
-        <span className="result-resume__training-skills">
-          {`Навыки: ${values.skills}`}
-        </span>
-        <br />
-        <span className="result-resume__training-skills">
-          {`Ссылка на дипломную работу: ${values.diploma_link}`}
-        </span>
+        <h2 className="result-resume__title">Повышение квалификации</h2>
+        <div className="result-resume__info">
+          <span className="result-resume__date">
+            {`${monthConvert(values.qual_start)}${
+              values.year_qual_start ? ` ${values.year_qual_start}` : ''
+            } - ${monthConvert(values.qual_end)}${
+              values.year_qual_end ? ` ${values.year_qual_end}` : ''
+            }`}
+          </span>
+          <span className="result-resume__organization">
+            {values.organization}
+          </span>
+        </div>
+        <div className="result-resume__info">
+          <br />
+          <span className="result-resume__training-course">
+            {values.course_name}
+          </span>
+          <br />
+          <span className="result-resume__training-speciality">
+            {values.work_specialization}
+          </span>
+          <br />
+          <span className="result-resume__training-description">
+            {values.description_experience}
+          </span>
+          <br />
+          <span className="result-resume__training-skills">
+            {`Навыки: ${values.skills}`}
+          </span>
+          <br />
+          <span className="result-resume__training-skills">
+            {`Ссылка на дипломную работу: ${values.diploma_link}`}
+          </span>
+        </div>
         {React.Children.toArray(
           userAllQualifications?.map(item => (
-            <>
-              <h4 className="result-resume__training-title">
-                повышение квалификации:
-              </h4>
-              <span className="result-resume__training-company">
-                {`Название компании, проводившей обучение: ${item.organization}`}
-              </span>
-              <br />
-              <span className="result-resume__training-course">
-                {`Пройденный курс: ${item.course_name}`}
-              </span>
-              <br />
-              <span className="result-resume__training-speciality">
-                {`Специальность: ${item.specialization}`}
-              </span>
-              <br />
-              <span className="result-resume__trainig-start">
-                {`Дата начала работы: ${monthConvert(item.month_qual_start)}${
-                  item.year_qual_start ? ` ${item.year_qual_start}` : ''
-                }`}
-              </span>
-              <br />
-              <span className="result-resume__training-end">
-                {`Дата окончания работы: ${monthConvert(item.month_qual_end)}${
-                  item.year_qual_end ? ` ${item.year_qual_end}` : ''
-                }`}
-              </span>
-              <span className="result-resume__training-description">
-                {`Описание полученного опыта: ${item.description_experience}`}
-              </span>
-              <br />
-              <span className="result-resume__training-skills">
-                {`Навыки: ${item.skills}`}
-              </span>
-              <br />
-              <span className="result-resume__training-skills">
-                {`Ссылка на дипломную работу: ${item.diploma_link}`}
-              </span>
-            </>
+            <div className="result-resume__training">
+              <div className="result-resume__info">
+                <span className="result-resume__date">
+                  {`${monthConvert(item.qual_start)}${
+                    item.year_qual_start ? ` ${item.year_qual_start}` : ''
+                  } - ${monthConvert(item.qual_end)}${
+                    item.year_qual_end ? ` ${item.year_qual_end}` : ''
+                  }`}
+                </span>
+                <span className="result-resume__organization">
+                  {item.organization}
+                </span>
+              </div>
+              <div className="result-resume__info">
+                <br />
+                <span className="result-resume__training-course">
+                  {item.course_name}
+                </span>
+                <br />
+                <span className="result-resume__training-speciality">
+                  {item.work_specialization}
+                </span>
+                <br />
+                <span className="result-resume__training-description">
+                  {item.description_experience}
+                </span>
+                <br />
+                <span className="result-resume__training-skills">
+                  {`Навыки: ${item.skills}`}
+                </span>
+                <br />
+                <span className="result-resume__training-skills">
+                  {`Ссылка на дипломную работу: ${item.diploma_link}`}
+                </span>
+              </div>
+            </div>
           ))
         )}
       </div>
 
       {/* ------ блок языки ------*/}
-      <div className="result-resume__language">
+      {/* <div className="result-resume__language">
         <h2 className="result-resume__language-title">языки:</h2>
         {userAllLang
           ? React.Children.toArray(
@@ -292,67 +357,7 @@ function ResultResume({ values }) {
               ))
             )
           : 'Отсутствует'}
-      </div>
-
-      {/* ------ блок образование ------*/}
-      <div className="result-resume__education">
-        <h2 className="result-resume__education-title">образование:</h2>
-        <span className="result-resume__education-company">
-          {`Название вуза: ${values.university_name}`}
-        </span>
-        <br />
-        <span className="result-resume__trainig-start">
-          {`Год поступления: ${
-            values.year_education_start ? ` ${values.year_education_start}` : ''
-          }`}
-        </span>
-        <br />
-        <span className="result-resume__training-end">
-          {`Год окончания: ${
-            values.year_education_end ? ` ${values.year_education_end}` : ''
-          }`}
-        </span>
-        <br />
-        <span className="result-resume__education-speciality">
-          {`Специальность: ${values.university_specialization}`}
-        </span>
-        <br />
-        <span className="result-resume__education-degree">
-          {`Степень: ${values.education_level}`}
-        </span>
-        {React.Children.toArray(
-          userAllEducations?.map(item => (
-            <>
-              <h4 className="result-resume__education-title">образование:</h4>
-              <span className="result-resume__education-company">
-                {`Название вуза: ${item.university_name}`}
-              </span>
-              <br />
-              <span className="result-resume__trainig-start">
-                {`Год поступления: ${
-                  item.year_education_start
-                    ? ` ${item.year_education_start}`
-                    : ''
-                }`}
-              </span>
-              <br />
-              <span className="result-resume__training-end">
-                {`Год окончания: ${
-                  item.year_education_end ? ` ${item.year_education_end}` : ''
-                }`}
-              </span>
-              <br />
-              <span className="result-resume__education-speciality">
-                {`Специальность: ${item.university_specialization}`}
-              </span>
-              <br />
-              <span className="result-resume__education-degree">
-                {`Степень: ${item.education_level}`}
-              </span>
-            </>
-          ))
-        )}
-      </div>
+      </div> */}
 
       {/* ------ блок проекты и портфолио ------*/}
       <div className="result-resume__projects">

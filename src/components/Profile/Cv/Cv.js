@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import './Cv.scss'
 import EditIcon from '../../../img/edit-icon-black.svg'
 import DownloadIcon from '../../../img/download-icon.svg'
+import linkIcon from '../../../img/linkImage.svg'
 import DeleteIcon from '../../../img/trash-icon-red.svg'
 import ellipsesIcon from '../../../img/ellipses-icon.svg'
 import ResultResume from '../../Resume/ResultResume/ResultResume'
@@ -21,6 +22,7 @@ const Cv = ({
   // setArrValues,
   arrValues,
   setIsResumeNamePopupOpen,
+  setPopupCopyLink,
 }) => {
   const resumePath = `/resume/result/${cv.id}`
   const navigate = useNavigate()
@@ -32,6 +34,19 @@ const Cv = ({
 
   const handleDownload = () => {
     handleGeneratePdf(navigate, resumePath)
+  }
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(`http://localhost:3000${resumePath}`)
+    // TODO после соединения с сервером заменить указанный выше код на закомментированный
+    // navigator.clipboard.writeText(
+    //   `http://dev.acceleratorpracticum.ru${resumePath}`
+    // )
+    setPopupCopyLink(true)
+    setTimeout(() => {
+      setPopupCopyLink(false)
+    }, 2500)
+    setIsEditCvPopupOpen(false)
   }
 
   const handleEditResume = async () => {
@@ -98,10 +113,10 @@ const Cv = ({
           <button
             className="profile__cv-menu-option link"
             type="button"
-            onClick={handleDownload}
+            onClick={copyToClipboard}
           >
             <img
-              src={DownloadIcon}
+              src={linkIcon}
               alt="скачивание"
               className="profile__cv-menu-icon"
             />

@@ -7,6 +7,7 @@ import Header from '../Header/Header'
 import ImageUpload from './ImageUpload/ImageUpload'
 import Cv from './Cv/Cv'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
+import PopupCopyLink from '../Popups/PopupCopyLink/PopupCopyLink'
 
 function Profile({
   isEditMod,
@@ -28,6 +29,7 @@ function Profile({
   const nextPage = '/*'
   const [isProfileData, setIsProfileData] = useState(true)
   const [isContacts, setIsContacts] = useState(false)
+  const [popupCopyLink, setPopupCopyLink] = useState(false)
   const currentUser = useContext(CurrentUserContext)
 
   // ОТКРЫТИЕ ДОПОЛНИТЕЛЬНЫХ ПОЛЕЙ ДЛЯ СМЕНЫ ПАРОЛЯ
@@ -470,11 +472,13 @@ function Profile({
                   values={values}
                   setValues={setValues}
                   setIsResumeNamePopupOpen={setIsResumeNamePopupOpen}
+                  setPopupCopyLink={setPopupCopyLink}
                 />
               ))}
             </div>
           </div>
         </div>
+        <PopupCopyLink popupCopyLink={popupCopyLink} />
       </main>
     </>
   )
