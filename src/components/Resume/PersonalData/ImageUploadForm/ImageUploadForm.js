@@ -3,6 +3,7 @@ import './ImageUploadForm.scss'
 import React from 'react'
 import PropTypes from 'prop-types'
 import Tip from '../../ResumeComponents/Tip/Tip'
+// import defaultAvatar from '../../../../img/photo-plug.svg'
 
 const ImageUploadForm = ({
   label,

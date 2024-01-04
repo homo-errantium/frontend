@@ -11,6 +11,7 @@ function PopupConfirmationExit({
   setValues,
   setArrValues,
   arrValues,
+  setIsEditMod,
 }) {
   return (
     <PopupСontainer
@@ -25,6 +26,7 @@ function PopupConfirmationExit({
           setArrValues={setArrValues}
           onClose={onClose}
           arrValues={arrValues}
+          setIsEditMod={setIsEditMod}
         />
       }
     />
@@ -32,6 +34,7 @@ function PopupConfirmationExit({
 }
 
 PopupConfirmationExit.propTypes = {
+  setIsEditMod: PropTypes.func,
   onClose: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
   setValues: PropTypes.func.isRequired,
@@ -81,6 +84,7 @@ PopupConfirmationExit.propTypes = {
 PopupConfirmationExit.defaultProps = {
   arrValues: [],
   values: {},
+  setIsEditMod: () => {},
 }
 
 export default PopupConfirmationExit

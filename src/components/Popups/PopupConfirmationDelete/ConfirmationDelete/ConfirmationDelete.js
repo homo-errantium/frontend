@@ -1,16 +1,30 @@
 import './ConfirmationDelete.scss'
-import { useNavigate } from 'react-router'
+// import { useNavigate } from 'react-router'
 import PropTypes from 'prop-types'
 import TrashIcon from '../../../../img/popups/trash-icon-red.svg'
 import CloseIcon from '../../../../img/popups/close-icon-black.svg'
 
-function ConfirmationDelete({ onClose }) {
-  const resumeNumber = 1 // эту переменную надо привязать в конкретным резюме
-  const navigate = useNavigate()
+function ConfirmationDelete({
+  onClose,
+  arrValues,
+  setArrValues,
+  // eslint-disable-next-line no-unused-vars
+  currentResume,
+  setCurrentResume,
+}) {
+  const currentResumeName = currentResume
+    ? arrValues.find(item => item.id === currentResume.id)
+    : ''
+
+  const handleDeleteResume = () => {
+    setArrValues(arrValues.filter(item => item.id !== currentResumeName?.id))
+    setCurrentResume({})
+  }
+
   return (
     <div className="confirmation-delete">
       <p className="confirmation-delete__text">
-        {`Вы действительно хотите удалить резюме ${resumeNumber} без возможности восстановления?`}
+        {`Вы действительно хотите удалить резюме ${currentResumeName?.resume_name} без возможности восстановления?`}
       </p>
       <div className="confirmation-delete__buttons">
         <button
@@ -18,7 +32,7 @@ function ConfirmationDelete({ onClose }) {
           type="button"
           label="button"
           onClick={() => {
-            navigate('/my-profile')
+            handleDeleteResume()
             onClose()
           }}
         >
@@ -53,7 +67,55 @@ function ConfirmationDelete({ onClose }) {
 }
 
 ConfirmationDelete.propTypes = {
+  arrValues: PropTypes.arrayOf(
+    PropTypes.objectOf(
+      PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.bool,
+        PropTypes.arrayOf(
+          PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.objectOf(
+              PropTypes.oneOfType([
+                PropTypes.string,
+                PropTypes.number,
+                PropTypes.bool,
+              ])
+            ),
+          ])
+        ),
+      ])
+    )
+  ),
+  setArrValues: PropTypes.func,
+  currentResume: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.bool,
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.objectOf(
+            PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number,
+              PropTypes.bool,
+            ])
+          ),
+        ])
+      ),
+    ])
+  ).isRequired,
   onClose: PropTypes.func.isRequired,
+  setCurrentResume: PropTypes.func,
+}
+
+ConfirmationDelete.defaultProps = {
+  arrValues: [],
+  setArrValues: () => {},
+  setCurrentResume: () => {},
 }
 
 export default ConfirmationDelete

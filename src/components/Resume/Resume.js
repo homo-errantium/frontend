@@ -9,6 +9,12 @@ import ProgressBar from './ResumeComponents/ProgressBar/ProgressBar'
 import { locationArr } from '../../constants/constants'
 
 function Resume({
+  arrValues,
+  setArrValues,
+  values,
+  setValues,
+  setIsEditMod,
+  isEditMod,
   isLoggedIn,
   onOpenPopup,
   setCompletedStepsPersonalData,
@@ -55,6 +61,12 @@ function Resume({
   return (
     <>
       <Header
+        arrValues={arrValues}
+        setArrValues={setArrValues}
+        values={values}
+        setValues={setValues}
+        setIsEditMod={setIsEditMod}
+        isEditMod={isEditMod}
         isLoggedIn={isLoggedIn}
         nextPage={nextPage}
         onOpenPopup={onOpenPopup}
@@ -75,6 +87,50 @@ function Resume({
 }
 
 Resume.propTypes = {
+  values: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.bool,
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.objectOf(
+            PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number,
+              PropTypes.bool,
+            ])
+          ),
+        ])
+      ),
+    ])
+  ),
+  arrValues: PropTypes.arrayOf(
+    PropTypes.objectOf(
+      PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.bool,
+        PropTypes.arrayOf(
+          PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.objectOf(
+              PropTypes.oneOfType([
+                PropTypes.string,
+                PropTypes.number,
+                PropTypes.bool,
+              ])
+            ),
+          ])
+        ),
+      ])
+    )
+  ),
+  setArrValues: PropTypes.func,
+  setValues: PropTypes.func,
+  setIsEditMod: PropTypes.func,
+  isEditMod: PropTypes.bool,
   isLoggedIn: PropTypes.bool.isRequired,
   onOpenPopup: PropTypes.func.isRequired,
   setCompletedStepsPersonalData: PropTypes.func.isRequired,
@@ -87,12 +143,18 @@ Resume.propTypes = {
   // setCompletedLayouts: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
   duties: PropTypes.bool,
-  handleResumeNamePopupOpen:PropTypes.func,
+  handleResumeNamePopupOpen: PropTypes.func,
 }
 
 Resume.defaultProps = {
+  arrValues: [],
+  setArrValues: () => {},
+  values: {},
+  setValues: () => {},
+  isEditMod: false,
   duties: false,
   handleResumeNamePopupOpen: () => {},
+  setIsEditMod: () => {},
 }
 
 export default Resume

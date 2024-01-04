@@ -12,8 +12,15 @@ import LeftArrowIcon from '../../img/left-arrow.svg'
 import RightArrowIcon from '../../img/right-arrow.svg'
 import EditIcon from '../../img/edit-icon.svg'
 import ResumeLogoBlack from '../../img/resume-logo-black.svg'
+import { handleOpenPopup, cleanLocalStorage } from '../Utils/Utils'
 
 function Header({
+  values,
+  // setValues,
+  arrValues,
+  setArrValues,
+  setIsEditMod,
+  isEditMod,
   isLoggedIn,
   nextPage,
   onOpenPopup,
@@ -24,6 +31,29 @@ function Header({
   const navigate = useNavigate()
   const location = useLocation()
   const path = location.pathname
+
+  const updateResume = () => {
+    setArrValues(newArr =>
+      newArr.map(resume => {
+        if (resume.id === values.id) {
+          return { ...resume, ...values }
+        }
+        return resume
+      })
+    )
+    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    localStorage.setItem('allData', JSON.stringify(arrValues))
+  }
+
+  const handleSave = () => {
+    if (!isEditMod) {
+      handleResumeNamePopupOpen()
+    } else {
+      updateResume()
+      setIsEditMod(false)
+      navigate('/my-profile')
+    }
+  }
 
   const isLogRegPage = () => !!(path === '/signin' || path === '/signup')
 
@@ -67,19 +97,24 @@ function Header({
             </div>
           </NavLink>
           <div className="header__main-buttons">
-            <NavLink className="header__nav-link" to="/resume">
-              <span className="header__main-button">Создать резюме</span>
-            </NavLink>
+            <button
+              className="header__button header__button_transparent"
+              type="button"
+              label="button"
+              onClick={() => {
+                cleanLocalStorage()
+                setIsEditMod(false)
+                handleOpenPopup(navigate, isLoggedIn, onOpenPopup)
+              }}
+            >
+              Создать резюме
+            </button>
             <button
               className="header__main-button header__logout-button"
               type="button"
               label="button"
               onClick={() => {
-                localStorage.removeItem('formData')
-                localStorage.removeItem('hasExperience')
-                localStorage.removeItem('isTillPresent')
-                localStorage.removeItem('image')
-                localStorage.removeItem('hasQualification')
+                cleanLocalStorage()
                 navigate('/')
               }}
             >
@@ -118,7 +153,6 @@ function Header({
             Личный кабинет
           </button>
           <div className="header__steps-buttons">
-            {/* <NavLink className="header__nav-link" to="/resume/personal-data"> */}
             <button
               className="header__button header__button_black header__button_prev"
               type="button"
@@ -134,23 +168,16 @@ function Header({
               </div>
               Редактировать
             </button>
-            {/* </NavLink> */}
-
-            {/* <NavLink className="header__nav-link" to="/"> */}
             <button
               className="header__button header__button_orange"
               type="button"
               label="button"
               onClick={() => {
-                handleResumeNamePopupOpen()
-                // onOpenPopup()
-                // setCompletedSteps()
-                // navigate(`${nextPage}`)
+                handleSave()
               }}
             >
               Сохранить
             </button>
-            {/* </NavLink> */}
           </div>
         </div>
       </header>
@@ -198,20 +225,25 @@ function Header({
             <NavLink className="header__nav-link" to="/my-profile">
               <span className="header__main-button">Личный кабинет</span>
             </NavLink>
-            <NavLink className="header__nav-link" to="/resume">
-              <span className="header__main-button">Создать резюме</span>
-            </NavLink>
+            <button
+              className="header__button header__button_transparent"
+              type="button"
+              label="button"
+              onClick={() => {
+                cleanLocalStorage()
+                setIsEditMod(false)
+                handleOpenPopup(navigate, isLoggedIn, onOpenPopup)
+              }}
+            >
+              Создать резюме
+            </button>
             <button
               className="header__main-button header__logout-button"
               type="button"
               label="button"
               onClick={() => {
+                cleanLocalStorage()
                 navigate('/')
-                localStorage.removeItem('formData')
-                localStorage.removeItem('hasExperience')
-                localStorage.removeItem('isTillPresent')
-                localStorage.removeItem('image')
-                localStorage.removeItem('hasQualification')
                 // TODO очистить localStorage?
               }}
             >
@@ -245,9 +277,18 @@ function Header({
             </div>
           </NavLink>
           <div className="header__main-buttons">
-            <NavLink className="header__nav-link" to="/resume">
-              <span className="header__main-button">Создать резюме</span>
-            </NavLink>
+            <button
+              className="header__button header__button_transparent"
+              type="button"
+              label="button"
+              onClick={() => {
+                cleanLocalStorage()
+                setIsEditMod(false)
+                handleOpenPopup(navigate, isLoggedIn, onOpenPopup)
+              }}
+            >
+              Создать резюме
+            </button>
             <NavLink className="header__nav-link" to="/signin">
               <div className="header__exit-button">
                 <span className="header__main-button">Войти</span>
@@ -361,20 +402,68 @@ function Header({
 }
 
 Header.propTypes = {
+  setIsEditMod: PropTypes.func,
+  isEditMod: PropTypes.bool,
   isLoggedIn: PropTypes.bool,
   nextPage: PropTypes.string,
   onOpenPopup: PropTypes.func,
   setCompletedSteps: PropTypes.func,
   onClick: PropTypes.func,
   handleResumeNamePopupOpen: PropTypes.func,
+  values: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.bool,
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.objectOf(
+            PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number,
+              PropTypes.bool,
+            ])
+          ),
+        ])
+      ),
+    ])
+  ),
+  arrValues: PropTypes.arrayOf(
+    PropTypes.objectOf(
+      PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.bool,
+        PropTypes.arrayOf(
+          PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.objectOf(
+              PropTypes.oneOfType([
+                PropTypes.string,
+                PropTypes.number,
+                PropTypes.bool,
+              ])
+            ),
+          ])
+        ),
+      ])
+    )
+  ),
+  setArrValues: PropTypes.func,
 }
 Header.defaultProps = {
+  values: {},
+  arrValues: [],
+  setArrValues: () => {},
+  isEditMod: false,
   isLoggedIn: true,
   nextPage: '',
   onOpenPopup: () => {},
   setCompletedSteps: () => {},
   onClick: () => {},
   handleResumeNamePopupOpen: () => {},
+  setIsEditMod: () => {},
 }
 
 export default Header

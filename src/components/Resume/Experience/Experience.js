@@ -26,8 +26,6 @@ const Experience = ({
   handleAddJobChange,
   handleAddJobCheckboxChange,
 }) => {
-  // console.log('🚀 ~ file: Experience.js:30 ~ handleChange:', handleChange)
-  // console.log('🚀 ~ file: Experience.js:30 ~ handleChange:', handleAddJobChange)
   // Если появился добавленный опыт, основная кнопка "Добавить" удаляется
   const [noAddedExperience, setNoAddedExperience] = useState(true)
 
@@ -67,10 +65,10 @@ const Experience = ({
 
   // Если addedExperience пустой, то возвращается основная кнопка "Добавить"
   useEffect(() => {
-    if (values.jobs.length === 0) {
+    if (values.jobs?.length === 0) {
       setNoAddedExperience(true)
     }
-  }, [values.jobs.length])
+  }, [values.jobs])
 
   const handleBackToBasicRecommend = () => {
     setDuties(false)
@@ -159,7 +157,7 @@ const Experience = ({
           errors={errors}
           id="0"
         />
-        {values.jobs.map(experience => (
+        {values.jobs?.map(experience => (
           <Job
             values={experience}
             allValues={values}
@@ -177,7 +175,7 @@ const Experience = ({
             handleBackToBasicRecommend={handleBackToBasicRecommend}
           />
         ))}
-        {noAddedExperience && values.jobs.length === 0 && (
+        {noAddedExperience && values.jobs?.length === 0 && (
           <AddButton disabled={!hasExperience} handleClick={addExperience} />
         )}
       </div>

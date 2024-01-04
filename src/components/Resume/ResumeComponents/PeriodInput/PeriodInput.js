@@ -270,6 +270,7 @@ PeriodInput.propTypes = {
               PropTypes.bool,
             ])
           ),
+          PropTypes.string,
         ])
       ),
     ])

@@ -47,10 +47,10 @@ const Education = ({
 
   // Если addedEducation пустой, то возвращается основная кнопка "Добавить"
   useEffect(() => {
-    if (values.educations.length === 0) {
+    if (values.educations?.length === 0) {
       setNoAddedEducation(true)
     }
-  }, [values.educations.length])
+  }, [values.educations?.length])
 
   return (
     <section className="education personal-data">
@@ -90,7 +90,7 @@ const Education = ({
           name="education_level"
           label="Степень"
         />
-        {values.educations.map(education => (
+        {values.educations?.map(education => (
           <AddedEducation
             values={education}
             deleteEducation={deleteEducation}
@@ -105,7 +105,7 @@ const Education = ({
             allValues={values}
           />
         ))}
-        {noAddedEducation && values.educations.length === 0 && (
+        {noAddedEducation && values.educations?.length === 0 && (
           <AddButton handleClick={addEducation} />
         )}
       </div>
