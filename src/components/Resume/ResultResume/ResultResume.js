@@ -206,7 +206,7 @@ function ResultResume({ values }) {
       </div> */}
       {/* ------ блок навыки ------*/}
       <div className="result-resume__skills">
-        {userSkills.length !== 0 && (
+        {userSkills?.length !== 0 && (
           <>
             <h2 className="result-resume__title">Навыки</h2>
             <ul className="result-resume__list-skills">
