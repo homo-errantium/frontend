@@ -7,6 +7,7 @@ import { months } from '../../../constants/months'
 
 function ResultResume({ values }) {
   // const userAllLang = values.languages
+  const userSkills = values.hardskills
   const userAllJobs = values.jobs
   const userAllQualifications = values.qualifications
   const userAllEducations = values.educations
@@ -126,6 +127,7 @@ function ResultResume({ values }) {
             </p>
             <Link
               to={values.company_website}
+              target="_blank"
               className="result-resume__organization result-resume__experience-company"
             >
               {absentValues(values.company)}
@@ -176,18 +178,22 @@ function ResultResume({ values }) {
 
       {/* ------ блок с контактами ------*/}
       <div className="result-resume__user-contacts">
-        <h2 className="result-resume__user-contacts-title">Контакты</h2>
-        <span className="result-resume__user-mail">
-          {absentValues(values.email)}
-        </span>
-        <br />
-        <span className="result-resume__user-telegram">
+        <h2 className="result-resume__title result-resume__title_contacts">
+          Контакты
+        </h2>
+        <Link
+          to={values.telegram}
+          target="_blank"
+          className="result-resume__paragraph result-resume__paragraph_contacts result-resume__paragraph_contacts-link"
+        >
           {absentValues(values.telegram)}
-        </span>
-        <br />
-        <span className="result-resume__user-phone">
+        </Link>
+        <p className="result-resume__paragraph result-resume__paragraph_contacts">
+          {absentValues(values.email)}
+        </p>
+        <p className="result-resume__paragraph result-resume__paragraph_contacts">
           {absentValues(values.phone)}
-        </span>
+        </p>
       </div>
 
       {/* ------ блок ссылки ------*/}
@@ -199,12 +205,18 @@ function ResultResume({ values }) {
         </span>
       </div> */}
       {/* ------ блок навыки ------*/}
-      {/* <div className="result-resume__skills">
-        <h2 className="result-resume__skills-title">навыки:</h2>
-        <p className="result-resume__skills-description">
-          {`${values.userEmail}`}
-        </p>
-      </div> */}
+      <div className="result-resume__skills">
+        {userSkills.length !== 0 && (
+          <>
+            <h2 className="result-resume__title">Навыки</h2>
+            <ul className="result-resume__list-skills">
+              {userSkills.map(item => (
+                <li className="result-resume__list-item">{item}</li>
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
       {/* ------ блок образование ------*/}
       <div className="result-resume__container">
         <h2 className="result-resume__title">Образование</h2>
@@ -225,7 +237,6 @@ function ResultResume({ values }) {
             <p className="result-resume__paragraph">
               {values.university_specialization}
             </p>
-            <br />
             <p className="result-resume__paragraph">{values.education_level}</p>
           </div>
         </div>
@@ -250,7 +261,6 @@ function ResultResume({ values }) {
                 <p className="result-resume__paragraph">
                   {item.university_specialization}
                 </p>
-                <br />
                 <p className="result-resume__paragraph">
                   {item.education_level}
                 </p>
@@ -275,19 +285,15 @@ function ResultResume({ values }) {
           </div>
           <div className="result-resume__second-column">
             <p className="result-resume__paragraph">{values.course_name}</p>
-            <br />
             <p className="result-resume__paragraph">
               {values.work_specialization}
             </p>
-            <br />
             <p className="result-resume__paragraph">
               {values.description_experience}
             </p>
-            <br />
             <p className="result-resume__paragraph">
               {`Навыки: ${values.skills}`}
             </p>
-            <br />
             <p className="result-resume__paragraph">
               {`Ссылка на дипломную работу: ${values.diploma_link}`}
             </p>
@@ -308,19 +314,15 @@ function ResultResume({ values }) {
               </div>
               <div className="result-resume__second-column">
                 <p className="result-resume__paragraph">{item.course_name}</p>
-                <br />
                 <p className="result-resume__paragraph">
                   {item.work_specialization}
                 </p>
-                <br />
                 <p className="result-resume__paragraph">
                   {item.description_experience}
                 </p>
-                <br />
                 <p className="result-resume__paragraph">
                   {`Навыки: ${item.skills}`}
                 </p>
-                <br />
                 <p className="result-resume__paragraph">
                   {`Ссылка на дипломную работу: ${item.diploma_link}`}
                 </p>
