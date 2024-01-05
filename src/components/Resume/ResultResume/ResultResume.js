@@ -86,22 +86,22 @@ function ResultResume({ values }) {
       />
       {/* ------ блок с ФИО ------*/}
       <div className="result-resume__user-info">
-        <span className="result-resume__user-name">
+        <p className="result-resume__user-name">
           {`${absentValues(values.name)} ${values.surname ?? ''}`}
-        </span>
+        </p>
         {/* <br /> */}
-        <span className="result-resume__user-desired-position">
+        <p className="result-resume__user-desired-position">
           {`${absentValues(values.desired_position)}`}
-        </span>
+        </p>
         {/* <br /> */}
         <ul className="result-resume__user-birth-info-list">
           <li className="result-resume__user-birth-info-list-item">
-            <span className="result-resume__user-date-birth">
+            <span className="result-resume__user-birth-info-list-item-element">
               {`${absentValues(currentAge())}`}
             </span>
           </li>
           <li className="result-resume__user-birth-info-list-item">
-            <span className="result-resume__user-place-birth">
+            <span className="result-resume__user-birth-info-list-item-element">
               {`${absentValues(values.city)}`}
             </span>
           </li>
@@ -110,20 +110,20 @@ function ResultResume({ values }) {
 
       {/* ------ блок опыта работы ------*/}
 
-      <div className="result-resume__experience">
+      <div className="result-resume__container">
         <h2 className="result-resume__title">Опыт работы</h2>
 
-        <div className="result-resume__experience-children">
-          <div className="result-resume__info">
-            <span className="result-resume__date">
+        <div className="result-resume__children">
+          <div className="result-resume__first-column">
+            <p className="result-resume__date">
               {`${monthConvert(values.month_work_start)}
             ${values.year_work_start} - ${monthConvert(values.month_work_end)}${
               values.year_work_end ? ` ${values.year_work_end}` : ''
             }`}
-            </span>
-            <span className="result-resume__experience-position">
+            </p>
+            <p className="result-resume__paragraph result-resume__paragraph_position">
               {absentValues(values.current_position)}
-            </span>
+            </p>
             <Link
               to={values.company_website}
               className="result-resume__organization result-resume__experience-company"
@@ -131,29 +131,29 @@ function ResultResume({ values }) {
               {absentValues(values.company)}
             </Link>
           </div>
-          <div className="result-resume__experience-duty-info">
+          <div className="result-resume__second-column">
             <h4 className="result-resume__experience-duty-title">
               Обязанности
             </h4>
-            <span className="result-resume__experience-duty">
+            <p className="result-resume__paragraph">
               {absentValues(values.duties)}
-            </span>
+            </p>
           </div>
         </div>
 
         {React.Children.toArray(
           userAllJobs?.map(item => (
-            <div className="result-resume__experience-children">
-              <div className="result-resume__info">
-                <span className="result-resume__date">
+            <div className="result-resume__children">
+              <div className="result-resume__first-column">
+                <p className="result-resume__date">
                   {`${monthConvert(item.month_work_start)}
             ${item.year_work_start} - ${monthConvert(item.month_work_end)}${
               item.year_work_end ? ` ${item.year_work_end}` : ''
             }`}
-                </span>
-                <span className="result-resume__experience-position">
+                </p>
+                <p className="result-resume__paragraph result-resume__paragraph_position">
                   {absentValues(item.current_position)}
-                </span>
+                </p>
                 <Link
                   to={item.company_website}
                   className="result-resume__organization result-resume__experience-company"
@@ -161,13 +161,13 @@ function ResultResume({ values }) {
                   {absentValues(item.company)}
                 </Link>
               </div>
-              <div className="result-resume__experience-duty-info">
+              <div className="result-resume__second-column">
                 <h4 className="result-resume__experience-duty-title">
                   Обязанности
                 </h4>
-                <span className="result-resume__experience-duty">
+                <p className="result-resume__paragraph">
                   {absentValues(item.duties)}
-                </span>
+                </p>
               </div>
             </div>
           ))
@@ -206,37 +206,34 @@ function ResultResume({ values }) {
         </p>
       </div> */}
       {/* ------ блок образование ------*/}
-      <div className="result-resume__education">
+      <div className="result-resume__container">
         <h2 className="result-resume__title">Образование</h2>
-        <div className="result-resume__info">
-          <span className="result-resume__date">
-            {`${
-              values.year_education_start
-                ? ` ${values.year_education_start}`
-                : ''
-            } - ${
-              values.year_education_end ? ` ${values.year_education_end}` : ''
-            }`}
-          </span>
-          <br />
-          <span className="result-resume__organization">
-            {values.university_name}
-          </span>
-        </div>
-        <div className="result-resume__info">
-          <span className="result-resume__education-speciality">
-            {values.university_specialization}
-          </span>
-          <br />
-          <span className="result-resume__education-degree">
-            {values.education_level}
-          </span>
+        <div className="result-resume__children">
+          <div className="result-resume__first-column">
+            <p className="result-resume__date">
+              {`${
+                values.year_education_start
+                  ? ` ${values.year_education_start}`
+                  : ''
+              } - ${
+                values.year_education_end ? ` ${values.year_education_end}` : ''
+              }`}
+            </p>
+            <p className="result-resume__paragraph">{values.university_name}</p>
+          </div>
+          <div className="result-resume__second-column">
+            <p className="result-resume__paragraph">
+              {values.university_specialization}
+            </p>
+            <br />
+            <p className="result-resume__paragraph">{values.education_level}</p>
+          </div>
         </div>
         {React.Children.toArray(
           userAllEducations?.map(item => (
-            <div className="result-resume__education">
-              <div className="result-resume__info">
-                <span className="result-resume__date">
+            <div className="result-resume__children">
+              <div className="result-resume__first-column">
+                <p className="result-resume__date">
                   {`${
                     item.year_education_start
                       ? ` ${item.year_education_start}`
@@ -244,98 +241,89 @@ function ResultResume({ values }) {
                   } - ${
                     item.year_education_end ? ` ${item.year_education_end}` : ''
                   }`}
-                </span>
-                <br />
-                <span className="result-resume__organization">
+                </p>
+                <p className="result-resume__paragraph">
                   {item.university_name}
-                </span>
+                </p>
               </div>
-              <div className="result-resume__info">
-                <span className="result-resume__education-speciality">
+              <div className="result-resume__second-column">
+                <p className="result-resume__paragraph">
                   {item.university_specialization}
-                </span>
+                </p>
                 <br />
-                <span className="result-resume__education-degree">
+                <p className="result-resume__paragraph">
                   {item.education_level}
-                </span>
+                </p>
               </div>
             </div>
           ))
         )}
       </div>
       {/* ------ блок повышение квалификации ------*/}
-      <div className="result-resume__training">
+      <div className="result-resume__container">
         <h2 className="result-resume__title">Повышение квалификации</h2>
-        <div className="result-resume__info">
-          <span className="result-resume__date">
-            {`${monthConvert(values.qual_start)}${
-              values.year_qual_start ? ` ${values.year_qual_start}` : ''
-            } - ${monthConvert(values.qual_end)}${
-              values.year_qual_end ? ` ${values.year_qual_end}` : ''
-            }`}
-          </span>
-          <span className="result-resume__organization">
-            {values.organization}
-          </span>
-        </div>
-        <div className="result-resume__info">
-          <br />
-          <span className="result-resume__training-course">
-            {values.course_name}
-          </span>
-          <br />
-          <span className="result-resume__training-speciality">
-            {values.work_specialization}
-          </span>
-          <br />
-          <span className="result-resume__training-description">
-            {values.description_experience}
-          </span>
-          <br />
-          <span className="result-resume__training-skills">
-            {`Навыки: ${values.skills}`}
-          </span>
-          <br />
-          <span className="result-resume__training-skills">
-            {`Ссылка на дипломную работу: ${values.diploma_link}`}
-          </span>
+        <div className="result-resume__children">
+          <div className="result-resume__first-column">
+            <p className="result-resume__date">
+              {`${monthConvert(values.qual_start)}${
+                values.year_qual_start ? ` ${values.year_qual_start}` : ''
+              } - ${monthConvert(values.qual_end)}${
+                values.year_qual_end ? ` ${values.year_qual_end}` : ''
+              }`}
+            </p>
+            <p className="result-resume__paragraph">{values.organization}</p>
+          </div>
+          <div className="result-resume__second-column">
+            <p className="result-resume__paragraph">{values.course_name}</p>
+            <br />
+            <p className="result-resume__paragraph">
+              {values.work_specialization}
+            </p>
+            <br />
+            <p className="result-resume__paragraph">
+              {values.description_experience}
+            </p>
+            <br />
+            <p className="result-resume__paragraph">
+              {`Навыки: ${values.skills}`}
+            </p>
+            <br />
+            <p className="result-resume__paragraph">
+              {`Ссылка на дипломную работу: ${values.diploma_link}`}
+            </p>
+          </div>
         </div>
         {React.Children.toArray(
           userAllQualifications?.map(item => (
-            <div className="result-resume__training">
-              <div className="result-resume__info">
-                <span className="result-resume__date">
+            <div className="result-resume__children">
+              <div className="result-resume__first-column">
+                <p className="result-resume__date">
                   {`${monthConvert(item.qual_start)}${
                     item.year_qual_start ? ` ${item.year_qual_start}` : ''
                   } - ${monthConvert(item.qual_end)}${
                     item.year_qual_end ? ` ${item.year_qual_end}` : ''
                   }`}
-                </span>
-                <span className="result-resume__organization">
-                  {item.organization}
-                </span>
+                </p>
+                <p className="result-resume__paragraph">{item.organization}</p>
               </div>
-              <div className="result-resume__info">
+              <div className="result-resume__second-column">
+                <p className="result-resume__paragraph">{item.course_name}</p>
                 <br />
-                <span className="result-resume__training-course">
-                  {item.course_name}
-                </span>
-                <br />
-                <span className="result-resume__training-speciality">
+                <p className="result-resume__paragraph">
                   {item.work_specialization}
-                </span>
+                </p>
                 <br />
-                <span className="result-resume__training-description">
+                <p className="result-resume__paragraph">
                   {item.description_experience}
-                </span>
+                </p>
                 <br />
-                <span className="result-resume__training-skills">
+                <p className="result-resume__paragraph">
                   {`Навыки: ${item.skills}`}
-                </span>
+                </p>
                 <br />
-                <span className="result-resume__training-skills">
+                <p className="result-resume__paragraph">
                   {`Ссылка на дипломную работу: ${item.diploma_link}`}
-                </span>
+                </p>
               </div>
             </div>
           ))
@@ -360,48 +348,43 @@ function ResultResume({ values }) {
       </div> */}
 
       {/* ------ блок проекты и портфолио ------*/}
-      <div className="result-resume__projects">
-        <h2 className="result-resume__projects-title">проекты и портфолио:</h2>
-        <span className="result-resume__project-name">
-          {`Название проекта: ${values.project_name}`}
-        </span>
-        <br />
-        <span className="result-resume__project-description">
-          {`Краткое описание проекта: ${values.project_description}`}
-        </span>
-        <br />
-        <span className="result-resume__project-link">
-          {`Ссылка на проект: ${values.project_link}`}
-        </span>
+      <div className="result-resume__container">
+        <h2 className="result-resume__title">Проекты и портфолио</h2>
+        <div className="result-resume__project">
+          <h5 className="result-resume__project-name">{values.project_name}</h5>
+          <br />
+          <p className="result-resume__paragraph">
+            {values.project_description}
+          </p>
+          <br />
+          <p className="result-resume__paragraph">
+            {`Ссылка на проект: ${values.project_link}`}
+          </p>
+        </div>
         {React.Children.toArray(
           userAllPortfolio?.map(item => (
-            <>
-              <h4 className="result-resume__projects-title">
-                проекты и портфолио:
-              </h4>
-              <span className="result-resume__project-name">
-                {`Название проекта: ${item.project_name}`}
-              </span>
+            <div className="result-resume__project">
+              <h5 className="result-resume__project-name">
+                {item.project_name}
+              </h5>
               <br />
-              <span className="result-resume__project-description">
-                {`Краткое описание проекта: ${item.project_description}`}
-              </span>
+              <p className="result-resume__paragraph">
+                {item.project_description}
+              </p>
               <br />
-              <span className="result-resume__project-link">
+              <p className="result-resume__paragraph">
                 {`Ссылка на проект: ${item.project_link}`}
-              </span>
-            </>
+              </p>
+            </div>
           ))
         )}
       </div>
 
-      {/* ------ блок о себе ------
-      <div className="result-resume__about-user">
-        <h2 className="result-resume__about-user-title">о себе:</h2>
-        <p className="result-resume__about-user-description">
-          {`Хобби: ${values.userEmail}`}
-        </p>
-      </div> */}
+      {/* ------ блок о себе ------ */}
+      <div className="result-resume__container">
+        <h2 className="result-resume__title">Обо мне</h2>
+        <p className="result-resume__paragraph">{values.about}</p>
+      </div>
     </div>
   )
 }

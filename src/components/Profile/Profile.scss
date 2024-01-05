@@ -214,6 +214,7 @@
   min-height: 100vh;
   padding-left: 20px;
   padding-bottom: 136px;
+  margin-right: 5%;
 }
 
 .profile__saved-resumes-title {
@@ -223,6 +224,7 @@
   font-weight: 700;
   line-height: normal;
   text-transform: none;
+  text-align: left;
 }
 
 .profile__cvs-container {
@@ -321,4 +323,10 @@
   padding: 0;
   background-color: transparent;
   border: none;
+}
+
+.profile__cv-name {
+  font-size: 20px;
+  text-align: left;
+  line-height: 120%;
 }
