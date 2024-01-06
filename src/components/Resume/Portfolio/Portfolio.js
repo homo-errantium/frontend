@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import '../PersonalData/PersonalData.scss'
 import React, { useState, useEffect } from 'react'
 import { v4 as uuidv4 } from 'uuid'
@@ -13,6 +14,7 @@ const Portfolio = ({
   setValues,
   handleChangeWithValidation,
   handleAddPortfolioChange,
+  setPortfolio,
 }) => {
   // Если появился добавленное образование, основная кнопка "Добавить" удаляется
   const [noAddedProjects, setNoAddedProjects] = useState(true)
@@ -32,6 +34,9 @@ const Portfolio = ({
     })
   }
 
+  const handleBackToBasicRecommend = () => {
+    setPortfolio(false)
+  }
   // Если addedEducation пустой, то возвращается основная кнопка "Добавить"
   useEffect(() => {
     if (values.portfolio.length === 0) {
@@ -41,27 +46,45 @@ const Portfolio = ({
 
   return (
     <section className="portfolio personal-data">
-      <ResumeTitle title="Проекты и портфолио" />
+      <ResumeTitle
+        title="Проекты и портфолио"
+        handleBackToBasicRecommend={handleBackToBasicRecommend}
+      />
       <div className="portfolio__container experience__form-container">
-        <FormInput
-          name="project_name"
-          values={values}
-          handleChange={handleChangeWithValidation}
-          label="Название проекта"
-        />
+        <div
+          className="portfolio__basic-recommend"
+          onClick={handleBackToBasicRecommend}
+          onKeyDown={handleBackToBasicRecommend}
+          onFocus={handleBackToBasicRecommend}
+        >
+          <FormInput
+            name="project_name"
+            values={values}
+            handleChange={handleChangeWithValidation}
+            label="Название проекта"
+          />
+        </div>
         <FormInput
           name="project_description"
           values={values}
           handleChange={handleChangeWithValidation}
           label="Краткое описание проекта"
           extraInputClass="portfolio"
+          setPortfolio={setPortfolio}
         />
-        <FormInput
-          name="project_link"
-          values={values}
-          handleChange={handleChangeWithValidation}
-          label="Ссылка на проект"
-        />
+        <div
+          className="portfolio__basic-recommend"
+          onClick={handleBackToBasicRecommend}
+          onKeyDown={handleBackToBasicRecommend}
+          onFocus={handleBackToBasicRecommend}
+        >
+          <FormInput
+            name="project_link"
+            values={values}
+            handleChange={handleChangeWithValidation}
+            label="Ссылка на проект"
+          />
+        </div>
         {values.portfolio.map(project => (
           <Project
             values={project}
@@ -70,6 +93,8 @@ const Portfolio = ({
             i={project.id}
             key={project.id}
             handleChange={handleAddPortfolioChange}
+            setPortfolio={setPortfolio}
+            handleBackToBasicRecommend={handleBackToBasicRecommend}
           />
         ))}
         {noAddedProjects && values.portfolio.length === 0 && (
@@ -103,6 +128,7 @@ Portfolio.propTypes = {
   setValues: PropTypes.func.isRequired,
   handleChangeWithValidation: PropTypes.func.isRequired,
   handleAddPortfolioChange: PropTypes.func.isRequired,
+  setPortfolio: PropTypes.func.isRequired,
 }
 
 Portfolio.defaultProps = {

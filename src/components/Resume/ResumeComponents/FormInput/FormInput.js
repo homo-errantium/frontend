@@ -18,6 +18,9 @@ const FormInput = ({
   dataMask,
   setValues,
   setDuties,
+  setQualifications,
+  setPortfolio,
+  setAbout,
   errors,
   id,
   placeholder,
@@ -65,6 +68,9 @@ const FormInput = ({
 
   const handleFocus = () => {
     setDuties(true)
+    setQualifications(true)
+    setAbout(true)
+    setPortfolio(true)
   }
 
   // const handleBlur = () => {
@@ -119,6 +125,9 @@ FormInput.propTypes = {
   ]).isRequired,
   setValues: PropTypes.func,
   setDuties: PropTypes.func,
+  setPortfolio: PropTypes.func,
+  setAbout: PropTypes.func,
+  setQualifications: PropTypes.func,
   errors: PropTypes.objectOf(PropTypes.string),
   id: PropTypes.string,
 }
@@ -135,6 +144,9 @@ FormInput.defaultProps = {
   errors: {},
   id: '',
   setValues: () => {},
+  setQualifications: () => {},
+  setPortfolio: () => {},
+  setAbout: () => {},
   label: undefined,
 }
 

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react'
 import PropTypes from 'prop-types'
 import './Project.scss'
@@ -5,7 +6,15 @@ import FormInput from '../../ResumeComponents/FormInput/FormInput'
 import PlusIcon from '../../../../img/plus-icon.svg'
 import TrashIcon from '../../../../img/trash-icon-red.svg'
 
-const Project = ({ addProject, deleteProject, i, values, handleChange }) => {
+const Project = ({
+  addProject,
+  deleteProject,
+  i,
+  values,
+  handleChange,
+  setPortfolio,
+  handleBackToBasicRecommend,
+}) => {
   const handleDelete = () => deleteProject(i)
   return (
     <>
@@ -13,13 +22,20 @@ const Project = ({ addProject, deleteProject, i, values, handleChange }) => {
         <FormInput label="Название проекта" />
       </div> */}
       <div className="project__container experience__job-container" id={i}>
-        <FormInput
-          values={values}
-          handleChange={handleChange}
-          id={i}
-          name="project_name"
-          label="Название проекта"
-        />
+        <div
+          className="portfolio__basic-recommend"
+          onClick={handleBackToBasicRecommend}
+          onKeyDown={handleBackToBasicRecommend}
+          onFocus={handleBackToBasicRecommend}
+        >
+          <FormInput
+            values={values}
+            handleChange={handleChange}
+            id={i}
+            name="project_name"
+            label="Название проекта"
+          />
+        </div>
         <FormInput
           values={values}
           handleChange={handleChange}
@@ -27,14 +43,22 @@ const Project = ({ addProject, deleteProject, i, values, handleChange }) => {
           name="project_description"
           label="Краткое описание проекта"
           extraInputClass="portfolio"
+          setPortfolio={setPortfolio}
         />
-        <FormInput
-          values={values}
-          handleChange={handleChange}
-          id={i}
-          name="project_link"
-          label="Ссылка на проект"
-        />
+        <div
+          className="portfolio__basic-recommend"
+          onClick={handleBackToBasicRecommend}
+          onKeyDown={handleBackToBasicRecommend}
+          onFocus={handleBackToBasicRecommend}
+        >
+          <FormInput
+            values={values}
+            handleChange={handleChange}
+            id={i}
+            name="project_link"
+            label="Ссылка на проект"
+          />
+        </div>
       </div>
       <div className="project__buttons-container job__buttons-container">
         <button
@@ -76,6 +100,8 @@ Project.propTypes = {
     ])
   ),
   handleChange: PropTypes.func.isRequired,
+  handleBackToBasicRecommend: PropTypes.func.isRequired,
+  setPortfolio: PropTypes.func.isRequired,
 }
 
 Project.defaultProps = {

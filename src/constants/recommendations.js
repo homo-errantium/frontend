@@ -20,10 +20,71 @@ const EXPERIENCE_RECOMMENDATIONS = (
   </>
 )
 
+const ABOUT_RECOMMENDATIONS = (
+  <>
+    <br />
+    <p className="recommend__text recommend__text-about">
+      Чтобы повысить шансы успешного трудоустройства, предлагаем следовать нашим
+      рекомендациям.
+    </p>
+  </>
+)
+
+const ABOUT_MYSELF_RECOMMENDATIONS = (
+  <p className="recommend__text">
+    Мы открываем свою личность и подчёркиваем её индивидуальность. Поэтому так
+    важно заполнять блок «Обо мне».
+  </p>
+)
+
+const SKILLS_RECOMMENDATIONS = (
+  <>
+    <br />
+    <p className="recommend__text recommend__text-about">
+      Чтобы повысить шансы успешного трудоустройства, предлагаем следовать нашим
+      рекомендациям.
+    </p>
+  </>
+)
+
+const SKILLS_ABILITY_RECOMMENDATIONS = <br />
+
+const PORTFOLIO_RECOMMENDATIONS = (
+  <>
+    <br />
+    <p className="recommend__text recommend__text-about">
+      Чтобы повысить шансы успешного трудоустройства, предлагаем следовать нашим
+      рекомендациям.
+    </p>
+  </>
+)
+
+const PORTFOLIO_PROJECTDESCRIPTION_RECOMMENDATIONS = <br />
+
+const EDUCATION_RECOMMENDATIONS = (
+  <>
+    <br />
+    <p className="recommend__text recommend__text-about">
+      Чтобы повысить шансы успешного трудоустройства, предлагаем следовать нашим
+      рекомендациям.
+    </p>
+  </>
+)
+
+const QUALIFICATION_RECOMMENDATIONS = (
+  <>
+    <br />
+    <p className="recommend__text recommend__text-about">
+      Чтобы повысить шансы успешного трудоустройства, предлагаем следовать нашим
+      рекомендациям.
+    </p>
+  </>
+)
+
 const RESULT_RECOMMENDATIONS = (
   <>
     <p className="recommend__text">
-      Не забудь, что под каждого работодателя лучше делать отдельное резюме.
+      Не забудьте, что под каждого работодателя лучше делать отдельное резюме.
       Перед отправкой резюме лучше ещё раз внимательно изучите текст вакансии и
       выполните пожелания компании, если таковые имеются. Например, начать
       письмо с определённой фразы, ответить на какой-то конкретный вопрос,
@@ -47,6 +108,13 @@ const RESULT_RECOMMENDATIONS = (
 
 export {
   EXPERIENCE_RECOMMENDATIONS,
-  // EXPERIENCE_DUTIES_RECOMMENDATIONS,
   RESULT_RECOMMENDATIONS,
+  ABOUT_RECOMMENDATIONS,
+  ABOUT_MYSELF_RECOMMENDATIONS,
+  SKILLS_RECOMMENDATIONS,
+  SKILLS_ABILITY_RECOMMENDATIONS,
+  PORTFOLIO_RECOMMENDATIONS,
+  PORTFOLIO_PROJECTDESCRIPTION_RECOMMENDATIONS,
+  EDUCATION_RECOMMENDATIONS,
+  QUALIFICATION_RECOMMENDATIONS,
 }
