@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import './PersonalData.scss'
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import ResumeTitle from '../ResumeComponents/ResumeTitle/ResumeTitle'
 import DoubleInput from '../ResumeComponents/DoubleInput/DoubleInput'
@@ -43,7 +43,9 @@ const PersonalData = ({
     setLanguagesAfterDeleting(remainingLanguages)
     return remainingLanguages
   }
-
+  useEffect(() => {
+    console.log(values)
+  })
   const deleteLink = i => {
     const linkToBeRemoved = values.links.find(item => item.id === i)
     const remainingLinks = values.links.filter(
