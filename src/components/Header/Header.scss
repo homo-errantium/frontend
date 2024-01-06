@@ -10,10 +10,13 @@
 //   padding: 18px 70px;
 // }
 
-// .header__logo {
-//   width: 36px;
-//   height: 36px;
-// }
+.header__logo {
+  width: 100px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .header {
   flex-grow: 0;
@@ -35,8 +38,8 @@
 }
 
 .header__logo-resume-plus {
-  width: 100px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
 }
 
 .header_main {

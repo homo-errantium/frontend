@@ -25,6 +25,7 @@ function Profile({
   values,
   setValues,
   setIsResumeNamePopupOpen,
+  setImage,
 }) {
   const nextPage = '/*'
   const [isProfileData, setIsProfileData] = useState(true)
@@ -174,6 +175,7 @@ function Profile({
         nextPage={nextPage}
         setIsEditMod={setIsEditMod}
         setValues={setValues}
+        setImage={setImage}
       />
       <main className="profile">
         <h1 className="profile__title">Личный кабинет</h1>
@@ -558,11 +560,13 @@ Profile.propTypes = {
   ).isRequired,
   setIsEditMod: PropTypes.func,
   setIsResumeNamePopupOpen: PropTypes.func.isRequired,
+  setImage: PropTypes.func,
 }
 
 Profile.defaultProps = {
   imageProfile: '',
   setIsEditMod: () => {},
+  setImage: () => {},
 }
 
 export default Profile

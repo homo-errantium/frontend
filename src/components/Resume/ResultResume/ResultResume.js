@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/no-array-index-key */
 import React from 'react'
 import './ResultResume.scss'
@@ -15,7 +16,6 @@ function ResultResume({ values }) {
   const userAllPortfolio = values.portfolio
   const location = useLocation()
   const locationProfile = location.pathname === '/my-profile'
-  console.log(values.project_link)
 
   // function checkboxConvert(value, text) {
   //   return value || text
@@ -27,7 +27,6 @@ function ResultResume({ values }) {
     if (birthdayArr) {
       const today = new Date()
       const year = today.getFullYear() - birthdayArr[2]
-      console.log(today.getFullYear())
       switch (year) {
         case 11:
         case 12:
@@ -202,7 +201,12 @@ function ResultResume({ values }) {
               {absentValues(values.company)}
             </Link>
           </div>
-          <div className="result-resume__second-column">
+          <div
+            className={classNames(
+              'result-resume__second-column',
+              locationProfile && 'result-resume__second-column_profile'
+            )}
+          >
             <h4
               className={classNames(
                 'result-resume__experience-duty-title',
@@ -759,6 +763,15 @@ function ResultResume({ values }) {
           {values.about}
         </p>
       </div>
+      {!locationProfile && (
+        <div className="result-resume__button-container">
+          <button type="button" className="result-resume__button">
+            <Link className="result-resume__button-link" to="#">
+              Портфолио
+            </Link>
+          </button>
+        </div>
+      )}
       <div className="result-resume__right-container">
         {/* ------ блок с контактами ------*/}
         <div className="result-resume__right-container-info result-resume__user-contacts">
@@ -803,7 +816,7 @@ function ResultResume({ values }) {
           </p>
         </div>
         {/* ------ блок навыки ------*/}
-        {userSkills.length !== 0 && (
+        {userSkills && userSkills.length !== 0 && (
           <div className="result-resume__right-container-info">
             <h2
               className={classNames(
@@ -836,7 +849,7 @@ function ResultResume({ values }) {
           </div>
         )}
         {/* ------ блок языки ------*/}
-        {userAllLang.length !== 0 && (
+        {userAllLang && userAllLang.length !== 0 && (
           <div className="result-resume__right-container-info">
             <h2
               className={classNames(

@@ -21,7 +21,8 @@ $font-size-profile: 8.15px;
     padding: 33px;
     grid-template-columns: 71px 1fr 89px;
     column-gap: 22px;
-    row-gap: 24.5px;
+    row-gap: 0;
+    margin-bottom: 16px;
   }
 
   // Стили для блока с ФИО, фото, датой и местом рождения
@@ -51,6 +52,7 @@ $font-size-profile: 8.15px;
     &_profile {
       max-width: 71px;
       max-height: 71px;
+      margin-bottom: 24px;
     }
   }
 
@@ -149,13 +151,17 @@ $font-size-profile: 8.15px;
   margin-bottom: 40px;
 
   &:last-child {
-    margin-bottom: 0;
+    margin-bottom: 0px;
   }
 
   &_profile {
     grid-template-columns: 71px 1fr;
     column-gap: 8.15px;
     margin-bottom: 25px;
+
+    &:last-child {
+      margin-bottom: 19px;
+    }
   }
 }
 
@@ -243,15 +249,15 @@ $font-size-profile: 8.15px;
   grid-column: 2/3;
   display: flex;
   flex-direction: column;
-  row-gap: 12px;
+  row-gap: 20px;
 
   &_profile {
-    row-gap: 8.15px;
+    row-gap: 13px;
   }
 }
 
 &__experience-duty-title {
-  margin: 0 0 20px 0;
+  margin: 0;
   font-size: $font-size;
   font-weight: $font-weight;
   line-height: $line-height;
@@ -322,6 +328,34 @@ $font-size-profile: 8.15px;
 &__project-link {
   color: #212121;
   padding-left: 5px;
+
+  &:hover {
+    opacity: .5;
+  }
+}
+
+&__button-container {
+  grid-column: 3/4;
+  grid-row-start: 1;
+  padding-top: 18px;
+}
+
+&__button {
+  max-width: 123px;
+  padding: 10px 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  border-radius: 24px;
+  background-color: #171717;
+  border: none;
+  cursor: pointer;
+}
+
+&__button-link {
+  color: #fff;
+  font-size: $font-size;
 
   &:hover {
     opacity: .5;

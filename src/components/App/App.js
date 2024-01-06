@@ -765,6 +765,7 @@ function App() {
                 currentResume={currentResume}
                 setIsEditMod={setIsEditMod}
                 setIsResumeNamePopupOpen={setIsResumeNamePopupOpen}
+                setImage={setImage}
               />
             }
           />

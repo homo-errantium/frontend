@@ -238,13 +238,14 @@
 .profile__cv-container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
   position: relative;
+  width: 100%;
 }
 
 .profile__cv-image-container {
   position: relative;
-  display: flex;
+  width: 100%;
+
 }
 
 .profile__cv-image {

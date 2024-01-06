@@ -120,7 +120,7 @@ const Cv = ({
               alt="скачивание"
               className="profile__cv-menu-icon"
             />
-            Ссылка
+            Скопировать ссылку
           </button>
           <button
             className="profile__cv-menu-option link"

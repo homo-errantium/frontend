@@ -26,6 +26,7 @@ function Header({
   setCompletedSteps,
   onClick,
   handleResumeNamePopupOpen,
+  setImage,
 }) {
   const navigate = useNavigate()
   const location = useLocation()
@@ -105,6 +106,7 @@ function Header({
                 setIsEditMod(false)
                 handleOpenPopup(navigate, isLoggedIn, onOpenPopup)
                 setValues({})
+                setImage('')
               }}
             >
               Создать резюме
@@ -234,6 +236,7 @@ function Header({
                 setIsEditMod(false)
                 handleOpenPopup(navigate, isLoggedIn, onOpenPopup)
                 setValues({})
+                setImage('')
               }}
             >
               Создать резюме
@@ -287,6 +290,7 @@ function Header({
                 setIsEditMod(false)
                 handleOpenPopup(navigate, isLoggedIn, onOpenPopup)
                 setValues({})
+                setImage('')
               }}
             >
               Создать резюме
@@ -454,6 +458,7 @@ Header.propTypes = {
   ),
   setArrValues: PropTypes.func,
   setValues: PropTypes.func.isRequired,
+  setImage: PropTypes.func,
 }
 Header.defaultProps = {
   values: {},
@@ -467,6 +472,7 @@ Header.defaultProps = {
   onClick: () => {},
   handleResumeNamePopupOpen: () => {},
   setIsEditMod: () => {},
+  setImage: () => {},
 }
 
 export default Header
