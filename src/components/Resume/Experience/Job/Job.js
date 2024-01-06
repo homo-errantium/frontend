@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
 import PropTypes from 'prop-types'
 import './Job.scss'
@@ -5,7 +7,7 @@ import FormInput from '../../ResumeComponents/FormInput/FormInput'
 import PeriodInput from '../../ResumeComponents/PeriodInput/PeriodInput'
 import { JOB_TIP } from '../../../../constants/tips'
 import PlusIcon from '../../../../img/plus-icon.svg'
-import TrashIcon from '../../../../img/trash-icon.svg'
+import TrashIcon from '../../../../img/trash-icon-red.svg'
 
 const Job = ({
   hasExperience,
@@ -20,55 +22,61 @@ const Job = ({
   allTillPresent,
   setDuties,
   allValues,
+  handleBackToBasicRecommend,
 }) => {
   const handleDelete = () => deleteExperience(i)
 
   return (
     <>
       <div className="job__job-container experience__job-container" id={i}>
-        <FormInput
-          name="company"
-          values={values}
-          handleChange={handleChange}
-          label="Название компании"
-          disabled={!hasExperience}
-          id={i}
-        />
-        <FormInput
-          name="company_website"
-          values={values}
-          handleChange={handleChange}
-          label="Сайт компании"
-          disabled={!hasExperience}
-          id={i}
-        />
-        <FormInput
-          name="current_position"
-          values={values}
-          handleChange={handleChange}
-          label="Должность"
-          tipText={JOB_TIP}
-          disabled={!hasExperience}
-          id={i}
-        />
-        <PeriodInput
-          labelOne="Дата начала работы"
-          labelTwo="Дата окончания работы"
-          month
-          disabled={!hasExperience}
-          i={i}
-          tillPresent
-          values={values}
-          handleChange={handleChange}
-          namePeriod="work_period_experience_checkbox"
-          monthPeriod={['month_work_start', 'month_work_end']}
-          year={['year_work_start', 'year_work_end']}
-          handleCheckboxChange={handleCheckboxChange}
-          setValues={setValues}
-          setAllTillPresent={setAllTillPresent}
-          allTillPresent={allTillPresent}
-          allValues={allValues}
-        />
+        <div
+          className="job__job-container-basic-rec"
+          onClick={handleBackToBasicRecommend}
+        >
+          <FormInput
+            name="company"
+            values={values}
+            handleChange={handleChange}
+            label="Название компании"
+            disabled={!hasExperience}
+            id={i}
+          />
+          <FormInput
+            name="company_website"
+            values={values}
+            handleChange={handleChange}
+            label="Сайт компании"
+            disabled={!hasExperience}
+            id={i}
+          />
+          <FormInput
+            name="current_position"
+            values={values}
+            handleChange={handleChange}
+            label="Должность"
+            tipText={JOB_TIP}
+            disabled={!hasExperience}
+            id={i}
+          />
+          <PeriodInput
+            labelOne="Дата начала работы"
+            labelTwo="Дата окончания работы"
+            month
+            disabled={!hasExperience}
+            i={i}
+            tillPresent
+            values={values}
+            handleChange={handleChange}
+            namePeriod="work_period_experience_checkbox"
+            monthPeriod={['month_work_start', 'month_work_end']}
+            year={['year_work_start', 'year_work_end']}
+            handleCheckboxChange={handleCheckboxChange}
+            setValues={setValues}
+            setAllTillPresent={setAllTillPresent}
+            allTillPresent={allTillPresent}
+            allValues={allValues}
+          />
+        </div>
         <FormInput
           name="duties"
           values={values}
@@ -140,6 +148,7 @@ Job.propTypes = {
       ),
     ])
   ),
+  handleBackToBasicRecommend: PropTypes.func.isRequired,
 }
 
 Job.defaultProps = {

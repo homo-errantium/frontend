@@ -2,6 +2,7 @@ import './ConfirmationRegister.scss'
 import { useNavigate } from 'react-router'
 // import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import CloseIcon from '../../../../img/popups/close-icon-black.svg'
 
 function ConfirmationRegister({ onClose }) {
   const navigate = useNavigate()
@@ -14,17 +15,18 @@ function ConfirmationRegister({ onClose }) {
 
       <div className="confirmation-reg__buttons">
         <button
-          className="confirmation-reg__button confirmation-reg__button_skip"
+          className="popup-confirmation-reg__button confirmation-reg__button_skip"
           type="button"
           label="button"
           onClick={() => {
+            navigate('/resume/personal-data')
             onClose()
           }}
         >
           Пропустить
         </button>
         <button
-          className="confirmation-reg__button confirmation-reg__button_reg"
+          className="popup-confirmation-reg__button confirmation-reg__button_reg"
           type="button"
           label="button"
           onClick={() => {
@@ -44,6 +46,17 @@ function ConfirmationRegister({ onClose }) {
         }}
       >
         Уже есть аккаунт? Войти
+      </button>
+      <button
+        type="button"
+        onClick={onClose}
+        className="confirmation-reg__close-button link"
+      >
+        <img
+          src={CloseIcon}
+          alt="крестик"
+          className="confirmation-reg__close-button-icon"
+        />
       </button>
     </div>
   )

@@ -9,6 +9,9 @@ import Cv from './Cv/Cv'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
 function Profile({
+  isEditMod,
+  setCurrentResume,
+  currentResume,
   isLoggedIn,
   deletePopupSetState,
   errors,
@@ -16,6 +19,10 @@ function Profile({
   imageProfile,
   setImageProfile,
   arrValues,
+  setArrValues,
+  setIsEditMod,
+  values,
+  setValues,
 }) {
   const nextPage = '/*'
   const [isProfileData, setIsProfileData] = useState(true)
@@ -91,11 +98,13 @@ function Profile({
       ...prevUser,
       imageProfile,
     }))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageProfile])
 
   useEffect(() => {
     localStorage.setItem('user', JSON.stringify(currentUser))
     localStorage.setItem('imageProfile', imageProfile)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser])
 
   // МАСКИ ДЛЯ ПОЛЕЙ:
@@ -157,7 +166,11 @@ function Profile({
 
   return (
     <>
-      <Header isLoggedIn={isLoggedIn} nextPage={nextPage} />
+      <Header
+        isLoggedIn={isLoggedIn}
+        nextPage={nextPage}
+        setIsEditMod={setIsEditMod}
+      />
       <main className="profile">
         <h1 className="profile__title">Личный кабинет</h1>
         <div className="profile__page-layout">
@@ -443,9 +456,17 @@ function Profile({
             <div className="profile__cvs-container">
               {arrValues.map(cv => (
                 <Cv
+                  isEditMod={isEditMod}
+                  setCurrentResume={setCurrentResume}
+                  currentResume={currentResume}
+                  arrValues={arrValues}
+                  setArrValues={setArrValues}
                   key={cv.id}
                   cv={cv}
                   deletePopupSetState={deletePopupSetState}
+                  setIsEditMod={setIsEditMod}
+                  values={values}
+                  setValues={setValues}
                 />
               ))}
             </div>
@@ -457,6 +478,27 @@ function Profile({
 }
 
 Profile.propTypes = {
+  isEditMod: PropTypes.bool.isRequired,
+  values: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.bool,
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.objectOf(
+            PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number,
+              PropTypes.bool,
+            ])
+          ),
+        ])
+      ),
+    ])
+  ).isRequired,
+  setValues: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   deletePopupSetState: PropTypes.func.isRequired,
   errors: PropTypes.objectOf(
@@ -485,12 +527,34 @@ Profile.propTypes = {
         ),
       ])
     )
-  ),
+  ).isRequired,
+  setArrValues: PropTypes.func.isRequired,
+  setCurrentResume: PropTypes.func.isRequired,
+  currentResume: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.bool,
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.objectOf(
+            PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number,
+              PropTypes.bool,
+            ])
+          ),
+        ])
+      ),
+    ])
+  ).isRequired,
+  setIsEditMod: PropTypes.func,
 }
 
 Profile.defaultProps = {
   imageProfile: '',
-  arrValues: [],
+  setIsEditMod: () => {},
 }
 
 export default Profile

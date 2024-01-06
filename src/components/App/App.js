@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react'
-// import debounce from 'lodash.debounce'
 import './App.scss'
 import { v4 as uuidv4 } from 'uuid'
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
@@ -32,6 +31,7 @@ import Portfolio from '../Resume/Portfolio/Portfolio'
 import Qualification from '../Resume/Qualification/Qualification'
 import Skills from '../Resume/Skills/Skills'
 import Result from '../Resume/Result/Result'
+import ResultResume from '../Resume/ResultResume/ResultResume'
 
 import PopupRegister from '../Popups/PopupRegister/PopupRegister'
 import PopupConfirmationExit from '../Popups/PopupConfirmationExit/PopupConfirmationExit'
@@ -39,16 +39,15 @@ import PopupResumeName from '../Popups/PopupResumeName/PopupResumeName'
 import PopupLogin from '../Popups/PopupLogin/PopupLogin'
 import PopupConfirmationDelete from '../Popups/PopupConfirmationDelete/PopupConfirmationDelete'
 import PopupConfirmationRegister from '../Popups/PopupConfirmationRegister/PopupConfirmationRegister'
-import ResultResume from '../Resume/ResultResume/ResultResume'
-// import { navigate } from '@storybook/addon-links/*'
 
 function App() {
   const location = useLocation()
-  // eslint-disable-next-line no-unused-vars
   const [isLoggedIn, setIsLoggedIn] = React.useState(true) // Пользователь авторизован/неавторизован
   const [currentUser, setCurrentUser] = React.useState(
     JSON.parse(localStorage.getItem('user')) || {}
   ) // Сохраняем данные пользователя
+  const [currentResume, setCurrentResume] = React.useState({})
+  const [isEditMod, setIsEditMod] = React.useState(false)
 
   // Переменные для защиты дочерних роутов компонента Resume
   // TODO: установить значение false для всех переменных ниже после сохранения резюме
@@ -95,9 +94,33 @@ function App() {
   )
 
   useEffect(() => {
-    if (location.pathname === '/resume/result') {
+    setValues({ ...currentResume })
+  }, [currentResume])
+
+  // console.log('🚀 isEditNod:', isEditMod)
+  // console.log('🚀 Arrvalues:', arrValues)
+  // console.log('🚀 values:', values)
+  // // console.log('🚀 currentUser:', currentUser)
+  // console.log('🚀 currentResume:', currentResume)
+
+  useEffect(() => {
+    if (location.pathname === '/resume/result' && !isEditMod) {
       setValues({ ...values, id: uuidv4() })
     }
+    // localStorage.setItem('allData', JSON.stringify(arrValues))
+    // if (location.pathname === '/resume/personal-data' && !isEditMod) {
+    //   setValues({})
+    //   setCurrentResume({
+    //     ...currentResume,
+    //     name: currentUser.name,
+    //     surname: currentUser.surname,
+    //     birthday: currentUser.birthday,
+    //     city: currentUser.city,
+    //     img: currentUser.imageProfile,
+    //   })
+    //   localStorage.setItem('image', JSON.stringify(currentResume.img))
+    // }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname])
 
   const [languagesAfterChanges, setLanguagesChanges] = useState(
@@ -127,8 +150,11 @@ function App() {
   // Сохраняем ссылку изображения в переменную и вытягиваем из локального хранилища данные
   const [image, setImage] = useState(localStorage.getItem('image') || '')
   const [imageProfile, setImageProfile] = useState(
-    localStorage.getItem('imageProfile') || ''
+    currentUser.imageProfile || ''
   )
+  // const [imageProfile, setImageProfile] = useState(
+  //   localStorage.getItem('imageProfile') || ''
+  // )
 
   useEffect(() => {
     setValues(prevValues => ({ ...prevValues, img: image }))
@@ -266,7 +292,7 @@ function App() {
   }, [languagesAfterDeleting])
 
   useEffect(() => {
-    if (linksAfterDeleting.length === 0) {
+    if (linksAfterDeleting?.length === 0) {
       setValues({ ...values, links: [{ id: uuidv4() }] })
     } else {
       setValues({ ...values, links: linksAfterDeleting })
@@ -683,8 +709,6 @@ function App() {
     setIsConfirmRegPopupOpen(true)
   }
 
-  // /* --------- для Popup ---------*/
-
   // Объект для защиты дочерних роутов Resume
   const routesResumeArr = [
     {
@@ -804,7 +828,7 @@ function App() {
     // },
     {
       path: 'result',
-      element: <Result values={values} image={image} />,
+      element: <Result values={values} />,
       id: 9,
       completedSteps: completedStepsPersonalData,
     },
@@ -860,6 +884,9 @@ function App() {
             element={
               <ProtectedRoute
                 element={Profile}
+                isEditMod={isEditMod}
+                values={values}
+                setValues={setValues}
                 isLoggedIn={isLoggedIn}
                 deletePopupSetState={setIsConfirmDeletePopupOpen}
                 errors={errors}
@@ -868,6 +895,10 @@ function App() {
                 imageProfile={imageProfile}
                 setImageProfile={setImageProfile}
                 arrValues={arrValues}
+                setArrValues={setArrValues}
+                setCurrentResume={setCurrentResume}
+                currentResume={currentResume}
+                setIsEditMod={setIsEditMod}
               />
             }
           />
@@ -895,6 +926,12 @@ function App() {
             path="/resume"
             element={
               <Resume
+                setArrValues={setArrValues}
+                arrValues={arrValues}
+                values={values}
+                setValues={setValues}
+                setIsEditMod={setIsEditMod}
+                isEditMod={isEditMod}
                 isLoggedIn={isLoggedIn}
                 isValid={isValid}
                 inputsAreNotEmpty={inputsAreNotEmpty}
@@ -928,17 +965,21 @@ function App() {
               />
             ))}
           </Route>
-          <Route
-            path="/result-resume"
-            element={
-              <ResultResume
-                values={values}
-                isLoggedIn={isLoggedIn}
-                onOpenPopup={handleConfirmExitPopupOpen}
-                image={image}
-              />
-            }
-          />
+          {arrValues.map(resume => (
+            <Route
+              key={resume.id}
+              path={`/resume/result/${resume.id}`}
+              element={
+                <ResultResume
+                  values={resume}
+                  isLoggedIn={isLoggedIn}
+                  onOpenPopup={handleConfirmExitPopupOpen}
+                  image={image}
+                />
+              }
+            />
+          ))}
+
           <Route path="*" element={<NotFound />} />
         </Routes>
         {/* Попап регистрации */}
@@ -966,11 +1007,16 @@ function App() {
           values={values}
           setArrValues={setArrValues}
           arrValues={arrValues}
+          setIsEditMod={setIsEditMod}
         />
         {/* Попап подтверждения удаления */}
         <PopupConfirmationDelete
           isOpen={isConfirmDeletePopupOpen}
           onClose={closeAllPopup}
+          currentResume={currentResume}
+          setCurrentResume={setCurrentResume}
+          arrValues={arrValues}
+          setArrValues={setArrValues}
         />
         {/* Попап подтверждения перехода */}
         <PopupConfirmationRegister

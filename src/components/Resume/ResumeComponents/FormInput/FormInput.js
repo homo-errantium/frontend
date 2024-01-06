@@ -67,9 +67,9 @@ const FormInput = ({
     setDuties(true)
   }
 
-  const handleBlur = () => {
-    setDuties(false)
-  }
+  // const handleBlur = () => {
+  //   setDuties(false)
+  // }
 
   return (
     <div className="form-input">
@@ -92,7 +92,7 @@ const FormInput = ({
           errors[name] && 'form-input__field_error'
         )}
         onFocus={handleFocus}
-        onBlur={handleBlur}
+        // onBlur={handleBlur}
         mask={dataMask}
       />
       {errors && (

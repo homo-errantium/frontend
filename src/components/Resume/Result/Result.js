@@ -1,23 +1,18 @@
 import './Result.scss'
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
-import { useRef } from 'react'
 import createLinkIcon from '../../../img/create-link-icon.svg'
 import DownloadIcon from '../../../img/download-icon.svg'
 import ResultResume from '../ResultResume/ResultResume'
+import { handleGeneratePdf } from '../../Utils/Utils'
 
-function Result({ values, image /* checkboxValues */ }) {
-  const resultResumeRef = useRef(null)
+function Result({ values }) {
   const navigate = useNavigate()
   const handleGenerateLink = () => {
+    // eslint-disable-next-line no-console
     console.log('тут должен быть другой код')
   }
-
-  const handleGeneratePdf = async () => {
-    await navigate('/result-resume')
-    window.print()
-    navigate(-1)
-  }
+  const resumePath = `/resume/result/${values.id}`
 
   return (
     <section className="result">
@@ -44,7 +39,7 @@ function Result({ values, image /* checkboxValues */ }) {
             type="button"
             label="button"
             onClick={() => {
-              handleGeneratePdf()
+              handleGeneratePdf(navigate, resumePath)
             }}
           >
             <img
@@ -56,15 +51,14 @@ function Result({ values, image /* checkboxValues */ }) {
           </button>
         </div>
       </div>
-      <div className="result__content" ref={resultResumeRef}>
-        <ResultResume values={values} image={image} />
+      <div className="result__content">
+        <ResultResume values={values} />
       </div>
     </section>
   )
 }
 
 Result.propTypes = {
-  image: PropTypes.string,
   values: PropTypes.objectOf(
     PropTypes.oneOfType([
       PropTypes.string,
@@ -86,6 +80,6 @@ Result.propTypes = {
   ),
 }
 
-Result.defaultProps = { values: {}, image: '' }
+Result.defaultProps = { values: {} }
 
 export default Result

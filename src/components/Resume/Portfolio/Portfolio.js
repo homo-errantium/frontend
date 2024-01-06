@@ -34,10 +34,10 @@ const Portfolio = ({
 
   // Если addedEducation пустой, то возвращается основная кнопка "Добавить"
   useEffect(() => {
-    if (values.portfolio.length === 0) {
+    if (values.portfolio?.length === 0) {
       setNoAddedProjects(true)
     }
-  }, [values.portfolio.length])
+  }, [values.portfolio?.length])
 
   return (
     <section className="portfolio personal-data">
@@ -62,7 +62,7 @@ const Portfolio = ({
           handleChange={handleChangeWithValidation}
           label="Ссылка на проект"
         />
-        {values.portfolio.map(project => (
+        {values.portfolio?.map(project => (
           <Project
             values={project}
             deleteProject={deleteProject}
@@ -72,7 +72,7 @@ const Portfolio = ({
             handleChange={handleAddPortfolioChange}
           />
         ))}
-        {noAddedProjects && values.portfolio.length === 0 && (
+        {noAddedProjects && values.portfolio?.length === 0 && (
           <AddButton handleClick={addProject} />
         )}
       </div>

@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import './AddButton.scss'
+import PlusIcon from '../../../../img/plus-icon.svg'
 
 const AddButton = ({ disabled, handleClick }) => (
   <button
@@ -13,7 +14,8 @@ const AddButton = ({ disabled, handleClick }) => (
     disabled={disabled}
     onClick={handleClick}
   >
-    + Добавить
+    <img alt="плюс" src={PlusIcon} className="add-button__plus-icon" />
+    Добавить
   </button>
 )
 
