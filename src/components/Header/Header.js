@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useNavigate, useLocation, NavLink } from 'react-router-dom'
@@ -16,7 +15,7 @@ import { handleOpenPopup, cleanLocalStorage } from '../Utils/Utils'
 
 function Header({
   values,
-  // setValues,
+  setValues,
   arrValues,
   setArrValues,
   setIsEditMod,
@@ -105,6 +104,7 @@ function Header({
                 cleanLocalStorage()
                 setIsEditMod(false)
                 handleOpenPopup(navigate, isLoggedIn, onOpenPopup)
+                setValues({})
               }}
             >
               Создать резюме
@@ -233,6 +233,7 @@ function Header({
                 cleanLocalStorage()
                 setIsEditMod(false)
                 handleOpenPopup(navigate, isLoggedIn, onOpenPopup)
+                setValues({})
               }}
             >
               Создать резюме
@@ -285,6 +286,7 @@ function Header({
                 cleanLocalStorage()
                 setIsEditMod(false)
                 handleOpenPopup(navigate, isLoggedIn, onOpenPopup)
+                setValues({})
               }}
             >
               Создать резюме
@@ -451,6 +453,7 @@ Header.propTypes = {
     )
   ),
   setArrValues: PropTypes.func,
+  setValues: PropTypes.func.isRequired,
 }
 Header.defaultProps = {
   values: {},

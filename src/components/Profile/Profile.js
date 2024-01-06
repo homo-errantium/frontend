@@ -7,6 +7,7 @@ import Header from '../Header/Header'
 import ImageUpload from './ImageUpload/ImageUpload'
 import Cv from './Cv/Cv'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
+import PopupCopyLink from '../Popups/PopupCopyLink/PopupCopyLink'
 
 function Profile({
   isEditMod,
@@ -23,10 +24,12 @@ function Profile({
   setIsEditMod,
   values,
   setValues,
+  setIsResumeNamePopupOpen,
 }) {
   const nextPage = '/*'
   const [isProfileData, setIsProfileData] = useState(true)
   const [isContacts, setIsContacts] = useState(false)
+  const [popupCopyLink, setPopupCopyLink] = useState(false)
   const currentUser = useContext(CurrentUserContext)
 
   // ОТКРЫТИЕ ДОПОЛНИТЕЛЬНЫХ ПОЛЕЙ ДЛЯ СМЕНЫ ПАРОЛЯ
@@ -170,6 +173,7 @@ function Profile({
         isLoggedIn={isLoggedIn}
         nextPage={nextPage}
         setIsEditMod={setIsEditMod}
+        setValues={setValues}
       />
       <main className="profile">
         <h1 className="profile__title">Личный кабинет</h1>
@@ -467,11 +471,14 @@ function Profile({
                   setIsEditMod={setIsEditMod}
                   values={values}
                   setValues={setValues}
+                  setIsResumeNamePopupOpen={setIsResumeNamePopupOpen}
+                  setPopupCopyLink={setPopupCopyLink}
                 />
               ))}
             </div>
           </div>
         </div>
+        <PopupCopyLink popupCopyLink={popupCopyLink} />
       </main>
     </>
   )
@@ -550,6 +557,7 @@ Profile.propTypes = {
     ])
   ).isRequired,
   setIsEditMod: PropTypes.func,
+  setIsResumeNamePopupOpen: PropTypes.func.isRequired,
 }
 
 Profile.defaultProps = {
