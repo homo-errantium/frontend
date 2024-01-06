@@ -1,6 +1,8 @@
 import './ResumeName.scss'
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useNavigate } from 'react-router'
+import { cleanLocalStorage } from '../../../Utils/Utils'
 import TrashLogo from '../../../../img/trash-icon-red.svg'
 
 function PopupResumeName({
@@ -9,7 +11,11 @@ function PopupResumeName({
   setArrValues,
   onClose,
   arrValues,
+  setIsEditMod,
 }) {
+  const navigate = useNavigate()
+
+  // добавление имени резюме
   function handleChange(evt) {
     const { name, value } = evt.target
     setValues(prevValues => ({ ...prevValues, [name]: value }))
@@ -19,15 +25,14 @@ function PopupResumeName({
     try {
       const newValues = [...arrValues, values]
       setArrValues(newValues)
-      await localStorage.setItem('allData', JSON.stringify(newValues))
-      onClose()
+      localStorage.setItem('allData', JSON.stringify(newValues))
       await setValues({})
-      await localStorage.removeItem('formData')
-      await localStorage.removeItem('hasExperience')
-      await localStorage.removeItem('isTillPresent')
-      await localStorage.removeItem('image')
-      await localStorage.removeItem('hasQualification')
+      cleanLocalStorage()
+      setIsEditMod(false)
+      onClose()
+      navigate('/my-profile')
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log(error)
     }
   }
@@ -78,6 +83,7 @@ function PopupResumeName({
 }
 
 PopupResumeName.propTypes = {
+  setIsEditMod: PropTypes.func,
   values: PropTypes.objectOf(
     PropTypes.oneOfType([
       PropTypes.string,
@@ -126,6 +132,7 @@ PopupResumeName.propTypes = {
 PopupResumeName.defaultProps = {
   values: {},
   arrValues: [],
+  setIsEditMod: () => {},
 }
 
 export default PopupResumeName

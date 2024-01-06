@@ -3,7 +3,7 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react'
 import PropTypes from 'prop-types'
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import './Main.scss'
 import classNames from 'classnames'
 import Header from '../Header/Header'
@@ -11,8 +11,10 @@ import Footer from '../Footer/Footer'
 import TitleImage from '../../img/main_title.svg'
 // import Step1 from '../../img/main_step1.svg'
 import { onboardingTitle, imgMainArr } from '../../constants/constants'
+import { handleOpenPopup } from '../Utils/Utils'
 
 function Main({ isLoggedIn, onOpenPopup }) {
+  const navigate = useNavigate()
   const nextPage = '/resume'
   const [img, setImg] = React.useState(imgMainArr[0])
   const [subtitleObject, setSubtitleObject] = React.useState(onboardingTitle)
@@ -62,7 +64,7 @@ function Main({ isLoggedIn, onOpenPopup }) {
               type="button"
               className="main__create-button link"
               onClick={() => {
-                onOpenPopup()
+                handleOpenPopup(navigate, isLoggedIn, onOpenPopup)
               }}
             >
               Создать резюме

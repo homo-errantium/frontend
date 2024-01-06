@@ -1,20 +1,59 @@
 import React from 'react'
 import './ResultResume.scss'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import { months } from '../../../constants/months'
 
-//
-
-function ResultResume({ values, image }) {
-  // console.log(values)
-  // console.log(values.hardskills)
-  // console.log(typeof values.hardskills)
-
+function ResultResume({ values }) {
   const userAllLang = values.languages
   const userAllJobs = values.jobs
   const userAllQualifications = values.qualifications
   const userAllEducations = values.educations
   const userAllPortfolio = values.portfolio
+
+  // function checkboxConvert(value, text) {
+  //   return value || text
+  // }
+
+  function currentAge() {
+    const birthdayArr = values.birthday?.split('.')
+    // eslint-disable-next-line eqeqeq
+    if (birthdayArr) {
+      const today = new Date()
+      const year = today.getFullYear() - birthdayArr[2]
+      switch (year) {
+        case 11:
+        case 12:
+        case 13:
+        case 14:
+          return `${year} лет`
+
+        default:
+          switch (year % 10) {
+            case 1:
+              return `${year} год`
+
+            case 2:
+            case 3:
+            case 4:
+              return `${year} года`
+
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 0:
+              return `${year} лет`
+            default:
+              break
+          }
+          break
+      }
+      return `${year} лет`
+    }
+    return ''
+  }
 
   function monthConvert(monthNumber) {
     let result = []
@@ -22,94 +61,78 @@ function ResultResume({ values, image }) {
       result = months.find(({ id }) => id === monthNumber)
       if (result !== undefined) return result.long
     }
-
     return 'По настоящее время'
   }
 
   function absentValues(currentValue) {
-    return currentValue ? `${currentValue}` : `Отсутствует`
+    return currentValue ? `${currentValue}` : ''
   }
 
   return (
     <div className="result-resume" id="resultResume">
-      {/* ------ блок с ФИО ------*/}
-      <div className="result-resume__user-info">
-        <h2 className="result-resume__user-info-title">персональные данные:</h2>
-        <span className="result-resume__user-name">
-          {`ФИ: ${absentValues(values.name)} ${values.surname ?? ''}`}
-        </span>
-        <br />
-        <span className="result-resume__user-date-birth">
-          {`Дата рождения: ${absentValues(values.birthday)}`}
-        </span>
-        <br />
-        <span className="result-resume__user-place-birth">
-          {`Город проживания: ${absentValues(values.city)}`}
-        </span>
-        <br />
-        <span className="result-resume__user-status">
-          {`Статус соискателя: ${values.work_status}`}
-        </span>
-        <br />
-        <span className="result-resume__user-desired-position">
-          {`Желаемая должность: ${absentValues(values.desired_position)}`}
-        </span>
-      </div>
       {/* ------блок  фото ------*/}
       <img
-        src={image}
+        src={values.img}
         alt="фото соискателя"
         className="result-resume__user-photo"
       />
-      {/* ------ блок с контактами ------*/}
-      <div className="result-resume__user-contacts">
-        <h2 className="result-resume__user-contacts-title">контакты:</h2>
-        <span className="result-resume__user-mail">
-          {`Почта: ${absentValues(values.email)}`}
+      {/* ------ блок с ФИО ------*/}
+      <div className="result-resume__user-info">
+        <span className="result-resume__user-name">
+          {`${absentValues(values.name)} ${values.surname ?? ''}`}
         </span>
-        <br />
-        <span className="result-resume__user-telegram">
-          {`Telegram: ${absentValues(values.telegram)}`}
+        {/* <br /> */}
+        <span className="result-resume__user-desired-position">
+          {`${absentValues(values.desired_position)}`}
         </span>
-        <br />
-        <span className="result-resume__user-phone">
-          {`Телефон: ${absentValues(values.phone)}`}
-        </span>
+        {/* <br /> */}
+        <ul className="result-resume__user-birth-info-list">
+          <li className="result-resume__user-birth-info-list-item">
+            <span className="result-resume__user-date-birth">
+              {`${absentValues(currentAge())}`}
+            </span>
+          </li>
+          <li className="result-resume__user-birth-info-list-item">
+            <span className="result-resume__user-place-birth">
+              {`${absentValues(values.city)}`}
+            </span>
+          </li>
+        </ul>
       </div>
 
       {/* ------ блок опыта работы ------*/}
-      <div className="result-resume__experience">
-        <h2 className="result-resume__experience-title">опыт работы:</h2>
-        <span className="result-resume__experience-company">
-          {`Название компании: ${absentValues(values.company)}`}
-        </span>
-        <br />
-        <span className="result-resume__experience-start">
-          {`Дата начала работы: ${monthConvert(values.month_work_start)}${
-            values.year_work_start ? ` ${values.year_work_start}` : ''
-          }`}
-        </span>
-        <br />
-        <span className="result-resume__experience-end">
-          {`Дата окончания работы: ${monthConvert(values.month_work_end)}${
-            values.year_work_end ? ` ${values.year_work_end}` : ''
-          }`}
-        </span>
 
-        <span className="result-resume__experience-company-site">
-          {`Сайт компании: ${absentValues(values.company_website)}`}
-        </span>
-        <br />
-        <span className="result-resume__experience-duty">
-          {`Обязанности: ${absentValues(values.duties)}`}
-        </span>
-        {/* <span className="result-resume__experience-achiev">
-          {`Достижения: ${values.userEmail}`}
-        </span> */}
+      <div className="result-resume__experience">
+        <h2 className="result-resume__experience-title">Опыт работы</h2>
+
+        <div className="result-resume__experience-info">
+          <span className="result-resume__experience-time">
+            {`${monthConvert(values.month_work_start)}
+            ${values.year_work_start} - ${monthConvert(values.month_work_end)}${
+              values.year_work_end ? ` ${values.year_work_end}` : ''
+            }`}
+          </span>
+          <span className="result-resume__experience-position">
+            {`${absentValues(values.current_position)}`}
+          </span>
+          <Link
+            to={values.company_website}
+            className="result-resume__experience-company"
+          >
+            {`${absentValues(values.company)}`}
+          </Link>
+        </div>
+
+        <div className="result-resume__experience-duty-info">
+          <h4 className="result-resume__experience-duty-title">Обязанности</h4>
+          <span className="result-resume__experience-duty">
+            {`${absentValues(values.duties)}`}
+          </span>
+        </div>
+
         {React.Children.toArray(
           userAllJobs?.map(item => (
             <>
-              <h4 className="result-resume__experience-title">опыт работы:</h4>
               <span className="result-resume__experience-company">
                 {`Название компании: ${absentValues(item.company)}`}
               </span>
@@ -136,6 +159,22 @@ function ResultResume({ values, image }) {
             </>
           ))
         )}
+      </div>
+
+      {/* ------ блок с контактами ------*/}
+      <div className="result-resume__user-contacts">
+        <h2 className="result-resume__user-contacts-title">контакты:</h2>
+        <span className="result-resume__user-mail">
+          {`Почта: ${absentValues(values.email)}`}
+        </span>
+        <br />
+        <span className="result-resume__user-telegram">
+          {`Telegram: ${absentValues(values.telegram)}`}
+        </span>
+        <br />
+        <span className="result-resume__user-phone">
+          {`Телефон: ${absentValues(values.phone)}`}
+        </span>
       </div>
 
       {/* ------ блок ссылки ------*/}
@@ -363,7 +402,6 @@ function ResultResume({ values, image }) {
 }
 
 ResultResume.propTypes = {
-  image: PropTypes.string,
   values: PropTypes.objectOf(
     PropTypes.oneOfType([
       PropTypes.string,
@@ -390,7 +428,6 @@ ResultResume.propTypes = {
 
 ResultResume.defaultProps = {
   values: {},
-  image: '' /* checkboxValues: {} */,
 }
 
 export default ResultResume
