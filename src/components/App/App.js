@@ -466,7 +466,6 @@ function App() {
         name: 'Имя может быть введено только кириллицей. Допускаются пробелы и дефисы',
       })
       setIsValid(false)
-      // setInputsAreNotEmpty(false)
     } else if (
       name === 'name' &&
       (evt.target.value.length > 50 || evt.target.value.length < 2)
@@ -516,22 +515,21 @@ function App() {
       })
       setIsValid(false)
     }
-    if (name === 'city' && !NAME_REGEX.test(value)) {
-      setErrors({
-        ...errors,
-        city: 'Название города может быть введено только кириллицей. Допускаются пробелы и дефисы',
-      })
-      setIsValid(false)
-    }
-    if (
-      name === 'city' &&
-      (evt.target.value.length > 50 || evt.target.value.length < 2)
-    ) {
-      setErrors({
-        ...errors,
-        city: 'Название города должно быть длиной от 2 до 50 символов',
-      })
-      setIsValid(false)
+    if (name === 'city') {
+      if (!NAME_REGEX.test(value)) {
+        setErrors({
+          ...errors,
+          city: 'Название города может быть введено только кириллицей. Допускаются пробелы и дефисы',
+        })
+        setIsValid(false)
+      }
+      if (evt.target.value.length > 50 || evt.target.value.length < 2) {
+        setErrors({
+          ...errors,
+          city: 'Название города должно быть длиной от 2 до 50 символов',
+        })
+        setIsValid(false)
+      }
     }
     if (name === 'desired_position' && !NAME_REGEX.test(value)) {
       setErrors({
