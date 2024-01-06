@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react'
 import './App.scss'
 import { v4 as uuidv4 } from 'uuid'
@@ -41,6 +40,7 @@ import PopupConfirmationDelete from '../Popups/PopupConfirmationDelete/PopupConf
 import PopupConfirmationRegister from '../Popups/PopupConfirmationRegister/PopupConfirmationRegister'
 
 function App() {
+  // ----------------------------------------Переменные------------------------------------------------------
   const location = useLocation()
   const [isLoggedIn, setIsLoggedIn] = React.useState(true) // Пользователь авторизован/неавторизован
   const [currentUser, setCurrentUser] = React.useState(
@@ -48,21 +48,16 @@ function App() {
   ) // Сохраняем данные пользователя
   const [currentResume, setCurrentResume] = React.useState({})
   const [isEditMod, setIsEditMod] = React.useState(false)
-
-  // Переменные для защиты дочерних роутов компонента Resume
-  // TODO: установить значение false для всех переменных ниже после сохранения резюме
-  const [completedStepsPersonalData, setCompletedStepsPersonalData] =
+  const [isRegisterPopupOpen, setIsRegisterPopupOpen] = React.useState(false)
+  const [isLoginPopupOpen, setIsLoginPopupOpen] = React.useState(false)
+  const [isConfirmDeletePopupOpen, setIsConfirmDeletePopupOpen] =
     React.useState(false)
-  const [completedStepsExperience, setCompletedStepsExperience] =
+  const [isConfirmRegPopupOpen, setIsConfirmRegPopupOpen] =
     React.useState(false)
-  const [completedStepsQualification, setCompletedStepsQualification] =
+  const [isResumeNamePopupOpen, setIsResumeNamePopupOpen] =
     React.useState(false)
-  const [completedStepsEducation, setCompletedStepsEducation] =
+  const [isConfirmExitPopupOpen, setIsConfirmExitPopupOpen] =
     React.useState(false)
-  const [completedStepsPortfolio, setCompletedStepsPortfolio] =
-    React.useState(false)
-  const [completedStepsSkills, setCompletedStepsSkills] = React.useState(false)
-  const [completedStepsAbout, setCompletedStepsAbout] = React.useState(false)
   // const [completedLayouts, setCompletedLayouts] = React.useState(false)
 
   // --------------------------- Работа с данными через локальное хранилище -----------------------
@@ -93,36 +88,6 @@ function App() {
     JSON.parse(localStorage.getItem('allData')) || []
   )
 
-  useEffect(() => {
-    setValues({ ...currentResume })
-  }, [currentResume])
-
-  // console.log('🚀 isEditNod:', isEditMod)
-  // console.log('🚀 Arrvalues:', arrValues)
-  // console.log('🚀 values:', values)
-  // // console.log('🚀 currentUser:', currentUser)
-  // console.log('🚀 currentResume:', currentResume)
-
-  useEffect(() => {
-    if (location.pathname === '/resume/result' && !isEditMod) {
-      setValues({ ...values, id: uuidv4() })
-    }
-    // localStorage.setItem('allData', JSON.stringify(arrValues))
-    // if (location.pathname === '/resume/personal-data' && !isEditMod) {
-    //   setValues({})
-    //   setCurrentResume({
-    //     ...currentResume,
-    //     name: currentUser.name,
-    //     surname: currentUser.surname,
-    //     birthday: currentUser.birthday,
-    //     city: currentUser.city,
-    //     img: currentUser.imageProfile,
-    //   })
-    //   localStorage.setItem('image', JSON.stringify(currentResume.img))
-    // }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname])
-
   const [languagesAfterChanges, setLanguagesChanges] = useState(
     values.languages
   )
@@ -148,10 +113,60 @@ function App() {
   )
   const [errors, setErrors] = useState({})
   // Сохраняем ссылку изображения в переменную и вытягиваем из локального хранилища данные
-  const [image, setImage] = useState(localStorage.getItem('image') || '')
+  const [image, setImage] = React.useState(localStorage.getItem('image') || '')
   const [imageProfile, setImageProfile] = useState(
     currentUser.imageProfile || ''
   )
+
+  // Переменные для защиты дочерних роутов компонента Resume
+  // TODO: установить значение false для всех переменных ниже после сохранения резюме
+  const [completedStepsPersonalData, setCompletedStepsPersonalData] =
+    React.useState(false)
+  const [completedStepsExperience, setCompletedStepsExperience] =
+    React.useState(false)
+  const [completedStepsQualification, setCompletedStepsQualification] =
+    React.useState(false)
+  const [completedStepsEducation, setCompletedStepsEducation] =
+    React.useState(false)
+  const [completedStepsPortfolio, setCompletedStepsPortfolio] =
+    React.useState(false)
+  const [completedStepsSkills, setCompletedStepsSkills] = React.useState(false)
+  const [completedStepsAbout, setCompletedStepsAbout] = React.useState(false)
+  // const [completedLayouts, setCompletedLayouts] = React.useState(false)
+
+  // --------------------------- Работа с данными через локальное хранилище ----------------------
+
+  useEffect(() => {
+    setValues({ ...currentResume })
+    setImage(currentResume.img)
+  }, [currentResume])
+
+  // console.log('🚀 isEditNod:', isEditMod)
+  // console.log('🚀 Arrvalues:', arrValues)
+  // console.log('🚀 values:', values)
+  // // console.log('🚀 currentUser:', currentUser)
+  // console.log('🚀 currentResume:', currentResume)
+
+  useEffect(() => {
+    if (location.pathname === '/resume/result' && !isEditMod) {
+      setValues({ ...values, id: uuidv4() })
+    }
+    localStorage.setItem('allData', JSON.stringify(arrValues))
+    // if (location.pathname === '/resume/personal-data' && !isEditMod) {
+    //   setValues({})
+    //   setCurrentResume({
+    //     ...currentResume,
+    //     name: currentUser.name,
+    //     surname: currentUser.surname,
+    //     birthday: currentUser.birthday,
+    //     city: currentUser.city,
+    //     img: currentUser.imageProfile,
+    //   })
+    //   localStorage.setItem('image', JSON.stringify(currentResume.img))
+    // }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname])
+
   // const [imageProfile, setImageProfile] = useState(
   //   localStorage.getItem('imageProfile') || ''
   // )
@@ -905,16 +920,6 @@ function App() {
   // console.log(errors)
 
   /* ----------------------------------------- Popup -----------------------------------------------------*/
-  const [isRegisterPopupOpen, setIsRegisterPopupOpen] = React.useState(false)
-  const [isLoginPopupOpen, setIsLoginPopupOpen] = React.useState(false)
-  const [isConfirmDeletePopupOpen, setIsConfirmDeletePopupOpen] =
-    React.useState(false)
-  const [isConfirmRegPopupOpen, setIsConfirmRegPopupOpen] =
-    React.useState(false)
-  const [isResumeNamePopupOpen, setIsResumeNamePopupOpen] =
-    React.useState(false)
-  const [isConfirmExitPopupOpen, setIsConfirmExitPopupOpen] =
-    React.useState(false)
 
   // закрытие попапа
   const closeAllPopup = () => {
@@ -1139,6 +1144,8 @@ function App() {
                 setCurrentResume={setCurrentResume}
                 currentResume={currentResume}
                 setIsEditMod={setIsEditMod}
+                setIsResumeNamePopupOpen={setIsResumeNamePopupOpen}
+                setImage={setImage}
               />
             }
           />
@@ -1150,6 +1157,7 @@ function App() {
                 onOpenPopup={handleConfirmRegPopupOpen}
                 isValid={isValid}
                 inputsAreNotEmpty={inputsAreNotEmpty}
+                setValues={setValues}
               />
             }
           />
@@ -1248,6 +1256,8 @@ function App() {
           setArrValues={setArrValues}
           arrValues={arrValues}
           setIsEditMod={setIsEditMod}
+          currentResume={currentResume}
+          setCurrentResume={setCurrentResume}
         />
         {/* Попап подтверждения удаления */}
         <PopupConfirmationDelete

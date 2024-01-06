@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useNavigate, useLocation, NavLink } from 'react-router-dom'
@@ -16,7 +15,7 @@ import { handleOpenPopup, cleanLocalStorage } from '../Utils/Utils'
 
 function Header({
   values,
-  // setValues,
+  setValues,
   arrValues,
   setArrValues,
   setIsEditMod,
@@ -29,7 +28,9 @@ function Header({
   handleResumeNamePopupOpen,
   isValid,
   inputsAreNotEmpty,
+  setImage,
 }) {
+  console.log(inputsAreNotEmpty)
   const navigate = useNavigate()
   const location = useLocation()
   const path = location.pathname
@@ -107,6 +108,8 @@ function Header({
                 cleanLocalStorage()
                 setIsEditMod(false)
                 handleOpenPopup(navigate, isLoggedIn, onOpenPopup)
+                setValues({})
+                setImage('')
               }}
             >
               Создать резюме
@@ -235,6 +238,8 @@ function Header({
                 cleanLocalStorage()
                 setIsEditMod(false)
                 handleOpenPopup(navigate, isLoggedIn, onOpenPopup)
+                setValues({})
+                setImage('')
               }}
             >
               Создать резюме
@@ -287,6 +292,8 @@ function Header({
                 cleanLocalStorage()
                 setIsEditMod(false)
                 handleOpenPopup(navigate, isLoggedIn, onOpenPopup)
+                setValues({})
+                setImage('')
               }}
             >
               Создать резюме
@@ -458,6 +465,10 @@ Header.propTypes = {
     )
   ),
   setArrValues: PropTypes.func,
+  setValues: PropTypes.func.isRequired,
+  setImage: PropTypes.func,
+  isValid: PropTypes.bool.isRequired,
+  inputsAreNotEmpty: PropTypes.bool.isRequired,
 }
 Header.defaultProps = {
   values: {},
@@ -471,6 +482,7 @@ Header.defaultProps = {
   onClick: () => {},
   handleResumeNamePopupOpen: () => {},
   setIsEditMod: () => {},
+  setImage: () => {},
 }
 
 export default Header

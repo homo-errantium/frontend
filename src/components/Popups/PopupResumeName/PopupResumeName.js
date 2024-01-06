@@ -12,6 +12,8 @@ function PopupConfirmationExit({
   setArrValues,
   arrValues,
   setIsEditMod,
+  currentResume,
+  setCurrentResume,
 }) {
   return (
     <PopupСontainer
@@ -27,6 +29,8 @@ function PopupConfirmationExit({
           onClose={onClose}
           arrValues={arrValues}
           setIsEditMod={setIsEditMod}
+          currentResume={currentResume}
+          setCurrentResume={setCurrentResume}
         />
       }
     />
@@ -79,12 +83,33 @@ PopupConfirmationExit.propTypes = {
       ),
     ])
   ),
+  currentResume: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.bool,
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.objectOf(
+            PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number,
+              PropTypes.bool,
+            ])
+          ),
+        ])
+      ),
+    ])
+  ),
+  setCurrentResume: PropTypes.func.isRequired,
 }
 
 PopupConfirmationExit.defaultProps = {
   arrValues: [],
   values: {},
   setIsEditMod: () => {},
+  currentResume: {},
 }
 
 export default PopupConfirmationExit

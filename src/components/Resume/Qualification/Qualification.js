@@ -92,7 +92,7 @@ const Qualification = ({
           setValues={setValues}
         />
         <PeriodInput
-          monthPeriod={['qual_start', 'qual_end']}
+          monthPeriod={['month_qual_start', 'month_qual_end']}
           year={['year_qual_start', 'year_qual_end']}
           labelOne="Дата начала"
           labelTwo="Дата окончания"

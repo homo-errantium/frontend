@@ -1,9 +1,12 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import PropTypes from 'prop-types'
-import { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Cv.scss'
 import EditIcon from '../../../img/edit-icon-black.svg'
 import DownloadIcon from '../../../img/download-icon.svg'
+import linkIcon from '../../../img/linkImage.svg'
 import DeleteIcon from '../../../img/trash-icon-red.svg'
 import ellipsesIcon from '../../../img/ellipses-icon.svg'
 import ResultResume from '../../Resume/ResultResume/ResultResume'
@@ -16,8 +19,10 @@ const Cv = ({
   currentResume,
   setCurrentResume,
   setIsEditMod,
-  // setValues,
-  // values,
+  // setArrValues,
+  arrValues,
+  setIsResumeNamePopupOpen,
+  setPopupCopyLink,
 }) => {
   const resumePath = `/resume/result/${cv.id}`
   const navigate = useNavigate()
@@ -31,16 +36,38 @@ const Cv = ({
     handleGeneratePdf(navigate, resumePath)
   }
 
-  const handleEdit = async () => {
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(`http://localhost:3000${resumePath}`)
+    // TODO после соединения с сервером заменить указанный выше код на закомментированный
+    // navigator.clipboard.writeText(
+    //   `http://dev.acceleratorpracticum.ru${resumePath}`
+    // )
+    setPopupCopyLink(true)
+    setTimeout(() => {
+      setPopupCopyLink(false)
+    }, 2500)
+    setIsEditCvPopupOpen(false)
+  }
+
+  const handleEditResume = async () => {
     await setIsEditMod(true)
-    await setCurrentResume({ ...currentResume, ...cv })
+    await setCurrentResume(prevValue => ({ ...prevValue, ...cv }))
     navigate('/resume')
+  }
+
+  const handleEditName = async () => {
+    await setIsEditMod(true)
+    await setCurrentResume(prevValue => ({ ...prevValue, ...cv }))
   }
 
   const handleDelete = () => {
     setCurrentResume({ ...currentResume, ...cv })
     deletePopupSetState(true)
   }
+
+  useEffect(() => {
+    localStorage.setItem('allData', JSON.stringify(arrValues))
+  }, [arrValues])
 
   return (
     <div className="profile__cv-container">
@@ -62,7 +89,7 @@ const Cv = ({
           <button
             className="profile__cv-menu-option link"
             type="button"
-            onClick={handleEdit}
+            onClick={handleEditResume}
           >
             <img
               src={EditIcon}
@@ -82,6 +109,34 @@ const Cv = ({
               className="profile__cv-menu-icon"
             />
             Скачать в PDF
+          </button>
+          <button
+            className="profile__cv-menu-option link"
+            type="button"
+            onClick={copyToClipboard}
+          >
+            <img
+              src={linkIcon}
+              alt="скачивание"
+              className="profile__cv-menu-icon"
+            />
+            Скопировать ссылку
+          </button>
+          <button
+            className="profile__cv-menu-option link"
+            type="button"
+            onClick={() => {
+              setIsEditCvPopupOpen(false)
+              setIsResumeNamePopupOpen(true)
+              handleEditName()
+            }}
+          >
+            <img
+              src={EditIcon}
+              alt="карандашик"
+              className="profile__cv-menu-icon"
+            />
+            Переименовать
           </button>
           <button
             className="profile__cv-menu-option profile__cv-menu-option_red link"

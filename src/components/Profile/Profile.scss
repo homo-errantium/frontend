@@ -1,6 +1,7 @@
 .profile {
   background-color: #f7f7f7;
   width: 100%;
+  position: relative;
 }
 
 .profile__title {
@@ -213,6 +214,7 @@
   min-height: 100vh;
   padding-left: 20px;
   padding-bottom: 136px;
+  margin-right: 5%;
 }
 
 .profile__saved-resumes-title {
@@ -222,6 +224,7 @@
   font-weight: 700;
   line-height: normal;
   text-transform: none;
+  text-align: left;
 }
 
 .profile__cvs-container {
@@ -235,13 +238,14 @@
 .profile__cv-container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
   position: relative;
+  width: 100%;
 }
 
 .profile__cv-image-container {
   position: relative;
-  display: flex;
+  width: 100%;
+
 }
 
 .profile__cv-image {
@@ -257,7 +261,7 @@
   height: 40px;
   position: absolute;
   top: 16px;
-  left: 435px;
+  right: 25px;
 }
 
 .profile__cv-menu {
@@ -265,7 +269,7 @@
   flex-direction: column;
   position: absolute;
   top: 32px;
-  left: 164px;
+  right: 63px;
   border-radius: 8px;
   background: #fff;
   padding: 8px 0px;
@@ -309,4 +313,21 @@
   text-align: left;
   margin: 4px 10px 0;
   font-size: 14px;
+}
+
+.profile__cv-label {
+  max-width: 495px;
+}
+
+.profile__cv-resume-name {
+  width: 100%;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+}
+
+.profile__cv-name {
+  font-size: 20px;
+  text-align: left;
+  line-height: 120%;
 }
