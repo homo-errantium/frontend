@@ -336,37 +336,122 @@ function App() {
     // localStorage.setItem('formData', JSON.stringify(values))
   }
 
-  const checkValidity = evt => {
+  const checkValidityPersonalData = evt => {
     const { name, value } = evt.target
-    if (
-      name === 'name' &&
-      !!NAME_REGEX.test(value) &&
-      evt.target.value.length < 50 &&
-      evt.target.value.length >= 2 &&
-      evt.target.value.length !== 0 &&
-      evt.target.value !== undefined
-    ) {
-      setIsValid(true)
+    if (location.pathname === '/resume/personal-data') {
+      if (
+        name === 'name' &&
+        !!NAME_REGEX.test(value) &&
+        evt.target.value.length < 50 &&
+        evt.target.value.length >= 2 &&
+        evt.target.value.length !== 0 &&
+        evt.target.value !== undefined
+      ) {
+        setIsValid(true)
+      }
+      if (
+        name === 'surname' &&
+        !!NAME_REGEX.test(value) &&
+        evt.target.value.length < 50 &&
+        evt.target.value.length >= 1 &&
+        evt.target.value.length !== 0 &&
+        evt.target.value !== undefined
+      ) {
+        setIsValid(true)
+      }
+      if (
+        name === 'email' &&
+        !!EMAIL_REGEX.test(value) &&
+        evt.target.value.length < 50 &&
+        evt.target.value.length > 5 &&
+        evt.target.value.length !== 0 &&
+        evt.target.value !== undefined
+      ) {
+        setIsValid(true)
+      }
     }
-    if (
-      name === 'surname' &&
-      !!NAME_REGEX.test(value) &&
-      evt.target.value.length < 50 &&
-      evt.target.value.length >= 1 &&
-      evt.target.value.length !== 0 &&
-      evt.target.value !== undefined
-    ) {
-      setIsValid(true)
+  }
+
+  const checkValidityExperience = evt => {
+    if (location.pathname === '/resume/experience') {
+      const { name, value } = evt.target
+      if (
+        name === 'company' &&
+        !!COMPANY_NAME_REGEX.test(value) &&
+        evt.target.value.length < 50 &&
+        evt.target.value.length >= 2 &&
+        evt.target.value.length !== 0 &&
+        evt.target.value !== undefined
+      ) {
+        setIsValid(true)
+      }
+      if (
+        name === 'current_position' &&
+        !!COMPANY_NAME_REGEX.test(value) &&
+        evt.target.value.length < 50 &&
+        evt.target.value.length >= 2 &&
+        evt.target.value.length !== 0 &&
+        evt.target.value !== undefined
+      ) {
+        setIsValid(true)
+      }
+      if (
+        name === 'duties' &&
+        !!COMPANY_NAME_REGEX.test(value) &&
+        evt.target.value.length < 50 &&
+        evt.target.value.length >= 2 &&
+        evt.target.value.length !== 0 &&
+        evt.target.value !== undefined
+      ) {
+        setIsValid(true)
+      }
+      if (name === 'year_work_start' && !!YEAR_REGEX.test(value)) {
+        setIsValid(true)
+      }
+      if (name === 'year_work_end' && !!YEAR_REGEX.test(value)) {
+        setIsValid(true)
+      }
     }
-    if (
-      name === 'email' &&
-      !!EMAIL_REGEX.test(value) &&
-      evt.target.value.length < 50 &&
-      evt.target.value.length > 5 &&
-      evt.target.value.length !== 0 &&
-      evt.target.value !== undefined
-    ) {
-      setIsValid(true)
+  }
+  const checkValidityQuaification = evt => {
+    if (location.pathname === 'resume/qualification') {
+      const { name, value } = evt.target
+      if (
+        name === 'company' &&
+        !!COMPANY_NAME_REGEX.test(value) &&
+        evt.target.value.length < 50 &&
+        evt.target.value.length >= 2 &&
+        evt.target.value.length !== 0 &&
+        evt.target.value !== undefined
+      ) {
+        setIsValid(true)
+      }
+      if (
+        name === 'current_position' &&
+        !!COMPANY_NAME_REGEX.test(value) &&
+        evt.target.value.length < 50 &&
+        evt.target.value.length >= 2 &&
+        evt.target.value.length !== 0 &&
+        evt.target.value !== undefined
+      ) {
+        setIsValid(true)
+      }
+      if (
+        name === 'duties' &&
+        !!COMPANY_NAME_REGEX.test(value) &&
+        evt.target.value.length < 50 &&
+        evt.target.value.length >= 2 &&
+        evt.target.value.length !== 0 &&
+        evt.target.value !== undefined
+      ) {
+        setIsValid(true)
+      }
+      if (name === 'year_work_start' && !!YEAR_REGEX.test(value)) {
+        setIsValid(true)
+      }
+      if (name === 'year_work_end' && !!YEAR_REGEX.test(value)) {
+        setIsValid(true)
+      }
     }
   }
 
@@ -381,7 +466,7 @@ function App() {
         name: 'Имя может быть введено только кириллицей. Допускаются пробелы и дефисы',
       })
       setIsValid(false)
-      setInputsAreNotEmpty(false)
+      // setInputsAreNotEmpty(false)
     } else if (
       name === 'name' &&
       (evt.target.value.length > 50 || evt.target.value.length < 2)
@@ -391,7 +476,7 @@ function App() {
         name: 'Имя должно быть длиной от 2 до 50 символов',
       })
       setIsValid(false)
-      setInputsAreNotEmpty(false)
+      // setInputsAreNotEmpty(false)
     } else if (name === 'name' && evt.target.value.length === 0) {
       setErrors({
         ...errors,
@@ -436,7 +521,7 @@ function App() {
         ...errors,
         city: 'Название города может быть введено только кириллицей. Допускаются пробелы и дефисы',
       })
-      // setIsValid(false)
+      setIsValid(false)
     }
     if (
       name === 'city' &&
@@ -446,7 +531,7 @@ function App() {
         ...errors,
         city: 'Название города должно быть длиной от 2 до 50 символов',
       })
-      // setIsValid(false)
+      setIsValid(false)
     }
     if (name === 'desired_position' && !NAME_REGEX.test(value)) {
       setErrors({
@@ -496,7 +581,7 @@ function App() {
         ...errors,
         company: 'Название компании должно быть длиной от 2 до 50 символов',
       })
-      // setIsValid(false)
+      setIsValid(false)
     }
     if (name === 'company' && !COMPANY_NAME_REGEX.test(value)) {
       setErrors({
@@ -504,7 +589,7 @@ function App() {
         company:
           'В названии компании допускаются только буквы, цифры, кавычки, пробелы и дефисы',
       })
-      // setIsValid(false)
+      setIsValid(false)
     }
     if (
       name === 'current_position' &&
@@ -515,7 +600,7 @@ function App() {
         current_position:
           'Название должности должно быть длиной от 2 до 50 символов',
       })
-      // setIsValid(false)
+      setIsValid(false)
     }
     if (name === 'current_position' && !JOB_NAME_REGEX.test(value)) {
       setErrors({
@@ -523,19 +608,21 @@ function App() {
         current_position:
           'В названии должности допускаются только буквы, цифры, пробелы и дефисы',
       })
-      // setIsValid(false)
+      setIsValid(false)
     }
     if (name === 'year_work_start' && !YEAR_REGEX.test(value)) {
       setErrors({
         ...errors,
         year_work_start: 'Введите год в формате ГГГГ (например, 2020)',
       })
+      setIsValid(false)
     }
     if (name === 'year_work_end' && !YEAR_REGEX.test(value)) {
       setErrors({
         ...errors,
         year_work_end: 'Введите год в формате ГГГГ (например, 2020)',
       })
+      setIsValid(false)
     }
     if (
       name === 'duties' &&
@@ -545,6 +632,7 @@ function App() {
         ...errors,
         duties: 'Описание обязанностей должно быть длиной от 2 до 500 символов',
       })
+      setIsValid(false)
     }
     if (name === 'company_website' && !SITE_REGEX.test(value)) {
       setErrors({
@@ -580,89 +668,241 @@ function App() {
       })
     }
     console.log(inputsAreNotEmpty)
-    checkValidity(evt)
+    checkValidityPersonalData(evt)
+    checkValidityExperience(evt)
     // console.log(isValid)
   }
+
   useEffect(() => {
-    console.log(isValid)
+    // console.log(isValid)
     const formData = { ...values }
-    if (
-      formData.name !== undefined &&
-      // NAME_REGEX.test(formData.name) &&
-      formData.name.length < 50 &&
-      formData.name.length >= 2 &&
-      formData.name.length !== 0 &&
-      formData.surname !== undefined &&
-      formData.surname !== '' &&
-      // NAME_REGEX.test(formData.surname) &&
-      formData.surname.length < 50 &&
-      formData.surname.length >= 1 &&
-      formData.surname.length !== 0
-      // formData.email !== undefined
-      // EMAIL_REGEX.test(formData.email) &&
-      // formData.email.length > 50 &&
-      // formData.email.length !== 0
-    ) {
-      setInputsAreNotEmpty(true)
+    if (!formData.work_experience_checkbox) {
+      setInputsAreNotEmpty(false)
+    }
+    if (location.pathname === '/resume/personal-data') {
+      if (
+        formData.name !== undefined &&
+        // NAME_REGEX.test(formData.name) &&
+        formData.name.length < 50 &&
+        formData.name.length >= 2 &&
+        formData.name.length !== 0 &&
+        formData.surname !== undefined &&
+        formData.surname !== '' &&
+        formData.email !== undefined &&
+        // EMAIL_REGEX.test(formData.email) &&
+        // formData.email.length > 50 &&
+        formData.email.length !== 0 &&
+        // NAME_REGEX.test(formData.surname) &&
+        formData.surname.length < 50 &&
+        formData.surname.length >= 1 &&
+        formData.surname.length !== 0
+      ) {
+        setInputsAreNotEmpty(true)
+        console.log(isValid)
+      }
+    }
+    if (location.pathname === '/resume/experience') {
+      console.log(formData.work_experience_checkbox)
+      // if (formData.work_experience_checkbox) {
+      //   setInputsAreNotEmpty(true)
+      // }
+      if (!formData.work_experience_checkbox) {
+        if (
+          formData.company !== undefined &&
+          formData.company !== '' &&
+          COMPANY_NAME_REGEX.test(formData.company) &&
+          formData.company.length < 50 &&
+          formData.company.length >= 2 &&
+          formData.company.length !== 0 &&
+          // formData.current_position.length !== 0 &&
+          JOB_NAME_REGEX.test(formData.current_position) &&
+          formData.current_position !== undefined &&
+          formData.current_position !== '' &&
+          formData.current_position.length < 50 &&
+          formData.current_position.length >= 2 &&
+          // formData.duties.length !== 0 &&
+          formData.duties !== undefined &&
+          formData.duties !== '' &&
+          formData.duties.length < 500 &&
+          formData.duties.length >= 2 &&
+          formData.year_work_start !== undefined &&
+          formData.year_work_start !== '' &&
+          YEAR_REGEX.test(formData.year_work_start) &&
+          formData.year_work_end !== undefined &&
+          formData.year_work_end !== '' &&
+          YEAR_REGEX.test(formData.year_work_end)
+        ) {
+          setInputsAreNotEmpty(true)
+          setIsValid(true)
+          console.log(isValid)
+        }
+      }
+      if (formData.work_experience_checkbox) {
+        setInputsAreNotEmpty(true)
+      }
     }
   })
 
   // Сохраняем данные полей в локалное хранилище
   const handleClick = () => {
     setValues(prevValues => ({ ...prevValues, img: image }))
-    console.log(isValid)
+    // console.log(isValid)
     const formData = { ...values }
     console.log(formData)
+    if (!formData.work_experience_checkbox) {
+      setInputsAreNotEmpty(false)
+    }
     let object = {}
-    if (formData.name === undefined || formData.name.length === 0) {
-      object = {
-        ...object,
-        name: 'Это поле должно быть заполнено',
+    if (location.pathname === '/resume/personal-data') {
+      if (formData.name === undefined || formData.name.length === 0) {
+        object = {
+          ...object,
+          name: 'Это поле должно быть заполнено',
+        }
+        // setInputsAreNotEmpty(false)
+        // setErrors(object)
       }
-      // setInputsAreNotEmpty(false)
-    }
-    if (formData.surname === undefined || formData.surname === '') {
-      object = {
-        ...object,
-        surname: 'Это поле должно быть заполнено',
+      if (formData.surname === undefined || formData.surname === '') {
+        object = {
+          ...object,
+          surname: 'Это поле должно быть заполнено',
+        }
+        // setInputsAreNotEmpty(false)
+        // setErrors(object)
       }
-      // setInputsAreNotEmpty(false)
-    }
-    if (formData.email === undefined || formData.email === '') {
-      object = {
-        ...object,
-        email: 'Это поле должно быть заполнено',
+      if (formData.email === undefined || formData.email === '') {
+        object = {
+          ...object,
+          email: 'Это поле должно быть заполнено',
+        }
+        // setErrors(object)
+        // setInputsAreNotEmpty(false)
       }
-      // setInputsAreNotEmpty(false)
+
+      if (
+        formData.name !== undefined &&
+        NAME_REGEX.test(formData.name) &&
+        formData.name.length < 50 &&
+        formData.name.length >= 2 &&
+        formData.name.length !== 0 &&
+        formData.surname !== undefined &&
+        formData.surname !== '' &&
+        NAME_REGEX.test(formData.surname) &&
+        formData.surname.length < 50 &&
+        formData.surname.length >= 1 &&
+        formData.surname.length !== 0
+      ) {
+        setInputsAreNotEmpty(true)
+      } else {
+        localStorage.setItem('hasExperience', JSON.stringify(hasExperience))
+        localStorage.setItem('isTillPresent', JSON.stringify(allTillPresent))
+        localStorage.setItem('image', image)
+        localStorage.setItem('formData', JSON.stringify(formData))
+        localStorage.setItem(
+          'hasQualification',
+          JSON.stringify(hasQualification)
+        )
+      }
+      // console.log(errors)
+      setErrors(object)
     }
-    if (
-      formData.name !== undefined &&
-      // NAME_REGEX.test(formData.name) &&
-      formData.name.length < 50 &&
-      formData.name.length >= 2 &&
-      formData.name.length !== 0 &&
-      formData.surname !== undefined &&
-      formData.surname !== '' &&
-      // NAME_REGEX.test(formData.surname) &&
-      formData.surname.length < 50 &&
-      formData.surname.length >= 1 &&
-      formData.surname.length !== 0
-      // formData.email !== undefined
-      // EMAIL_REGEX.test(formData.email) &&
-      // formData.email.length > 50 &&
-      // formData.email.length !== 0
-    ) {
-      setInputsAreNotEmpty(true)
-    } else {
-      localStorage.setItem('hasExperience', JSON.stringify(hasExperience))
-      localStorage.setItem('isTillPresent', JSON.stringify(allTillPresent))
-      localStorage.setItem('image', image)
-      localStorage.setItem('formData', JSON.stringify(formData))
-      localStorage.setItem('hasQualification', JSON.stringify(hasQualification))
+    if (!formData.work_experience_checkbox) {
+      setInputsAreNotEmpty(false)
     }
-    // console.log(errors)
-    setErrors(object)
+
+    if (location.pathname === '/resume/experience') {
+      console.log(inputsAreNotEmpty)
+      if (!formData.work_experience_checkbox) {
+        if (formData.company === undefined || formData.company === '') {
+          object = {
+            ...object,
+            company: 'Это поле должно быть заполнено',
+          }
+          setInputsAreNotEmpty(false)
+        }
+        if (
+          formData.current_position === undefined ||
+          formData.current_position === ''
+        ) {
+          object = {
+            ...object,
+            current_position: 'Это поле должно быть заполнено',
+          }
+          setInputsAreNotEmpty(false)
+        }
+        if (formData.duties === undefined || formData.duties === '') {
+          object = {
+            ...object,
+            duties: 'Это поле должно быть заполнено',
+          }
+          setInputsAreNotEmpty(false)
+        }
+        if (
+          formData.year_work_start === undefined ||
+          formData.year_work_start === ''
+        ) {
+          object = {
+            ...object,
+            year_work_start: 'Это поле должно быть заполнено',
+          }
+          setInputsAreNotEmpty(false)
+        }
+        if (
+          formData.year_work_end === undefined ||
+          formData.year_work_end === ''
+        ) {
+          object = {
+            ...object,
+            year_work_end: 'Это поле должно быть заполнено',
+          }
+          setInputsAreNotEmpty(false)
+        }
+        if (
+          formData.company !== undefined &&
+          formData.company !== '' &&
+          formData.company.length < 50 &&
+          COMPANY_NAME_REGEX.test(formData.company) &&
+          formData.company.length >= 2 &&
+          // formData.company.length !== 0 &&
+          // formData.current_position.length !== 0 &&
+          JOB_NAME_REGEX.test(formData.current_position) &&
+          formData.current_position !== undefined &&
+          formData.current_position !== '' &&
+          formData.current_position.length < 50 &&
+          formData.current_position.length >= 2 &&
+          // formData.duties.length !== 0 &&
+          formData.duties !== undefined &&
+          formData.duties !== '' &&
+          formData.duties.length < 500 &&
+          formData.duties.length >= 2 &&
+          formData.year_work_end !== undefined &&
+          formData.year_work_end !== '' &&
+          YEAR_REGEX.test(formData.year_work_end) &&
+          formData.year_work_start !== undefined &&
+          formData.year_work_start !== '' &&
+          YEAR_REGEX.test(formData.year_work_start)
+        ) {
+          setInputsAreNotEmpty(true)
+        } else {
+          localStorage.setItem('hasExperience', JSON.stringify(hasExperience))
+          localStorage.setItem('isTillPresent', JSON.stringify(allTillPresent))
+          localStorage.setItem('image', image)
+          localStorage.setItem('formData', JSON.stringify(formData))
+          localStorage.setItem(
+            'hasQualification',
+            JSON.stringify(hasQualification)
+          )
+        }
+        setErrors(object)
+      }
+      // else setInputsAreNotEmpty(true)
+    }
   }
+  //  else {
+  //   setErrors({})
+  //   setInputsAreNotEmpty(true)
+  // }
+  // console.log(errors)
 
   /* ----------------------------------------- Popup -----------------------------------------------------*/
   const [isRegisterPopupOpen, setIsRegisterPopupOpen] = React.useState(false)
