@@ -129,7 +129,7 @@ const Qualification = ({
           handleChange={handleChangeWithValidation}
           setValues={setValues}
         />
-        {values.qualifications?.map(qualification => (
+        {values.qualifications.map(qualification => (
           <AddedQualification
             values={qualification}
             hasQualification={hasQualification}

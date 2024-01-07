@@ -21,43 +21,49 @@ function ResultResume({ values }) {
   //   return value || text
   // }
 
+  console.log(values)
+
   function currentAge() {
-    const birthdayArr = values.birthday?.split('.')
-    // eslint-disable-next-line eqeqeq
-    if (birthdayArr) {
-      const today = new Date()
-      const year = today.getFullYear() - birthdayArr[2]
-      switch (year) {
-        case 11:
-        case 12:
-        case 13:
-        case 14:
-          return `${year} лет`
+    if (values.birhday !== '') {
+      const birthdayArr = values.birthday?.split('.')
+      // eslint-disable-next-line eqeqeq
+      if (birthdayArr) {
+        const today = new Date()
+        const year = today.getFullYear() - birthdayArr[2]
+        switch (year) {
+          case 11:
+          case 12:
+          case 13:
+          case 14:
+            return `${year} лет`
 
-        default:
-          switch (year % 10) {
-            case 1:
-              return `${year} год`
+          default:
+            switch (year % 10) {
+              case 1:
+                return `${year} год`
 
-            case 2:
-            case 3:
-            case 4:
-              return `${year} года`
+              case 2:
+              case 3:
+              case 4:
+                return `${year} года`
 
-            case 5:
-            case 6:
-            case 7:
-            case 8:
-            case 9:
-            case 0:
-              return `${year} лет`
-            default:
-              break
-          }
-          break
+              case 5:
+              case 6:
+              case 7:
+              case 8:
+              case 9:
+              case 0:
+                return `${year} лет`
+              default:
+                break
+            }
+            break
+        }
+        return `${year} лет`
       }
-      return `${year} лет`
+      return ''
     }
+
     return ''
   }
 
@@ -115,7 +121,9 @@ function ResultResume({ values }) {
           {`${absentValues(values.desired_position)}`}
         </p>
         <ul className="result-resume__user-birth-info-list">
-          <li className="result-resume__user-birth-info-list-item">
+          <li
+            className={classNames('result-resume__user-birth-info-list-item')}
+          >
             <span
               className={classNames(
                 'result-resume__user-birth-info-list-item-element',
@@ -767,15 +775,6 @@ function ResultResume({ values }) {
           {values.about}
         </p>
       </div>
-      {!locationProfile && (
-        <div className="result-resume__button-container">
-          <button type="button" className="result-resume__button">
-            <Link className="result-resume__button-link" to="#">
-              Портфолио
-            </Link>
-          </button>
-        </div>
-      )}
       <div className="result-resume__right-container">
         {/* ------ блок с контактами ------*/}
         <div className="result-resume__right-container-info result-resume__user-contacts">

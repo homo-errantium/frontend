@@ -55,7 +55,7 @@ const FormInput = ({
         ...prevValues,
         organization: '',
         course_name: '',
-        specialization: '',
+        work_specialization: '',
         description_experience: '',
         skills: '',
         diploma_link: '',

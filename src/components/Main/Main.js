@@ -1,7 +1,6 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-array-index-key */
 import React from 'react'
+import { v4 as uuidv4 } from 'uuid'
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
 import './Main.scss'
@@ -19,6 +18,9 @@ function Main({
   isValid,
   inputsAreNotEmpty,
   setValues,
+  setImage,
+  setHasExperience,
+  setHasQualification,
 }) {
   const navigate = useNavigate()
   const nextPage = '/resume'
@@ -57,6 +59,8 @@ function Main({
         setValues={setValues}
         isValid={isValid}
         inputsAreNotEmpty={inputsAreNotEmpty}
+        setHasExperience={setHasExperience}
+        setHasQualification={setHasQualification}
       />
       <main className="main">
         <div className="main__title-container">
@@ -74,6 +78,27 @@ function Main({
               className="main__create-button link"
               onClick={() => {
                 handleOpenPopup(navigate, isLoggedIn, onOpenPopup)
+                setValues({
+                  name: '',
+                  surname: '',
+                  birthday: '',
+                  work_status: '',
+                  email: '',
+                  city: '',
+                  work_experience_checkbox: false,
+                  work_period_experience_checkbox: false,
+                  education_period_checkbox: false,
+                  qualification_checkbox: false,
+                  languages: [{ id: uuidv4() }],
+                  links: [{ id: uuidv4() }],
+                  jobs: [],
+                  qualifications: [],
+                  educations: [],
+                  portfolio: [],
+                })
+                setImage('')
+                setHasExperience(true)
+                setHasQualification(true)
               }}
             >
               Создать резюме
@@ -147,6 +172,9 @@ Main.propTypes = {
   setValues: PropTypes.func.isRequired,
   isValid: PropTypes.bool.isRequired,
   inputsAreNotEmpty: PropTypes.bool.isRequired,
+  setImage: PropTypes.func.isRequired,
+  setHasExperience: PropTypes.func.isRequired,
+  setHasQualification: PropTypes.func.isRequired,
 }
 
 export default Main

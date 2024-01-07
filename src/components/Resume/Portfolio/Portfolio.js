@@ -62,7 +62,7 @@ const Portfolio = ({
           handleChange={handleChangeWithValidation}
           label="Ссылка на проект"
         />
-        {values.portfolio?.map(project => (
+        {values.portfolio.map(project => (
           <Project
             values={project}
             deleteProject={deleteProject}

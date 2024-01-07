@@ -42,7 +42,7 @@ import PopupConfirmationRegister from '../Popups/PopupConfirmationRegister/Popup
 function App() {
   // ----------------------------------------Переменные------------------------------------------------------
   const location = useLocation()
-  const [isLoggedIn, setIsLoggedIn] = React.useState(true) // Пользователь авторизован/неавторизован
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false) // Пользователь авторизован/неавторизован
   const [currentUser, setCurrentUser] = React.useState(
     JSON.parse(localStorage.getItem('user')) || {}
   ) // Сохраняем данные пользователя
@@ -709,14 +709,12 @@ function App() {
         formData.surname.length !== 0
       ) {
         setInputsAreNotEmpty(true)
-        console.log(isValid)
       }
     }
     if (location.pathname === '/resume/experience') {
       if (!formData.work_experience_checkbox) {
         setInputsAreNotEmpty(false)
       }
-      console.log(formData.work_experience_checkbox)
       // if (formData.work_experience_checkbox) {
       //   setInputsAreNotEmpty(true)
       // }
@@ -1157,6 +1155,9 @@ function App() {
                 isValid={isValid}
                 inputsAreNotEmpty={inputsAreNotEmpty}
                 setValues={setValues}
+                setImage={setImage}
+                setHasExperience={setHasExperience}
+                setHasQualification={setHasQualification}
               />
             }
           />
@@ -1194,6 +1195,9 @@ function App() {
                 onClick={handleClick}
                 duties={duties}
                 handleResumeNamePopupOpen={handleResumeNamePopupOpen}
+                handleConfirmRegPopupOpen={handleConfirmRegPopupOpen}
+                setHasExperience={setHasExperience}
+                setHasQualification={setHasQualification}
               />
             }
           >
@@ -1266,6 +1270,8 @@ function App() {
           setCurrentResume={setCurrentResume}
           arrValues={arrValues}
           setArrValues={setArrValues}
+          setValues={setValues}
+          setImage={setImage}
         />
         {/* Попап подтверждения перехода */}
         <PopupConfirmationRegister
