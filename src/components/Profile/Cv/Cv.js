@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Cv.scss'
+import classNames from 'classnames'
 import EditIcon from '../../../img/edit-icon-black.svg'
 import DownloadIcon from '../../../img/download-icon.svg'
 import linkIcon from '../../../img/linkImage.svg'
@@ -25,6 +26,27 @@ const Cv = ({
   const resumePath = `/resume/result/${cv.id}`
   const navigate = useNavigate()
   const [isEditCvPopupOpen, setIsEditCvPopupOpen] = useState(false)
+
+  useEffect(() => {
+    const closeEsc = e => {
+      if (e.key === 'Escape' || e.key === 'Esc') {
+        setIsEditCvPopupOpen(false)
+      }
+    }
+
+    const closeMouseDown = e => {
+      if (e.target.classList.contains('profile__bcg')) {
+        setIsEditCvPopupOpen(false)
+      }
+    }
+
+    window.addEventListener('keydown', closeEsc)
+    window.addEventListener('mousedown', closeMouseDown)
+    return () => {
+      window.removeEventListener('keydown', closeEsc)
+      window.removeEventListener('mousedown', closeMouseDown)
+    }
+  }, [isEditCvPopupOpen])
 
   const openCvMenu = () => {
     setIsEditCvPopupOpen(!isEditCvPopupOpen)
@@ -61,6 +83,7 @@ const Cv = ({
   const handleDelete = () => {
     setCurrentResume({ ...currentResume, ...cv })
     deletePopupSetState(true)
+    setIsEditCvPopupOpen(false)
   }
 
   useEffect(() => {
@@ -82,74 +105,83 @@ const Cv = ({
         </button>
       </div>
       <span className="profile__cv-name">{cv.resume_name}</span>
-      {isEditCvPopupOpen && (
-        <div className="profile__cv-menu">
-          <button
-            className="profile__cv-menu-option link"
-            type="button"
-            onClick={handleEditResume}
-          >
-            <img
-              src={EditIcon}
-              alt="карандашик"
-              className="profile__cv-menu-icon"
-            />
-            Редактировать
-          </button>
-          <button
-            className="profile__cv-menu-option link"
-            type="button"
-            onClick={handleDownload}
-          >
-            <img
-              src={DownloadIcon}
-              alt="скачивание"
-              className="profile__cv-menu-icon"
-            />
-            Скачать в PDF
-          </button>
-          <button
-            className="profile__cv-menu-option link"
-            type="button"
-            onClick={copyToClipboard}
-          >
-            <img
-              src={linkIcon}
-              alt="скачивание"
-              className="profile__cv-menu-icon"
-            />
-            Скопировать ссылку
-          </button>
-          <button
-            className="profile__cv-menu-option link"
-            type="button"
-            onClick={() => {
-              setIsEditCvPopupOpen(false)
-              setIsResumeNamePopupOpen(true)
-              handleEditName()
-            }}
-          >
-            <img
-              src={EditIcon}
-              alt="карандашик"
-              className="profile__cv-menu-icon"
-            />
-            Переименовать
-          </button>
-          <button
-            className="profile__cv-menu-option profile__cv-menu-option_red link"
-            type="button"
-            onClick={handleDelete}
-          >
-            <img
-              src={DeleteIcon}
-              alt="скачивание"
-              className="profile__cv-menu-icon"
-            />
-            Удалить резюме
-          </button>
-        </div>
-      )}
+      <div
+        className={classNames(
+          'profile__bcg',
+          isEditCvPopupOpen ? 'profile__bcg_opened' : ''
+        )}
+      />
+      <div
+        className={classNames(
+          'profile__cv-menu',
+          isEditCvPopupOpen ? 'profile__cv-menu_opened' : ''
+        )}
+      >
+        <button
+          className="profile__cv-menu-option link"
+          type="button"
+          onClick={handleEditResume}
+        >
+          <img
+            src={EditIcon}
+            alt="карандашик"
+            className="profile__cv-menu-icon"
+          />
+          Редактировать
+        </button>
+        <button
+          className="profile__cv-menu-option link"
+          type="button"
+          onClick={handleDownload}
+        >
+          <img
+            src={DownloadIcon}
+            alt="скачивание"
+            className="profile__cv-menu-icon"
+          />
+          Скачать в PDF
+        </button>
+        <button
+          className="profile__cv-menu-option link"
+          type="button"
+          onClick={copyToClipboard}
+        >
+          <img
+            src={linkIcon}
+            alt="скачивание"
+            className="profile__cv-menu-icon"
+          />
+          Скопировать ссылку
+        </button>
+        <button
+          className="profile__cv-menu-option link"
+          type="button"
+          onClick={() => {
+            setIsEditCvPopupOpen(false)
+            setIsResumeNamePopupOpen(true)
+            handleEditName()
+          }}
+        >
+          <img
+            src={EditIcon}
+            alt="карандашик"
+            className="profile__cv-menu-icon"
+          />
+          Переименовать
+        </button>
+        <button
+          className="profile__cv-menu-option profile__cv-menu-option_red link"
+          type="button"
+          onClick={handleDelete}
+        >
+          <img
+            src={DeleteIcon}
+            alt="скачивание"
+            className="profile__cv-menu-icon"
+          />
+          Удалить резюме
+        </button>
+      </div>
     </div>
   )
 }

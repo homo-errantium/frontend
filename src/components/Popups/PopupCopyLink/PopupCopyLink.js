@@ -1,6 +1,5 @@
-/* eslint-disable react/prop-types */
-// import React from 'react'
 import classNames from 'classnames'
+import PropTypes from 'prop-types'
 import './PopupCopyLink.scss'
 
 function PopupCopyLink({ popupCopyLink }) {
@@ -14,6 +13,10 @@ function PopupCopyLink({ popupCopyLink }) {
       <p className="popup-copy-link__text">Ссылка скопирована</p>
     </div>
   )
+}
+
+PopupCopyLink.propTypes = {
+  popupCopyLink: PropTypes.bool.isRequired,
 }
 
 export default PopupCopyLink

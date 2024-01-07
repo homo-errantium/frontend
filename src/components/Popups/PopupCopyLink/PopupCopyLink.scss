@@ -10,12 +10,10 @@
   position: fixed;
   top: calc(100vh / 2);
   right: calc(100vw / 2.5);
-  z-index: 2;
   visibility: hidden;
-    opacity: 0;
-    transition:
-    visibility 0s,
-    opacity 0.2s linear;
+  opacity: 0;
+  transition: visibility 0.5s, opacity 0.2s linear;
+  z-index: 2;
 
   &_opened {
     visibility: visible;

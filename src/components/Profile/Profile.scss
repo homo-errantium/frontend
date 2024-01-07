@@ -262,6 +262,7 @@
   position: absolute;
   top: 16px;
   right: 25px;
+  z-index: 2;
 }
 
 .profile__cv-menu {
@@ -274,6 +275,33 @@
   background: #fff;
   padding: 8px 0px;
   width: 263px;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.5s, opacity 0.2s linear;
+  z-index: 2;
+}
+
+.profile__cv-menu_opened {
+  visibility: visible;
+  opacity: 1;
+}
+
+.profile__bcg {
+  background-color: rgba(0, 0, 0, 0.35);
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.5s, opacity 0.2s linear;
+  z-index: 1;
+}
+
+.profile__bcg_opened {
+  visibility: visible;
+  opacity: 1;
 }
 
 .profile__cv-menu-option {
