@@ -481,7 +481,6 @@ function App() {
         name: 'Имя может быть введено только кириллицей. Допускаются пробелы и дефисы',
       })
       setIsValid(false)
-      // setInputsAreNotEmpty(false)
     } else if (
       name === 'name' &&
       (evt.target.value.length > 50 || evt.target.value.length < 2)
@@ -531,22 +530,21 @@ function App() {
       })
       setIsValid(false)
     }
-    if (name === 'city' && !NAME_REGEX.test(value)) {
-      setErrors({
-        ...errors,
-        city: 'Название города может быть введено только кириллицей. Допускаются пробелы и дефисы',
-      })
-      setIsValid(false)
-    }
-    if (
-      name === 'city' &&
-      (evt.target.value.length > 50 || evt.target.value.length < 2)
-    ) {
-      setErrors({
-        ...errors,
-        city: 'Название города должно быть длиной от 2 до 50 символов',
-      })
-      setIsValid(false)
+    if (name === 'city') {
+      if (!NAME_REGEX.test(value)) {
+        setErrors({
+          ...errors,
+          city: 'Название города может быть введено только кириллицей. Допускаются пробелы и дефисы',
+        })
+        setIsValid(false)
+      }
+      if (evt.target.value.length > 50 || evt.target.value.length < 2) {
+        setErrors({
+          ...errors,
+          city: 'Название города должно быть длиной от 2 до 50 символов',
+        })
+        setIsValid(false)
+      }
     }
     if (name === 'desired_position' && !NAME_REGEX.test(value)) {
       setErrors({
@@ -691,9 +689,7 @@ function App() {
   useEffect(() => {
     // console.log(isValid)
     const formData = { ...values }
-    if (!formData.work_experience_checkbox) {
-      setInputsAreNotEmpty(false)
-    }
+
     if (location.pathname === '/resume/personal-data') {
       if (
         formData.name !== undefined &&
@@ -717,6 +713,9 @@ function App() {
       }
     }
     if (location.pathname === '/resume/experience') {
+      if (!formData.work_experience_checkbox) {
+        setInputsAreNotEmpty(false)
+      }
       console.log(formData.work_experience_checkbox)
       // if (formData.work_experience_checkbox) {
       //   setInputsAreNotEmpty(true)
@@ -764,9 +763,9 @@ function App() {
     // console.log(isValid)
     const formData = { ...values }
     console.log(formData)
-    if (!formData.work_experience_checkbox) {
-      setInputsAreNotEmpty(false)
-    }
+    // if (!formData.work_experience_checkbox) {
+    //   setInputsAreNotEmpty(false)
+    // }
     let object = {}
     if (location.pathname === '/resume/personal-data') {
       if (formData.name === undefined || formData.name.length === 0) {
@@ -774,7 +773,7 @@ function App() {
           ...object,
           name: 'Это поле должно быть заполнено',
         }
-        // setInputsAreNotEmpty(false)
+        setInputsAreNotEmpty(false)
         // setErrors(object)
       }
       if (formData.surname === undefined || formData.surname === '') {
@@ -782,7 +781,7 @@ function App() {
           ...object,
           surname: 'Это поле должно быть заполнено',
         }
-        // setInputsAreNotEmpty(false)
+        setInputsAreNotEmpty(false)
         // setErrors(object)
       }
       if (formData.email === undefined || formData.email === '') {
@@ -791,7 +790,7 @@ function App() {
           email: 'Это поле должно быть заполнено',
         }
         // setErrors(object)
-        // setInputsAreNotEmpty(false)
+        setInputsAreNotEmpty(false)
       }
 
       if (
@@ -821,9 +820,9 @@ function App() {
       // console.log(errors)
       setErrors(object)
     }
-    if (!formData.work_experience_checkbox) {
-      setInputsAreNotEmpty(false)
-    }
+    // if (!formData.work_experience_checkbox) {
+    //   setInputsAreNotEmpty(false)
+    // }
 
     if (location.pathname === '/resume/experience') {
       console.log(inputsAreNotEmpty)
