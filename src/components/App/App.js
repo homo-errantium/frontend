@@ -37,6 +37,7 @@ import PopupResumeName from '../Popups/PopupResumeName/PopupResumeName'
 import PopupLogin from '../Popups/PopupLogin/PopupLogin'
 import PopupConfirmationDelete from '../Popups/PopupConfirmationDelete/PopupConfirmationDelete'
 import PopupConfirmationRegister from '../Popups/PopupConfirmationRegister/PopupConfirmationRegister'
+import { exampleObject } from '../../constants/exampleResume'
 
 function App() {
   // ----------------------------------------Переменные------------------------------------------------------
@@ -84,7 +85,7 @@ function App() {
   )
 
   const [arrValues, setArrValues] = useState(
-    JSON.parse(localStorage.getItem('allData')) || []
+    JSON.parse(localStorage.getItem('allData')) || [exampleObject]
   )
 
   const [languagesAfterChanges, setLanguagesChanges] = useState(

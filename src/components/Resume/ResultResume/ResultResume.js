@@ -375,7 +375,9 @@ function ResultResume({ values }) {
                 values.year_education_start
                   ? ` ${values.year_education_start}`
                   : ''
-              } - ${
+              } ${
+                values.year_education_start && values.year_education_end && '-'
+              } ${
                 values.year_education_end ? ` ${values.year_education_end}` : ''
               }`}
             </p>
