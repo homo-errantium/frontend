@@ -674,9 +674,7 @@ function App() {
   useEffect(() => {
     // console.log(isValid)
     const formData = { ...values }
-    if (!formData.work_experience_checkbox) {
-      setInputsAreNotEmpty(false)
-    }
+
     if (location.pathname === '/resume/personal-data') {
       if (
         formData.name !== undefined &&
@@ -700,6 +698,9 @@ function App() {
       }
     }
     if (location.pathname === '/resume/experience') {
+      if (!formData.work_experience_checkbox) {
+        setInputsAreNotEmpty(false)
+      }
       console.log(formData.work_experience_checkbox)
       // if (formData.work_experience_checkbox) {
       //   setInputsAreNotEmpty(true)
@@ -747,9 +748,9 @@ function App() {
     // console.log(isValid)
     const formData = { ...values }
     console.log(formData)
-    if (!formData.work_experience_checkbox) {
-      setInputsAreNotEmpty(false)
-    }
+    // if (!formData.work_experience_checkbox) {
+    //   setInputsAreNotEmpty(false)
+    // }
     let object = {}
     if (location.pathname === '/resume/personal-data') {
       if (formData.name === undefined || formData.name.length === 0) {
@@ -757,7 +758,7 @@ function App() {
           ...object,
           name: 'Это поле должно быть заполнено',
         }
-        // setInputsAreNotEmpty(false)
+        setInputsAreNotEmpty(false)
         // setErrors(object)
       }
       if (formData.surname === undefined || formData.surname === '') {
@@ -765,7 +766,7 @@ function App() {
           ...object,
           surname: 'Это поле должно быть заполнено',
         }
-        // setInputsAreNotEmpty(false)
+        setInputsAreNotEmpty(false)
         // setErrors(object)
       }
       if (formData.email === undefined || formData.email === '') {
@@ -774,7 +775,7 @@ function App() {
           email: 'Это поле должно быть заполнено',
         }
         // setErrors(object)
-        // setInputsAreNotEmpty(false)
+        setInputsAreNotEmpty(false)
       }
 
       if (
@@ -804,9 +805,9 @@ function App() {
       // console.log(errors)
       setErrors(object)
     }
-    if (!formData.work_experience_checkbox) {
-      setInputsAreNotEmpty(false)
-    }
+    // if (!formData.work_experience_checkbox) {
+    //   setInputsAreNotEmpty(false)
+    // }
 
     if (location.pathname === '/resume/experience') {
       console.log(inputsAreNotEmpty)
