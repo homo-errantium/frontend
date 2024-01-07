@@ -185,6 +185,11 @@
   color: #fff;
   border-color: #da693f;
 }
+.header__button_orange:disabled {
+  background-color: #1A1B22;
+  opacity: 0.6;
+  border-color: #1A1B22;
+}
 
 .header__nav-link {
   text-decoration: none;

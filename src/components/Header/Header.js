@@ -27,6 +27,8 @@ function Header({
   setCompletedSteps,
   onClick,
   handleResumeNamePopupOpen,
+  isValid,
+  inputsAreNotEmpty,
 }) {
   const navigate = useNavigate()
   const location = useLocation()
@@ -379,11 +381,16 @@ function Header({
               className="header__button header__button_orange header__button_next"
               type="button"
               label="button"
-              onClick={() => {
+              onClick={e => {
+                e.preventDefault()
                 setCompletedSteps()
-                onClick()
-                navigate(`${nextPage}`)
+                onClick(e)
+                console.log(inputsAreNotEmpty)
+                if (inputsAreNotEmpty) {
+                  navigate(`${nextPage}`)
+                }
               }}
+              disabled={!isValid}
             >
               Следующий шаг
               <div className="header__button-icon_flex-container">
