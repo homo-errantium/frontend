@@ -83,6 +83,7 @@ const PersonalData = ({
     setValues({ ...values, links: newLinks })
   }
 
+  // console.log(values.languages)
   return (
     <section className="personal-data">
       <div className="personal-data__container">

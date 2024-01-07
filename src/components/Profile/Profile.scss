@@ -17,12 +17,12 @@
 
 .profile__page-layout {
   display: flex;
-  margin-top: 40px;
-  margin-left: 89px;
+  margin: 49px 89px 0 89px;
 }
 
 .profile__personal-data {
-  width: 58.125%;
+  // width: 58.125%;
+  flex-grow: 1;
 }
 
 .profile__menu-buttons {
@@ -63,6 +63,7 @@
   width: 68%;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
 }
 
 .profile__input-label {
@@ -209,12 +210,12 @@
 }
 
 .profile__saved-resumes {
-  width: 41.875%;
+  // width: 41.875%;
   border-left: 2px solid #d0d0d0;
   min-height: 100vh;
   padding-left: 20px;
   padding-bottom: 136px;
-  margin-right: 5%;
+  // margin-right: 5%;
 }
 
 .profile__saved-resumes-title {
@@ -244,8 +245,11 @@
 
 .profile__cv-image-container {
   position: relative;
-  width: 100%;
-
+  max-width: 495px;
+  object-fit: cover;
+  max-height: 697px;
+  overflow: hidden;
+  margin-bottom: 16px;
 }
 
 .profile__cv-image {
@@ -337,7 +341,7 @@
 }
 
 .profile__password-error {
-  color: #FF4B4B;
+  color: #ff4b4b;
   text-align: left;
   margin: 4px 10px 0;
   font-size: 14px;

@@ -7,6 +7,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import Main from '../Main/Main'
 import Profession from '../Profession/Profession'
 import Resume from '../Resume/Resume'
+import ResultResume from '../Resume/ResultResume/ResultResume'
 import NotFound from '../NotFound/NotFound'
 import Register from '../Register/Register'
 import Login from '../Login/Login'
@@ -30,8 +31,6 @@ import Portfolio from '../Resume/Portfolio/Portfolio'
 import Qualification from '../Resume/Qualification/Qualification'
 import Skills from '../Resume/Skills/Skills'
 import Result from '../Resume/Result/Result'
-import ResultResume from '../Resume/ResultResume/ResultResume'
-
 import PopupRegister from '../Popups/PopupRegister/PopupRegister'
 import PopupConfirmationExit from '../Popups/PopupConfirmationExit/PopupConfirmationExit'
 import PopupResumeName from '../Popups/PopupResumeName/PopupResumeName'
@@ -42,7 +41,7 @@ import PopupConfirmationRegister from '../Popups/PopupConfirmationRegister/Popup
 function App() {
   // ----------------------------------------Переменные------------------------------------------------------
   const location = useLocation()
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false) // Пользователь авторизован/неавторизован
+  const [isLoggedIn, setIsLoggedIn] = React.useState(true) // Пользователь авторизован/неавторизован
   const [currentUser, setCurrentUser] = React.useState(
     JSON.parse(localStorage.getItem('user')) || {}
   ) // Сохраняем данные пользователя
@@ -141,29 +140,11 @@ function App() {
     setImage(currentResume.img)
   }, [currentResume])
 
-  // console.log('🚀 isEditNod:', isEditMod)
-  // console.log('🚀 Arrvalues:', arrValues)
-  // console.log('🚀 values:', values)
-  // // console.log('🚀 currentUser:', currentUser)
-  // console.log('🚀 currentResume:', currentResume)
-
   useEffect(() => {
     if (location.pathname === '/resume/result' && !isEditMod) {
       setValues({ ...values, id: uuidv4() })
     }
     localStorage.setItem('allData', JSON.stringify(arrValues))
-    // if (location.pathname === '/resume/personal-data' && !isEditMod) {
-    //   setValues({})
-    //   setCurrentResume({
-    //     ...currentResume,
-    //     name: currentUser.name,
-    //     surname: currentUser.surname,
-    //     birthday: currentUser.birthday,
-    //     city: currentUser.city,
-    //     img: currentUser.imageProfile,
-    //   })
-    //   localStorage.setItem('image', JSON.stringify(currentResume.img))
-    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname])
 
