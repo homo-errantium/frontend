@@ -671,6 +671,9 @@ function App() {
 
   useEffect(() => {
     // console.log(isValid)
+    if (location.pathname === '/resume/my-profile') {
+      setErrors({})
+    }
     const formData = { ...values }
 
     if (location.pathname === '/resume/personal-data') {
@@ -692,7 +695,7 @@ function App() {
         formData.surname.length !== 0
       ) {
         setInputsAreNotEmpty(true)
-      }
+      } else setInputsAreNotEmpty(false)
     }
     if (location.pathname === '/resume/experience') {
       if (!formData.work_experience_checkbox) {
@@ -735,8 +738,13 @@ function App() {
         setInputsAreNotEmpty(true)
       }
     }
+    if (location.pathname === '/resume/my-profile') {
+      setErrors({})
+    }
   })
-
+  const handleClickMyProfile = () => {
+    setErrors({})
+  }
   // Сохраняем данные полей в локалное хранилище
   const handleClick = () => {
     setValues(prevValues => ({ ...prevValues, img: image }))
@@ -798,6 +806,8 @@ function App() {
       }
       // console.log(errors)
       setErrors(object)
+    } else if (location.pathname === '/resume/my-profile') {
+      setErrors({})
     }
     // if (!formData.work_experience_checkbox) {
     //   setInputsAreNotEmpty(false)
@@ -1179,6 +1189,7 @@ function App() {
                 setCompletedStepsAbout={setCompletedStepsAbout}
                 // setCompletedLayouts={setCompletedLayouts}
                 onClick={handleClick}
+                onClickMyProfile={handleClickMyProfile}
                 duties={duties}
                 qualifications={qualifications}
                 portfolio={portfolio}
