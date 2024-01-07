@@ -29,6 +29,9 @@ function Resume({
   // setCompletedLayouts,
   onClick,
   duties,
+  qualifications,
+  portfolio,
+  about,
   isValid,
 }) {
   const location = useLocation()
@@ -83,7 +86,12 @@ function Resume({
         ) : (
           <ProgressBar step={step} totalSteps={locationArr.length - 1} />
         )}
-        <FormPage duties={duties} />
+        <FormPage
+          duties={duties}
+          qualifications={qualifications}
+          portfolio={portfolio}
+          about={about}
+        />
       </main>
     </>
   )
@@ -145,8 +153,11 @@ Resume.propTypes = {
   setCompletedStepsAbout: PropTypes.func.isRequired,
   // setCompletedLayouts: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
-  duties: PropTypes.bool,
   handleResumeNamePopupOpen: PropTypes.func,
+  duties: PropTypes.bool,
+  qualifications: PropTypes.bool,
+  portfolio: PropTypes.bool,
+  about: PropTypes.bool,
   inputsAreNotEmpty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
 }
@@ -158,6 +169,9 @@ Resume.defaultProps = {
   setValues: () => {},
   isEditMod: false,
   duties: false,
+  qualifications: false,
+  portfolio: false,
+  about: false,
   handleResumeNamePopupOpen: () => {},
   setIsEditMod: () => {},
 }

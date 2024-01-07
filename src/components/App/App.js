@@ -133,7 +133,12 @@ function App() {
 
   const [linksAfterDeleting, setLinksAfterDeleting] = useState(values.links)
   // RECOMMENDATIONS:
+  // Стейты, применяющиеся при смене рекомендаций в определенных полях заполнения формы:
   const [duties, setDuties] = useState(false)
+  const [qualifications, setQualifications] = useState(false)
+  const [portfolio, setPortfolio] = useState(false)
+  const [about, setAbout] = useState(false)
+
   // // Если опыт есть, поля активны. Если нет, поля деактивируются:
   const [hasExperience, setHasExperience] = React.useState(
     JSON.parse(localStorage.getItem('hasExperience') || true)
@@ -1008,6 +1013,7 @@ function App() {
           handleChangeWithValidation={handleChangeWithValidation}
           setValues={setValues}
           handleAddQualificationChange={handleAddQualificationChange}
+          setQualifications={setQualifications}
         />
       ),
       id: 3,
@@ -1038,6 +1044,7 @@ function App() {
           setValues={setValues}
           handleChangeWithValidation={handleChangeWithValidation}
           handleAddPortfolioChange={handleAddPortfolioChange}
+          setPortfolio={setPortfolio}
         />
       ),
       id: 5,
@@ -1055,6 +1062,7 @@ function App() {
         <About
           values={values}
           handleChangeWithValidation={handleChangeWithValidation}
+          setAbout={setAbout}
         />
       ),
       id: 7,
@@ -1186,6 +1194,9 @@ function App() {
                 // setCompletedLayouts={setCompletedLayouts}
                 onClick={handleClick}
                 duties={duties}
+                qualifications={qualifications}
+                portfolio={portfolio}
+                about={about}
                 handleResumeNamePopupOpen={handleResumeNamePopupOpen}
               />
             }

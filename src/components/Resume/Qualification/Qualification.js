@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import '../PersonalData/PersonalData.scss'
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
@@ -17,6 +18,7 @@ const Qualification = ({
   handleChangeWithValidation,
   setValues,
   handleAddQualificationChange,
+  setQualifications,
 }) => {
   // Если появилась добавленная квалификация, основная кнопка "Добавить" удаляется
   const [noAddedQualification, setNoAddedQualification] = useState(true)
@@ -54,6 +56,10 @@ const Qualification = ({
     }
   }, [values.qualifications?.length])
 
+  const handleBackToBasicRecommend = () => {
+    setQualifications(false)
+  }
+
   return (
     <section className="qualification personal-data">
       <ResumeTitle
@@ -65,53 +71,61 @@ const Qualification = ({
         handleCheckboxChange={handleCheckboxChange}
         name="qualification_checkbox"
         values={values}
+        handleBackToBasicRecommend={handleBackToBasicRecommend}
       />
       <div className="qualification__form-container experience__form-container">
-        <FormInput
-          name="organization"
-          values={values}
-          label="Проводившая организация"
-          disabled={!hasQualification}
-          handleChange={handleChangeWithValidation}
-          setValues={setValues}
-        />
-        <FormInput
-          name="course_name"
-          values={values}
-          label="Название курса"
-          disabled={!hasQualification}
-          handleChange={handleChangeWithValidation}
-          setValues={setValues}
-        />
-        <FormInput
-          name="work_specialization"
-          values={values}
-          label="Специальность"
-          disabled={!hasQualification}
-          handleChange={handleChangeWithValidation}
-          setValues={setValues}
-        />
-        <PeriodInput
-          monthPeriod={['qual_start', 'qual_end']}
-          year={['year_qual_start', 'year_qual_end']}
-          labelOne="Дата начала"
-          labelTwo="Дата окончания"
-          month
-          disabled={!hasQualification}
-          i="0"
-          values={values}
-          setValues={setValues}
-          handleChange={handleChangeWithValidation}
-        />
-        <FormInput
-          label="Описание полученного опыта"
-          name="description_experience"
-          values={values}
-          extraInputClass="qualification-experience"
-          disabled={!hasQualification}
-          handleChange={handleChangeWithValidation}
-          setValues={setValues}
-        />
+        <div
+          className="qualification__basic-recommend"
+          onClick={handleBackToBasicRecommend}
+          onKeyDown={handleBackToBasicRecommend}
+          onFocus={handleBackToBasicRecommend}
+        >
+          <FormInput
+            name="organization"
+            values={values}
+            label="Проводившая организация"
+            disabled={!hasQualification}
+            handleChange={handleChangeWithValidation}
+            setValues={setValues}
+          />
+          <FormInput
+            name="course_name"
+            values={values}
+            label="Название курса"
+            disabled={!hasQualification}
+            handleChange={handleChangeWithValidation}
+            setValues={setValues}
+          />
+          <FormInput
+            name="work_specialization"
+            values={values}
+            label="Специальность"
+            disabled={!hasQualification}
+            handleChange={handleChangeWithValidation}
+            setValues={setValues}
+          />
+          <PeriodInput
+            monthPeriod={['qual_start', 'qual_end']}
+            year={['year_qual_start', 'year_qual_end']}
+            labelOne="Дата начала"
+            labelTwo="Дата окончания"
+            month
+            disabled={!hasQualification}
+            i="0"
+            values={values}
+            setValues={setValues}
+            handleChange={handleChangeWithValidation}
+          />
+          <FormInput
+            label="Описание полученного опыта"
+            name="description_experience"
+            values={values}
+            extraInputClass="qualification-experience"
+            disabled={!hasQualification}
+            handleChange={handleChangeWithValidation}
+            setValues={setValues}
+          />
+        </div>
         <FormInput
           label="Навыки"
           name="skills"
@@ -120,15 +134,23 @@ const Qualification = ({
           disabled={!hasQualification}
           handleChange={handleChangeWithValidation}
           setValues={setValues}
+          setQualifications={setQualifications}
         />
-        <FormInput
-          name="diploma_link"
-          values={values}
-          label="Ссылка на дипломную работу"
-          disabled={!hasQualification}
-          handleChange={handleChangeWithValidation}
-          setValues={setValues}
-        />
+        <div
+          className="qualification__basic-recommend"
+          onClick={handleBackToBasicRecommend}
+          onKeyDown={handleBackToBasicRecommend}
+          onFocus={handleBackToBasicRecommend}
+        >
+          <FormInput
+            name="diploma_link"
+            values={values}
+            label="Ссылка на дипломную работу"
+            disabled={!hasQualification}
+            handleChange={handleChangeWithValidation}
+            setValues={setValues}
+          />
+        </div>
         {values.qualifications?.map(qualification => (
           <AddedQualification
             values={qualification}
@@ -140,6 +162,8 @@ const Qualification = ({
             key={qualification.id}
             setValues={setValues}
             allValues={values}
+            setQualifications={setQualifications}
+            handleBackToBasicRecommend={handleBackToBasicRecommend}
           />
         ))}
         {noAddedQualification && values.qualifications?.length === 0 && (
@@ -179,10 +203,12 @@ Qualification.propTypes = {
   handleChangeWithValidation: PropTypes.func.isRequired,
   setValues: PropTypes.func.isRequired,
   handleAddQualificationChange: PropTypes.func.isRequired,
+  setQualifications: PropTypes.func,
 }
 
 Qualification.defaultProps = {
   values: {},
+  setQualifications: () => {},
 }
 
 export default Qualification
