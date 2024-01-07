@@ -513,6 +513,7 @@ function App() {
         ...errors,
         birthday: 'Путешествуете во времени?',
       })
+      setIsValid(false)
     }
     if (name === 'city') {
       if (!NAME_REGEX.test(value)) {
