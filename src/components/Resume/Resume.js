@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable prettier/prettier */
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -33,6 +34,9 @@ function Resume({
   portfolio,
   about,
   isValid,
+  handleConfirmRegPopupOpen,
+  setHasExperience,
+  setHasQualification,
 }) {
   const location = useLocation()
   // Находим индекс элемента в массиве с локациями
@@ -71,7 +75,7 @@ function Resume({
         setValues={setValues}
         setIsEditMod={setIsEditMod}
         isEditMod={isEditMod}
-      isValid={isValid}
+        isValid={isValid}
         isLoggedIn={isLoggedIn}
         nextPage={nextPage}
         onOpenPopup={onOpenPopup}
@@ -79,6 +83,9 @@ function Resume({
         onClick={onClick}
         handleResumeNamePopupOpen={handleResumeNamePopupOpen}
         inputsAreNotEmpty={inputsAreNotEmpty}
+        handleConfirmRegPopupOpen={handleConfirmRegPopupOpen}
+        setHasExperience={setHasExperience}
+        setHasQualification={setHasQualification}
       />
       <main className="resume">
         {location.pathname === '/resume/result' ? (
@@ -160,6 +167,8 @@ Resume.propTypes = {
   about: PropTypes.bool,
   inputsAreNotEmpty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
+  setHasExperience: PropTypes.func.isRequired,
+  setHasQualification: PropTypes.func.isRequired,
 }
 
 Resume.defaultProps = {

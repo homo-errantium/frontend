@@ -85,7 +85,7 @@ const Portfolio = ({
             label="Ссылка на проект"
           />
         </div>
-        {values.portfolio?.map(project => (
+        {values.portfolio.map(project => (
           <Project
             values={project}
             deleteProject={deleteProject}

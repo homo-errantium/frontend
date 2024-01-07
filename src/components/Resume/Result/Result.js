@@ -1,18 +1,29 @@
 import './Result.scss'
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
-import createLinkIcon from '../../../img/create-link-icon.svg'
+import React from 'react'
+import linkIcon from '../../../img/linkImage.svg'
 import DownloadIcon from '../../../img/download-icon.svg'
 import ResultResume from '../ResultResume/ResultResume'
 import { handleGeneratePdf } from '../../Utils/Utils'
+import PopupCopyLink from '../../Popups/PopupCopyLink/PopupCopyLink'
 
 function Result({ values }) {
+  const [popupCopyLink, setPopupCopyLink] = React.useState(false)
   const navigate = useNavigate()
-  const handleGenerateLink = () => {
-    // eslint-disable-next-line no-console
-    console.log('тут должен быть другой код')
-  }
   const resumePath = `/resume/result/${values.id}`
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(`http://localhost:3000${resumePath}`)
+    // TODO после соединения с сервером заменить указанный выше код на закомментированный
+    // navigator.clipboard.writeText(
+    //   `http://dev.acceleratorpracticum.ru${resumePath}`
+    // )
+    setPopupCopyLink(true)
+    setTimeout(() => {
+      setPopupCopyLink(false)
+    }, 2500)
+  }
 
   return (
     <section className="result">
@@ -24,15 +35,15 @@ function Result({ values }) {
             type="button"
             label="button"
             onClick={() => {
-              handleGenerateLink()
+              copyToClipboard()
             }}
           >
             <img
               className="result__button-icon"
               alt="стрелка вниз"
-              src={createLinkIcon}
+              src={linkIcon}
             />
-            Создать ссылку
+            Скопировать ссылку
           </button>
           <button
             className="result__button"
@@ -54,6 +65,7 @@ function Result({ values }) {
       <div className="result__content">
         <ResultResume values={values} />
       </div>
+      <PopupCopyLink popupCopyLink={popupCopyLink} />
     </section>
   )
 }

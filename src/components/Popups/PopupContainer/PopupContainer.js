@@ -11,15 +11,25 @@ function PopupContainer({
   closeButton,
   closeButtonBlack,
 }) {
-  // Для закрытия попапа по клавише escape
+  // Для закрытия попапа по клавише escape и на фон
   useEffect(() => {
-    const close = e => {
-      if (e.keyCode === 27) {
+    const closeEsc = e => {
+      if (e.key === 'Escape' || e.key === 'Esc') {
         onClose()
       }
     }
-    window.addEventListener('keydown', close)
-    return () => window.removeEventListener('keydown', close)
+
+    const closeMouseDown = e => {
+      if (e.target.classList.contains('popup_opened')) {
+        onClose()
+      }
+    }
+    window.addEventListener('keydown', closeEsc)
+    window.addEventListener('mousedown', closeMouseDown)
+    return () => {
+      window.removeEventListener('keydown', closeEsc)
+      window.removeEventListener('mousedown', closeMouseDown)
+    }
   }, [onClose])
 
   return (
