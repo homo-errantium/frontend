@@ -1127,6 +1127,8 @@ function App() {
                 setIsEditMod={setIsEditMod}
                 setIsResumeNamePopupOpen={setIsResumeNamePopupOpen}
                 setImage={setImage}
+                setHasQualification={setHasQualification}
+                setHasExperience={setHasExperience}
               />
             }
           />
