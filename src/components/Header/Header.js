@@ -50,7 +50,6 @@ function Header({
         return resume
       })
     )
-    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
     localStorage.setItem('allData', JSON.stringify(arrValues))
   }
 

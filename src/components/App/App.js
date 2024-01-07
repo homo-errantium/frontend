@@ -663,7 +663,7 @@ function App() {
           'Сайт введен некорректно. Адрес должен начинаться с https://',
       })
     }
-    console.log(inputsAreNotEmpty)
+    // console.log(inputsAreNotEmpty)
     checkValidityPersonalData(evt)
     checkValidityExperience(evt)
     // console.log(isValid)
@@ -735,7 +735,8 @@ function App() {
         setInputsAreNotEmpty(true)
       }
     }
-  })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   // Сохраняем данные полей в локалное хранилище
   const handleClick = () => {
@@ -804,7 +805,7 @@ function App() {
     // }
 
     if (location.pathname === '/resume/experience') {
-      console.log(inputsAreNotEmpty)
+      // console.log(inputsAreNotEmpty)
       if (!formData.work_experience_checkbox) {
         if (formData.company === undefined || formData.company === '') {
           object = {

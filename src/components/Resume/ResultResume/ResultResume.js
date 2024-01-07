@@ -17,52 +17,61 @@ function ResultResume({ values }) {
   const location = useLocation()
   const locationProfile = location.pathname === '/my-profile'
 
-  // function checkboxConvert(value, text) {
-  //   return value || text
-  // }
+  const today = new Date()
+  let year = 0
+  const monthToday = today.getMonth() + 1
+  const dayToday = today.getDate()
+
+  function checkCurrentAge() {
+    const birthdayArr = values.birthday?.split('.') || []
+    year = today.getFullYear() - birthdayArr[2]
+    if (monthToday < `${birthdayArr[1]}`) {
+      return year - 1
+    }
+    // eslint-disable-next-line eqeqeq
+    if (monthToday == `${birthdayArr[1]}`) {
+      if (dayToday <= `${birthdayArr[0]}`) return year - 1
+
+      return year
+    }
+    return year
+  }
 
   function currentAge() {
-    if (values.birhday !== '') {
-      const birthdayArr = values.birthday?.split('.')
-      // eslint-disable-next-line eqeqeq
-      if (birthdayArr) {
-        const today = new Date()
-        const year = today.getFullYear() - birthdayArr[2]
-        switch (year) {
-          case 11:
-          case 12:
-          case 13:
-          case 14:
-            return `${year} лет`
+    year = checkCurrentAge()
+    if (year) {
+      switch (year) {
+        case 11:
+        case 12:
+        case 13:
+        case 14:
+          return `${year} лет`
 
-          default:
-            switch (year % 10) {
-              case 1:
-                return `${year} год`
+        default:
+          switch (year % 10) {
+            case 1:
+              return `${year} год`
 
-              case 2:
-              case 3:
-              case 4:
-                return `${year} года`
+            case 2:
+            case 3:
+            case 4:
+              return `${year} года`
 
-              case 5:
-              case 6:
-              case 7:
-              case 8:
-              case 9:
-              case 0:
-                return `${year} лет`
-              default:
-                break
-            }
-            break
-        }
-        return `${year} лет`
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 0:
+              return `${year} лет`
+            default:
+              break
+          }
+          break
       }
-      return ''
+      return `${year} лет`
     }
-
-    return ''
+    return null
   }
 
   function monthConvert(monthNumber) {
@@ -131,6 +140,18 @@ function ResultResume({ values }) {
             >
               {`${absentValues(currentAge())}`}
             </span>
+          </li>
+          <li className="result-resume__user-birth-info-list-item">
+            <span
+              className={classNames(
+                'result-resume__user-birth-info-list-item-element',
+                values.city &&
+                  values.birthday &&
+                  'result-resume__user-birth-info-list-item-element_point',
+                locationProfile &&
+                  'result-resume__user-birth-info-list-item-element_profile'
+              )}
+            />
           </li>
           <li className="result-resume__user-birth-info-list-item">
             <span

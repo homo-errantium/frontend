@@ -64,6 +64,7 @@ const FormInput = ({
         diploma_link: '',
       }))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [disabled])
 
   const handleFocus = () => {
