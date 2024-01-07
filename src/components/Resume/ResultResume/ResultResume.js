@@ -1,5 +1,5 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/no-array-index-key */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import './ResultResume.scss'
 import PropTypes from 'prop-types'
@@ -142,164 +142,166 @@ function ResultResume({ values }) {
 
       {/* ------ блок опыта работы ------*/}
 
-      <div
-        className={classNames(
-          'result-resume__container',
-          locationProfile && 'result-resume__container_profile'
-        )}
-      >
-        <h2
-          className={classNames(
-            'result-resume__title',
-            locationProfile && 'result-resume__title_profile'
-          )}
-        >
-          Опыт работы
-        </h2>
-
+      {!values.work_experience_checkbox && (
         <div
           className={classNames(
-            'result-resume__children',
-            locationProfile && 'result-resume__children_profile'
+            'result-resume__container',
+            locationProfile && 'result-resume__container_profile'
           )}
         >
-          <div
+          <h2
             className={classNames(
-              'result-resume__first-column',
-              locationProfile && 'result-resume__first-column_profile'
+              'result-resume__title',
+              locationProfile && 'result-resume__title_profile'
             )}
           >
-            <p
-              className={classNames(
-                'result-resume__date',
-                locationProfile && 'result-resume__date_profile'
-              )}
-            >
-              {`${monthConvert(values.month_work_start)}
-            ${values.year_work_start} - ${monthConvert(values.month_work_end)}${
-              values.year_work_end ? ` ${values.year_work_end}` : ''
-            }`}
-            </p>
-            <p
-              className={classNames(
-                'result-resume__paragraph',
-                'result-resume__paragraph_position',
-                locationProfile && 'result-resume__paragraph_profile'
-              )}
-            >
-              {absentValues(values.current_position)}
-            </p>
-            <Link
-              to={values.company_website}
-              target="_blank"
-              className={classNames(
-                'result-resume__organization',
-                'result-resume__experience-company',
-                locationProfile && 'result-resume__organization_profile'
-              )}
-            >
-              {absentValues(values.company)}
-            </Link>
-          </div>
-          <div
-            className={classNames(
-              'result-resume__second-column',
-              locationProfile && 'result-resume__second-column_profile'
-            )}
-          >
-            <h4
-              className={classNames(
-                'result-resume__experience-duty-title',
-                locationProfile &&
-                  'result-resume__experience-duty-title_profile'
-              )}
-            >
-              Обязанности
-            </h4>
-            <p
-              className={classNames(
-                'result-resume__paragraph',
-                locationProfile && 'result-resume__paragraph_profile'
-              )}
-            >
-              {absentValues(values.duties)}
-            </p>
-          </div>
-        </div>
+            Опыт работы
+          </h2>
 
-        {React.Children.toArray(
-          userAllJobs?.map(item => (
+          <div
+            className={classNames(
+              'result-resume__children',
+              locationProfile && 'result-resume__children_profile'
+            )}
+          >
             <div
               className={classNames(
-                'result-resume__children',
-                locationProfile && 'result-resume__children_profile'
+                'result-resume__first-column',
+                locationProfile && 'result-resume__first-column_profile'
               )}
             >
-              <div
+              <p
                 className={classNames(
-                  'result-resume__first-column',
-                  locationProfile && 'result-resume__first-column_profile'
+                  'result-resume__date',
+                  locationProfile && 'result-resume__date_profile'
                 )}
               >
-                <p
-                  className={classNames(
-                    'result-resume__date',
-                    locationProfile && 'result-resume__date_profile'
-                  )}
-                >
-                  {`${monthConvert(item.month_work_start)}
-            ${item.year_work_start} - ${monthConvert(item.month_work_end)}${
-              item.year_work_end ? ` ${item.year_work_end}` : ''
-            }`}
-                </p>
-                <p
-                  className={classNames(
-                    'result-resume__paragraph',
-                    'result-resume__paragraph_position',
-                    locationProfile && 'result-resume__paragraph_profile'
-                  )}
-                >
-                  {absentValues(item.current_position)}
-                </p>
-                <Link
-                  to={item.company_website}
-                  className={classNames(
-                    'result-resume__organization',
-                    'result-resume__experience-company',
-                    locationProfile && 'result-resume__organization_profile'
-                  )}
-                >
-                  {absentValues(item.company)}
-                </Link>
-              </div>
-              <div
+                {`${monthConvert(values.month_work_start)}
+          ${values.year_work_start} - ${monthConvert(values.month_work_end)}${
+            values.year_work_end ? ` ${values.year_work_end}` : ''
+          }`}
+              </p>
+              <p
                 className={classNames(
-                  'result-resume__second-column',
-                  locationProfile && 'result-resume__second-column_profile'
+                  'result-resume__paragraph',
+                  'result-resume__paragraph_position',
+                  locationProfile && 'result-resume__paragraph_profile'
                 )}
               >
-                <h4
-                  className={classNames(
-                    'result-resume__experience-duty-title',
-                    locationProfile &&
-                      'result-resume__experience-duty-title_profile'
-                  )}
-                >
-                  Обязанности
-                </h4>
-                <p
-                  className={classNames(
-                    'result-resume__paragraph',
-                    locationProfile && 'result-resume__paragraph_profile'
-                  )}
-                >
-                  {absentValues(item.duties)}
-                </p>
-              </div>
+                {absentValues(values.current_position)}
+              </p>
+              <Link
+                to={values.company_website}
+                target="_blank"
+                className={classNames(
+                  'result-resume__organization',
+                  'result-resume__experience-company',
+                  locationProfile && 'result-resume__organization_profile'
+                )}
+              >
+                {absentValues(values.company)}
+              </Link>
             </div>
-          ))
-        )}
-      </div>
+            <div
+              className={classNames(
+                'result-resume__second-column',
+                locationProfile && 'result-resume__second-column_profile'
+              )}
+            >
+              <h4
+                className={classNames(
+                  'result-resume__experience-duty-title',
+                  locationProfile &&
+                    'result-resume__experience-duty-title_profile'
+                )}
+              >
+                Обязанности
+              </h4>
+              <p
+                className={classNames(
+                  'result-resume__paragraph',
+                  locationProfile && 'result-resume__paragraph_profile'
+                )}
+              >
+                {absentValues(values.duties)}
+              </p>
+            </div>
+          </div>
+
+          {React.Children.toArray(
+            userAllJobs?.map(item => (
+              <div
+                className={classNames(
+                  'result-resume__children',
+                  locationProfile && 'result-resume__children_profile'
+                )}
+              >
+                <div
+                  className={classNames(
+                    'result-resume__first-column',
+                    locationProfile && 'result-resume__first-column_profile'
+                  )}
+                >
+                  <p
+                    className={classNames(
+                      'result-resume__date',
+                      locationProfile && 'result-resume__date_profile'
+                    )}
+                  >
+                    {`${monthConvert(item.month_work_start)}
+          ${item.year_work_start} - ${monthConvert(item.month_work_end)}${
+            item.year_work_end ? ` ${item.year_work_end}` : ''
+          }`}
+                  </p>
+                  <p
+                    className={classNames(
+                      'result-resume__paragraph',
+                      'result-resume__paragraph_position',
+                      locationProfile && 'result-resume__paragraph_profile'
+                    )}
+                  >
+                    {absentValues(item.current_position)}
+                  </p>
+                  <Link
+                    to={item.company_website}
+                    className={classNames(
+                      'result-resume__organization',
+                      'result-resume__experience-company',
+                      locationProfile && 'result-resume__organization_profile'
+                    )}
+                  >
+                    {absentValues(item.company)}
+                  </Link>
+                </div>
+                <div
+                  className={classNames(
+                    'result-resume__second-column',
+                    locationProfile && 'result-resume__second-column_profile'
+                  )}
+                >
+                  <h4
+                    className={classNames(
+                      'result-resume__experience-duty-title',
+                      locationProfile &&
+                        'result-resume__experience-duty-title_profile'
+                    )}
+                  >
+                    Обязанности
+                  </h4>
+                  <p
+                    className={classNames(
+                      'result-resume__paragraph',
+                      locationProfile && 'result-resume__paragraph_profile'
+                    )}
+                  >
+                    {absentValues(item.duties)}
+                  </p>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      )}
 
       {/* ------ блок ссылки ------*/}
       {/* <div className="result-resume__links">
@@ -448,187 +450,189 @@ function ResultResume({ values }) {
         )}
       </div>
       {/* ------ блок повышение квалификации ------*/}
-      <div
-        className={classNames(
-          'result-resume__container',
-          locationProfile && 'result-resume__container_profile'
-        )}
-      >
-        <h2
-          className={classNames(
-            'result-resume__title',
-            locationProfile && 'result-resume__title_profile'
-          )}
-        >
-          Повышение квалификации
-        </h2>
+      {!values.qualification_checkbox && (
         <div
           className={classNames(
-            'result-resume__children',
-            locationProfile && 'result-resume__children_profile'
+            'result-resume__container',
+            locationProfile && 'result-resume__container_profile'
           )}
         >
-          <div
+          <h2
             className={classNames(
-              'result-resume__first-column',
-              locationProfile && 'result-resume__first-column_profile'
+              'result-resume__title',
+              locationProfile && 'result-resume__title_profile'
             )}
           >
-            <p
-              className={classNames(
-                'result-resume__date',
-                locationProfile && 'result-resume__date_profile'
-              )}
-            >
-              {`${monthConvert(values.month_qual_start)}${
-                values.year_qual_start ? ` ${values.year_qual_start}` : ''
-              } - ${monthConvert(values.month_qual_end)}${
-                values.year_qual_end ? ` ${values.year_qual_end}` : ''
-              }`}
-            </p>
-            <p
-              className={classNames(
-                'result-resume__paragraph',
-                locationProfile && 'result-resume__paragraph_profile'
-              )}
-            >
-              {values.organization}
-            </p>
-          </div>
+            Повышение квалификации
+          </h2>
           <div
             className={classNames(
-              'result-resume__second-column',
-              locationProfile && 'result-resume__second-column_profile'
+              'result-resume__children',
+              locationProfile && 'result-resume__children_profile'
             )}
           >
-            <p
-              className={classNames(
-                'result-resume__paragraph',
-                locationProfile && 'result-resume__paragraph_profile'
-              )}
-            >
-              {values.course_name}
-            </p>
-            <p
-              className={classNames(
-                'result-resume__paragraph',
-                locationProfile && 'result-resume__paragraph_profile'
-              )}
-            >
-              {values.work_specialization}
-            </p>
-            <p
-              className={classNames(
-                'result-resume__paragraph',
-                locationProfile && 'result-resume__paragraph_profile'
-              )}
-            >
-              {values.description_experience}
-            </p>
-            <p
-              className={classNames(
-                'result-resume__paragraph',
-                locationProfile && 'result-resume__paragraph_profile'
-              )}
-            >
-              {`Навыки: ${values.skills}`}
-            </p>
-            <p
-              className={classNames(
-                'result-resume__paragraph',
-                locationProfile && 'result-resume__paragraph_profile'
-              )}
-            >
-              {`Ссылка на дипломную работу: ${values.diploma_link}`}
-            </p>
-          </div>
-        </div>
-        {React.Children.toArray(
-          userAllQualifications?.map(item => (
             <div
               className={classNames(
-                'result-resume__children',
-                locationProfile && 'result-resume__children_profile'
+                'result-resume__first-column',
+                locationProfile && 'result-resume__first-column_profile'
               )}
             >
-              <div
+              <p
                 className={classNames(
-                  'result-resume__first-column',
-                  locationProfile && 'result-resume__first-column_profile'
+                  'result-resume__date',
+                  locationProfile && 'result-resume__date_profile'
                 )}
               >
-                <p
-                  className={classNames(
-                    'result-resume__date',
-                    locationProfile && 'result-resume__date_profile'
-                  )}
-                >
-                  {`${monthConvert(item.month_qual_start)}${
-                    item.year_qual_start ? ` ${item.year_qual_start}` : ''
-                  } - ${monthConvert(item.month_qual_end)}${
-                    item.year_qual_end ? ` ${item.year_qual_end}` : ''
-                  }`}
-                </p>
-                <p
-                  className={classNames(
-                    'result-resume__paragraph',
-                    locationProfile && 'result-resume__paragraph_profile'
-                  )}
-                >
-                  {item.organization}
-                </p>
-              </div>
-              <div
+                {`${monthConvert(values.month_qual_start)}${
+                  values.year_qual_start ? ` ${values.year_qual_start}` : ''
+                } - ${monthConvert(values.month_qual_end)}${
+                  values.year_qual_end ? ` ${values.year_qual_end}` : ''
+                }`}
+              </p>
+              <p
                 className={classNames(
-                  'result-resume__second-column',
-                  locationProfile && 'result-resume__second-column_profile'
+                  'result-resume__paragraph',
+                  locationProfile && 'result-resume__paragraph_profile'
                 )}
               >
-                <p
-                  className={classNames(
-                    'result-resume__paragraph',
-                    locationProfile && 'result-resume__paragraph_profile'
-                  )}
-                >
-                  {item.course_name}
-                </p>
-                <p
-                  className={classNames(
-                    'result-resume__paragraph',
-                    locationProfile && 'result-resume__paragraph_profile'
-                  )}
-                >
-                  {item.work_specialization}
-                </p>
-                <p
-                  className={classNames(
-                    'result-resume__paragraph',
-                    locationProfile && 'result-resume__paragraph_profile'
-                  )}
-                >
-                  {item.description_experience}
-                </p>
-                <p
-                  className={classNames(
-                    'result-resume__paragraph',
-                    locationProfile && 'result-resume__paragraph_profile'
-                  )}
-                >
-                  {`Навыки: ${item.skills}`}
-                </p>
-                <p
-                  className={classNames(
-                    'result-resume__paragraph',
-                    locationProfile && 'result-resume__paragraph_profile'
-                  )}
-                >
-                  {`Ссылка на дипломную работу: ${item.diploma_link}`}
-                </p>
-              </div>
+                {values.organization}
+              </p>
             </div>
-          ))
-        )}
-      </div>
+            <div
+              className={classNames(
+                'result-resume__second-column',
+                locationProfile && 'result-resume__second-column_profile'
+              )}
+            >
+              <p
+                className={classNames(
+                  'result-resume__paragraph',
+                  locationProfile && 'result-resume__paragraph_profile'
+                )}
+              >
+                {values.course_name}
+              </p>
+              <p
+                className={classNames(
+                  'result-resume__paragraph',
+                  locationProfile && 'result-resume__paragraph_profile'
+                )}
+              >
+                {values.work_specialization}
+              </p>
+              <p
+                className={classNames(
+                  'result-resume__paragraph',
+                  locationProfile && 'result-resume__paragraph_profile'
+                )}
+              >
+                {values.description_experience}
+              </p>
+              <p
+                className={classNames(
+                  'result-resume__paragraph',
+                  locationProfile && 'result-resume__paragraph_profile'
+                )}
+              >
+                {`Навыки: ${values.skills}`}
+              </p>
+              <p
+                className={classNames(
+                  'result-resume__paragraph',
+                  locationProfile && 'result-resume__paragraph_profile'
+                )}
+              >
+                {`Ссылка на дипломную работу: ${values.diploma_link}`}
+              </p>
+            </div>
+          </div>
+          {React.Children.toArray(
+            userAllQualifications?.map(item => (
+              <div
+                className={classNames(
+                  'result-resume__children',
+                  locationProfile && 'result-resume__children_profile'
+                )}
+              >
+                <div
+                  className={classNames(
+                    'result-resume__first-column',
+                    locationProfile && 'result-resume__first-column_profile'
+                  )}
+                >
+                  <p
+                    className={classNames(
+                      'result-resume__date',
+                      locationProfile && 'result-resume__date_profile'
+                    )}
+                  >
+                    {`${monthConvert(item.month_qual_start)}${
+                      item.year_qual_start ? ` ${item.year_qual_start}` : ''
+                    } - ${monthConvert(item.month_qual_end)}${
+                      item.year_qual_end ? ` ${item.year_qual_end}` : ''
+                    }`}
+                  </p>
+                  <p
+                    className={classNames(
+                      'result-resume__paragraph',
+                      locationProfile && 'result-resume__paragraph_profile'
+                    )}
+                  >
+                    {item.organization}
+                  </p>
+                </div>
+                <div
+                  className={classNames(
+                    'result-resume__second-column',
+                    locationProfile && 'result-resume__second-column_profile'
+                  )}
+                >
+                  <p
+                    className={classNames(
+                      'result-resume__paragraph',
+                      locationProfile && 'result-resume__paragraph_profile'
+                    )}
+                  >
+                    {item.course_name}
+                  </p>
+                  <p
+                    className={classNames(
+                      'result-resume__paragraph',
+                      locationProfile && 'result-resume__paragraph_profile'
+                    )}
+                  >
+                    {item.work_specialization}
+                  </p>
+                  <p
+                    className={classNames(
+                      'result-resume__paragraph',
+                      locationProfile && 'result-resume__paragraph_profile'
+                    )}
+                  >
+                    {item.description_experience}
+                  </p>
+                  <p
+                    className={classNames(
+                      'result-resume__paragraph',
+                      locationProfile && 'result-resume__paragraph_profile'
+                    )}
+                  >
+                    {`Навыки: ${item.skills}`}
+                  </p>
+                  <p
+                    className={classNames(
+                      'result-resume__paragraph',
+                      locationProfile && 'result-resume__paragraph_profile'
+                    )}
+                  >
+                    {`Ссылка на дипломную работу: ${item.diploma_link}`}
+                  </p>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      )}
 
       {/* ------ блок проекты и портфолио ------*/}
       <div
@@ -849,7 +853,7 @@ function ResultResume({ values }) {
           </div>
         )}
         {/* ------ блок языки ------*/}
-        {userAllLang && userAllLang.length !== 0 && (
+        {userAllLang && userAllLang[0].language && (
           <div className="result-resume__right-container-info">
             <h2
               className={classNames(

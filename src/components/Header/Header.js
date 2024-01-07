@@ -30,7 +30,6 @@ function Header({
   inputsAreNotEmpty,
   setImage,
 }) {
-  console.log(inputsAreNotEmpty)
   const navigate = useNavigate()
   const location = useLocation()
   const path = location.pathname
@@ -467,8 +466,8 @@ Header.propTypes = {
   setArrValues: PropTypes.func,
   setValues: PropTypes.func.isRequired,
   setImage: PropTypes.func,
-  isValid: PropTypes.bool.isRequired,
-  inputsAreNotEmpty: PropTypes.bool.isRequired,
+  isValid: PropTypes.bool,
+  inputsAreNotEmpty: PropTypes.bool,
 }
 Header.defaultProps = {
   values: {},
@@ -483,6 +482,8 @@ Header.defaultProps = {
   handleResumeNamePopupOpen: () => {},
   setIsEditMod: () => {},
   setImage: () => {},
+  isValid: undefined,
+  inputsAreNotEmpty: undefined,
 }
 
 export default Header

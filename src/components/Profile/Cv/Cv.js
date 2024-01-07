@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -219,11 +217,33 @@ Cv.propTypes = {
       ),
     ])
   ).isRequired,
+  arrValues: PropTypes.arrayOf(
+    PropTypes.objectOf(
+      PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.bool,
+        PropTypes.arrayOf(
+          PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.objectOf(
+              PropTypes.oneOfType([
+                PropTypes.string,
+                PropTypes.number,
+                PropTypes.bool,
+              ])
+            ),
+          ])
+        ),
+      ])
+    )
+  ).isRequired,
+  setIsResumeNamePopupOpen: PropTypes.func.isRequired,
+  setPopupCopyLink: PropTypes.func.isRequired,
 }
 
 Cv.defaultProps = {
   cv: {},
-  // values: {},
   setCurrentResume: () => {},
   setIsEditMod: () => {},
 }
