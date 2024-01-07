@@ -1,17 +1,21 @@
 import './ConfirmationDelete.scss'
-// import { useNavigate } from 'react-router'
 import PropTypes from 'prop-types'
+import { v4 as uuidv4 } from 'uuid'
+import { useNavigate } from 'react-router-dom'
 import TrashIcon from '../../../../img/popups/trash-icon-red.svg'
 import CloseIcon from '../../../../img/popups/close-icon-black.svg'
+import { cleanLocalStorage } from '../../../Utils/Utils'
 
 function ConfirmationDelete({
   onClose,
   arrValues,
   setArrValues,
-  // eslint-disable-next-line no-unused-vars
   currentResume,
   setCurrentResume,
+  setImage,
+  setValues,
 }) {
+  const navigate = useNavigate()
   const currentResumeName = currentResume
     ? arrValues.find(item => item.id === currentResume.id)
     : ''
@@ -24,7 +28,11 @@ function ConfirmationDelete({
   return (
     <div className="confirmation-delete">
       <p className="confirmation-delete__text">
-        {`Вы действительно хотите удалить резюме ${currentResumeName?.resume_name} без возможности восстановления?`}
+        {`Вы действительно хотите удалить резюме ${
+          currentResume.resume_name === undefined
+            ? ''
+            : currentResume.resume_name
+        } без возможности восстановления?`}
       </p>
       <div className="confirmation-delete__buttons">
         <button
@@ -34,6 +42,27 @@ function ConfirmationDelete({
           onClick={() => {
             handleDeleteResume()
             onClose()
+            cleanLocalStorage()
+            navigate('/')
+            setValues({
+              name: '',
+              surname: '',
+              birthday: '',
+              work_status: '',
+              email: '',
+              city: '',
+              work_experience_checkbox: false,
+              work_period_experience_checkbox: false,
+              education_period_checkbox: false,
+              qualification_checkbox: false,
+              languages: [{ id: uuidv4() }],
+              links: [{ id: uuidv4() }],
+              jobs: [],
+              qualifications: [],
+              educations: [],
+              portfolio: [],
+            })
+            setImage('')
           }}
         >
           <img src={TrashIcon} alt="trash-icon" />
@@ -110,12 +139,16 @@ ConfirmationDelete.propTypes = {
   ).isRequired,
   onClose: PropTypes.func.isRequired,
   setCurrentResume: PropTypes.func,
+  setValues: PropTypes.func,
+  setImage: PropTypes.func,
 }
 
 ConfirmationDelete.defaultProps = {
   arrValues: [],
   setArrValues: () => {},
   setCurrentResume: () => {},
+  setValues: () => {},
+  setImage: () => {},
 }
 
 export default ConfirmationDelete
