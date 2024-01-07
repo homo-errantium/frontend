@@ -14,6 +14,7 @@ import RightArrowIcon from '../../img/right-arrow.svg'
 import EditIcon from '../../img/edit-icon.svg'
 import ResumeLogoBlack from '../../img/resume-logo-black.svg'
 import { handleOpenPopup, cleanLocalStorage } from '../Utils/Utils'
+import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
 function Header({
   values,
@@ -38,6 +39,7 @@ function Header({
   const navigate = useNavigate()
   const location = useLocation()
   const path = location.pathname
+  const currentUser = React.useContext(CurrentUserContext)
 
   const updateResume = () => {
     setArrValues(newArr =>
@@ -113,12 +115,12 @@ function Header({
                 setIsEditMod(false)
                 handleOpenPopup(navigate, isLoggedIn, onOpenPopup)
                 setValues({
-                  name: '',
-                  surname: '',
-                  birthday: '',
+                  name: currentUser.name,
+                  surname: currentUser.surname,
+                  birthday: currentUser.birthday,
                   work_status: '',
-                  email: '',
-                  city: '',
+                  email: currentUser.email,
+                  city: currentUser.city,
                   work_experience_checkbox: false,
                   work_period_experience_checkbox: false,
                   education_period_checkbox: false,
