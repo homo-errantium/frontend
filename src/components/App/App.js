@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+//* eslint-disable no-unused-vars */
 /* eslint-disable array-callback-return */
 import React, { useState, useEffect } from 'react'
 import './App.scss'
