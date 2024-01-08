@@ -50,69 +50,80 @@ function Profile({
 
   function handleChange(evt) {
     const { name, value } = evt.target
-    if (name === 'previousPassword') {
-      setCurrentUser({ ...currentUser, [name]: value })
-      setIsValid(evt.target.closest('form').checkValidity())
-      if (evt.target.value.length < 2) {
-        setIsValid(false)
-        setPasswordErrors({
-          ...passwordErrors,
-          previousPassword: 'Пароль должен иметь не менее 2 символов',
-        })
-      } else {
-        setPasswordErrors({
-          ...passwordErrors,
-          [name]: evt.target.validationMessage,
-        })
-      }
-    }
-
-    if (name === 'confirmPassword') {
-      setIsValid(evt.target.closest('form').checkValidity())
-      if (evt.target.value.length < 1) {
-        setIsValid(false)
-        setPasswordErrors({
-          ...passwordErrors,
-          passwordConfirmation: 'Необходимо повторно ввести пароль',
-        })
-      } else {
+    if (isEditPassword) {
+      if (name === 'previousPassword') {
         setCurrentUser({ ...currentUser, [name]: value })
+        setIsValid(evt.target.closest('form').checkValidity())
+        if (evt.target.value.length < 2) {
+          setIsValid(false)
+          setPasswordErrors({
+            ...passwordErrors,
+            previousPassword: 'Пароль должен иметь не менее 2 символов',
+          })
+        } else {
+          setPasswordErrors({
+            ...passwordErrors,
+            [name]: evt.target.validationMessage,
+          })
+        }
       }
-    }
 
-    if (name === 'newPassword') {
-      setCurrentUser({ ...currentUser, [name]: value })
-      setIsValid(evt.target.closest('form').checkValidity())
-      if (evt.target.value.length < 2) {
-        setIsValid(false)
-        setPasswordErrors({
-          ...passwordErrors,
-          newPassword: 'Пароль должен иметь не менее 2 символов',
-        })
-      } else {
-        setPasswordErrors({
-          ...passwordErrors,
-          [name]: evt.target.validationMessage,
-        })
+      if (name === 'confirmPassword') {
+        setIsValid(evt.target.closest('form').checkValidity())
+        if (evt.target.value.length < 1) {
+          setIsValid(false)
+          setPasswordErrors({
+            ...passwordErrors,
+            passwordConfirmation: 'Необходимо повторно ввести пароль',
+          })
+        } else {
+          setCurrentUser({ ...currentUser, [name]: value })
+        }
+      }
+
+      if (name === 'newPassword') {
+        setCurrentUser({ ...currentUser, [name]: value })
+        setIsValid(evt.target.closest('form').checkValidity())
+        if (evt.target.value.length < 2) {
+          setIsValid(false)
+          setPasswordErrors({
+            ...passwordErrors,
+            newPassword: 'Пароль должен иметь не менее 2 символов',
+          })
+        } else {
+          setPasswordErrors({
+            ...passwordErrors,
+            [name]: evt.target.validationMessage,
+          })
+        }
       }
     }
 
     setCurrentUser({ ...currentUser, [name]: value })
   }
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   setCurrentUser(prevUser => ({
+  //     ...prevUser,
+  //     imageProfile,
+  //   }))
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [imageProfile])
+
+  // useEffect(() => {
+  //   localStorage.setItem('user', JSON.stringify(currentUser))
+  //   localStorage.setItem('imageProfile', imageProfile)
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [currentUser])
+
+  const handleClick = () => {
     setCurrentUser(prevUser => ({
       ...prevUser,
       imageProfile,
     }))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [imageProfile])
-
-  useEffect(() => {
     localStorage.setItem('user', JSON.stringify(currentUser))
     localStorage.setItem('imageProfile', imageProfile)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentUser])
+  }
 
   // МАСКИ ДЛЯ ПОЛЕЙ:
   const maskInput = (dataValue, options) => {
@@ -392,16 +403,16 @@ function Profile({
                             </span>
                           )}
                         </label>
-
-                        <button
-                          className="profile__save-button link"
-                          type="submit"
-                          disabled={!isValid}
-                        >
-                          Сохранить изменения
-                        </button>
                       </form>
                     )}
+                    <button
+                      className="profile__save-button link"
+                      type="button"
+                      disabled={!isValid}
+                      onClick={handleClick}
+                    >
+                      Сохранить изменения
+                    </button>
                   </div>
                 </>
               )}
