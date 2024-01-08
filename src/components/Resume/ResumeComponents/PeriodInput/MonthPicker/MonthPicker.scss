@@ -43,7 +43,7 @@
   z-index: 1;
   border: #000 solid 1px;
   padding: 12px 9px;
-  width: 89.2%;
+  width: 88%;
   border-radius: 0px 0px 16px 16px;
   background-color: #fff;
 }
@@ -61,12 +61,15 @@
   border-radius: 16px 16px 0 0;
 }
 
+.month__container:hover .month__input_disabled {
+  border-radius: 16px;
+}
+
 .month__grid-list {
-  display: grid;
   display: grid;
   width: 100%;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 23px 23px 23px 23px;
+  grid-template-rows: repeat(auto-fill, 23px);
   background-color: #e0dfdf;
   gap: 1px;
 }
@@ -84,3 +87,29 @@
 .month__button_active {
   background-color: #d6f3ff;
 }
+
+@media screen and (max-width: 1300px) {
+  .month__grid-list {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .month__container-list {
+    width: 85.5%;
+  }
+}
+
+@media screen and (max-width: 1269px) {
+
+  .month__container-list {
+    width: 84%;
+  }
+}
+
+@media screen and (max-width: 1238px) {
+
+  .month__container-list {
+    width: 84.5%;
+  }
+}
+
+

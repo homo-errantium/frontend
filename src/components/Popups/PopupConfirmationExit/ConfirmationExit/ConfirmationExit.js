@@ -1,10 +1,43 @@
 import './ConfirmationExit.scss'
 import { useNavigate } from 'react-router'
 import PropTypes from 'prop-types'
+import { v4 as uuidv4 } from 'uuid'
 import exitImage from '../../../../img/popups/exit-design.svg'
 
-function ConfirmationExit({ onClose }) {
+function ConfirmationExit({
+  onClose,
+  handleResumeNamePopupOpen,
+  setValues,
+  setImage,
+  isEditMod,
+  setArrValues,
+  arrValues,
+  values,
+  setIsEditMod,
+}) {
   const navigate = useNavigate()
+
+  const updateResume = () => {
+    setArrValues(newArr =>
+      newArr.map(resume => {
+        if (resume.id === values.id) {
+          return { ...resume, ...values }
+        }
+        return resume
+      })
+    )
+    localStorage.setItem('allData', JSON.stringify(arrValues))
+  }
+
+  const handleSave = () => {
+    if (!isEditMod) {
+      handleResumeNamePopupOpen()
+    } else {
+      updateResume()
+      setIsEditMod(false)
+      navigate('/my-profile')
+    }
+  }
 
   return (
     <div className="confirmation-exit">
@@ -22,8 +55,27 @@ function ConfirmationExit({ onClose }) {
           type="button"
           label="button"
           onClick={() => {
-            navigate('/')
+            navigate('/my-profile')
             onClose()
+            setValues({
+              name: '',
+              surname: '',
+              birthday: '',
+              work_status: '',
+              email: '',
+              city: '',
+              work_experience_checkbox: false,
+              work_period_experience_checkbox: false,
+              education_period_checkbox: false,
+              qualification_checkbox: false,
+              languages: [{ id: uuidv4() }],
+              links: [{ id: uuidv4() }],
+              jobs: [],
+              qualifications: [],
+              educations: [],
+              portfolio: [],
+            })
+            setImage('')
           }}
         >
           Выйти без сохранения
@@ -34,8 +86,10 @@ function ConfirmationExit({ onClose }) {
           type="button"
           label="button"
           onClick={() => {
-            navigate('/')
+            // navigate('/my-profile')
             onClose()
+            handleSave()
+            // handleResumeNamePopupOpen()
           }}
         >
           Сохранить и выйти
@@ -47,6 +101,57 @@ function ConfirmationExit({ onClose }) {
 
 ConfirmationExit.propTypes = {
   onClose: PropTypes.func.isRequired,
+  handleResumeNamePopupOpen: PropTypes.func.isRequired,
+  setValues: PropTypes.func.isRequired,
+  setImage: PropTypes.func.isRequired,
+  isEditMod: PropTypes.bool.isRequired,
+  arrValues: PropTypes.arrayOf(
+    PropTypes.objectOf(
+      PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.bool,
+        PropTypes.arrayOf(
+          PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.objectOf(
+              PropTypes.oneOfType([
+                PropTypes.string,
+                PropTypes.number,
+                PropTypes.bool,
+              ])
+            ),
+          ])
+        ),
+      ])
+    )
+  ),
+  setArrValues: PropTypes.func.isRequired,
+  values: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.bool,
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.objectOf(
+            PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number,
+              PropTypes.bool,
+            ])
+          ),
+        ])
+      ),
+    ])
+  ),
+  setIsEditMod: PropTypes.func.isRequired,
+}
+
+ConfirmationExit.defaultProps = {
+  arrValues: {},
+  values: {},
 }
 
 export default ConfirmationExit

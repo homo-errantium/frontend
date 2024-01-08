@@ -1,8 +1,9 @@
 .recommend {
   width: 39.1%;
-  height: calc(100vh - 92px);
+  // height: calc(100vh - 92px);
   padding-bottom: 92px;
   padding-left: 20px;
+  // border-left: 1px solid #D0D0D0;
 }
 
 .recommend__image {
@@ -55,20 +56,24 @@
   gap: 14px;
   justify-content: center;
   align-items: center;
+  // max-width: 496px;
 }
 
 .recommend__duties-component {
-  padding: 14px 44px;
+  padding: 2.8% 7.3%;
   border-radius: 8px;
-  border: 1px solid #000;
+  border: 1px solid #DA693F;
   background: #fff;
-  width: 50%;
+  width: 30%;
+  height: 74px;
   color: #000;
-  text-align: center;
   font-family: Inter;
   font-size: 20px;
   font-weight: 400;
   line-height: 1.21;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .recommend__duties-examples-container {

@@ -88,6 +88,8 @@ function App() {
     JSON.parse(localStorage.getItem('allData')) || [exampleObject]
   )
 
+  console.log(values)
+
   const [languagesAfterChanges, setLanguagesChanges] = useState(
     values.languages
   )
@@ -1140,6 +1142,7 @@ function App() {
                 setImage={setImage}
                 setHasQualification={setHasQualification}
                 setHasExperience={setHasExperience}
+                setAllTillPresent={setAllTillPresent}
               />
             }
           />
@@ -1155,6 +1158,7 @@ function App() {
                 setImage={setImage}
                 setHasExperience={setHasExperience}
                 setHasQualification={setHasQualification}
+                setAllTillPresent={setAllTillPresent}
               />
             }
           />
@@ -1180,7 +1184,11 @@ function App() {
                 isLoggedIn={isLoggedIn}
                 isValid={isValid}
                 inputsAreNotEmpty={inputsAreNotEmpty}
-                onOpenPopup={handleConfirmDeletePopupOpen}
+                onOpenPopup={
+                  isLoggedIn
+                    ? handleConfirmExitPopupOpen
+                    : handleConfirmDeletePopupOpen
+                }
                 setCompletedStepsPersonalData={setCompletedStepsPersonalData}
                 setCompletedStepsExperience={setCompletedStepsExperience}
                 setCompletedStepsQualification={setCompletedStepsQualification}
@@ -1199,6 +1207,7 @@ function App() {
                 handleConfirmRegPopupOpen={handleConfirmRegPopupOpen}
                 setHasExperience={setHasExperience}
                 setHasQualification={setHasQualification}
+                setAllTillPresent={setAllTillPresent}
               />
             }
           >
@@ -1250,6 +1259,14 @@ function App() {
         <PopupConfirmationExit
           isOpen={isConfirmExitPopupOpen}
           onClose={closeAllPopup}
+          handleResumeNamePopupOpen={handleResumeNamePopupOpen}
+          setValues={setValues}
+          setImage={setImage}
+          isEditMod={isEditMod}
+          setArrValues={setArrValues}
+          arrValues={arrValues}
+          values={values}
+          setIsEditMod={setIsEditMod}
         />
         {/* попап добавления имени резюме */}
         <PopupResumeName
