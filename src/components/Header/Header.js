@@ -277,12 +277,12 @@ function Header({
                 setIsEditMod(false)
                 handleOpenPopup(navigate, isLoggedIn, onOpenPopup)
                 setValues({
-                  name: '',
-                  surname: '',
-                  birthday: '',
+                  name: isLoggedIn ? currentUser.name : '',
+                  surname: isLoggedIn ? currentUser.surname : '',
+                  birthday: isLoggedIn ? currentUser.birthday : '',
                   work_status: '',
-                  email: '',
-                  city: '',
+                  email: isLoggedIn ? currentUser.email : '',
+                  city: isLoggedIn ? currentUser.city : '',
                   work_experience_checkbox: false,
                   work_period_experience_checkbox: false,
                   education_period_checkbox: false,

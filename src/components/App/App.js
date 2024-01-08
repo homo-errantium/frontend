@@ -48,7 +48,7 @@ import { exampleObject } from '../../constants/exampleResume'
 function App() {
   // ----------------------------------------Переменные------------------------------------------------------
   const location = useLocation()
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false) // Пользователь авторизован/неавторизован
+  const [isLoggedIn, setIsLoggedIn] = React.useState(true) // Пользователь авторизован/неавторизован
   const [currentUser, setCurrentUser] = React.useState(
     JSON.parse(localStorage.getItem('user')) || {}
   ) // Сохраняем данные пользователя
@@ -73,12 +73,12 @@ function App() {
   // Записываем в объект данные из полей
   const [values, setValues] = React.useState(
     JSON.parse(localStorage.getItem('formData')) || {
-      name: currentUser.name,
-      surname: currentUser.surname,
-      birthday: currentUser.birthday,
+      name: isLoggedIn ? currentUser.name : '',
+      surname: isLoggedIn ? currentUser.surname : '',
+      birthday: isLoggedIn ? currentUser.birthday : '',
       work_status: '',
-      email: '',
-      city: currentUser.city,
+      email: isLoggedIn ? currentUser.email : '',
+      city: isLoggedIn ? currentUser.city : '',
       work_experience_checkbox: false,
       work_period_experience_checkbox: false,
       education_period_checkbox: false,
