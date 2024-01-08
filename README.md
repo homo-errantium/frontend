@@ -1,4 +1,4 @@
-# creating-and-editing-a-resume project (website)
+# creating-and-editing-a-resume project
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
