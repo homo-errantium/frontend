@@ -714,6 +714,9 @@ function App() {
       }
 
       if (!formData.work_experience_checkbox) {
+        if (formData.work_period_experience_checkbox) {
+          setErrors({ ...errors, year_work_end: '' })
+        }
         if (
           formData.company !== undefined &&
           formData.company !== '' &&
