@@ -85,7 +85,7 @@ const PersonalData = ({
 
   // console.log(values.languages)
   return (
-    <section className="personal-data">
+    <section className="personal-data personal-data_height">
       <div className="personal-data__container">
         <ResumeTitle title="Персональные данные" />
         <div className="personal-data__form">
@@ -205,7 +205,7 @@ const PersonalData = ({
           ))}
         </div>
         <ResumeTitle title="Владение языками" />
-        {values.languages.map(lang => (
+        {values.languages?.map(lang => (
           <div className="personal-data__language-form" key={lang.id}>
             <LanguageInput
               values={lang}

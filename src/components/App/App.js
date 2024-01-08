@@ -2,7 +2,13 @@
 import React, { useState, useEffect } from 'react'
 import './App.scss'
 import { v4 as uuidv4 } from 'uuid'
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import {
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useLocation,
+} from 'react-router-dom'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import Main from '../Main/Main'
 import Profession from '../Profession/Profession'
@@ -60,6 +66,8 @@ function App() {
     React.useState(false)
   // const [completedLayouts, setCompletedLayouts] = React.useState(false)
 
+  const navigate = useNavigate()
+
   // --------------------------- Работа с данными через локальное хранилище -----------------------
   const [isValid, setIsValid] = useState(true)
   // Записываем в объект данные из полей
@@ -87,6 +95,8 @@ function App() {
   const [arrValues, setArrValues] = useState(
     JSON.parse(localStorage.getItem('allData')) || [exampleObject]
   )
+
+  console.log(values)
 
   const [languagesAfterChanges, setLanguagesChanges] = useState(
     values.languages
@@ -1074,15 +1084,14 @@ function App() {
   // TODO: добавить описание функции регистрации по готовности Api
   // eslint-disable-next-line no-unused-vars
   const handleRegister = (name, email, password) => {
-    // eslint-disable-next-line no-console
-    console.log('try register')
+    navigate('/signin')
   }
 
   // TODO: добавить описание функции авторизации по готовности Api
   // eslint-disable-next-line no-unused-vars
   const handleLogin = (email, password) => {
-    // eslint-disable-next-line no-console
-    console.log('try to login')
+    setIsLoggedIn(true)
+    navigate('/')
   }
 
   return (
@@ -1140,6 +1149,7 @@ function App() {
                 setImage={setImage}
                 setHasQualification={setHasQualification}
                 setHasExperience={setHasExperience}
+                setAllTillPresent={setAllTillPresent}
               />
             }
           />
@@ -1155,6 +1165,7 @@ function App() {
                 setImage={setImage}
                 setHasExperience={setHasExperience}
                 setHasQualification={setHasQualification}
+                setAllTillPresent={setAllTillPresent}
               />
             }
           />
@@ -1180,7 +1191,11 @@ function App() {
                 isLoggedIn={isLoggedIn}
                 isValid={isValid}
                 inputsAreNotEmpty={inputsAreNotEmpty}
-                onOpenPopup={handleConfirmDeletePopupOpen}
+                onOpenPopup={
+                  isLoggedIn
+                    ? handleConfirmExitPopupOpen
+                    : handleConfirmDeletePopupOpen
+                }
                 setCompletedStepsPersonalData={setCompletedStepsPersonalData}
                 setCompletedStepsExperience={setCompletedStepsExperience}
                 setCompletedStepsQualification={setCompletedStepsQualification}
@@ -1199,6 +1214,7 @@ function App() {
                 handleConfirmRegPopupOpen={handleConfirmRegPopupOpen}
                 setHasExperience={setHasExperience}
                 setHasQualification={setHasQualification}
+                setAllTillPresent={setAllTillPresent}
               />
             }
           >
@@ -1250,6 +1266,14 @@ function App() {
         <PopupConfirmationExit
           isOpen={isConfirmExitPopupOpen}
           onClose={closeAllPopup}
+          handleResumeNamePopupOpen={handleResumeNamePopupOpen}
+          setValues={setValues}
+          setImage={setImage}
+          isEditMod={isEditMod}
+          setArrValues={setArrValues}
+          arrValues={arrValues}
+          values={values}
+          setIsEditMod={setIsEditMod}
         />
         {/* попап добавления имени резюме */}
         <PopupResumeName

@@ -7,8 +7,14 @@ import Confirmation from './ConfirmationExit/ConfirmationExit'
 function PopupConfirmationExit({
   isOpen,
   onClose,
-  // setCheckboxValues,
-  // setValues,
+  handleResumeNamePopupOpen,
+  setValues,
+  setImage,
+  isEditMod,
+  setArrValues,
+  arrValues,
+  values,
+  setIsEditMod,
 }) {
   return (
     <PopupСontainer
@@ -18,8 +24,14 @@ function PopupConfirmationExit({
       element={
         <Confirmation
           onClose={onClose}
-          // setValues={setValues}
-          // setCheckboxValues={setCheckboxValues}
+          handleResumeNamePopupOpen={handleResumeNamePopupOpen}
+          setValues={setValues}
+          setImage={setImage}
+          isEditMod={isEditMod}
+          setArrValues={setArrValues}
+          arrValues={arrValues}
+          values={values}
+          setIsEditMod={setIsEditMod}
         />
       }
     />
@@ -29,8 +41,57 @@ function PopupConfirmationExit({
 PopupConfirmationExit.propTypes = {
   onClose: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
-  // setCheckboxValues: PropTypes.func.isRequired,
-  // setValues: PropTypes.func.isRequired,
+  handleResumeNamePopupOpen: PropTypes.func.isRequired,
+  setValues: PropTypes.func.isRequired,
+  setImage: PropTypes.func.isRequired,
+  isEditMod: PropTypes.bool.isRequired,
+  arrValues: PropTypes.arrayOf(
+    PropTypes.objectOf(
+      PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.bool,
+        PropTypes.arrayOf(
+          PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.objectOf(
+              PropTypes.oneOfType([
+                PropTypes.string,
+                PropTypes.number,
+                PropTypes.bool,
+              ])
+            ),
+          ])
+        ),
+      ])
+    )
+  ),
+  setArrValues: PropTypes.func.isRequired,
+  values: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.bool,
+      PropTypes.arrayOf(
+        PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.objectOf(
+            PropTypes.oneOfType([
+              PropTypes.string,
+              PropTypes.number,
+              PropTypes.bool,
+            ])
+          ),
+        ])
+      ),
+    ])
+  ),
+  setIsEditMod: PropTypes.func.isRequired,
+}
+
+PopupConfirmationExit.defaultProps = {
+  arrValues: {},
+  values: {},
 }
 
 export default PopupConfirmationExit

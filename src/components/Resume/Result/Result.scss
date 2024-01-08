@@ -22,11 +22,13 @@
   font-style: normal;
   font-weight: 700;
   line-height: 120%; /* 36px */
+  max-width: 254px;
 }
 
 .result__buttons-container {
   display: flex;
   column-gap: 8px;
+  max-width: 367px;
 }
 
 .result__button {
@@ -49,4 +51,21 @@
 
 .result__button:hover {
   cursor: pointer;
+}
+
+@media screen and (max-width: 1300px) {
+
+  .result__title {
+    font-size: 25px;
+  }
+
+  .result__buttons-container {
+    max-width: 300px;
+  }
+
+  .result__button {
+    font-size: 15px;
+    padding: 7px 10px;
+  }
+
 }
