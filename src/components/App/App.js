@@ -96,7 +96,7 @@ function App() {
     JSON.parse(localStorage.getItem('allData')) || [exampleObject]
   )
 
-  console.log(values)
+  // console.log(values)
 
   const [languagesAfterChanges, setLanguagesChanges] = useState(
     values.languages
@@ -712,18 +712,7 @@ function App() {
       if (!formData.work_experience_checkbox) {
         setInputsAreNotEmpty(false)
       }
-      if (formData.work_period_experience_checkbox) {
-        let object = {}
-        setErrors(
-          (object = {
-            ...object,
-            year_work_end: '',
-          })
-        )
-      }
-      // if (formData.work_experience_checkbox) {
-      //   setInputsAreNotEmpty(true)
-      // }
+
       if (!formData.work_experience_checkbox) {
         if (
           formData.company !== undefined &&
