@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { useNavigate, useLocation, NavLink } from 'react-router-dom'
 import './Header.scss'
 // import headerIcon from '../../logo.svg'
+import { v4 as uuidv4 } from 'uuid'
 import ResumeLogo from '../../img/resume.svg'
 import PlusLogo from '../../img/plus-logo.svg'
 import ExitIcon from '../../img/exit-icon.svg'
@@ -13,10 +14,11 @@ import RightArrowIcon from '../../img/right-arrow.svg'
 import EditIcon from '../../img/edit-icon.svg'
 import ResumeLogoBlack from '../../img/resume-logo-black.svg'
 import { handleOpenPopup, cleanLocalStorage } from '../Utils/Utils'
+import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
 function Header({
   values,
-  // setValues,
+  setValues,
   arrValues,
   setArrValues,
   setIsEditMod,
@@ -29,10 +31,16 @@ function Header({
   handleResumeNamePopupOpen,
   isValid,
   inputsAreNotEmpty,
+  setImage,
+  handleConfirmRegPopupOpen,
+  setHasExperience,
+  setHasQualification,
+  onClickMyProfile,
 }) {
   const navigate = useNavigate()
   const location = useLocation()
   const path = location.pathname
+  const currentUser = React.useContext(CurrentUserContext)
 
   const updateResume = () => {
     setArrValues(newArr =>
@@ -43,7 +51,6 @@ function Header({
         return resume
       })
     )
-    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
     localStorage.setItem('allData', JSON.stringify(arrValues))
   }
 
@@ -107,6 +114,27 @@ function Header({
                 cleanLocalStorage()
                 setIsEditMod(false)
                 handleOpenPopup(navigate, isLoggedIn, onOpenPopup)
+                setValues({
+                  name: currentUser.name,
+                  surname: currentUser.surname,
+                  birthday: currentUser.birthday,
+                  work_status: '',
+                  email: currentUser.email,
+                  city: currentUser.city,
+                  work_experience_checkbox: false,
+                  work_period_experience_checkbox: false,
+                  education_period_checkbox: false,
+                  qualification_checkbox: false,
+                  languages: [{ id: uuidv4() }],
+                  links: [{ id: uuidv4() }],
+                  jobs: [],
+                  qualifications: [],
+                  educations: [],
+                  portfolio: [],
+                })
+                setImage('')
+                setHasExperience(true)
+                setHasQualification(true)
               }}
             >
               Создать резюме
@@ -117,6 +145,8 @@ function Header({
               label="button"
               onClick={() => {
                 cleanLocalStorage()
+                setValues({})
+                setImage('')
                 navigate('/')
               }}
             >
@@ -152,7 +182,7 @@ function Header({
                 src={BackToProfileIcon}
               />
             </div>
-            Личный кабинет
+            {isLoggedIn ? 'Личный кабинет' : 'Главная страница'}
           </button>
           <div className="header__steps-buttons">
             <button
@@ -175,7 +205,11 @@ function Header({
               type="button"
               label="button"
               onClick={() => {
-                handleSave()
+                if (isLoggedIn) {
+                  handleSave()
+                } else {
+                  handleConfirmRegPopupOpen()
+                }
               }}
             >
               Сохранить
@@ -193,7 +227,12 @@ function Header({
           className="header__button header__button_margin"
           type="button"
           label="button"
-          onClick={() => navigate('/')}
+          onClick={() => {
+            navigate('/')
+            cleanLocalStorage()
+            setValues({})
+            setImage('')
+          }}
         >
           <div className="header__button-icon_flex-container">
             <img
@@ -235,6 +274,27 @@ function Header({
                 cleanLocalStorage()
                 setIsEditMod(false)
                 handleOpenPopup(navigate, isLoggedIn, onOpenPopup)
+                setValues({
+                  name: '',
+                  surname: '',
+                  birthday: '',
+                  work_status: '',
+                  email: '',
+                  city: '',
+                  work_experience_checkbox: false,
+                  work_period_experience_checkbox: false,
+                  education_period_checkbox: false,
+                  qualification_checkbox: false,
+                  languages: [{ id: uuidv4() }],
+                  links: [{ id: uuidv4() }],
+                  jobs: [],
+                  qualifications: [],
+                  educations: [],
+                  portfolio: [],
+                })
+                setImage('')
+                setHasExperience(true)
+                setHasQualification(true)
               }}
             >
               Создать резюме
@@ -287,6 +347,27 @@ function Header({
                 cleanLocalStorage()
                 setIsEditMod(false)
                 handleOpenPopup(navigate, isLoggedIn, onOpenPopup)
+                setValues({
+                  name: '',
+                  surname: '',
+                  birthday: '',
+                  work_status: '',
+                  email: '',
+                  city: '',
+                  work_experience_checkbox: false,
+                  work_period_experience_checkbox: false,
+                  education_period_checkbox: false,
+                  qualification_checkbox: false,
+                  languages: [{ id: uuidv4() }],
+                  links: [{ id: uuidv4() }],
+                  jobs: [],
+                  qualifications: [],
+                  educations: [],
+                  portfolio: [],
+                })
+                setImage('')
+                setHasExperience(true)
+                setHasQualification(true)
               }}
             >
               Создать резюме
@@ -331,7 +412,10 @@ function Header({
               className="header__button"
               type="button"
               label="button"
-              onClick={() => navigate('/my-profile')}
+              onClick={() => {
+                onClickMyProfile()
+                navigate('/my-profile')
+              }}
             >
               <div className="header__button-icon_flex-container">
                 <img
@@ -347,7 +431,12 @@ function Header({
               className="header__button"
               type="button"
               label="button"
-              onClick={() => navigate('/')}
+              onClick={() => {
+                navigate('/')
+                cleanLocalStorage()
+                setValues({})
+                setImage('')
+              }}
             >
               <div className="header__button-icon_flex-container">
                 <img
@@ -385,7 +474,6 @@ function Header({
                 e.preventDefault()
                 setCompletedSteps()
                 onClick(e)
-                console.log(inputsAreNotEmpty)
                 if (inputsAreNotEmpty) {
                   navigate(`${nextPage}`)
                 }
@@ -458,10 +546,17 @@ Header.propTypes = {
     )
   ),
   setArrValues: PropTypes.func,
+  setValues: PropTypes.func,
+  setImage: PropTypes.func,
+  isValid: PropTypes.bool,
+  inputsAreNotEmpty: PropTypes.bool,
+  setHasExperience: PropTypes.func,
+  setHasQualification: PropTypes.func,
 }
 Header.defaultProps = {
   values: {},
   arrValues: [],
+  setValues: () => {},
   setArrValues: () => {},
   isEditMod: false,
   isLoggedIn: true,
@@ -471,6 +566,11 @@ Header.defaultProps = {
   onClick: () => {},
   handleResumeNamePopupOpen: () => {},
   setIsEditMod: () => {},
+  setImage: () => {},
+  isValid: undefined,
+  inputsAreNotEmpty: undefined,
+  setHasExperience: () => {},
+  setHasQualification: () => {},
 }
 
 export default Header

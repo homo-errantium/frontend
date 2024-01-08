@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react'
 import PropTypes from 'prop-types'
 import './AddedQualification.scss'
@@ -15,6 +16,8 @@ const AddedQualification = ({
   handleChange,
   setValues,
   allValues,
+  setQualifications,
+  handleBackToBasicRecommend,
 }) => {
   const handleDelete = () => deleteQualification(i)
   return (
@@ -23,53 +26,60 @@ const AddedQualification = ({
         className="added-qualification__container experience__job-container"
         id={i}
       >
-        <FormInput
-          name="organization"
-          values={values}
-          handleChange={handleChange}
-          label="Проводившая организация"
-          disabled={!hasQualification}
-          id={i}
-        />
-        <FormInput
-          name="course_name"
-          values={values}
-          handleChange={handleChange}
-          label="Название курса"
-          disabled={!hasQualification}
-          id={i}
-        />
-        <FormInput
-          name="specialization"
-          values={values}
-          handleChange={handleChange}
-          label="Специальность"
-          disabled={!hasQualification}
-          id={i}
-        />
-        <PeriodInput
-          labelOne="Дата начала"
-          labelTwo="Дата окончания"
-          month
-          disabled={!hasQualification}
-          i={i}
-          values={values}
-          handleChange={handleChange}
-          namePeriod={`qual_period_checkbox_${i}`}
-          monthPeriod={['month_qual_start', 'month_qual_end']}
-          year={['year_qual_start', 'year_qual_end']}
-          setValues={setValues}
-          allValues={allValues}
-        />
-        <FormInput
-          name="description_experience"
-          values={values}
-          handleChange={handleChange}
-          label="Описание полученного опыта"
-          extraInputClass="qualification-experience"
-          disabled={!hasQualification}
-          id={i}
-        />
+        <div
+          className="qualification__basic-recommend"
+          onClick={handleBackToBasicRecommend}
+          onKeyDown={handleBackToBasicRecommend}
+          onFocus={handleBackToBasicRecommend}
+        >
+          <FormInput
+            name="organization"
+            values={values}
+            handleChange={handleChange}
+            label="Проводившая организация"
+            disabled={!hasQualification}
+            id={i}
+          />
+          <FormInput
+            name="course_name"
+            values={values}
+            handleChange={handleChange}
+            label="Название курса"
+            disabled={!hasQualification}
+            id={i}
+          />
+          <FormInput
+            name="specialization"
+            values={values}
+            handleChange={handleChange}
+            label="Специальность"
+            disabled={!hasQualification}
+            id={i}
+          />
+          <PeriodInput
+            labelOne="Дата начала"
+            labelTwo="Дата окончания"
+            month
+            disabled={!hasQualification}
+            i={i}
+            values={values}
+            handleChange={handleChange}
+            namePeriod={`qual_period_checkbox_${i}`}
+            monthPeriod={['month_qual_start', 'month_qual_end']}
+            year={['year_qual_start', 'year_qual_end']}
+            setValues={setValues}
+            allValues={allValues}
+          />
+          <FormInput
+            name="description_experience"
+            values={values}
+            handleChange={handleChange}
+            label="Описание полученного опыта"
+            extraInputClass="qualification-experience"
+            disabled={!hasQualification}
+            id={i}
+          />
+        </div>
         <FormInput
           name="skills"
           values={values}
@@ -78,15 +88,23 @@ const AddedQualification = ({
           extraInputClass="qualification-skills"
           disabled={!hasQualification}
           id={i}
+          setQualifications={setQualifications}
         />
-        <FormInput
-          name="diploma_link"
-          values={values}
-          handleChange={handleChange}
-          label="Ссылка на дипломную работу"
-          disabled={!hasQualification}
-          id={i}
-        />
+        <div
+          className="qualification__basic-recommend"
+          onClick={handleBackToBasicRecommend}
+          onKeyDown={handleBackToBasicRecommend}
+          onFocus={handleBackToBasicRecommend}
+        >
+          <FormInput
+            name="diploma_link"
+            values={values}
+            handleChange={handleChange}
+            label="Ссылка на дипломную работу"
+            disabled={!hasQualification}
+            id={i}
+          />
+        </div>
       </div>
       <div className="added-qualification__buttons-container job__buttons-container">
         <button
@@ -120,6 +138,8 @@ AddedQualification.propTypes = {
   }),
   handleChange: PropTypes.func.isRequired,
   setValues: PropTypes.func.isRequired,
+  setQualifications: PropTypes.func.isRequired,
+  handleBackToBasicRecommend: PropTypes.func.isRequired,
   allValues: PropTypes.objectOf(
     PropTypes.oneOfType([
       PropTypes.string,

@@ -28,6 +28,7 @@ const Experience = ({
 }) => {
   // Если появился добавленный опыт, основная кнопка "Добавить" удаляется
   const [noAddedExperience, setNoAddedExperience] = useState(true)
+  // console.log(hasExperience)
 
   const handleTitleCheckboxClick = () => {
     setHasExperience(!hasExperience)

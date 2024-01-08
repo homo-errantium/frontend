@@ -18,6 +18,9 @@ const FormInput = ({
   dataMask,
   setValues,
   setDuties,
+  setQualifications,
+  setPortfolio,
+  setAbout,
   errors,
   id,
   placeholder,
@@ -55,16 +58,20 @@ const FormInput = ({
         ...prevValues,
         organization: '',
         course_name: '',
-        specialization: '',
+        work_specialization: '',
         description_experience: '',
         skills: '',
         diploma_link: '',
       }))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [disabled])
 
   const handleFocus = () => {
     setDuties(true)
+    setQualifications(true)
+    setAbout(true)
+    setPortfolio(true)
   }
 
   // const handleBlur = () => {
@@ -119,6 +126,9 @@ FormInput.propTypes = {
   ]).isRequired,
   setValues: PropTypes.func,
   setDuties: PropTypes.func,
+  setPortfolio: PropTypes.func,
+  setAbout: PropTypes.func,
+  setQualifications: PropTypes.func,
   errors: PropTypes.objectOf(PropTypes.string),
   id: PropTypes.string,
 }
@@ -135,6 +145,9 @@ FormInput.defaultProps = {
   errors: {},
   id: '',
   setValues: () => {},
+  setQualifications: () => {},
+  setPortfolio: () => {},
+  setAbout: () => {},
   label: undefined,
 }
 

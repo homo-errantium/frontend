@@ -1,5 +1,4 @@
-//* eslint-disable no-unused-vars */
-/* eslint-disable array-callback-return */
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import './App.scss'
 import { v4 as uuidv4 } from 'uuid'
@@ -8,6 +7,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import Main from '../Main/Main'
 import Profession from '../Profession/Profession'
 import Resume from '../Resume/Resume'
+import ResultResume from '../Resume/ResultResume/ResultResume'
 import NotFound from '../NotFound/NotFound'
 import Register from '../Register/Register'
 import Login from '../Login/Login'
@@ -31,38 +31,33 @@ import Portfolio from '../Resume/Portfolio/Portfolio'
 import Qualification from '../Resume/Qualification/Qualification'
 import Skills from '../Resume/Skills/Skills'
 import Result from '../Resume/Result/Result'
-import ResultResume from '../Resume/ResultResume/ResultResume'
-
 import PopupRegister from '../Popups/PopupRegister/PopupRegister'
 import PopupConfirmationExit from '../Popups/PopupConfirmationExit/PopupConfirmationExit'
 import PopupResumeName from '../Popups/PopupResumeName/PopupResumeName'
 import PopupLogin from '../Popups/PopupLogin/PopupLogin'
 import PopupConfirmationDelete from '../Popups/PopupConfirmationDelete/PopupConfirmationDelete'
 import PopupConfirmationRegister from '../Popups/PopupConfirmationRegister/PopupConfirmationRegister'
+import { exampleObject } from '../../constants/exampleResume'
 
 function App() {
+  // ----------------------------------------Переменные------------------------------------------------------
   const location = useLocation()
-  const [isLoggedIn, setIsLoggedIn] = React.useState(true) // Пользователь авторизован/неавторизован
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false) // Пользователь авторизован/неавторизован
   const [currentUser, setCurrentUser] = React.useState(
     JSON.parse(localStorage.getItem('user')) || {}
   ) // Сохраняем данные пользователя
   const [currentResume, setCurrentResume] = React.useState({})
   const [isEditMod, setIsEditMod] = React.useState(false)
-
-  // Переменные для защиты дочерних роутов компонента Resume
-  // TODO: установить значение false для всех переменных ниже после сохранения резюме
-  const [completedStepsPersonalData, setCompletedStepsPersonalData] =
+  const [isRegisterPopupOpen, setIsRegisterPopupOpen] = React.useState(false)
+  const [isLoginPopupOpen, setIsLoginPopupOpen] = React.useState(false)
+  const [isConfirmDeletePopupOpen, setIsConfirmDeletePopupOpen] =
     React.useState(false)
-  const [completedStepsExperience, setCompletedStepsExperience] =
+  const [isConfirmRegPopupOpen, setIsConfirmRegPopupOpen] =
     React.useState(false)
-  const [completedStepsQualification, setCompletedStepsQualification] =
+  const [isResumeNamePopupOpen, setIsResumeNamePopupOpen] =
     React.useState(false)
-  const [completedStepsEducation, setCompletedStepsEducation] =
+  const [isConfirmExitPopupOpen, setIsConfirmExitPopupOpen] =
     React.useState(false)
-  const [completedStepsPortfolio, setCompletedStepsPortfolio] =
-    React.useState(false)
-  const [completedStepsSkills, setCompletedStepsSkills] = React.useState(false)
-  const [completedStepsAbout, setCompletedStepsAbout] = React.useState(false)
   // const [completedLayouts, setCompletedLayouts] = React.useState(false)
 
   // --------------------------- Работа с данными через локальное хранилище -----------------------
@@ -90,38 +85,8 @@ function App() {
   )
 
   const [arrValues, setArrValues] = useState(
-    JSON.parse(localStorage.getItem('allData')) || []
+    JSON.parse(localStorage.getItem('allData')) || [exampleObject]
   )
-
-  useEffect(() => {
-    setValues({ ...currentResume })
-  }, [currentResume])
-
-  // console.log('🚀 isEditNod:', isEditMod)
-  // console.log('🚀 Arrvalues:', arrValues)
-  // console.log('🚀 values:', values)
-  // // console.log('🚀 currentUser:', currentUser)
-  // console.log('🚀 currentResume:', currentResume)
-
-  useEffect(() => {
-    if (location.pathname === '/resume/result' && !isEditMod) {
-      setValues({ ...values, id: uuidv4() })
-    }
-    // localStorage.setItem('allData', JSON.stringify(arrValues))
-    // if (location.pathname === '/resume/personal-data' && !isEditMod) {
-    //   setValues({})
-    //   setCurrentResume({
-    //     ...currentResume,
-    //     name: currentUser.name,
-    //     surname: currentUser.surname,
-    //     birthday: currentUser.birthday,
-    //     city: currentUser.city,
-    //     img: currentUser.imageProfile,
-    //   })
-    //   localStorage.setItem('image', JSON.stringify(currentResume.img))
-    // }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname])
 
   const [languagesAfterChanges, setLanguagesChanges] = useState(
     values.languages
@@ -133,7 +98,12 @@ function App() {
 
   const [linksAfterDeleting, setLinksAfterDeleting] = useState(values.links)
   // RECOMMENDATIONS:
+  // Стейты, применяющиеся при смене рекомендаций в определенных полях заполнения формы:
   const [duties, setDuties] = useState(false)
+  const [qualifications, setQualifications] = useState(false)
+  const [portfolio, setPortfolio] = useState(false)
+  const [about, setAbout] = useState(false)
+
   // // Если опыт есть, поля активны. Если нет, поля деактивируются:
   const [hasExperience, setHasExperience] = React.useState(
     JSON.parse(localStorage.getItem('hasExperience') || true)
@@ -148,10 +118,42 @@ function App() {
   )
   const [errors, setErrors] = useState({})
   // Сохраняем ссылку изображения в переменную и вытягиваем из локального хранилища данные
-  const [image, setImage] = useState(localStorage.getItem('image') || '')
+  const [image, setImage] = React.useState(localStorage.getItem('image') || '')
   const [imageProfile, setImageProfile] = useState(
     currentUser.imageProfile || ''
   )
+
+  // Переменные для защиты дочерних роутов компонента Resume
+  // TODO: установить значение false для всех переменных ниже после сохранения резюме
+  const [completedStepsPersonalData, setCompletedStepsPersonalData] =
+    React.useState(false)
+  const [completedStepsExperience, setCompletedStepsExperience] =
+    React.useState(false)
+  const [completedStepsQualification, setCompletedStepsQualification] =
+    React.useState(false)
+  const [completedStepsEducation, setCompletedStepsEducation] =
+    React.useState(false)
+  const [completedStepsPortfolio, setCompletedStepsPortfolio] =
+    React.useState(false)
+  const [completedStepsSkills, setCompletedStepsSkills] = React.useState(false)
+  const [completedStepsAbout, setCompletedStepsAbout] = React.useState(false)
+  // const [completedLayouts, setCompletedLayouts] = React.useState(false)
+
+  // --------------------------- Работа с данными через локальное хранилище ----------------------
+
+  useEffect(() => {
+    setValues({ ...currentResume })
+    setImage(currentResume.img)
+  }, [currentResume])
+
+  useEffect(() => {
+    if (location.pathname === '/resume/result' && !isEditMod) {
+      setValues({ ...values, id: uuidv4() })
+    }
+    localStorage.setItem('allData', JSON.stringify(arrValues))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname])
+
   // const [imageProfile, setImageProfile] = useState(
   //   localStorage.getItem('imageProfile') || ''
   // )
@@ -466,7 +468,6 @@ function App() {
         name: 'Имя может быть введено только кириллицей. Допускаются пробелы и дефисы',
       })
       setIsValid(false)
-      // setInputsAreNotEmpty(false)
     } else if (
       name === 'name' &&
       (evt.target.value.length > 50 || evt.target.value.length < 2)
@@ -505,7 +506,6 @@ function App() {
         ...errors,
         birthday: 'Дата рождения введена некорректно',
       })
-      setIsValid(false)
     }
     // указанный год в дате рождениия больше текущего:
     const currentYear = new Date().getFullYear()
@@ -516,22 +516,19 @@ function App() {
       })
       setIsValid(false)
     }
-    if (name === 'city' && !NAME_REGEX.test(value)) {
-      setErrors({
-        ...errors,
-        city: 'Название города может быть введено только кириллицей. Допускаются пробелы и дефисы',
-      })
-      setIsValid(false)
-    }
-    if (
-      name === 'city' &&
-      (evt.target.value.length > 50 || evt.target.value.length < 2)
-    ) {
-      setErrors({
-        ...errors,
-        city: 'Название города должно быть длиной от 2 до 50 символов',
-      })
-      setIsValid(false)
+    if (name === 'city') {
+      if (!NAME_REGEX.test(value)) {
+        setErrors({
+          ...errors,
+          city: 'Название города может быть введено только кириллицей. Допускаются пробелы и дефисы',
+        })
+      }
+      if (evt.target.value.length > 50 || evt.target.value.length < 2) {
+        setErrors({
+          ...errors,
+          city: 'Название города должно быть длиной от 2 до 50 символов',
+        })
+      }
     }
     if (name === 'desired_position' && !NAME_REGEX.test(value)) {
       setErrors({
@@ -667,7 +664,7 @@ function App() {
           'Сайт введен некорректно. Адрес должен начинаться с https://',
       })
     }
-    console.log(inputsAreNotEmpty)
+    // console.log(inputsAreNotEmpty)
     checkValidityPersonalData(evt)
     checkValidityExperience(evt)
     // console.log(isValid)
@@ -675,10 +672,11 @@ function App() {
 
   useEffect(() => {
     // console.log(isValid)
-    const formData = { ...values }
-    if (!formData.work_experience_checkbox) {
-      setInputsAreNotEmpty(false)
+    if (location.pathname === '/resume/my-profile') {
+      setErrors({})
     }
+    const formData = { ...values }
+
     if (location.pathname === '/resume/personal-data') {
       if (
         formData.name !== undefined &&
@@ -698,11 +696,12 @@ function App() {
         formData.surname.length !== 0
       ) {
         setInputsAreNotEmpty(true)
-        console.log(isValid)
-      }
+      } else setInputsAreNotEmpty(false)
     }
     if (location.pathname === '/resume/experience') {
-      console.log(formData.work_experience_checkbox)
+      if (!formData.work_experience_checkbox) {
+        setInputsAreNotEmpty(false)
+      }
       // if (formData.work_experience_checkbox) {
       //   setInputsAreNotEmpty(true)
       // }
@@ -734,24 +733,27 @@ function App() {
         ) {
           setInputsAreNotEmpty(true)
           setIsValid(true)
-          console.log(isValid)
         }
       }
       if (formData.work_experience_checkbox) {
         setInputsAreNotEmpty(true)
       }
     }
+    if (location.pathname === '/resume/my-profile') {
+      setErrors({})
+    }
   })
-
+  const handleClickMyProfile = () => {
+    setErrors({})
+  }
   // Сохраняем данные полей в локалное хранилище
   const handleClick = () => {
     setValues(prevValues => ({ ...prevValues, img: image }))
     // console.log(isValid)
     const formData = { ...values }
-    console.log(formData)
-    if (!formData.work_experience_checkbox) {
-      setInputsAreNotEmpty(false)
-    }
+    // if (!formData.work_experience_checkbox) {
+    //   setInputsAreNotEmpty(false)
+    // }
     let object = {}
     if (location.pathname === '/resume/personal-data') {
       if (formData.name === undefined || formData.name.length === 0) {
@@ -759,7 +761,7 @@ function App() {
           ...object,
           name: 'Это поле должно быть заполнено',
         }
-        // setInputsAreNotEmpty(false)
+        setInputsAreNotEmpty(false)
         // setErrors(object)
       }
       if (formData.surname === undefined || formData.surname === '') {
@@ -767,7 +769,7 @@ function App() {
           ...object,
           surname: 'Это поле должно быть заполнено',
         }
-        // setInputsAreNotEmpty(false)
+        setInputsAreNotEmpty(false)
         // setErrors(object)
       }
       if (formData.email === undefined || formData.email === '') {
@@ -776,7 +778,7 @@ function App() {
           email: 'Это поле должно быть заполнено',
         }
         // setErrors(object)
-        // setInputsAreNotEmpty(false)
+        setInputsAreNotEmpty(false)
       }
 
       if (
@@ -805,13 +807,15 @@ function App() {
       }
       // console.log(errors)
       setErrors(object)
+    } else if (location.pathname === '/resume/my-profile') {
+      setErrors({})
     }
-    if (!formData.work_experience_checkbox) {
-      setInputsAreNotEmpty(false)
-    }
+    // if (!formData.work_experience_checkbox) {
+    //   setInputsAreNotEmpty(false)
+    // }
 
     if (location.pathname === '/resume/experience') {
-      console.log(inputsAreNotEmpty)
+      // console.log(inputsAreNotEmpty)
       if (!formData.work_experience_checkbox) {
         if (formData.company === undefined || formData.company === '') {
           object = {
@@ -905,16 +909,6 @@ function App() {
   // console.log(errors)
 
   /* ----------------------------------------- Popup -----------------------------------------------------*/
-  const [isRegisterPopupOpen, setIsRegisterPopupOpen] = React.useState(false)
-  const [isLoginPopupOpen, setIsLoginPopupOpen] = React.useState(false)
-  const [isConfirmDeletePopupOpen, setIsConfirmDeletePopupOpen] =
-    React.useState(false)
-  const [isConfirmRegPopupOpen, setIsConfirmRegPopupOpen] =
-    React.useState(false)
-  const [isResumeNamePopupOpen, setIsResumeNamePopupOpen] =
-    React.useState(false)
-  const [isConfirmExitPopupOpen, setIsConfirmExitPopupOpen] =
-    React.useState(false)
 
   // закрытие попапа
   const closeAllPopup = () => {
@@ -1008,6 +1002,7 @@ function App() {
           handleChangeWithValidation={handleChangeWithValidation}
           setValues={setValues}
           handleAddQualificationChange={handleAddQualificationChange}
+          setQualifications={setQualifications}
         />
       ),
       id: 3,
@@ -1038,6 +1033,7 @@ function App() {
           setValues={setValues}
           handleChangeWithValidation={handleChangeWithValidation}
           handleAddPortfolioChange={handleAddPortfolioChange}
+          setPortfolio={setPortfolio}
         />
       ),
       id: 5,
@@ -1055,6 +1051,7 @@ function App() {
         <About
           values={values}
           handleChangeWithValidation={handleChangeWithValidation}
+          setAbout={setAbout}
         />
       ),
       id: 7,
@@ -1139,6 +1136,10 @@ function App() {
                 setCurrentResume={setCurrentResume}
                 currentResume={currentResume}
                 setIsEditMod={setIsEditMod}
+                setIsResumeNamePopupOpen={setIsResumeNamePopupOpen}
+                setImage={setImage}
+                setHasQualification={setHasQualification}
+                setHasExperience={setHasExperience}
               />
             }
           />
@@ -1150,6 +1151,10 @@ function App() {
                 onOpenPopup={handleConfirmRegPopupOpen}
                 isValid={isValid}
                 inputsAreNotEmpty={inputsAreNotEmpty}
+                setValues={setValues}
+                setImage={setImage}
+                setHasExperience={setHasExperience}
+                setHasQualification={setHasQualification}
               />
             }
           />
@@ -1185,8 +1190,15 @@ function App() {
                 setCompletedStepsAbout={setCompletedStepsAbout}
                 // setCompletedLayouts={setCompletedLayouts}
                 onClick={handleClick}
+                onClickMyProfile={handleClickMyProfile}
                 duties={duties}
+                qualifications={qualifications}
+                portfolio={portfolio}
+                about={about}
                 handleResumeNamePopupOpen={handleResumeNamePopupOpen}
+                handleConfirmRegPopupOpen={handleConfirmRegPopupOpen}
+                setHasExperience={setHasExperience}
+                setHasQualification={setHasQualification}
               />
             }
           >
@@ -1248,6 +1260,8 @@ function App() {
           setArrValues={setArrValues}
           arrValues={arrValues}
           setIsEditMod={setIsEditMod}
+          currentResume={currentResume}
+          setCurrentResume={setCurrentResume}
         />
         {/* Попап подтверждения удаления */}
         <PopupConfirmationDelete
@@ -1257,6 +1271,8 @@ function App() {
           setCurrentResume={setCurrentResume}
           arrValues={arrValues}
           setArrValues={setArrValues}
+          setValues={setValues}
+          setImage={setImage}
         />
         {/* Попап подтверждения перехода */}
         <PopupConfirmationRegister

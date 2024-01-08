@@ -90,7 +90,7 @@ const Education = ({
           name="education_level"
           label="Степень"
         />
-        {values.educations?.map(education => (
+        {values.educations.map(education => (
           <AddedEducation
             values={education}
             deleteEducation={deleteEducation}

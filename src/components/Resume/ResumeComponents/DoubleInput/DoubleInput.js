@@ -145,7 +145,7 @@ const DoubleInput = ({
                   <input
                     name={name[1]}
                     onChange={handleChange}
-                    value={values[name[1]]}
+                    value={values[name[1]] || ''}
                     className={classNames(
                       'double-input__field double-input__field_short',
                       // name[0] === 'phone' && 'double-input__field_telegram',
@@ -205,7 +205,7 @@ const DoubleInput = ({
             <input
               name={name[1]}
               onChange={handleChange}
-              value={values[name[1]]}
+              value={values[name[1]] || ''}
               className={classNames(
                 'double-input__short-field double-input__short-field_long',
                 errors[name[1]] && 'double-input__field_error'

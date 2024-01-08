@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable prettier/prettier */
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -29,7 +30,14 @@ function Resume({
   // setCompletedLayouts,
   onClick,
   duties,
+  qualifications,
+  portfolio,
+  about,
   isValid,
+  handleConfirmRegPopupOpen,
+  setHasExperience,
+  setHasQualification,
+  onClickMyProfile,
 }) {
   const location = useLocation()
   // Находим индекс элемента в массиве с локациями
@@ -68,7 +76,7 @@ function Resume({
         setValues={setValues}
         setIsEditMod={setIsEditMod}
         isEditMod={isEditMod}
-      isValid={isValid}
+        isValid={isValid}
         isLoggedIn={isLoggedIn}
         nextPage={nextPage}
         onOpenPopup={onOpenPopup}
@@ -76,6 +84,10 @@ function Resume({
         onClick={onClick}
         handleResumeNamePopupOpen={handleResumeNamePopupOpen}
         inputsAreNotEmpty={inputsAreNotEmpty}
+        handleConfirmRegPopupOpen={handleConfirmRegPopupOpen}
+        setHasExperience={setHasExperience}
+        setHasQualification={setHasQualification}
+        onClickMyProfile={onClickMyProfile}
       />
       <main className="resume">
         {location.pathname === '/resume/result' ? (
@@ -83,7 +95,12 @@ function Resume({
         ) : (
           <ProgressBar step={step} totalSteps={locationArr.length - 1} />
         )}
-        <FormPage duties={duties} />
+        <FormPage
+          duties={duties}
+          qualifications={qualifications}
+          portfolio={portfolio}
+          about={about}
+        />
       </main>
     </>
   )
@@ -145,10 +162,15 @@ Resume.propTypes = {
   setCompletedStepsAbout: PropTypes.func.isRequired,
   // setCompletedLayouts: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
-  duties: PropTypes.bool,
   handleResumeNamePopupOpen: PropTypes.func,
+  duties: PropTypes.bool,
+  qualifications: PropTypes.bool,
+  portfolio: PropTypes.bool,
+  about: PropTypes.bool,
   inputsAreNotEmpty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
+  setHasExperience: PropTypes.func.isRequired,
+  setHasQualification: PropTypes.func.isRequired,
 }
 
 Resume.defaultProps = {
@@ -158,6 +180,9 @@ Resume.defaultProps = {
   setValues: () => {},
   isEditMod: false,
   duties: false,
+  qualifications: false,
+  portfolio: false,
+  about: false,
   handleResumeNamePopupOpen: () => {},
   setIsEditMod: () => {},
 }

@@ -13,7 +13,7 @@
 
 .recommend__comment {
   margin-top: 32px;
-  width: 495px;
+  max-width: 495px;
   color: #000;
   text-align: center;
   font-family:
@@ -29,7 +29,7 @@
 }
 
 .recommend__text {
-  width: 495px;
+  max-width: 495px;
   color: #000;
   font-family: Inter;
   font-size: 20px;
@@ -37,6 +37,17 @@
   line-height: 1.2;
   text-align: left;
   margin: 0;
+}
+
+.recommend__list {
+  margin: 0;
+  margin-left: 13px;
+  padding-left: 15px;
+
+}
+
+.recommend__list-item {
+  width: 465px;
 }
 
 .recommend__duties-formula {
