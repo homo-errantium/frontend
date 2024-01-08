@@ -542,7 +542,7 @@ Header.propTypes = {
     )
   ),
   setArrValues: PropTypes.func,
-  setValues: PropTypes.func.isRequired,
+  setValues: PropTypes.func,
   setImage: PropTypes.func,
   isValid: PropTypes.bool,
   inputsAreNotEmpty: PropTypes.bool,
@@ -552,6 +552,7 @@ Header.propTypes = {
 Header.defaultProps = {
   values: {},
   arrValues: [],
+  setValues: () => {},
   setArrValues: () => {},
   isEditMod: false,
   isLoggedIn: true,
