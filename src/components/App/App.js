@@ -96,6 +96,8 @@ function App() {
     JSON.parse(localStorage.getItem('allData')) || [exampleObject]
   )
 
+  // console.log(values)
+
   const [languagesAfterChanges, setLanguagesChanges] = useState(
     values.languages
   )
@@ -710,10 +712,11 @@ function App() {
       if (!formData.work_experience_checkbox) {
         setInputsAreNotEmpty(false)
       }
-      // if (formData.work_experience_checkbox) {
-      //   setInputsAreNotEmpty(true)
-      // }
+
       if (!formData.work_experience_checkbox) {
+        if (formData.work_period_experience_checkbox) {
+          setErrors({ ...errors, year_work_end: '' })
+        }
         if (
           formData.company !== undefined &&
           formData.company !== '' &&
@@ -735,9 +738,10 @@ function App() {
           formData.year_work_start !== undefined &&
           formData.year_work_start !== '' &&
           YEAR_REGEX.test(formData.year_work_start) &&
-          formData.year_work_end !== undefined &&
-          formData.year_work_end !== '' &&
-          YEAR_REGEX.test(formData.year_work_end)
+          ((formData.year_work_end !== undefined &&
+            formData.year_work_end !== '' &&
+            YEAR_REGEX.test(formData.year_work_end)) ||
+            formData.work_period_experience_checkbox === true)
         ) {
           setInputsAreNotEmpty(true)
           setIsValid(true)
@@ -859,6 +863,7 @@ function App() {
           }
           setInputsAreNotEmpty(false)
         }
+
         if (
           formData.year_work_end === undefined ||
           formData.year_work_end === ''
@@ -868,6 +873,12 @@ function App() {
             year_work_end: 'Это поле должно быть заполнено',
           }
           setInputsAreNotEmpty(false)
+        }
+        if (formData.work_period_experience_checkbox) {
+          object = {
+            ...object,
+            year_work_end: '',
+          }
         }
         if (
           formData.company !== undefined &&
@@ -887,12 +898,13 @@ function App() {
           formData.duties !== '' &&
           formData.duties.length < 500 &&
           formData.duties.length >= 2 &&
-          formData.year_work_end !== undefined &&
-          formData.year_work_end !== '' &&
-          YEAR_REGEX.test(formData.year_work_end) &&
           formData.year_work_start !== undefined &&
           formData.year_work_start !== '' &&
-          YEAR_REGEX.test(formData.year_work_start)
+          YEAR_REGEX.test(formData.year_work_start) &&
+          ((formData.year_work_end !== undefined &&
+            formData.year_work_end !== '' &&
+            YEAR_REGEX.test(formData.year_work_end)) ||
+            formData.work_period_experience_checkbox === true)
         ) {
           setInputsAreNotEmpty(true)
         } else {
