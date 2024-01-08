@@ -37,11 +37,12 @@ import PopupResumeName from '../Popups/PopupResumeName/PopupResumeName'
 import PopupLogin from '../Popups/PopupLogin/PopupLogin'
 import PopupConfirmationDelete from '../Popups/PopupConfirmationDelete/PopupConfirmationDelete'
 import PopupConfirmationRegister from '../Popups/PopupConfirmationRegister/PopupConfirmationRegister'
+import { exampleObject } from '../../constants/exampleResume'
 
 function App() {
   // ----------------------------------------Переменные------------------------------------------------------
   const location = useLocation()
-  const [isLoggedIn, setIsLoggedIn] = React.useState(true) // Пользователь авторизован/неавторизован
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false) // Пользователь авторизован/неавторизован
   const [currentUser, setCurrentUser] = React.useState(
     JSON.parse(localStorage.getItem('user')) || {}
   ) // Сохраняем данные пользователя
@@ -84,7 +85,7 @@ function App() {
   )
 
   const [arrValues, setArrValues] = useState(
-    JSON.parse(localStorage.getItem('allData')) || []
+    JSON.parse(localStorage.getItem('allData')) || [exampleObject]
   )
 
   const [languagesAfterChanges, setLanguagesChanges] = useState(
@@ -663,7 +664,7 @@ function App() {
           'Сайт введен некорректно. Адрес должен начинаться с https://',
       })
     }
-    console.log(inputsAreNotEmpty)
+    // console.log(inputsAreNotEmpty)
     checkValidityPersonalData(evt)
     checkValidityExperience(evt)
     // console.log(isValid)
@@ -814,7 +815,7 @@ function App() {
     // }
 
     if (location.pathname === '/resume/experience') {
-      console.log(inputsAreNotEmpty)
+      // console.log(inputsAreNotEmpty)
       if (!formData.work_experience_checkbox) {
         if (formData.company === undefined || formData.company === '') {
           object = {
