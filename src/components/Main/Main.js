@@ -11,6 +11,7 @@ import TitleImage from '../../img/main_title.svg'
 // import Step1 from '../../img/main_step1.svg'
 import { onboardingTitle, imgMainArr } from '../../constants/constants'
 import { handleOpenPopup } from '../Utils/Utils'
+import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
 function Main({
   isLoggedIn,
@@ -28,6 +29,7 @@ function Main({
   const [img, setImg] = React.useState(imgMainArr[0])
   const [subtitleObject, setSubtitleObject] = React.useState(onboardingTitle)
   const [step, setStep] = React.useState(1)
+  const currentUser = React.useContext(CurrentUserContext)
 
   const handleClick = i => {
     const elementIndex = onboardingTitle.findIndex(
@@ -81,12 +83,12 @@ function Main({
               onClick={() => {
                 handleOpenPopup(navigate, isLoggedIn, onOpenPopup)
                 setValues({
-                  name: '',
-                  surname: '',
-                  birthday: '',
+                  name: isLoggedIn ? currentUser.name : '',
+                  surname: isLoggedIn ? currentUser.surname : '',
+                  birthday: isLoggedIn ? currentUser.birthday : '',
                   work_status: '',
-                  email: '',
-                  city: '',
+                  email: isLoggedIn ? currentUser.email : '',
+                  city: isLoggedIn ? currentUser.city : '',
                   work_experience_checkbox: false,
                   work_period_experience_checkbox: false,
                   education_period_checkbox: false,
