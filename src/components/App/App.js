@@ -156,12 +156,9 @@ function App() {
   }, [currentResume])
 
   useEffect(() => {
-    if (location.pathname === '/resume/result' && !values.id) {
+    if (location.pathname === '/resume/result' && !isEditMod && !values.id) {
       setValues({ ...values, id: uuidv4() })
     }
-    // if (location.pathname !== '/resume/result') {
-    //   setIsTempResume(false)
-    // }
     localStorage.setItem('allData', JSON.stringify(arrValues))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname])
