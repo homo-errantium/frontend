@@ -56,19 +56,6 @@ const Cv = ({
     handleGeneratePdf(navigate, resumePath)
   }
 
-  // const copyToClipboard = () => {
-  //   navigator.clipboard.writeText(`http://localhost:3000${resumePath}`)
-  //   // TODO после соединения с сервером заменить указанный выше код на закомментированный
-  //   // navigator.clipboard.writeText(
-  //   //   `http://dev.acceleratorpracticum.ru${resumePath}`
-  //   // )
-  //   setPopupCopyLink(true)
-  //   setTimeout(() => {
-  //     setPopupCopyLink(false)
-  //   }, 2500)
-  //   setIsEditCvPopupOpen(false)
-  // }
-
   const handleEditResume = async () => {
     await setIsEditMod(true)
     await setCurrentResume(prevValue => ({ ...prevValue, ...cv }))

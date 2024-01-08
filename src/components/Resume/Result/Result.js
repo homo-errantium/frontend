@@ -13,18 +13,6 @@ function Result({ values, setIsTempResume }) {
   const navigate = useNavigate()
   const resumePath = `/resume/result/${values.id}`
 
-  // const copyToClipboard = () => {
-  //   navigator.clipboard.writeText(`http://localhost:3000${resumePath}`)
-  //   // TODO после соединения с сервером заменить указанный выше код на закомментированный
-  //   // navigator.clipboard.writeText(
-  //   //   `http://dev.acceleratorpracticum.ru${resumePath}`
-  //   // )
-  //   setPopupCopyLink(true)
-  //   setTimeout(() => {
-  //     setPopupCopyLink(false)
-  //   }, 2500)
-  // }
-
   return (
     <section className="result">
       <div className="result__header">

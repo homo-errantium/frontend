@@ -26,13 +26,12 @@ export function cleanLocalStorage() {
 }
 
 export function copyToClipboard(resumePath, setPopupCopyLink) {
-  navigator.clipboard.writeText(
-    `http://localhost:3000${resumePath}#${resumePath}`
-  )
-  // TODO после соединения с сервером заменить указанный выше код на закомментированный
   // navigator.clipboard.writeText(
-  //   `http://dev.acceleratorpracticum.ru${resumePath}`
+  //   `http://localhost:3000${resumePath}#${resumePath}`
   // )
+  navigator.clipboard.writeText(
+    `https://creating-and-editing-a-resume.github.io/frontend${resumePath}`
+  )
   setPopupCopyLink(true)
   setTimeout(() => {
     setPopupCopyLink(false)
