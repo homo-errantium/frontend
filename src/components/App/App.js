@@ -42,7 +42,7 @@ import { exampleObject } from '../../constants/exampleResume'
 function App() {
   // ----------------------------------------Переменные------------------------------------------------------
   const location = useLocation()
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false) // Пользователь авторизован/неавторизован
+  const [isLoggedIn, setIsLoggedIn] = React.useState(true) // Пользователь авторизован/неавторизован
   const [currentUser, setCurrentUser] = React.useState(
     JSON.parse(localStorage.getItem('user')) || {}
   ) // Сохраняем данные пользователя
@@ -1140,6 +1140,7 @@ function App() {
                 setImage={setImage}
                 setHasQualification={setHasQualification}
                 setHasExperience={setHasExperience}
+                setAllTillPresent={setAllTillPresent}
               />
             }
           />
@@ -1155,6 +1156,7 @@ function App() {
                 setImage={setImage}
                 setHasExperience={setHasExperience}
                 setHasQualification={setHasQualification}
+                setAllTillPresent={setAllTillPresent}
               />
             }
           />
@@ -1199,6 +1201,7 @@ function App() {
                 handleConfirmRegPopupOpen={handleConfirmRegPopupOpen}
                 setHasExperience={setHasExperience}
                 setHasQualification={setHasQualification}
+                setAllTillPresent={setAllTillPresent}
               />
             }
           >

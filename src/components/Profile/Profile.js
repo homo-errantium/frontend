@@ -28,6 +28,7 @@ function Profile({
   setImage,
   setHasQualification,
   setHasExperience,
+  setAllTillPresent,
 }) {
   const nextPage = '/*'
   const [isProfileData, setIsProfileData] = useState(true)
@@ -180,6 +181,7 @@ function Profile({
         setImage={setImage}
         setHasExperience={setHasExperience}
         setHasQualification={setHasQualification}
+        setAllTillPresent={setAllTillPresent}
       />
       <main className="profile">
         <h1 className="profile__title">Личный кабинет</h1>
@@ -567,6 +569,7 @@ Profile.propTypes = {
   setImage: PropTypes.func,
   setHasExperience: PropTypes.func.isRequired,
   setHasQualification: PropTypes.func.isRequired,
+  setAllTillPresent: PropTypes.func.isRequired,
 }
 
 Profile.defaultProps = {

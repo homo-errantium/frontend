@@ -21,6 +21,7 @@ function Main({
   setImage,
   setHasExperience,
   setHasQualification,
+  setAllTillPresent,
 }) {
   const navigate = useNavigate()
   const nextPage = '/resume'
@@ -61,6 +62,7 @@ function Main({
         inputsAreNotEmpty={inputsAreNotEmpty}
         setHasExperience={setHasExperience}
         setHasQualification={setHasQualification}
+        setAllTillPresent={setAllTillPresent}
       />
       <main className="main">
         <div className="main__title-container">
@@ -99,6 +101,7 @@ function Main({
                 setImage('')
                 setHasExperience(true)
                 setHasQualification(true)
+                setAllTillPresent({})
               }}
             >
               Создать резюме
@@ -175,6 +178,7 @@ Main.propTypes = {
   setImage: PropTypes.func.isRequired,
   setHasExperience: PropTypes.func.isRequired,
   setHasQualification: PropTypes.func.isRequired,
+  setAllTillPresent: PropTypes.func.isRequired,
 }
 
 export default Main

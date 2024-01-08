@@ -158,7 +158,7 @@ const Experience = ({
           errors={errors}
           id="0"
         />
-        {values.jobs?.map(experience => (
+        {values.jobs.map(experience => (
           <Job
             values={experience}
             allValues={values}

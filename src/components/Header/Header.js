@@ -36,6 +36,7 @@ function Header({
   setHasExperience,
   setHasQualification,
   onClickMyProfile,
+  setAllTillPresent,
 }) {
   const navigate = useNavigate()
   const location = useLocation()
@@ -135,6 +136,7 @@ function Header({
                 setImage('')
                 setHasExperience(true)
                 setHasQualification(true)
+                setAllTillPresent({})
               }}
             >
               Создать резюме
@@ -295,6 +297,7 @@ function Header({
                 setImage('')
                 setHasExperience(true)
                 setHasQualification(true)
+                setAllTillPresent({})
               }}
             >
               Создать резюме
@@ -368,6 +371,7 @@ function Header({
                 setImage('')
                 setHasExperience(true)
                 setHasQualification(true)
+                setAllTillPresent({})
               }}
             >
               Создать резюме
@@ -552,6 +556,7 @@ Header.propTypes = {
   inputsAreNotEmpty: PropTypes.bool,
   setHasExperience: PropTypes.func,
   setHasQualification: PropTypes.func,
+  setAllTillPresent: PropTypes.func.isRequired,
 }
 Header.defaultProps = {
   values: {},
