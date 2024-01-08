@@ -2,7 +2,13 @@
 import React, { useState, useEffect } from 'react'
 import './App.scss'
 import { v4 as uuidv4 } from 'uuid'
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import {
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useLocation,
+} from 'react-router-dom'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import Main from '../Main/Main'
 import Profession from '../Profession/Profession'
@@ -59,6 +65,8 @@ function App() {
   const [isConfirmExitPopupOpen, setIsConfirmExitPopupOpen] =
     React.useState(false)
   // const [completedLayouts, setCompletedLayouts] = React.useState(false)
+
+  const navigate = useNavigate()
 
   // --------------------------- Работа с данными через локальное хранилище -----------------------
   const [isValid, setIsValid] = useState(true)
@@ -1074,15 +1082,14 @@ function App() {
   // TODO: добавить описание функции регистрации по готовности Api
   // eslint-disable-next-line no-unused-vars
   const handleRegister = (name, email, password) => {
-    // eslint-disable-next-line no-console
-    console.log('try register')
+    navigate('/signin')
   }
 
   // TODO: добавить описание функции авторизации по готовности Api
   // eslint-disable-next-line no-unused-vars
   const handleLogin = (email, password) => {
-    // eslint-disable-next-line no-console
-    console.log('try to login')
+    setIsLoggedIn(true)
+    navigate('/')
   }
 
   return (
