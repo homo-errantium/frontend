@@ -50,6 +50,8 @@ function Result({ values }) {
             type="button"
             label="button"
             onClick={() => {
+              console.log(values)
+              console.log(resumePath)
               handleGeneratePdf(navigate, resumePath)
             }}
           >
