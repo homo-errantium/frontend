@@ -35,6 +35,7 @@ function Header({
   handleConfirmRegPopupOpen,
   setHasExperience,
   setHasQualification,
+  onClickMyProfile,
 }) {
   const navigate = useNavigate()
   const location = useLocation()
@@ -411,7 +412,10 @@ function Header({
               className="header__button"
               type="button"
               label="button"
-              onClick={() => navigate('/my-profile')}
+              onClick={() => {
+                onClickMyProfile()
+                navigate('/my-profile')
+              }}
             >
               <div className="header__button-icon_flex-container">
                 <img

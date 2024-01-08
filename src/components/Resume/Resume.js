@@ -37,6 +37,7 @@ function Resume({
   handleConfirmRegPopupOpen,
   setHasExperience,
   setHasQualification,
+  onClickMyProfile,
 }) {
   const location = useLocation()
   // Находим индекс элемента в массиве с локациями
@@ -86,6 +87,7 @@ function Resume({
         handleConfirmRegPopupOpen={handleConfirmRegPopupOpen}
         setHasExperience={setHasExperience}
         setHasQualification={setHasQualification}
+        onClickMyProfile={onClickMyProfile}
       />
       <main className="resume">
         {location.pathname === '/resume/result' ? (
