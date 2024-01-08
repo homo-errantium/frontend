@@ -8,7 +8,7 @@ import ResultResume from '../ResultResume/ResultResume'
 import { handleGeneratePdf } from '../../Utils/Utils'
 import PopupCopyLink from '../../Popups/PopupCopyLink/PopupCopyLink'
 
-function Result({ values }) {
+function Result({ values, setIsTempResume }) {
   const [popupCopyLink, setPopupCopyLink] = React.useState(false)
   const navigate = useNavigate()
   const resumePath = `/resume/result/${values.id}`
@@ -35,6 +35,7 @@ function Result({ values }) {
             type="button"
             label="button"
             onClick={() => {
+              setIsTempResume(true)
               copyToClipboard()
             }}
           >
@@ -50,8 +51,7 @@ function Result({ values }) {
             type="button"
             label="button"
             onClick={() => {
-              console.log(values)
-              console.log(resumePath)
+              setIsTempResume(true)
               handleGeneratePdf(navigate, resumePath)
             }}
           >
@@ -73,6 +73,7 @@ function Result({ values }) {
 }
 
 Result.propTypes = {
+  setIsTempResume: PropTypes.func,
   values: PropTypes.objectOf(
     PropTypes.oneOfType([
       PropTypes.string,
@@ -94,6 +95,6 @@ Result.propTypes = {
   ),
 }
 
-Result.defaultProps = { values: {} }
+Result.defaultProps = { values: {}, setIsTempResume: () => {} }
 
 export default Result

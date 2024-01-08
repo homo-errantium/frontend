@@ -64,6 +64,7 @@ function App() {
     React.useState(false)
   const [isConfirmExitPopupOpen, setIsConfirmExitPopupOpen] =
     React.useState(false)
+  const [isTempResume, setIsTempResume] = React.useState(false)
   // const [completedLayouts, setCompletedLayouts] = React.useState(false)
 
   const navigate = useNavigate()
@@ -155,9 +156,12 @@ function App() {
   }, [currentResume])
 
   useEffect(() => {
-    if (location.pathname === '/resume/result' && !isEditMod) {
+    if (location.pathname === '/resume/result' && !values.id) {
       setValues({ ...values, id: uuidv4() })
     }
+    // if (location.pathname !== '/resume/result') {
+    //   setIsTempResume(false)
+    // }
     localStorage.setItem('allData', JSON.stringify(arrValues))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname])
@@ -1073,7 +1077,7 @@ function App() {
     // },
     {
       path: 'result',
-      element: <Result values={values} />,
+      element: <Result values={values} setIsTempResume={setIsTempResume} />,
       id: 9,
       completedSteps: completedStepsPersonalData,
     },
@@ -1231,6 +1235,7 @@ function App() {
               />
             ))}
           </Route>
+          {/* отрисовка путей-компонентов под каждое готовое резюме  */}
           {arrValues.map(resume => (
             <Route
               key={resume.id}
@@ -1245,6 +1250,20 @@ function App() {
               }
             />
           ))}
+          {/* отрисовка пути-компонента под временное резюме  */}
+          {values.id && (
+            <Route
+              path={`/resume/result/${values.id}`}
+              element={
+                <ResultResume
+                  values={values}
+                  isLoggedIn={isLoggedIn}
+                  onOpenPopup={handleConfirmExitPopupOpen}
+                  image={image}
+                />
+              }
+            />
+          )}
 
           <Route path="*" element={<NotFound />} />
         </Routes>
