@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import { Link, useLocation } from 'react-router-dom'
 import classNames from 'classnames'
 import { months } from '../../../constants/months'
+import defaultPhoto from '../../../img/photo-plug.svg'
 
 function ResultResume({ values }) {
   const userAllLang = values.languages
@@ -97,7 +98,7 @@ function ResultResume({ values }) {
     >
       {/* ------блок  фото ------*/}
       <img
-        src={values.img}
+        src={values.img || defaultPhoto}
         alt="фото соискателя"
         className={classNames(
           'result-resume__user-photo',
