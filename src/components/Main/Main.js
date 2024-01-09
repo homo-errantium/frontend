@@ -86,6 +86,8 @@ function Main({
                   name: isLoggedIn ? currentUser.name : '',
                   surname: isLoggedIn ? currentUser.surname : '',
                   birthday: isLoggedIn ? currentUser.birthday : '',
+                  telegram: isLoggedIn ? currentUser.telegram : '',
+                  phone: isLoggedIn ? currentUser.phone : '',
                   work_status: '',
                   email: isLoggedIn ? currentUser.email : '',
                   city: isLoggedIn ? currentUser.city : '',
@@ -100,7 +102,7 @@ function Main({
                   educations: [],
                   portfolio: [],
                 })
-                setImage('')
+                setImage(currentUser.imageProfile)
                 setHasExperience(true)
                 setHasQualification(true)
                 setAllTillPresent({})
