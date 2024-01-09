@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable-next-line react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react'
 import './App.scss'
 import { v4 as uuidv4 } from 'uuid'
@@ -715,9 +716,9 @@ function App() {
       }
 
       if (!formData.work_experience_checkbox) {
-        if (formData.work_period_experience_checkbox) {
-          setErrors({ ...errors, year_work_end: '' })
-        }
+        // if (formData.work_period_experience_checkbox) {
+        //   setErrors({ ...errors, year_work_end: '' })
+        // }
         if (
           formData.company !== undefined &&
           formData.company !== '' &&
@@ -756,6 +757,7 @@ function App() {
       setErrors({})
     }
   })
+
   const handleClickMyProfile = () => {
     setErrors({})
   }
