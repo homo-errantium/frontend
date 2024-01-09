@@ -17,6 +17,7 @@ import { handleOpenPopup, cleanLocalStorage } from '../Utils/Utils'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
 function Header({
+  setIsLoggedIn,
   values,
   setValues,
   arrValues,
@@ -149,6 +150,7 @@ function Header({
                 cleanLocalStorage()
                 setValues({})
                 setImage('')
+                setIsLoggedIn(false)
                 navigate('/')
               }}
             >
@@ -308,6 +310,9 @@ function Header({
               label="button"
               onClick={() => {
                 cleanLocalStorage()
+                setValues({})
+                setImage('')
+                setIsLoggedIn(false)
                 navigate('/')
                 // TODO очистить localStorage?
               }}
@@ -556,9 +561,12 @@ Header.propTypes = {
   inputsAreNotEmpty: PropTypes.bool,
   setHasExperience: PropTypes.func,
   setHasQualification: PropTypes.func,
-  setAllTillPresent: PropTypes.func.isRequired,
+  setAllTillPresent: PropTypes.func,
+  setIsLoggedIn: PropTypes.func,
 }
 Header.defaultProps = {
+  setAllTillPresent: () => {},
+  setIsLoggedIn: () => {},
   values: {},
   arrValues: [],
   setValues: () => {},

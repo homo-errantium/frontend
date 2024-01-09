@@ -133,8 +133,8 @@
 }
 
 .profile__save-button:disabled {
-  cursor: none;
-  background-color: grey;
+  cursor: not-allowed;
+  // background-color: grey;
 }
 
 .profile__contacts-form {
@@ -284,7 +284,9 @@
   width: 263px;
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0.5s, opacity 0.2s linear;
+  transition:
+    visibility 0.5s,
+    opacity 0.2s linear;
   z-index: 2;
 }
 
@@ -302,7 +304,9 @@
   height: 100vh;
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0.5s, opacity 0.2s linear;
+  transition:
+    visibility 0.5s,
+    opacity 0.2s linear;
   z-index: 1;
 }
 

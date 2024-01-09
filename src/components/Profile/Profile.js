@@ -10,6 +10,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import PopupCopyLink from '../Popups/PopupCopyLink/PopupCopyLink'
 
 function Profile({
+  setIsLoggedIn,
   isEditMod,
   setCurrentResume,
   currentResume,
@@ -185,6 +186,7 @@ function Profile({
   return (
     <>
       <Header
+        setIsLoggedIn={setIsLoggedIn}
         isLoggedIn={isLoggedIn}
         nextPage={nextPage}
         setIsEditMod={setIsEditMod}
@@ -504,6 +506,7 @@ function Profile({
 }
 
 Profile.propTypes = {
+  setIsLoggedIn: PropTypes.func.isRequired,
   isEditMod: PropTypes.bool.isRequired,
   values: PropTypes.objectOf(
     PropTypes.oneOfType([

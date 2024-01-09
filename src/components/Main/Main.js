@@ -14,6 +14,7 @@ import { handleOpenPopup } from '../Utils/Utils'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
 function Main({
+  setIsLoggedIn,
   isLoggedIn,
   onOpenPopup,
   isValid,
@@ -56,6 +57,7 @@ function Main({
   return (
     <>
       <Header
+        setIsLoggedIn={setIsLoggedIn}
         isLoggedIn={isLoggedIn}
         nextPage={nextPage}
         onOpenPopup={onOpenPopup}
@@ -172,6 +174,7 @@ function Main({
 }
 
 Main.propTypes = {
+  setIsLoggedIn: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   onOpenPopup: PropTypes.func.isRequired,
   setValues: PropTypes.func.isRequired,

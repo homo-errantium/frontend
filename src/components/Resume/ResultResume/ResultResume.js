@@ -81,7 +81,8 @@ function ResultResume({ values }) {
       result = months.find(({ id }) => id === monthNumber)
       if (result !== undefined) return result.long
     }
-    return 'По настоящее время'
+
+    return ''
   }
 
   function absentValues(currentValue) {
@@ -204,10 +205,14 @@ function ResultResume({ values }) {
                   locationProfile && 'result-resume__date_profile'
                 )}
               >
-                {`${monthConvert(values.month_work_start)}
+                {values.year_work_start
+                  ? `${monthConvert(values.month_work_start)}
           ${values.year_work_start} - ${monthConvert(values.month_work_end)}${
-            values.year_work_end ? ` ${values.year_work_end}` : ''
-          }`}
+            values.year_work_end
+              ? ` ${values.year_work_end}`
+              : 'По настоящее время'
+          }`
+                  : ''}
               </p>
               <p
                 className={classNames(
@@ -276,10 +281,12 @@ function ResultResume({ values }) {
                       locationProfile && 'result-resume__date_profile'
                     )}
                   >
-                    {`${monthConvert(item.month_work_start)}
+                    {item.year_work_start
+                      ? `${monthConvert(item.month_work_start)}
           ${item.year_work_start} - ${monthConvert(item.month_work_end)}${
-            item.year_work_end ? ` ${item.year_work_end}` : ''
-          }`}
+            item.year_work_end ? ` ${item.year_work_end}` : 'По настоящее время'
+          }`
+                      : ''}
                   </p>
                   <p
                     className={classNames(
@@ -372,15 +379,21 @@ function ResultResume({ values }) {
                 locationProfile && 'result-resume__date_profile'
               )}
             >
-              {`${
-                values.year_education_start
-                  ? ` ${values.year_education_start}`
-                  : ''
-              } ${
-                values.year_education_start && values.year_education_end && '-'
-              } ${
-                values.year_education_end ? ` ${values.year_education_end}` : ''
-              }`}
+              {values.year_education_start
+                ? `${
+                    values.year_education_start
+                      ? ` ${values.year_education_start}`
+                      : ''
+                  } ${
+                    values.year_education_start &&
+                    values.year_education_end &&
+                    '-'
+                  } ${
+                    values.year_education_end
+                      ? ` ${values.year_education_end}`
+                      : ''
+                  }`
+                : ''}
             </p>
             <p
               className={classNames(
@@ -388,7 +401,7 @@ function ResultResume({ values }) {
                 locationProfile && 'result-resume__paragraph_profile'
               )}
             >
-              {values.university_name}
+              {values.university_name ?? ''}
             </p>
           </div>
           <div
@@ -513,11 +526,15 @@ function ResultResume({ values }) {
                   locationProfile && 'result-resume__date_profile'
                 )}
               >
-                {`${monthConvert(values.month_qual_start)}${
-                  values.year_qual_start ? ` ${values.year_qual_start}` : ''
-                } - ${monthConvert(values.month_qual_end)}${
-                  values.year_qual_end ? ` ${values.year_qual_end}` : ''
-                }`}
+                {values.month_qual_start
+                  ? `${monthConvert(values.month_qual_start)}${
+                      values.year_qual_start ? ` ${values.year_qual_start}` : ''
+                    } - ${monthConvert(values.month_qual_end)}${
+                      values.year_qual_end
+                        ? ` ${values.year_qual_end}`
+                        : 'По настоящее время'
+                    }`
+                  : ''}
               </p>
               <p
                 className={classNames(
@@ -564,7 +581,7 @@ function ResultResume({ values }) {
                   locationProfile && 'result-resume__paragraph_profile'
                 )}
               >
-                {`Навыки: ${values.skills}`}
+                {values.skills ? `Навыки: ${values.skills}` : ''}
               </p>
               <p
                 className={classNames(
@@ -572,7 +589,9 @@ function ResultResume({ values }) {
                   locationProfile && 'result-resume__paragraph_profile'
                 )}
               >
-                {`Ссылка на дипломную работу: ${values.diploma_link}`}
+                {values.diploma_link
+                  ? `Ссылка на дипломную работу: ${values.diploma_link}`
+                  : ''}
               </p>
             </div>
           </div>
@@ -596,11 +615,15 @@ function ResultResume({ values }) {
                       locationProfile && 'result-resume__date_profile'
                     )}
                   >
-                    {`${monthConvert(item.month_qual_start)}${
-                      item.year_qual_start ? ` ${item.year_qual_start}` : ''
-                    } - ${monthConvert(item.month_qual_end)}${
-                      item.year_qual_end ? ` ${item.year_qual_end}` : ''
-                    }`}
+                    {item.month_qual_start
+                      ? `${monthConvert(item.month_qual_start)}${
+                          item.year_qual_start ? ` ${item.year_qual_start}` : ''
+                        } - ${monthConvert(item.month_qual_end)}${
+                          item.year_qual_end
+                            ? ` ${item.year_qual_end}`
+                            : 'По настоящее время'
+                        }`
+                      : ''}
                   </p>
                   <p
                     className={classNames(
@@ -647,7 +670,7 @@ function ResultResume({ values }) {
                       locationProfile && 'result-resume__paragraph_profile'
                     )}
                   >
-                    {`Навыки: ${item.skills}`}
+                    {`Навыки: ${item.skills ?? ''}`}
                   </p>
                   <p
                     className={classNames(
@@ -655,7 +678,9 @@ function ResultResume({ values }) {
                       locationProfile && 'result-resume__paragraph_profile'
                     )}
                   >
-                    {`Ссылка на дипломную работу: ${item.diploma_link}`}
+                    {item.diploma_link
+                      ? `Ссылка на дипломную работу: ${item.diploma_link}`
+                      : ''}
                   </p>
                 </div>
               </div>
@@ -703,25 +728,29 @@ function ResultResume({ values }) {
             {values.project_description}
           </p>
           <br />
-          <p
-            className={classNames(
-              'result-resume__paragraph',
-              locationProfile && 'result-resume__paragraph_profile'
-            )}
-          >
-            Ссылка на проект:
-            <Link
-              to={values.project_link}
-              target="_blank"
+          {values.project_link ? (
+            <p
               className={classNames(
-                'result-resume__organization',
-                'result-resume__project-link',
-                locationProfile && 'result-resume__organization_profile'
+                'result-resume__paragraph',
+                locationProfile && 'result-resume__paragraph_profile'
               )}
             >
-              {absentValues(values.project_link)}
-            </Link>
-          </p>
+              Ссылка на проект:
+              <Link
+                to={values.project_link}
+                target="_blank"
+                className={classNames(
+                  'result-resume__organization',
+                  'result-resume__project-link',
+                  locationProfile && 'result-resume__organization_profile'
+                )}
+              >
+                {absentValues(values.project_link)}
+              </Link>
+            </p>
+          ) : (
+            ''
+          )}
         </div>
         {React.Children.toArray(
           userAllPortfolio?.map(item => (

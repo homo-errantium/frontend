@@ -1161,6 +1161,7 @@ function App() {
                 setHasQualification={setHasQualification}
                 setHasExperience={setHasExperience}
                 setAllTillPresent={setAllTillPresent}
+                setIsLoggedIn={setIsLoggedIn}
               />
             }
           />
@@ -1168,6 +1169,7 @@ function App() {
             path="/"
             element={
               <Main
+                setIsLoggedIn={setIsLoggedIn}
                 isLoggedIn={isLoggedIn}
                 onOpenPopup={handleConfirmRegPopupOpen}
                 isValid={isValid}
