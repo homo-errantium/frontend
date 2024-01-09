@@ -27,7 +27,7 @@ export const exampleObject = {
   qualifications: [],
   educations: [],
   portfolio: [],
-  img: '../img/example.jpg',
+  // img: '../img/example.jpg',
   desired_position: 'Фронтенд',
   level_knowledge: 'Junior',
   phone: '+7(777)777-77-77',

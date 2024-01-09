@@ -9,7 +9,7 @@ import linkIcon from '../../../img/linkImage.svg'
 import DeleteIcon from '../../../img/trash-icon-red.svg'
 import ellipsesIcon from '../../../img/ellipses-icon.svg'
 import ResultResume from '../../Resume/ResultResume/ResultResume'
-import { handleGeneratePdf } from '../../Utils/Utils'
+import { handleGeneratePdf, copyToClipboard } from '../../Utils/Utils'
 
 const Cv = ({
   // isEditMod,
@@ -54,19 +54,6 @@ const Cv = ({
 
   const handleDownload = () => {
     handleGeneratePdf(navigate, resumePath)
-  }
-
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(`http://localhost:3000${resumePath}`)
-    // TODO после соединения с сервером заменить указанный выше код на закомментированный
-    // navigator.clipboard.writeText(
-    //   `http://dev.acceleratorpracticum.ru${resumePath}`
-    // )
-    setPopupCopyLink(true)
-    setTimeout(() => {
-      setPopupCopyLink(false)
-    }, 2500)
-    setIsEditCvPopupOpen(false)
   }
 
   const handleEditResume = async () => {
@@ -144,7 +131,9 @@ const Cv = ({
         <button
           className="profile__cv-menu-option link"
           type="button"
-          onClick={copyToClipboard}
+          onClick={() => {
+            copyToClipboard(resumePath, setPopupCopyLink)
+          }}
         >
           <img
             src={linkIcon}

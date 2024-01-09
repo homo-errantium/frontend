@@ -5,25 +5,13 @@ import React from 'react'
 import linkIcon from '../../../img/linkImage.svg'
 import DownloadIcon from '../../../img/download-icon.svg'
 import ResultResume from '../ResultResume/ResultResume'
-import { handleGeneratePdf } from '../../Utils/Utils'
+import { handleGeneratePdf, copyToClipboard } from '../../Utils/Utils'
 import PopupCopyLink from '../../Popups/PopupCopyLink/PopupCopyLink'
 
 function Result({ values, setIsTempResume }) {
   const [popupCopyLink, setPopupCopyLink] = React.useState(false)
   const navigate = useNavigate()
   const resumePath = `/resume/result/${values.id}`
-
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(`http://localhost:3000${resumePath}`)
-    // TODO после соединения с сервером заменить указанный выше код на закомментированный
-    // navigator.clipboard.writeText(
-    //   `http://dev.acceleratorpracticum.ru${resumePath}`
-    // )
-    setPopupCopyLink(true)
-    setTimeout(() => {
-      setPopupCopyLink(false)
-    }, 2500)
-  }
 
   return (
     <section className="result">
@@ -35,8 +23,9 @@ function Result({ values, setIsTempResume }) {
             type="button"
             label="button"
             onClick={() => {
+              // navigate(`${resumePath}`)
               setIsTempResume(true)
-              copyToClipboard()
+              copyToClipboard(resumePath, setPopupCopyLink)
             }}
           >
             <img
