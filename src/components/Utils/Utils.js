@@ -30,7 +30,7 @@ export function copyToClipboard(resumePath, setPopupCopyLink) {
   //   `http://localhost:3000${resumePath}#${resumePath}`
   // )
   navigator.clipboard.writeText(
-    `https://creating-and-editing-a-resume.github.io/frontend${resumePath}`
+    `https://creating-and-editing-a-resume.github.io/frontend/#${resumePath}`
   )
   setPopupCopyLink(true)
   setTimeout(() => {
