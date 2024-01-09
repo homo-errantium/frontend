@@ -46,6 +46,7 @@ function Profile({
   // ЛОГИКА СМЕНЫ ПАРОЛЯ
   const [passwordErrors, setPasswordErrors] = useState({})
   const [isValid, setIsValid] = useState(false)
+  console.log(isValid)
 
   const currentPassword = 'qwerty'
 
@@ -117,14 +118,14 @@ function Profile({
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [currentUser])
 
-  const handleClick = () => {
-    setCurrentUser(prevUser => ({
-      ...prevUser,
-      imageProfile,
-    }))
-    localStorage.setItem('user', JSON.stringify(currentUser))
-    localStorage.setItem('imageProfile', imageProfile)
-  }
+  // const handleClick = () => {
+  //   setCurrentUser(prevUser => ({
+  //     ...prevUser,
+  //     imageProfile,
+  //   }))
+  //   localStorage.setItem('user', JSON.stringify(currentUser))
+  //   localStorage.setItem('imageProfile', imageProfile)
+  // }
 
   // МАСКИ ДЛЯ ПОЛЕЙ:
   const maskInput = (dataValue, options) => {
@@ -407,14 +408,14 @@ function Profile({
                         </label>
                       </form>
                     )}
-                    <button
+                    {/* <button
                       className="profile__save-button link"
                       type="button"
                       disabled={!isValid}
                       onClick={handleClick}
                     >
                       Сохранить изменения
-                    </button>
+                    </button> */}
                   </div>
                 </>
               )}
