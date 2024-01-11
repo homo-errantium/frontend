@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 import './Profile.scss'
@@ -49,6 +50,9 @@ function Profile({
     surname: '',
     phone: '',
     telegram: '',
+    newPassword: '',
+    passwordConfirmation: '',
+    previousPassword: '',
   })
   const [isValidFields, setIsValidFields] = useState({
     name: false,
@@ -59,6 +63,7 @@ function Profile({
     phone: false,
     telegram: false,
   })
+  const [arrIsValidFields, setArrIsValidFields] = useState([])
 
   // ОТКРЫТИЕ ДОПОЛНИТЕЛЬНЫХ ПОЛЕЙ ДЛЯ СМЕНЫ ПАРОЛЯ
   const [isEditPassword, setIsEditPassword] = useState(false)
@@ -67,17 +72,30 @@ function Profile({
   }
 
   // ЛОГИКА СМЕНЫ ПАРОЛЯ
-  const [passwordErrors, setPasswordErrors] = useState({})
   const [isValidPasswords, setIsValidPasswords] = useState({
     newPassword: false,
     passwordConfirmation: false,
     previousPassword: false,
   })
-  const [isValidPassword, setIsValidPassword] = useState(false)
+  const [isValid, setIsValid] = useState(false)
 
+  // Захардкоженный пароль
+  // TODO: внести его в объект currentUser
   const currentPassword = 'qwerty'
 
-  function handleChange(evt) {
+  useEffect(() => {
+    setArrIsValidFields(() =>
+      Object.keys(isValidFields).map(key => isValidFields[key])
+    )
+    if (!isEditPassword && arrIsValidFields.includes(true)) {
+      setIsValid(true)
+    } else {
+      setIsValid(false)
+    }
+  }, [isValidFields])
+
+  // Функция, которая собирает и валидирует поля с основными данными пользователя
+  function handleChangeUserData(evt) {
     const { name, value } = evt.target
     if (name === 'name') {
       validationName(value, isValidFields, setIsValidFields, setErrors, errors)
@@ -106,24 +124,26 @@ function Profile({
     if (name === 'city') {
       validationCity(value, isValidFields, setIsValidFields, setErrors, errors)
     }
-    if (isEditPassword) {
-      validationPassword(
-        name,
-        evt,
-        value,
-        setIsValidPassword,
-        setPasswordErrors,
-        passwordErrors,
-        currentUser,
-        setIsValidPasswords,
-        isValidPasswords,
-        currentPassword
-      )
-    }
-
     setCurrentUser({ ...currentUser, [name]: value })
   }
 
+  // Функция, которая собирает и валидирует поля с подтверждением пароля
+  const handleChangePassword = evt => {
+    const { name, value } = evt.target
+    validationPassword(
+      name,
+      value,
+      setErrors,
+      errors,
+      currentUser,
+      setIsValidPasswords,
+      isValidPasswords,
+      currentPassword
+    )
+    setCurrentUser({ ...currentUser, [name]: value })
+  }
+
+  // useEffect подтягивает изменённую фотку пользователя в реальном времени
   useEffect(() => {
     setCurrentUser(prevUser => ({
       ...prevUser,
@@ -131,13 +151,14 @@ function Profile({
     }))
   }, [imageProfile])
 
-  const handleClick = () => {
+  const handleClickUserData = () => {
     setCurrentUser(prevUser => ({
       ...prevUser,
       imageProfile,
     }))
     localStorage.setItem('user', JSON.stringify(currentUser))
     localStorage.setItem('imageProfile', imageProfile)
+    setArrIsValidFields([])
   }
 
   // МАСКИ ДЛЯ ПОЛЕЙ:
@@ -255,7 +276,7 @@ function Profile({
                         id="name"
                         value={currentUser.name || ''}
                         className="profile__input"
-                        onChange={handleChange}
+                        onChange={handleChangeUserData}
                         onBlur={() => {
                           setErrors({ ...errors, name: '' })
                         }}
@@ -275,7 +296,7 @@ function Profile({
                         id="surname"
                         className="profile__input"
                         value={currentUser.surname || ''}
-                        onChange={handleChange}
+                        onChange={handleChangeUserData}
                         onBlur={() => {
                           setErrors({ ...errors, surname: '' })
                         }}
@@ -302,7 +323,7 @@ function Profile({
                           onBlur={() => {
                             setErrors({ ...errors, birthday: '' })
                           }}
-                          onChange={handleChange}
+                          onChange={handleChangeUserData}
                           mask="date"
                         />
                         {errors && (
@@ -322,7 +343,7 @@ function Profile({
                           id="city"
                           className="profile__input"
                           value={currentUser.city || ''}
-                          onChange={handleChange}
+                          onChange={handleChangeUserData}
                           onBlur={() => {
                             setErrors({ ...errors, city: '' })
                           }}
@@ -377,18 +398,16 @@ function Profile({
                           Введите старый пароль
                           <input
                             name="previousPassword"
-                            type="text"
+                            type="password"
                             id="previousPassword"
                             className="profile__input"
                             value={currentUser.previousPassword || ''}
-                            onChange={handleChange}
+                            onChange={handleChangePassword}
                             required
                           />
-                          {passwordErrors && (
-                            <span className="profile__password-error">
-                              {passwordErrors.previousPassword}
-                            </span>
-                          )}
+                          <span className="profile__password-error">
+                            {errors.previousPassword}
+                          </span>
                         </label>
                         <label
                           htmlFor="newPassword"
@@ -397,18 +416,16 @@ function Profile({
                           Введите новый пароль
                           <input
                             name="newPassword"
-                            type="text"
+                            type="password"
                             id="newPassword"
                             className="profile__input"
                             value={currentUser.newPassword || ''}
-                            onChange={handleChange}
+                            onChange={handleChangePassword}
                             required
                           />
-                          {passwordErrors && (
-                            <span className="profile__password-error">
-                              {passwordErrors.newPassword}
-                            </span>
-                          )}
+                          <span className="profile__password-error">
+                            {errors.newPassword}
+                          </span>
                         </label>
                         <label
                           htmlFor="passwordConfirmation"
@@ -417,26 +434,24 @@ function Profile({
                           Подтвердите пароль
                           <input
                             name="passwordConfirmation"
-                            type="text"
+                            type="password"
                             id="passwordConfirmation"
                             className="profile__input"
                             value={currentUser.passwordConfirmation || ''}
                             required
-                            onChange={handleChange}
+                            onChange={handleChangePassword}
                           />
-                          {passwordErrors && (
-                            <span className="profile__password-error">
-                              {passwordErrors.passwordConfirmation}
-                            </span>
-                          )}
+                          <span className="profile__password-error">
+                            {errors.passwordConfirmation}
+                          </span>
                         </label>
                       </form>
                     )}
                     <button
                       className="profile__save-button link"
                       type="button"
-                      disabled={!isValidPassword}
-                      onClick={handleClick}
+                      disabled={!isValid}
+                      onClick={handleClickUserData}
                     >
                       Сохранить изменения
                     </button>
@@ -453,7 +468,7 @@ function Profile({
                       id="email"
                       className="profile__input"
                       value={currentUser.email || ''}
-                      onChange={handleChange}
+                      onChange={handleChangeUserData}
                     />
                     {errors && (
                       <span className="form-input__input-error">
@@ -470,7 +485,7 @@ function Profile({
                         id="phone"
                         className="profile__input"
                         value={currentUser.phone || ''}
-                        onChange={handleChange}
+                        onChange={handleChangeUserData}
                         mask="phone"
                       />
                       {errors && (
@@ -487,7 +502,7 @@ function Profile({
                         id="telegram"
                         className="profile__input"
                         value={currentUser.telegram || ''}
-                        onChange={handleChange}
+                        onChange={handleChangeUserData}
                         mask="tgLink"
                       />
                       {errors && (
@@ -500,7 +515,7 @@ function Profile({
                   <button
                     className="profile__save-button link"
                     type="button"
-                    onClick={handleClick}
+                    onClick={handleClickUserData}
                   >
                     Сохранить изменения
                   </button>

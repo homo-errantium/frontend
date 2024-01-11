@@ -101,6 +101,7 @@
   font-size: 20px;
   font-weight: 400;
   line-height: 1.2;
+  margin-top: 12px;
 }
 
 .profile__input:disabled {
@@ -150,7 +151,7 @@
 
 .profile__checkbox-label {
   display: block;
-  margin: 0;
+  margin: 14.5px 0 0;
   cursor: pointer;
   user-select: none;
   position: relative;
@@ -183,6 +184,7 @@
   display: block;
   width: 0;
   height: 0;
+  padding-top: 14.5px;
 }
 
 .profile__checkbox-label .profile__checkbox-text {

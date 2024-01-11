@@ -104,11 +104,9 @@ export const validationCity = (
 
 export const validationPassword = (
   name,
-  evt,
   value,
-  setIsValidPassword,
-  setPasswordErrors,
-  passwordErrors,
+  setErrors,
+  errors,
   currentUser,
   setIsValidPasswords,
   isValidPasswords,
@@ -137,27 +135,20 @@ export const validationPassword = (
   // }
 
   if (name === 'newPassword') {
-    setIsValidPassword(evt.target.closest('form').checkValidity())
-    if (value.length < 2) {
-      setIsValidPasswords({ ...isValidPasswords, newPassword: false })
-      setPasswordErrors({
-        ...passwordErrors,
-        newPassword: 'Пароль должен иметь не менее 2 символов',
+    if (PASSWORD_REGEX.test(value)) {
+      setIsValidPasswords({ ...isValidPasswords, newPassword: true })
+      setErrors({
+        ...errors,
+        newPassword: '',
       })
-    } else if (!PASSWORD_REGEX.test(value)) {
+    } else {
       setIsValidPasswords({ ...isValidPasswords, newPassword: false })
-      setPasswordErrors({
-        ...passwordErrors,
-        newPassword: evt.target.validationMessage,
+      setErrors({
+        ...errors,
+        newPassword:
+          'Пароль должен включать в себя не менее 6 символов латинского алфавита верхнего и нижнего регистра и хотя бы одну цифру',
       })
     }
-  } else {
-    setIsValidPasswords({ ...isValidPasswords, newPassword: true })
-    setPasswordErrors({
-      ...passwordErrors,
-      newPassword: '',
-    })
-    setIsValidPassword(true)
   }
 
   // if (name === 'passwordConfirmation') {
@@ -182,31 +173,35 @@ export const validationPassword = (
   //     setIsValidPassword({ ...isValidPassword, passwordConfirmation: true })
   //   }
   // }
-  if (currentUser.newPassword !== currentUser.passwordConfirmation) {
-    setIsValidPasswords({ ...isValidPasswords, passwordConfirmation: false })
-    setPasswordErrors({
-      ...passwordErrors,
-      passwordConfirmation: 'Пароли не совпадают',
-    })
-  } else {
-    setIsValidPasswords({ ...isValidPasswords, passwordConfirmation: true })
-    setPasswordErrors({
-      ...passwordErrors,
-      passwordConfirmation: '',
-    })
+  if (name === 'passwordConfirmation') {
+    if (currentUser.newPassword !== value) {
+      setIsValidPasswords({ ...isValidPasswords, passwordConfirmation: false })
+      setErrors({
+        ...errors,
+        passwordConfirmation: 'Пароли не совпадают',
+      })
+    } else {
+      setIsValidPasswords({ ...isValidPasswords, passwordConfirmation: true })
+      setErrors({
+        ...errors,
+        passwordConfirmation: '',
+      })
+    }
   }
 
-  if (currentPassword !== value) {
-    setIsValidPasswords({ ...isValidPasswords, previousPassword: false })
-    setPasswordErrors({
-      ...passwordErrors,
-      previousPassword: 'Старый пароль указан неверно',
-    })
-  } else {
-    setPasswordErrors({
-      ...passwordErrors,
-      previousPassword: '',
-    })
-    setIsValidPasswords({ ...isValidPasswords, previousPassword: true })
+  if (name === 'previousPassword') {
+    if (currentPassword !== value) {
+      setIsValidPasswords({ ...isValidPasswords, previousPassword: false })
+      setErrors({
+        ...errors,
+        previousPassword: 'Старый пароль указан неверно',
+      })
+    } else {
+      setErrors({
+        ...errors,
+        previousPassword: '',
+      })
+      setIsValidPasswords({ ...isValidPasswords, previousPassword: true })
+    }
   }
 }
