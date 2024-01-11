@@ -1,7 +1,8 @@
 // PersonalData page:
 
 // const NAME_REGEX = /^[a-z0-9_-]{2,16}$/
-const NAME_REGEX = /^(?!.*(.)\1{2,})[а-яА-ЯЁё\-\s]*$/
+// const NAME_REGEX = /^(?!.*(.)\1{2,})[а-яА-ЯЁё\-\s]*$/
+const NAME_REGEX = /^[а-яА-ЯёЁ\s-]*$/
 // const EMAIL_REGEX = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-].[a-zA-Z0-9-.]+$/
 // const EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i
 const EMAIL_REGEX = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/
@@ -17,6 +18,7 @@ const YEAR_REGEX = /^[0-9]{4}$/
 const DUTIES_REGEX = /^[а-яА-ЯЁё0-9\-\s]*$/
 
 const SITE_REGEX = /https?:\/\/(?:[-\w]+\.)?([-\w]+)\.\w+(?:\.\w+)?\/?.*/i
+const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
 
 export {
   NAME_REGEX,
@@ -27,4 +29,5 @@ export {
   YEAR_REGEX,
   DUTIES_REGEX,
   SITE_REGEX,
+  PASSWORD_REGEX,
 }

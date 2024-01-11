@@ -8,6 +8,13 @@ import ImageUpload from './ImageUpload/ImageUpload'
 import Cv from './Cv/Cv'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import PopupCopyLink from '../Popups/PopupCopyLink/PopupCopyLink'
+import {
+  validationName,
+  validationSurname,
+  validationBirthday,
+  validationCity,
+  validationPassword,
+} from '../../constants/validation'
 
 function Profile({
   isEditMod,
@@ -15,7 +22,6 @@ function Profile({
   currentResume,
   isLoggedIn,
   deletePopupSetState,
-  errors,
   setCurrentUser,
   imageProfile,
   setImageProfile,
@@ -35,6 +41,24 @@ function Profile({
   const [isContacts, setIsContacts] = useState(false)
   const [popupCopyLink, setPopupCopyLink] = useState(false)
   const currentUser = useContext(CurrentUserContext)
+  const [errors, setErrors] = useState({
+    name: '',
+    city: '',
+    email: '',
+    imageProfile: '',
+    surname: '',
+    phone: '',
+    telegram: '',
+  })
+  const [isValidFields, setIsValidFields] = useState({
+    name: false,
+    city: false,
+    email: false,
+    imageProfile: false,
+    surname: false,
+    phone: false,
+    telegram: false,
+  })
 
   // ОТКРЫТИЕ ДОПОЛНИТЕЛЬНЫХ ПОЛЕЙ ДЛЯ СМЕНЫ ПАРОЛЯ
   const [isEditPassword, setIsEditPassword] = useState(false)
@@ -44,77 +68,68 @@ function Profile({
 
   // ЛОГИКА СМЕНЫ ПАРОЛЯ
   const [passwordErrors, setPasswordErrors] = useState({})
-  const [isValid, setIsValid] = useState(false)
+  const [isValidPasswords, setIsValidPasswords] = useState({
+    newPassword: false,
+    passwordConfirmation: false,
+    previousPassword: false,
+  })
+  const [isValidPassword, setIsValidPassword] = useState(false)
 
   const currentPassword = 'qwerty'
 
   function handleChange(evt) {
     const { name, value } = evt.target
+    if (name === 'name') {
+      validationName(value, isValidFields, setIsValidFields, setErrors, errors)
+    }
+
+    if (name === 'surname') {
+      validationSurname(
+        value,
+        isValidFields,
+        setIsValidFields,
+        setErrors,
+        errors
+      )
+    }
+
+    if (name === 'birthday') {
+      validationBirthday(
+        value,
+        isValidFields,
+        setIsValidFields,
+        setErrors,
+        errors
+      )
+    }
+
+    if (name === 'city') {
+      validationCity(value, isValidFields, setIsValidFields, setErrors, errors)
+    }
     if (isEditPassword) {
-      if (name === 'previousPassword') {
-        setCurrentUser({ ...currentUser, [name]: value })
-        setIsValid(evt.target.closest('form').checkValidity())
-        if (evt.target.value.length < 2) {
-          setIsValid(false)
-          setPasswordErrors({
-            ...passwordErrors,
-            previousPassword: 'Пароль должен иметь не менее 2 символов',
-          })
-        } else {
-          setPasswordErrors({
-            ...passwordErrors,
-            [name]: evt.target.validationMessage,
-          })
-        }
-      }
-
-      if (name === 'confirmPassword') {
-        setIsValid(evt.target.closest('form').checkValidity())
-        if (evt.target.value.length < 1) {
-          setIsValid(false)
-          setPasswordErrors({
-            ...passwordErrors,
-            passwordConfirmation: 'Необходимо повторно ввести пароль',
-          })
-        } else {
-          setCurrentUser({ ...currentUser, [name]: value })
-        }
-      }
-
-      if (name === 'newPassword') {
-        setCurrentUser({ ...currentUser, [name]: value })
-        setIsValid(evt.target.closest('form').checkValidity())
-        if (evt.target.value.length < 2) {
-          setIsValid(false)
-          setPasswordErrors({
-            ...passwordErrors,
-            newPassword: 'Пароль должен иметь не менее 2 символов',
-          })
-        } else {
-          setPasswordErrors({
-            ...passwordErrors,
-            [name]: evt.target.validationMessage,
-          })
-        }
-      }
+      validationPassword(
+        name,
+        evt,
+        value,
+        setIsValidPassword,
+        setPasswordErrors,
+        passwordErrors,
+        currentUser,
+        setIsValidPasswords,
+        isValidPasswords,
+        currentPassword
+      )
     }
 
     setCurrentUser({ ...currentUser, [name]: value })
   }
 
-  // useEffect(() => {
-  //   setCurrentUser(prevUser => ({
-  //     ...prevUser,
-  //     imageProfile,
-  //   }))
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [imageProfile])
-
-  // useEffect(() => {
-  //   localStorage.setItem('user', JSON.stringify(currentUser))
-  //   localStorage.setItem('imageProfile', imageProfile)
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [currentUser])
+  useEffect(() => {
+    setCurrentUser(prevUser => ({
+      ...prevUser,
+      imageProfile,
+    }))
+  }, [imageProfile])
 
   const handleClick = () => {
     setCurrentUser(prevUser => ({
@@ -160,27 +175,27 @@ function Profile({
     setIsContacts(true)
   }
 
-  const handleChangePasswordSubmit = e => {
-    e.preventDefault()
-    if (currentUser.newPassword !== currentUser.passwordConfirmation) {
-      setIsValid(false)
-      setPasswordErrors({
-        ...passwordErrors,
-        passwordConfirmation: 'Пароли не совпадают',
-      })
-    } else if (currentUser.previousPassword !== currentPassword) {
-      setIsValid(false)
-      setPasswordErrors({
-        ...passwordErrors,
-        passwordConfirmation: 'Старый пароль указан неверно',
-      })
-    } else {
-      setPasswordErrors({
-        ...passwordErrors,
-        passwordConfirmation: '',
-      })
-    }
-  }
+  // const handleChangePasswordSubmit = e => {
+  //   e.preventDefault()
+  //   if (currentUser.newPassword !== currentUser.passwordConfirmation) {
+  //     setIsValidPassword(false)
+  //     setPasswordErrors({
+  //       ...passwordErrors,
+  //       passwordConfirmation: 'Пароли не совпадают',
+  //     })
+  //   } else if (currentUser.previousPassword !== currentPassword) {
+  //     setIsValidPassword(false)
+  //     setPasswordErrors({
+  //       ...passwordErrors,
+  //       passwordConfirmation: 'Старый пароль указан неверно',
+  //     })
+  //   } else {
+  //     setPasswordErrors({
+  //       ...passwordErrors,
+  //       passwordConfirmation: '',
+  //     })
+  //   }
+  // }
 
   return (
     <>
@@ -241,6 +256,9 @@ function Profile({
                         value={currentUser.name || ''}
                         className="profile__input"
                         onChange={handleChange}
+                        onBlur={() => {
+                          setErrors({ ...errors, name: '' })
+                        }}
                       />
                       {errors && (
                         <span className="form-input__input-error">
@@ -258,6 +276,9 @@ function Profile({
                         className="profile__input"
                         value={currentUser.surname || ''}
                         onChange={handleChange}
+                        onBlur={() => {
+                          setErrors({ ...errors, surname: '' })
+                        }}
                       />
                       {errors && (
                         <span className="form-input__input-error">
@@ -278,6 +299,9 @@ function Profile({
                           className="profile__input"
                           placeholder="ДД.ММ.ГГГГ"
                           value={currentUser.birthday || ''}
+                          onBlur={() => {
+                            setErrors({ ...errors, birthday: '' })
+                          }}
                           onChange={handleChange}
                           mask="date"
                         />
@@ -299,6 +323,9 @@ function Profile({
                           className="profile__input"
                           value={currentUser.city || ''}
                           onChange={handleChange}
+                          onBlur={() => {
+                            setErrors({ ...errors, city: '' })
+                          }}
                         />
                         {errors && (
                           <span className="form-input__input-error">
@@ -340,7 +367,7 @@ function Profile({
                       <form
                         className="profile__change-password-form"
                         name="change-password"
-                        onSubmit={handleChangePasswordSubmit}
+                        // onSubmit={handleChangePasswordSubmit}
                         noValidate
                       >
                         <label
@@ -408,7 +435,7 @@ function Profile({
                     <button
                       className="profile__save-button link"
                       type="button"
-                      disabled={!isValid}
+                      disabled={!isValidPassword}
                       onClick={handleClick}
                     >
                       Сохранить изменения
@@ -470,6 +497,13 @@ function Profile({
                       )}
                     </label>
                   </div>
+                  <button
+                    className="profile__save-button link"
+                    type="button"
+                    onClick={handleClick}
+                  >
+                    Сохранить изменения
+                  </button>
                 </div>
               )}
             </div>
@@ -527,9 +561,9 @@ Profile.propTypes = {
   setValues: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   deletePopupSetState: PropTypes.func.isRequired,
-  errors: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-  ).isRequired,
+  // errors: PropTypes.objectOf(
+  //   PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  // ).isRequired,
   setCurrentUser: PropTypes.func.isRequired,
   imageProfile: PropTypes.string,
   setImageProfile: PropTypes.func.isRequired,

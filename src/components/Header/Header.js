@@ -119,6 +119,8 @@ function Header({
                   name: currentUser.name,
                   surname: currentUser.surname,
                   birthday: currentUser.birthday,
+                  telegram: currentUser.telegram,
+                  phone: currentUser.phone,
                   work_status: '',
                   email: currentUser.email,
                   city: currentUser.city,
@@ -133,7 +135,7 @@ function Header({
                   educations: [],
                   portfolio: [],
                 })
-                setImage('')
+                setImage(currentUser.imageProfile)
                 setHasExperience(true)
                 setHasQualification(true)
                 setAllTillPresent({})
@@ -280,6 +282,8 @@ function Header({
                   name: isLoggedIn ? currentUser.name : '',
                   surname: isLoggedIn ? currentUser.surname : '',
                   birthday: isLoggedIn ? currentUser.birthday : '',
+                  telegram: isLoggedIn ? currentUser.telegram : '',
+                  phone: isLoggedIn ? currentUser.phone : '',
                   work_status: '',
                   email: isLoggedIn ? currentUser.email : '',
                   city: isLoggedIn ? currentUser.city : '',
@@ -294,7 +298,7 @@ function Header({
                   educations: [],
                   portfolio: [],
                 })
-                setImage('')
+                setImage(isLoggedIn ? currentUser.imageProfile : '')
                 setHasExperience(true)
                 setHasQualification(true)
                 setAllTillPresent({})
