@@ -42,28 +42,22 @@ function Profile({
   const [isContacts, setIsContacts] = useState(false)
   const [popupCopyLink, setPopupCopyLink] = useState(false)
   const currentUser = useContext(CurrentUserContext)
-  const [errors, setErrors] = useState({
+  const [errorsUserInfo, setErrorsUserInfo] = useState({
     name: '',
     city: '',
-    email: '',
-    imageProfile: '',
     surname: '',
-    phone: '',
-    telegram: '',
+    birthday: '',
     newPassword: '',
     passwordConfirmation: '',
     previousPassword: '',
   })
-  const [isValidFields, setIsValidFields] = useState({
+  const [isValidUserInfo, setIsValidUserInfo] = useState({
     name: false,
     city: false,
-    email: false,
     imageProfile: false,
     surname: false,
-    phone: false,
-    telegram: false,
+    birthday: false,
   })
-  const [arrIsValidFields, setArrIsValidFields] = useState([])
 
   // ОТКРЫТИЕ ДОПОЛНИТЕЛЬНЫХ ПОЛЕЙ ДЛЯ СМЕНЫ ПАРОЛЯ
   const [isEditPassword, setIsEditPassword] = useState(false)
@@ -84,46 +78,82 @@ function Profile({
   const currentPassword = 'qwerty'
 
   useEffect(() => {
-    setArrIsValidFields(() =>
-      Object.keys(isValidFields).map(key => isValidFields[key])
+    const arrFields = Object.keys(isValidUserInfo).map(
+      key => isValidUserInfo[key]
     )
-    if (!isEditPassword && arrIsValidFields.includes(true)) {
-      setIsValid(true)
-    } else {
-      setIsValid(false)
+    const allErrorsEmpty = Object.keys(errorsUserInfo).every(
+      key => errorsUserInfo[key] === ''
+    )
+    const allPasswordsValid = Object.keys(isValidPasswords).every(
+      key => isValidPasswords[key] === true
+    )
+    if (!isEditPassword) {
+      if (arrFields.includes(true) && allErrorsEmpty) {
+        setIsValid(true)
+      } else {
+        setIsValid(false)
+      }
     }
-  }, [isValidFields])
+
+    if (isEditPassword) {
+      if (allErrorsEmpty && allPasswordsValid) {
+        setIsValid(true)
+      } else {
+        setIsValid(false)
+      }
+    }
+  }, [
+    isValidUserInfo,
+    currentUser,
+    isEditPassword,
+    isValidPasswords,
+    errorsUserInfo,
+  ])
 
   // Функция, которая собирает и валидирует поля с основными данными пользователя
   function handleChangeUserData(evt) {
     const { name, value } = evt.target
     if (name === 'name') {
-      validationName(value, isValidFields, setIsValidFields, setErrors, errors)
+      validationName(
+        value,
+        isValidUserInfo,
+        setIsValidUserInfo,
+        setErrorsUserInfo,
+        errorsUserInfo
+      )
     }
 
     if (name === 'surname') {
       validationSurname(
         value,
-        isValidFields,
-        setIsValidFields,
-        setErrors,
-        errors
+        isValidUserInfo,
+        setIsValidUserInfo,
+        setErrorsUserInfo,
+        errorsUserInfo
       )
     }
 
     if (name === 'birthday') {
       validationBirthday(
         value,
-        isValidFields,
-        setIsValidFields,
-        setErrors,
-        errors
+        isValidUserInfo,
+        setIsValidUserInfo,
+        setErrorsUserInfo,
+        errorsUserInfo
       )
     }
 
     if (name === 'city') {
-      validationCity(value, isValidFields, setIsValidFields, setErrors, errors)
+      validationCity(
+        value,
+        isValidUserInfo,
+        setIsValidUserInfo,
+        setErrorsUserInfo,
+        errorsUserInfo
+      )
     }
+
+    console.log(name)
     setCurrentUser({ ...currentUser, [name]: value })
   }
 
@@ -133,8 +163,8 @@ function Profile({
     validationPassword(
       name,
       value,
-      setErrors,
-      errors,
+      setErrorsUserInfo,
+      errorsUserInfo,
       currentUser,
       setIsValidPasswords,
       isValidPasswords,
@@ -158,7 +188,6 @@ function Profile({
     }))
     localStorage.setItem('user', JSON.stringify(currentUser))
     localStorage.setItem('imageProfile', imageProfile)
-    setArrIsValidFields([])
   }
 
   // МАСКИ ДЛЯ ПОЛЕЙ:
@@ -195,28 +224,6 @@ function Profile({
     setIsProfileData(false)
     setIsContacts(true)
   }
-
-  // const handleChangePasswordSubmit = e => {
-  //   e.preventDefault()
-  //   if (currentUser.newPassword !== currentUser.passwordConfirmation) {
-  //     setIsValidPassword(false)
-  //     setPasswordErrors({
-  //       ...passwordErrors,
-  //       passwordConfirmation: 'Пароли не совпадают',
-  //     })
-  //   } else if (currentUser.previousPassword !== currentPassword) {
-  //     setIsValidPassword(false)
-  //     setPasswordErrors({
-  //       ...passwordErrors,
-  //       passwordConfirmation: 'Старый пароль указан неверно',
-  //     })
-  //   } else {
-  //     setPasswordErrors({
-  //       ...passwordErrors,
-  //       passwordConfirmation: '',
-  //     })
-  //   }
-  // }
 
   return (
     <>
@@ -265,6 +272,7 @@ function Profile({
                       currentImage={currentUser.imageProfile}
                       setImage={setImageProfile}
                       name="image_profile"
+                      setIsValidUserInfo={setIsValidUserInfo}
                     />
                   </div>
                   <div className="profile__personal-data-form">
@@ -277,13 +285,13 @@ function Profile({
                         value={currentUser.name || ''}
                         className="profile__input"
                         onChange={handleChangeUserData}
-                        onBlur={() => {
-                          setErrors({ ...errors, name: '' })
-                        }}
+                        // onBlur={() => {
+                        //   setErrors({ ...errors, name: '' })
+                        // }}
                       />
-                      {errors && (
+                      {errorsUserInfo && (
                         <span className="form-input__input-error">
-                          {errors.name}
+                          {errorsUserInfo.name}
                         </span>
                       )}
                     </label>
@@ -297,13 +305,13 @@ function Profile({
                         className="profile__input"
                         value={currentUser.surname || ''}
                         onChange={handleChangeUserData}
-                        onBlur={() => {
-                          setErrors({ ...errors, surname: '' })
-                        }}
+                        // onBlur={() => {
+                        //   setErrors({ ...errors, surname: '' })
+                        // }}
                       />
-                      {errors && (
+                      {errorsUserInfo && (
                         <span className="form-input__input-error">
-                          {errors.surname}
+                          {errorsUserInfo.surname}
                         </span>
                       )}
                     </label>
@@ -320,15 +328,15 @@ function Profile({
                           className="profile__input"
                           placeholder="ДД.ММ.ГГГГ"
                           value={currentUser.birthday || ''}
-                          onBlur={() => {
-                            setErrors({ ...errors, birthday: '' })
-                          }}
+                          // onBlur={() => {
+                          //   setErrors({ ...errors, birthday: '' })
+                          // }}
                           onChange={handleChangeUserData}
                           mask="date"
                         />
-                        {errors && (
+                        {errorsUserInfo && (
                           <span className="form-input__input-error">
-                            {errors.birthday}
+                            {errorsUserInfo.birthday}
                           </span>
                         )}
                       </label>
@@ -344,13 +352,13 @@ function Profile({
                           className="profile__input"
                           value={currentUser.city || ''}
                           onChange={handleChangeUserData}
-                          onBlur={() => {
-                            setErrors({ ...errors, city: '' })
-                          }}
+                          // onBlur={() => {
+                          //   setErrors({ ...errors, city: '' })
+                          // }}
                         />
-                        {errors && (
+                        {errorsUserInfo && (
                           <span className="form-input__input-error">
-                            {errors.city}
+                            {errorsUserInfo.city}
                           </span>
                         )}
                       </label>
@@ -406,7 +414,7 @@ function Profile({
                             required
                           />
                           <span className="profile__password-error">
-                            {errors.previousPassword}
+                            {errorsUserInfo.previousPassword}
                           </span>
                         </label>
                         <label
@@ -424,7 +432,7 @@ function Profile({
                             required
                           />
                           <span className="profile__password-error">
-                            {errors.newPassword}
+                            {errorsUserInfo.newPassword}
                           </span>
                         </label>
                         <label
@@ -442,7 +450,7 @@ function Profile({
                             onChange={handleChangePassword}
                           />
                           <span className="profile__password-error">
-                            {errors.passwordConfirmation}
+                            {errorsUserInfo.passwordConfirmation}
                           </span>
                         </label>
                       </form>
@@ -470,9 +478,9 @@ function Profile({
                       value={currentUser.email || ''}
                       onChange={handleChangeUserData}
                     />
-                    {errors && (
+                    {errorsUserInfo && (
                       <span className="form-input__input-error">
-                        {errors.email}
+                        {errorsUserInfo.email}
                       </span>
                     )}
                   </label>
@@ -488,9 +496,9 @@ function Profile({
                         onChange={handleChangeUserData}
                         mask="phone"
                       />
-                      {errors && (
+                      {errorsUserInfo && (
                         <span className="form-input__input-error">
-                          {errors.phone}
+                          {errorsUserInfo.phone}
                         </span>
                       )}
                     </label>
@@ -505,9 +513,9 @@ function Profile({
                         onChange={handleChangeUserData}
                         mask="tgLink"
                       />
-                      {errors && (
+                      {errorsUserInfo && (
                         <span className="form-input__input-error">
-                          {errors.telegram}
+                          {errorsUserInfo.telegram}
                         </span>
                       )}
                     </label>

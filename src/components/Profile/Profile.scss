@@ -127,13 +127,13 @@
   font-weight: 400;
   line-height: 1.2;
   width: 95%;
-  // max-width: 422px;
   height: 52px;
   padding: 0;
 }
 
 .profile__save-button:disabled {
-  cursor: none;
+  cursor: default;
+  opacity: 1;
   background-color: grey;
 }
 
