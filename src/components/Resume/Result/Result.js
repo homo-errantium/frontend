@@ -10,6 +10,7 @@ import PopupCopyLink from '../../Popups/PopupCopyLink/PopupCopyLink'
 
 function Result({ values, setIsTempResume }) {
   const [popupCopyLink, setPopupCopyLink] = React.useState(false)
+  const [popupCopyLinkText, setPopupCopyLinkText] = React.useState('')
   const navigate = useNavigate()
   const resumePath = `/resume/result/${values.id}`
 
@@ -25,7 +26,11 @@ function Result({ values, setIsTempResume }) {
             onClick={() => {
               // navigate(`${resumePath}`)
               setIsTempResume(true)
-              copyToClipboard(resumePath, setPopupCopyLink)
+              copyToClipboard(
+                resumePath,
+                setPopupCopyLink,
+                setPopupCopyLinkText
+              )
             }}
           >
             <img
@@ -56,7 +61,7 @@ function Result({ values, setIsTempResume }) {
       <div className="result__content">
         <ResultResume values={values} />
       </div>
-      <PopupCopyLink popupCopyLink={popupCopyLink} />
+      <PopupCopyLink popupCopyLink={popupCopyLink} text={popupCopyLinkText} />
     </section>
   )
 }

@@ -15,6 +15,8 @@ import {
   validationBirthday,
   validationCity,
   validationPassword,
+  validationEmail,
+  validationPhone,
 } from '../../constants/validation'
 
 function Profile({
@@ -41,7 +43,10 @@ function Profile({
   const [isProfileData, setIsProfileData] = useState(true)
   const [isContacts, setIsContacts] = useState(false)
   const [popupCopyLink, setPopupCopyLink] = useState(false)
+  const [popupCopyLinkText, setPopupCopyLinkText] = useState('')
   const currentUser = useContext(CurrentUserContext)
+
+  // Объект, который содержит текст ошибки во вкладке "профиль"
   const [errorsUserInfo, setErrorsUserInfo] = useState({
     name: '',
     city: '',
@@ -51,6 +56,12 @@ function Profile({
     passwordConfirmation: '',
     previousPassword: '',
   })
+  // Объект, который содержит текст ошибки во вкладке "контакты"
+  const [errorsUserContacts, setErrorsUserContacts] = useState({
+    email: '',
+    phone: '',
+  })
+  // Объект с булевыми значениями о прохождении валидации полей во вкладке "профиль"
   const [isValidUserInfo, setIsValidUserInfo] = useState({
     name: false,
     city: false,
@@ -58,25 +69,46 @@ function Profile({
     surname: false,
     birthday: false,
   })
+  // Объект с булевыми значениями о прохождении валидации полей во вкладке "контакты"
+  const [isValidUserContacts, setIsValidUserContacts] = useState({
+    email: false,
+    phone: false,
+    telegram: false,
+  })
 
-  // ОТКРЫТИЕ ДОПОЛНИТЕЛЬНЫХ ПОЛЕЙ ДЛЯ СМЕНЫ ПАРОЛЯ
-  const [isEditPassword, setIsEditPassword] = useState(false)
-  const handleCheckboxChange = () => {
-    setIsEditPassword(!isEditPassword)
-  }
-
-  // ЛОГИКА СМЕНЫ ПАРОЛЯ
+  // Объект с булевыми значениями о прохождении валидации полей с паролем вкладки "профиль"
   const [isValidPasswords, setIsValidPasswords] = useState({
     newPassword: false,
     passwordConfirmation: false,
     previousPassword: false,
   })
-  const [isValid, setIsValid] = useState(false)
+
+  // Переменная, которая отвечает за разблокировку кнопки сохранения изменений во вкладке "профиль"
+  const [isValidUserInfoData, setIsValidUserInfoData] = useState(false)
+
+  // Переменная, которая отвечает за разблокировку кнопки сохранения изменений во вкладке "контакты"
+  const [isValidUserContactsData, setIsValidUserContactsData] = useState(false)
+
+  // Открытие/закрытие дополнительных полей со сменой пароля
+  const [isEditPassword, setIsEditPassword] = useState(false)
+  const handleCheckboxChange = evt => {
+    setIsEditPassword(!isEditPassword)
+
+    if (evt.target.checked) {
+      setCurrentUser({
+        ...currentUser,
+        previousPassword: '',
+        passwordConfirmation: '',
+        newPassword: '',
+      })
+    }
+  }
 
   // Захардкоженный пароль
   // TODO: внести его в объект currentUser
   const currentPassword = 'qwerty'
 
+  // useEffect меняет состояние переменной isValidUserInfoData
   useEffect(() => {
     const arrFields = Object.keys(isValidUserInfo).map(
       key => isValidUserInfo[key]
@@ -89,17 +121,17 @@ function Profile({
     )
     if (!isEditPassword) {
       if (arrFields.includes(true) && allErrorsEmpty) {
-        setIsValid(true)
+        setIsValidUserInfoData(true)
       } else {
-        setIsValid(false)
+        setIsValidUserInfoData(false)
       }
     }
 
     if (isEditPassword) {
       if (allErrorsEmpty && allPasswordsValid) {
-        setIsValid(true)
+        setIsValidUserInfoData(true)
       } else {
-        setIsValid(false)
+        setIsValidUserInfoData(false)
       }
     }
   }, [
@@ -110,7 +142,24 @@ function Profile({
     errorsUserInfo,
   ])
 
-  // Функция, которая собирает и валидирует поля с основными данными пользователя
+  // useEffect меняет состояние переменной isValidUserContactsData
+  useEffect(() => {
+    const arrFields = Object.keys(isValidUserContacts).map(
+      key => isValidUserContacts[key]
+    )
+    const allErrorsEmpty = Object.keys(errorsUserContacts).every(
+      key => errorsUserContacts[key] === ''
+    )
+    if (isContacts) {
+      if (arrFields.includes(true) && allErrorsEmpty) {
+        setIsValidUserContactsData(true)
+      } else {
+        setIsValidUserContactsData(false)
+      }
+    }
+  }, [isValidUserContacts, errorsUserContacts, currentUser])
+
+  // Функция, которая собирает и валидирует поля с данными пользователя во вкладке "профиль"
   function handleChangeUserData(evt) {
     const { name, value } = evt.target
     if (name === 'name') {
@@ -152,12 +201,41 @@ function Profile({
         errorsUserInfo
       )
     }
-
-    console.log(name)
     setCurrentUser({ ...currentUser, [name]: value })
   }
 
-  // Функция, которая собирает и валидирует поля с подтверждением пароля
+  // Функция, которая собирает и валидирует поля с данными пользователя во вкладке "контакты"
+  function handleChangeUserContacts(evt) {
+    const { name, value } = evt.target
+
+    if (name === 'email') {
+      validationEmail(
+        value,
+        setIsValidUserContacts,
+        isValidUserContacts,
+        setErrorsUserContacts,
+        errorsUserContacts
+      )
+    }
+
+    if (name === 'phone') {
+      validationPhone(
+        value,
+        setIsValidUserContacts,
+        isValidUserContacts,
+        setErrorsUserContacts,
+        errorsUserContacts
+      )
+    }
+
+    if (name === 'telegram') {
+      setIsValidUserContacts({ ...isValidUserContacts, telegram: true })
+    }
+
+    setCurrentUser(prevValues => ({ ...prevValues, [name]: value }))
+  }
+
+  // Функция, которая собирает и валидирует поля с подтверждением пароля во вкладке "профиль"
   const handleChangePassword = evt => {
     const { name, value } = evt.target
     validationPassword(
@@ -181,6 +259,7 @@ function Profile({
     }))
   }, [imageProfile])
 
+  // Функция сохраняет данные пользователя в локальное хранилище из вкладки "профиль"
   const handleClickUserData = () => {
     setCurrentUser(prevUser => ({
       ...prevUser,
@@ -188,9 +267,39 @@ function Profile({
     }))
     localStorage.setItem('user', JSON.stringify(currentUser))
     localStorage.setItem('imageProfile', imageProfile)
+    setIsValidUserInfo({
+      name: false,
+      city: false,
+      imageProfile: false,
+      surname: false,
+      birthday: false,
+    })
+    setIsValidPasswords({
+      newPassword: false,
+      passwordConfirmation: false,
+      previousPassword: false,
+    })
+    setIsValidUserInfoData(false)
+    setPopupCopyLink(true)
+    setPopupCopyLinkText('Данные сохранены')
+    setTimeout(() => {
+      setPopupCopyLink(false)
+    }, 2500)
   }
 
-  // МАСКИ ДЛЯ ПОЛЕЙ:
+  // Функция сохраняет данные пользователя в локальное хранилище из вкладки "контакты"
+  const handleClickUserContacts = () => {
+    localStorage.setItem('user', JSON.stringify(currentUser))
+    setIsValidUserContactsData(false)
+    setIsValidUserContacts({ email: false, phone: false, telegram: false })
+    setPopupCopyLink(true)
+    setPopupCopyLinkText('Данные сохранены')
+    setTimeout(() => {
+      setPopupCopyLink(false)
+    }, 2500)
+  }
+
+  // Маски для полей:
   const maskInput = (dataValue, options) => {
     const inputElements = document.querySelectorAll(`[mask="${dataValue}"]`) // ищем поля ввода по селектору с переданным значением data-атрибута
     if (!inputElements) return // если таких полей ввода нет, прерываем функцию
@@ -215,7 +324,7 @@ function Profile({
     maskInput('date', maskOptionsDate)
   })
 
-  // ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК
+  // Переключение вкладок
   const openProfileData = () => {
     setIsContacts(false)
     setIsProfileData(true)
@@ -285,15 +394,10 @@ function Profile({
                         value={currentUser.name || ''}
                         className="profile__input"
                         onChange={handleChangeUserData}
-                        // onBlur={() => {
-                        //   setErrors({ ...errors, name: '' })
-                        // }}
                       />
-                      {errorsUserInfo && (
-                        <span className="form-input__input-error">
-                          {errorsUserInfo.name}
-                        </span>
-                      )}
+                      <span className="profile-input__error">
+                        {errorsUserInfo.name}
+                      </span>
                     </label>
 
                     <label htmlFor="surname" className="profile__input-label">
@@ -305,63 +409,50 @@ function Profile({
                         className="profile__input"
                         value={currentUser.surname || ''}
                         onChange={handleChangeUserData}
-                        // onBlur={() => {
-                        //   setErrors({ ...errors, surname: '' })
-                        // }}
                       />
-                      {errorsUserInfo && (
-                        <span className="form-input__input-error">
-                          {errorsUserInfo.surname}
-                        </span>
-                      )}
+                      <span className="profile-input__error">
+                        {errorsUserInfo.surname}
+                      </span>
                     </label>
-                    <div className="profile__double-input-container">
-                      <label
-                        htmlFor="birthday"
-                        className="profile__input-label profile__input-label_double-short"
-                      >
-                        Дата рождения
-                        <input
-                          name="birthday"
-                          type="text"
-                          id="birthday"
-                          className="profile__input"
-                          placeholder="ДД.ММ.ГГГГ"
-                          value={currentUser.birthday || ''}
-                          // onBlur={() => {
-                          //   setErrors({ ...errors, birthday: '' })
-                          // }}
-                          onChange={handleChangeUserData}
-                          mask="date"
-                        />
-                        {errorsUserInfo && (
-                          <span className="form-input__input-error">
+                    <div className="profile__input-label">
+                      <div className="profile__double-input-container">
+                        <label
+                          htmlFor="birthday"
+                          className="profile__input-label profile__input-label_double-short"
+                        >
+                          Дата рождения
+                          <input
+                            name="birthday"
+                            type="text"
+                            id="birthday"
+                            className="profile__input"
+                            placeholder="ДД.ММ.ГГГГ"
+                            value={currentUser.birthday || ''}
+                            onChange={handleChangeUserData}
+                            mask="date"
+                          />
+                          <span className="profile-input__error">
                             {errorsUserInfo.birthday}
                           </span>
-                        )}
-                      </label>
-                      <label
-                        htmlFor="city"
-                        className="profile__input-label profile__input-label_double-long"
-                      >
-                        Город
-                        <input
-                          name="city"
-                          type="text"
-                          id="city"
-                          className="profile__input"
-                          value={currentUser.city || ''}
-                          onChange={handleChangeUserData}
-                          // onBlur={() => {
-                          //   setErrors({ ...errors, city: '' })
-                          // }}
-                        />
-                        {errorsUserInfo && (
-                          <span className="form-input__input-error">
+                        </label>
+                        <label
+                          htmlFor="city"
+                          className="profile__input-label profile__input-label_double-long"
+                        >
+                          Город
+                          <input
+                            name="city"
+                            type="text"
+                            id="city"
+                            className="profile__input"
+                            value={currentUser.city || ''}
+                            onChange={handleChangeUserData}
+                          />
+                          <span className="profile-input__error">
                             {errorsUserInfo.city}
                           </span>
-                        )}
-                      </label>
+                        </label>
+                      </div>
                     </div>
                     <label htmlFor="password" className="profile__input-label">
                       Пароль
@@ -396,7 +487,6 @@ function Profile({
                       <form
                         className="profile__change-password-form"
                         name="change-password"
-                        // onSubmit={handleChangePasswordSubmit}
                         noValidate
                       >
                         <label
@@ -413,7 +503,7 @@ function Profile({
                             onChange={handleChangePassword}
                             required
                           />
-                          <span className="profile__password-error">
+                          <span className="profile-input__error">
                             {errorsUserInfo.previousPassword}
                           </span>
                         </label>
@@ -431,7 +521,7 @@ function Profile({
                             onChange={handleChangePassword}
                             required
                           />
-                          <span className="profile__password-error">
+                          <span className="profile-input__error">
                             {errorsUserInfo.newPassword}
                           </span>
                         </label>
@@ -449,7 +539,7 @@ function Profile({
                             required
                             onChange={handleChangePassword}
                           />
-                          <span className="profile__password-error">
+                          <span className="profile-input__error">
                             {errorsUserInfo.passwordConfirmation}
                           </span>
                         </label>
@@ -458,7 +548,7 @@ function Profile({
                     <button
                       className="profile__save-button link"
                       type="button"
-                      disabled={!isValid}
+                      disabled={!isValidUserInfoData}
                       onClick={handleClickUserData}
                     >
                       Сохранить изменения
@@ -476,13 +566,11 @@ function Profile({
                       id="email"
                       className="profile__input"
                       value={currentUser.email || ''}
-                      onChange={handleChangeUserData}
+                      onChange={handleChangeUserContacts}
                     />
-                    {errorsUserInfo && (
-                      <span className="form-input__input-error">
-                        {errorsUserInfo.email}
-                      </span>
-                    )}
+                    <span className="profile-input__error">
+                      {errorsUserContacts.email}
+                    </span>
                   </label>
                   <div className="profile__double-input-container">
                     <label htmlFor="phone" className="profile__input-label">
@@ -493,14 +581,12 @@ function Profile({
                         id="phone"
                         className="profile__input"
                         value={currentUser.phone || ''}
-                        onChange={handleChangeUserData}
+                        onChange={handleChangeUserContacts}
                         mask="phone"
                       />
-                      {errorsUserInfo && (
-                        <span className="form-input__input-error">
-                          {errorsUserInfo.phone}
-                        </span>
-                      )}
+                      <span className="profile-input__error">
+                        {errorsUserContacts.phone}
+                      </span>
                     </label>
                     <label htmlFor="telegram" className="profile__input-label">
                       Telegram
@@ -510,20 +596,19 @@ function Profile({
                         id="telegram"
                         className="profile__input"
                         value={currentUser.telegram || ''}
-                        onChange={handleChangeUserData}
+                        onChange={handleChangeUserContacts}
                         mask="tgLink"
                       />
-                      {errorsUserInfo && (
-                        <span className="form-input__input-error">
-                          {errorsUserInfo.telegram}
-                        </span>
-                      )}
+                      <span className="profile-input__error">
+                        {errorsUserContacts.telegram}
+                      </span>
                     </label>
                   </div>
                   <button
                     className="profile__save-button link"
                     type="button"
-                    onClick={handleClickUserData}
+                    onClick={handleClickUserContacts}
+                    disabled={!isValidUserContactsData}
                   >
                     Сохранить изменения
                   </button>
@@ -549,12 +634,13 @@ function Profile({
                   setValues={setValues}
                   setIsResumeNamePopupOpen={setIsResumeNamePopupOpen}
                   setPopupCopyLink={setPopupCopyLink}
+                  setPopupCopyLinkText={setPopupCopyLinkText}
                 />
               ))}
             </div>
           </div>
         </div>
-        <PopupCopyLink popupCopyLink={popupCopyLink} />
+        <PopupCopyLink popupCopyLink={popupCopyLink} text={popupCopyLinkText} />
       </main>
     </>
   )

@@ -1,4 +1,9 @@
-import { NAME_REGEX, BIRTHDAY_REGEX, PASSWORD_REGEX } from './regex'
+import {
+  NAME_REGEX,
+  BIRTHDAY_REGEX,
+  PASSWORD_REGEX,
+  EMAIL_REGEX,
+} from './regex'
 
 export const validationName = (
   value,
@@ -158,5 +163,55 @@ export const validationPassword = (
       })
       setIsValidPasswords({ ...isValidPasswords, previousPassword: true })
     }
+  }
+}
+
+export const validationEmail = (
+  value,
+  setIsValidUserContacts,
+  isValidUserContacts,
+  setErrorsUserContacts,
+  errorsUserContacts
+) => {
+  if (!EMAIL_REGEX.test(value)) {
+    setErrorsUserContacts({
+      ...errorsUserContacts,
+      email: 'Введите email в формате address@domain.com',
+    })
+    setIsValidUserContacts({ ...isValidUserContacts, email: false })
+  } else if (value.length < 5 || value.length > 50) {
+    setErrorsUserContacts({
+      ...errorsUserContacts,
+      email: 'Email должен быть длиной от 5 до 50 символов',
+    })
+    setIsValidUserContacts({ ...isValidUserContacts, email: false })
+  } else {
+    setErrorsUserContacts({
+      ...errorsUserContacts,
+      email: '',
+    })
+    setIsValidUserContacts({ ...isValidUserContacts, email: true })
+  }
+}
+
+export const validationPhone = (
+  value,
+  setIsValidUserContacts,
+  isValidUserContacts,
+  setErrorsUserContacts,
+  errorsUserContacts
+) => {
+  if (value.length < 16) {
+    setErrorsUserContacts({
+      ...errorsUserContacts,
+      phone: 'Номер телефона не может содержать менее 16 символов',
+    })
+    setIsValidUserContacts({ ...isValidUserContacts, phone: false })
+  } else {
+    setErrorsUserContacts({
+      ...errorsUserContacts,
+      phone: '',
+    })
+    setIsValidUserContacts({ ...isValidUserContacts, phone: true })
   }
 }

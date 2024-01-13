@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 // PersonalData page:
 
 // const NAME_REGEX = /^[a-z0-9_-]{2,16}$/

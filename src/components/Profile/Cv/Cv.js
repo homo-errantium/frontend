@@ -22,6 +22,7 @@ const Cv = ({
   arrValues,
   setIsResumeNamePopupOpen,
   setPopupCopyLink,
+  setPopupCopyLinkText,
 }) => {
   const resumePath = `/resume/result/${cv.id}`
   const navigate = useNavigate()
@@ -132,7 +133,7 @@ const Cv = ({
           className="profile__cv-menu-option link"
           type="button"
           onClick={() => {
-            copyToClipboard(resumePath, setPopupCopyLink)
+            copyToClipboard(resumePath, setPopupCopyLink, setPopupCopyLinkText)
           }}
         >
           <img
@@ -261,6 +262,7 @@ Cv.propTypes = {
   ).isRequired,
   setIsResumeNamePopupOpen: PropTypes.func.isRequired,
   setPopupCopyLink: PropTypes.func.isRequired,
+  setPopupCopyLinkText: PropTypes.func.isRequired,
 }
 
 Cv.defaultProps = {
