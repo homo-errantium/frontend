@@ -95,7 +95,7 @@ function Header({
   if (isProfilePage()) {
     return (
       <header className="header header_main">
-        <div className="header__flex-container header__flex-container_main">
+        <div className="header__flex-container">
           <NavLink className="header__nav-link" to="/">
             <div className="header__logo">
               <img
@@ -172,7 +172,7 @@ function Header({
   if (isResultPage()) {
     return (
       <header className="header">
-        <div className="header__flex-container">
+        <div className="header__flex-container header__flex-container_main">
           <button
             className="header__button"
             type="button"
@@ -190,7 +190,7 @@ function Header({
           </button>
           <div className="header__steps-buttons">
             <button
-              className="header__button header__button_black header__button_prev"
+              className="header__button header__button_black"
               type="button"
               label="button"
               onClick={() => navigate('/resume/personal-data')}
@@ -255,7 +255,7 @@ function Header({
   if (isMainPage() && isLoggedIn) {
     return (
       <header className="header header_main">
-        <div className="header__flex-container header__flex-container_main">
+        <div className="header__flex-container">
           <NavLink className="header__nav-link" to="/">
             <div className="header__logo">
               <img
@@ -313,7 +313,6 @@ function Header({
               onClick={() => {
                 cleanLocalStorage()
                 navigate('/')
-                // TODO очистить localStorage?
               }}
             >
               Выйти
@@ -334,7 +333,7 @@ function Header({
   if (isMainPage() && !isLoggedIn) {
     return (
       <header className="header header_main">
-        <div className="header__flex-container header__flex-container_main">
+        <div className="header__flex-container">
           <NavLink className="header__nav-link" to="/">
             <div className="header__logo">
               <img
@@ -399,14 +398,16 @@ function Header({
   // Логин и регистрация
   if (isLogRegPage()) {
     return (
-      <header className="header_white">
-        <NavLink className="header__nav-link" to="/">
-          <img
-            alt="логотип компании"
-            src={ResumeLogoBlack}
-            className="header__logo-resume-plus"
-          />
-        </NavLink>
+      <header className="header header_white">
+        <div className="header__container">
+          <NavLink className="header__nav-link" to="/">
+            <img
+              alt="логотип компании"
+              src={ResumeLogoBlack}
+              className="header__logo-resume_plus"
+            />
+          </NavLink>
+        </div>
       </header>
     )
   }
@@ -414,7 +415,7 @@ function Header({
   if (!(isMainPage() && isLogRegPage())) {
     return (
       <header className="header">
-        <div className="header__flex-container">
+        <div className="header__flex-container header__flex-container_main">
           {isLoggedIn ? (
             <button
               className="header__button"
@@ -456,10 +457,10 @@ function Header({
               Главная страница
             </button>
           )}
-          <div className="header__steps-buttons">
+          <div className="header__steps-buttons header__steps-buttons_end">
             {!isPersonDataPage() && (
               <button
-                className="header__button header__button_prev"
+                className="header__button"
                 type="button"
                 label="button"
                 onClick={() => navigate(-1)}
@@ -491,7 +492,7 @@ function Header({
               Следующий шаг
               <div className="header__button-icon_flex-container">
                 <img
-                  className="header__button-icon header__button-icon-next"
+                  className="header__button-icon header__button-icon_next"
                   alt="стрелка вправо"
                   src={RightArrowIcon}
                 />
