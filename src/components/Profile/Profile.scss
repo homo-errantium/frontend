@@ -287,7 +287,9 @@
   width: 263px;
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0.5s, opacity 0.2s linear;
+  transition:
+    visibility 0.5s,
+    opacity 0.2s linear;
   z-index: 2;
 }
 
@@ -305,7 +307,9 @@
   height: 100vh;
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0.5s, opacity 0.2s linear;
+  transition:
+    visibility 0.5s,
+    opacity 0.2s linear;
   z-index: 1;
 }
 
@@ -371,14 +375,14 @@
 }
 
 .profile-input__error {
-    margin: 4px 0 0;
-    color: #FF4B4B;
-    font-family: "Open Sans", sans-serif;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    text-align: left;
-    min-height: 20px;
-    width: 100%;
+  margin: 4px 0 0;
+  color: #ff4b4b;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: left;
+  min-height: 20px;
+  width: 100%;
 }

@@ -20,6 +20,7 @@ import {
 } from '../../constants/validation'
 
 function Profile({
+  setIsLoggedIn,
   isEditMod,
   setCurrentResume,
   currentResume,
@@ -337,6 +338,7 @@ function Profile({
   return (
     <>
       <Header
+        setIsLoggedIn={setIsLoggedIn}
         isLoggedIn={isLoggedIn}
         nextPage={nextPage}
         setIsEditMod={setIsEditMod}
@@ -545,14 +547,14 @@ function Profile({
                         </label>
                       </form>
                     )}
-                    <button
+                    {/* <button
                       className="profile__save-button link"
                       type="button"
                       disabled={!isValidUserInfoData}
                       onClick={handleClickUserData}
                     >
                       Сохранить изменения
-                    </button>
+                    </button> */}
                   </div>
                 </>
               )}
@@ -647,6 +649,7 @@ function Profile({
 }
 
 Profile.propTypes = {
+  setIsLoggedIn: PropTypes.func.isRequired,
   isEditMod: PropTypes.bool.isRequired,
   values: PropTypes.objectOf(
     PropTypes.oneOfType([
