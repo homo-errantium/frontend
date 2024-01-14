@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { EMAIL_REGEX } from '../../../constants/regex'
 import RegistrationField from '../../Register/RegistrationForm/RegistrationField/RegistrationField'
-import './LoginForm.scss'
 import '../../Register/RegistrationForm/RegistrationForm.scss'
 
 const LoginForm = ({ buttonText, onSubmit, popup }) => {
@@ -60,14 +59,14 @@ const LoginForm = ({ buttonText, onSubmit, popup }) => {
   }
 
   return (
-    <section className="login-form registration-form">
+    <section className="registration-form">
       <form
-        className="login-form__form registration-form__form"
+        className="registration-form__form"
         name="login"
         onSubmit={handleSubmit}
         noValidate
       >
-        <div className="login-form__fields registration-form__fields">
+        <div className="registration-form__fields">
           <RegistrationField
             label="E-mail"
             name="email"
@@ -89,14 +88,12 @@ const LoginForm = ({ buttonText, onSubmit, popup }) => {
           />
         </div>
         {responseMessage && (
-          <p className="login-form__input-error registration-form__input-error">
-            {responseMessage}
-          </p>
+          <p className="registration-form__input-error">{responseMessage}</p>
         )}
 
         <button
           type="submit"
-          className={`login-form__button registration-form__button ${
+          className={`registration-form__button ${
             !isValid ? 'registration-form__button_inactive' : 'link'
           } ${popup && 'registration-form__button_popup'}`}
           disabled={!isValid}
