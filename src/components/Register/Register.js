@@ -18,7 +18,7 @@ const Register = ({ onRegister }) => (
             onSubmit={onRegister}
           />
         </div>
-        <div className="register_link-container">
+        <div className="register__link-container">
           <FormRedirection
             page="register"
             text="Уже есть аккаунт?"

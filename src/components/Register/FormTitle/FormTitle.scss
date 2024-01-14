@@ -1,26 +1,25 @@
-.form-title__container {
+.form-title {
 	margin: 0 156px;
-}
 
-.form-title__container_register {
-	margin-top: 52px;
-}
+  &_register {
+    margin-top: 52px;
+  }
 
-.form-title__container_login {
-	margin-top: 73px;
-}
+  &_login {
+    margin-top: 73px;
+  }
 
-.form-title__greeting {
-	margin: 0;
-	color: #FFF;
-	font-family: Inter;
-	font-size: 32px;
-	font-weight: 400;
-	line-height: 1.21;
-	text-align: center;
-}
+  &_popup {
+	  margin: 0 0 24px;
+  }
 
-/*Popup*/
-.form-title__container_popup {
-	margin: 0 0 24px;
+  &__greeting {
+    margin: 0;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1.21;
+    text-align: center;
+  }
 }

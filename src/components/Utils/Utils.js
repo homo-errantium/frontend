@@ -25,7 +25,11 @@ export function cleanLocalStorage() {
   localStorage.removeItem('hasQualification')
 }
 
-export function copyToClipboard(resumePath, setPopupCopyLink) {
+export function copyToClipboard(
+  resumePath,
+  setPopupCopyLink,
+  setPopupCopyLinkText
+) {
   // navigator.clipboard.writeText(
   //   `http://localhost:3000${resumePath}#${resumePath}`
   // )
@@ -33,6 +37,7 @@ export function copyToClipboard(resumePath, setPopupCopyLink) {
     `https://creating-and-editing-a-resume.github.io/frontend/#${resumePath}`
   )
   setPopupCopyLink(true)
+  setPopupCopyLinkText('Ссылка скопирована')
   setTimeout(() => {
     setPopupCopyLink(false)
   }, 2500)

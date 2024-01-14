@@ -49,7 +49,7 @@ import { exampleObject } from '../../constants/exampleResume'
 function App() {
   // ----------------------------------------Переменные------------------------------------------------------
   const location = useLocation()
-  const [isLoggedIn, setIsLoggedIn] = React.useState(true) // Пользователь авторизован/неавторизован
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false) // Пользователь авторизован/неавторизован
   const [currentUser, setCurrentUser] = React.useState(
     JSON.parse(localStorage.getItem('user')) || {}
   ) // Сохраняем данные пользователя
@@ -78,6 +78,8 @@ function App() {
       name: isLoggedIn ? currentUser.name : '',
       surname: isLoggedIn ? currentUser.surname : '',
       birthday: isLoggedIn ? currentUser.birthday : '',
+      telegram: isLoggedIn ? currentUser.telegram : '',
+      phone: isLoggedIn ? currentUser.phone : '',
       work_status: '',
       email: isLoggedIn ? currentUser.email : '',
       city: isLoggedIn ? currentUser.city : '',
@@ -1163,6 +1165,7 @@ function App() {
                 setHasQualification={setHasQualification}
                 setHasExperience={setHasExperience}
                 setAllTillPresent={setAllTillPresent}
+                setIsLoggedIn={setIsLoggedIn}
               />
             }
           />
@@ -1170,6 +1173,7 @@ function App() {
             path="/"
             element={
               <Main
+                setIsLoggedIn={setIsLoggedIn}
                 isLoggedIn={isLoggedIn}
                 onOpenPopup={handleConfirmRegPopupOpen}
                 isValid={isValid}

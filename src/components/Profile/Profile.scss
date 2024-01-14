@@ -52,6 +52,7 @@
   margin-top: 32px;
   display: flex;
   column-gap: 20px;
+  width: 100%;
 }
 
 .profile__photo {
@@ -70,10 +71,9 @@
 .profile__input-label {
   display: flex;
   flex-direction: column;
-  row-gap: 12px;
   align-items: flex-start;
-  // margin-bottom: 20px;
-  width: 98%;
+  // margin-bottom: 12px;
+  width: 94%;
   position: relative;
   color: #212121;
   font-family: 'Open Sans', sans-serif;
@@ -83,18 +83,18 @@
 }
 
 .profile__input-label_double-short {
-  width: 40%;
+  max-width: 193px;
 }
 .profile__input-label_double-long {
-  width: 60%;
+  max-width: 100%;
 }
 
 .profile__input {
   border-radius: 16px;
   border: 1px solid #9f9f9f;
   background: #fff;
-  width: 94%;
-  padding-left: 12px;
+  width: 100%;
+  padding: 0 0 0 12px;
   height: 48px;
   outline: #000;
   color: #212121;
@@ -102,6 +102,8 @@
   font-size: 20px;
   font-weight: 400;
   line-height: 1.2;
+  margin: 12px 0 0;
+  box-sizing: border-box;
 }
 
 .profile__input:disabled {
@@ -127,13 +129,13 @@
   font-weight: 400;
   line-height: 1.2;
   width: 95%;
-  // max-width: 422px;
   height: 52px;
   padding: 0;
 }
 
 .profile__save-button:disabled {
-  cursor: none;
+  cursor: default;
+  opacity: 1;
   background-color: grey;
 }
 
@@ -145,13 +147,13 @@
 
 .profile__double-input-container {
   display: flex;
-  gap: 36px;
-  width: 95%;
+  column-gap: 20px;
+  width: 100%;
 }
 
 .profile__checkbox-label {
   display: block;
-  margin: 0;
+  margin: 14.5px 0 0;
   cursor: pointer;
   user-select: none;
   position: relative;
@@ -184,6 +186,7 @@
   display: block;
   width: 0;
   height: 0;
+  padding-top: 14.5px;
 }
 
 .profile__checkbox-label .profile__checkbox-text {
@@ -284,7 +287,9 @@
   width: 263px;
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0.5s, opacity 0.2s linear;
+  transition:
+    visibility 0.5s,
+    opacity 0.2s linear;
   z-index: 2;
 }
 
@@ -302,7 +307,9 @@
   height: 100vh;
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0.5s, opacity 0.2s linear;
+  transition:
+    visibility 0.5s,
+    opacity 0.2s linear;
   z-index: 1;
 }
 
@@ -365,4 +372,17 @@
   font-size: 20px;
   text-align: left;
   line-height: 120%;
+}
+
+.profile-input__error {
+  margin: 4px 0 0;
+  color: #ff4b4b;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: left;
+  min-height: 20px;
+  width: 100%;
 }

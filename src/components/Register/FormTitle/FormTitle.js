@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import './FormTitle.scss'
 
 const FormTitle = ({ page, greeting }) => (
-  <div className={`form-title__container form-title__container_${page}`}>
+  <div className={`form-title form-title_${page}`}>
     <h1 className="form-title__greeting">{greeting}</h1>
   </div>
 )

@@ -17,6 +17,7 @@ import { handleOpenPopup, cleanLocalStorage } from '../Utils/Utils'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
 function Header({
+  setIsLoggedIn,
   values,
   setValues,
   arrValues,
@@ -95,7 +96,7 @@ function Header({
   if (isProfilePage()) {
     return (
       <header className="header header_main">
-        <div className="header__flex-container header__flex-container_main">
+        <div className="header__flex-container">
           <NavLink className="header__nav-link" to="/">
             <div className="header__logo">
               <img
@@ -119,6 +120,8 @@ function Header({
                   name: currentUser.name,
                   surname: currentUser.surname,
                   birthday: currentUser.birthday,
+                  telegram: currentUser.telegram,
+                  phone: currentUser.phone,
                   work_status: '',
                   email: currentUser.email,
                   city: currentUser.city,
@@ -133,7 +136,7 @@ function Header({
                   educations: [],
                   portfolio: [],
                 })
-                setImage('')
+                setImage(currentUser.imageProfile)
                 setHasExperience(true)
                 setHasQualification(true)
                 setAllTillPresent({})
@@ -149,6 +152,7 @@ function Header({
                 cleanLocalStorage()
                 setValues({})
                 setImage('')
+                setIsLoggedIn(false)
                 navigate('/')
               }}
             >
@@ -170,7 +174,7 @@ function Header({
   if (isResultPage()) {
     return (
       <header className="header">
-        <div className="header__flex-container">
+        <div className="header__flex-container header__flex-container_main">
           <button
             className="header__button"
             type="button"
@@ -188,7 +192,7 @@ function Header({
           </button>
           <div className="header__steps-buttons">
             <button
-              className="header__button header__button_black header__button_prev"
+              className="header__button header__button_black"
               type="button"
               label="button"
               onClick={() => navigate('/resume/personal-data')}
@@ -253,7 +257,7 @@ function Header({
   if (isMainPage() && isLoggedIn) {
     return (
       <header className="header header_main">
-        <div className="header__flex-container header__flex-container_main">
+        <div className="header__flex-container">
           <NavLink className="header__nav-link" to="/">
             <div className="header__logo">
               <img
@@ -280,6 +284,8 @@ function Header({
                   name: isLoggedIn ? currentUser.name : '',
                   surname: isLoggedIn ? currentUser.surname : '',
                   birthday: isLoggedIn ? currentUser.birthday : '',
+                  telegram: isLoggedIn ? currentUser.telegram : '',
+                  phone: isLoggedIn ? currentUser.phone : '',
                   work_status: '',
                   email: isLoggedIn ? currentUser.email : '',
                   city: isLoggedIn ? currentUser.city : '',
@@ -294,7 +300,7 @@ function Header({
                   educations: [],
                   portfolio: [],
                 })
-                setImage('')
+                setImage(isLoggedIn ? currentUser.imageProfile : '')
                 setHasExperience(true)
                 setHasQualification(true)
                 setAllTillPresent({})
@@ -308,8 +314,10 @@ function Header({
               label="button"
               onClick={() => {
                 cleanLocalStorage()
+                setValues({})
+                setImage('')
+                setIsLoggedIn(false)
                 navigate('/')
-                // TODO очистить localStorage?
               }}
             >
               Выйти
@@ -330,7 +338,7 @@ function Header({
   if (isMainPage() && !isLoggedIn) {
     return (
       <header className="header header_main">
-        <div className="header__flex-container header__flex-container_main">
+        <div className="header__flex-container">
           <NavLink className="header__nav-link" to="/">
             <div className="header__logo">
               <img
@@ -395,14 +403,16 @@ function Header({
   // Логин и регистрация
   if (isLogRegPage()) {
     return (
-      <header className="header_white">
-        <NavLink className="header__nav-link" to="/">
-          <img
-            alt="логотип компании"
-            src={ResumeLogoBlack}
-            className="header__logo-resume-plus"
-          />
-        </NavLink>
+      <header className="header header_white">
+        <div className="header__container">
+          <NavLink className="header__nav-link" to="/">
+            <img
+              alt="логотип компании"
+              src={ResumeLogoBlack}
+              className="header__logo-resume_plus"
+            />
+          </NavLink>
+        </div>
       </header>
     )
   }
@@ -410,7 +420,7 @@ function Header({
   if (!(isMainPage() && isLogRegPage())) {
     return (
       <header className="header">
-        <div className="header__flex-container">
+        <div className="header__flex-container header__flex-container_main">
           {isLoggedIn ? (
             <button
               className="header__button"
@@ -452,10 +462,10 @@ function Header({
               Главная страница
             </button>
           )}
-          <div className="header__steps-buttons">
+          <div className="header__steps-buttons header__steps-buttons_end">
             {!isPersonDataPage() && (
               <button
-                className="header__button header__button_prev"
+                className="header__button"
                 type="button"
                 label="button"
                 onClick={() => navigate(-1)}
@@ -487,7 +497,7 @@ function Header({
               Следующий шаг
               <div className="header__button-icon_flex-container">
                 <img
-                  className="header__button-icon header__button-icon-next"
+                  className="header__button-icon header__button-icon_next"
                   alt="стрелка вправо"
                   src={RightArrowIcon}
                 />
@@ -556,9 +566,12 @@ Header.propTypes = {
   inputsAreNotEmpty: PropTypes.bool,
   setHasExperience: PropTypes.func,
   setHasQualification: PropTypes.func,
-  setAllTillPresent: PropTypes.func.isRequired,
+  setAllTillPresent: PropTypes.func,
+  setIsLoggedIn: PropTypes.func,
 }
 Header.defaultProps = {
+  setAllTillPresent: () => {},
+  setIsLoggedIn: () => {},
   values: {},
   arrValues: [],
   setValues: () => {},

@@ -14,6 +14,7 @@ import { handleOpenPopup } from '../Utils/Utils'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
 function Main({
+  setIsLoggedIn,
   isLoggedIn,
   onOpenPopup,
   isValid,
@@ -56,6 +57,7 @@ function Main({
   return (
     <>
       <Header
+        setIsLoggedIn={setIsLoggedIn}
         isLoggedIn={isLoggedIn}
         nextPage={nextPage}
         onOpenPopup={onOpenPopup}
@@ -86,6 +88,8 @@ function Main({
                   name: isLoggedIn ? currentUser.name : '',
                   surname: isLoggedIn ? currentUser.surname : '',
                   birthday: isLoggedIn ? currentUser.birthday : '',
+                  telegram: isLoggedIn ? currentUser.telegram : '',
+                  phone: isLoggedIn ? currentUser.phone : '',
                   work_status: '',
                   email: isLoggedIn ? currentUser.email : '',
                   city: isLoggedIn ? currentUser.city : '',
@@ -100,7 +104,7 @@ function Main({
                   educations: [],
                   portfolio: [],
                 })
-                setImage('')
+                setImage(currentUser.imageProfile)
                 setHasExperience(true)
                 setHasQualification(true)
                 setAllTillPresent({})
@@ -172,6 +176,7 @@ function Main({
 }
 
 Main.propTypes = {
+  setIsLoggedIn: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   onOpenPopup: PropTypes.func.isRequired,
   setValues: PropTypes.func.isRequired,
