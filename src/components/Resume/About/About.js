@@ -15,7 +15,7 @@ const About = ({ values, handleChangeWithValidation, setAbout }) => {
         title="Обо мне"
         handleBackToBasicRecommend={handleBackToBasicRecommend}
       />
-      <div className="experience__form-container">
+      <div className="experience__form-container experience__form-container_about-me">
         <FormInput
           name="about"
           values={values}

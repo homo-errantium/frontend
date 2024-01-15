@@ -75,7 +75,7 @@ const Qualification = ({
       />
       <div className="qualification__form-container experience__form-container">
         <div
-          className="qualification__basic-recommend"
+          className="qualification__basic-recommend qualification__basic-recommend_top"
           onClick={handleBackToBasicRecommend}
           onKeyDown={handleBackToBasicRecommend}
           onFocus={handleBackToBasicRecommend}
@@ -137,7 +137,7 @@ const Qualification = ({
           setQualifications={setQualifications}
         />
         <div
-          className="qualification__basic-recommend"
+          className="qualification__basic-recommend qualification__basic-recommend_bottom"
           onClick={handleBackToBasicRecommend}
           onKeyDown={handleBackToBasicRecommend}
           onFocus={handleBackToBasicRecommend}

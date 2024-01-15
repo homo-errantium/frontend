@@ -41,7 +41,7 @@ function Result({ values, setIsTempResume }) {
             Скопировать ссылку
           </button>
           <button
-            className="result__button"
+            className="result__button result__button_right"
             type="button"
             label="button"
             onClick={() => {

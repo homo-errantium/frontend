@@ -547,14 +547,14 @@ function Profile({
                         </label>
                       </form>
                     )}
-                    {/* <button
+                    <button
                       className="profile__save-button link"
                       type="button"
                       disabled={!isValidUserInfoData}
                       onClick={handleClickUserData}
                     >
                       Сохранить изменения
-                    </button> */}
+                    </button>
                   </div>
                 </>
               )}

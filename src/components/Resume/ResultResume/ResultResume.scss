@@ -87,12 +87,6 @@ $font-size-profile: 8.15px;
       list-style: none;
       display: flex;
       align-items: center;
-      // &:not(:first-child)::before {
-      //   content: '•';
-      //   display: inline-block;
-      //   margin: 5px 4px 3px;
-      //   font-size: 10px;
-      // }
 
       &-element {
         font-size: $font-size;

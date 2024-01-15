@@ -1,6 +1,6 @@
 .result {
   width: 57.9%;
-  // min-width: 729px;
+  letter-spacing: 0.7px;
   margin: 0 auto;
   height: 100%;
   min-height: 100vh;
@@ -27,26 +27,32 @@
 
 .result__buttons-container {
   display: flex;
-  column-gap: 8px;
-  max-width: 367px;
+  column-gap: 6px;
+  width: 370px;
 }
 
 .result__button {
   margin: 0;
   line-height: normal;
   display: flex;
-  padding: 10px 16px;
+  padding: 0 19px;
   align-items: center;
   height: 40px;
-  gap: 4px;
+  gap: 6px;
   flex-shrink: 0;
   border-radius: 16px;
   border: 2px solid #1a1b22;
-  font-family: Open Sans, sans-serif;
+  font-family:
+    Open Sans,
+    sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
   // line-height: 120%; /* 24px */
+
+  &_right {
+    padding: 0 14px;
+  }
 }
 
 .result__button:hover {
@@ -54,7 +60,6 @@
 }
 
 @media screen and (max-width: 1300px) {
-
   .result__title {
     font-size: 25px;
   }
@@ -67,5 +72,4 @@
     font-size: 15px;
     padding: 7px 10px;
   }
-
 }

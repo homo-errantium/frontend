@@ -83,12 +83,11 @@ const PersonalData = ({
     setValues({ ...values, links: newLinks })
   }
 
-  // console.log(values.languages)
   return (
     <section className="personal-data personal-data_height">
       <div className="personal-data__container">
         <ResumeTitle title="Персональные данные" />
-        <div className="personal-data__form">
+        <div className="personal-data__form personal-data__form_top">
           <div className="personal-data__form-box">
             <div className="personal-data__form-left-column">
               <FormInput
@@ -164,7 +163,7 @@ const PersonalData = ({
           />
         </div>
         <ResumeTitle title="Контакты" />
-        <div className="personal-data__form">
+        <div className="personal-data__form personal-data__form_bottom">
           <FormInput
             values={values}
             handleChange={handleChangeWithValidation}
@@ -206,7 +205,7 @@ const PersonalData = ({
         </div>
         <ResumeTitle title="Владение языками" />
         {values.languages?.map(lang => (
-          <div className="personal-data__language-form" key={lang.id}>
+          <div className="personal-data__form-language" key={lang.id}>
             <LanguageInput
               values={lang}
               handleLanguageChange={handleLanguageChange}

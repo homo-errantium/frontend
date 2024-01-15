@@ -1,7 +1,7 @@
 .month__container {
   position: relative;
   display: flex;
-  width: 50%;
+  width: 59%;
 }
 
 .month__input {
@@ -21,7 +21,7 @@
   background: #e6e6e6;
 }
 
-.month__input:active{
+.month__input:active {
   border-color: #000;
   outline-offset: 0;
 }
@@ -99,14 +99,12 @@
 }
 
 @media screen and (max-width: 1269px) {
-
   .month__container-list {
     width: 84%;
   }
 }
 
 @media screen and (max-width: 1238px) {
-
   .month__container-list {
     width: 84.5%;
   }

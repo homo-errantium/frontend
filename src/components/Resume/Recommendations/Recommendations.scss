@@ -1,5 +1,6 @@
 .recommend {
   width: 39.1%;
+  // margin-right: 4px;
   // height: calc(100vh - 92px);
   padding-bottom: 92px;
   padding-left: 20px;
@@ -7,7 +8,7 @@
 }
 
 .recommend__image {
-  margin-top: 32px;
+  margin-top: 34px;
   width: 495px;
   height: 330px;
 }
@@ -26,7 +27,7 @@
 }
 
 .recommend__container {
-  margin-top: 32px;
+  margin-top: 35px;
 }
 
 .recommend__text {
@@ -35,7 +36,7 @@
   font-family: Inter;
   font-size: 20px;
   font-weight: 400;
-  line-height: 1.2;
+  line-height: 1.25;
   text-align: left;
   margin: 0;
 }
@@ -44,7 +45,6 @@
   margin: 0;
   margin-left: 13px;
   padding-left: 15px;
-
 }
 
 .recommend__list-item {
@@ -62,7 +62,7 @@
 .recommend__duties-component {
   padding: 2.8% 7.3%;
   border-radius: 8px;
-  border: 1px solid #DA693F;
+  border: 1px solid #da693f;
   background: #fff;
   width: 30%;
   height: 74px;
@@ -84,9 +84,9 @@
 }
 
 .recommend__duties-example {
-  padding: 28px;
+  padding: 18px 26px 17px 15px;
   border-radius: 20px;
-  border: 2px solid #DA693F;
+  border: 2px solid #da693f;
   background: #fff;
   display: flex;
   gap: 8px;
@@ -110,7 +110,7 @@
 }
 
 .recommend__job-selector-container {
-  margin-top: 21px;
+  margin-top: 48px;
   width: 260px;
   position: relative;
   border: none;
@@ -131,7 +131,7 @@
   outline: none;
 }
 .recommend__job-selector_active {
-  border-color: #DA693F;
+  border-color: #da693f;
   background-color: #fff;
   outline-offset: 0;
 }

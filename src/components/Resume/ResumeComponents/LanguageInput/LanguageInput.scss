@@ -1,7 +1,7 @@
 .language-input {
   display: flex;
   flex-direction: row;
-  margin: 36px 0 0;
+  margin: 38px 0 0;
   gap: 20px;
   width: 100%;
   align-items: flex-end;
@@ -46,7 +46,7 @@
   padding: 12px;
 }
 
-.language-input__field:active{
+.language-input__field:active {
   border-color: #000;
   outline-offset: 0;
 }
@@ -74,7 +74,7 @@
   background-position: center;
 }
 .language-input__button-delete:hover {
-    background-image: url(../../../../img/delete-button-hover.svg);
+  background-image: url(../../../../img/delete-button-hover.svg);
 }
 .language-input__button-add {
   width: 48px;
@@ -89,5 +89,5 @@
   background-position: center;
 }
 .language-input__button-add:hover {
-    background-image: url(../../../../img/add-button-hover.svg);
+  background-image: url(../../../../img/add-button-hover.svg);
 }

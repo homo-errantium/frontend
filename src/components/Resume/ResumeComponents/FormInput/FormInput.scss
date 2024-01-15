@@ -9,7 +9,7 @@
 }
 
 .form-input__label {
-  margin-bottom: 12px;
+  margin-bottom: 11px;
   text-align: left;
   color: #000;
   font-family:
@@ -28,10 +28,11 @@
   height: 22px;
   padding: 12px;
   resize: none;
+  font-size: 120%;
 }
 
 .form-input__field_error {
-  border-color: #FF4B4B;
+  border-color: #ff4b4b;
 }
 
 .form-input__field:disabled {
@@ -50,32 +51,32 @@
 }
 
 .form-input__field_responsibilities {
-  min-height: 200px;
+  min-height: 175px;
 }
 
 .form-input__field_qualification-experience {
-  min-height: 124px;
+  min-height: 174px;
 }
 
 .form-input__field_qualification-skills {
-  min-height: 124px;
+  min-height: 174px;
 }
 
 .form-input__field_portfolio {
-  min-height: 124px;
+  min-height: 174px;
 }
 
 .form-input__field_about {
-  min-height: 144px;
+  min-height: 174px;
 }
 
 .form-input__input-error {
   margin: 4px 0 0;
-  color: #FF4B4B;
-font-family: 'Open Sans', sans-serif;
-font-size: 14px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-text-align: left;
+  color: #ff4b4b;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: left;
 }

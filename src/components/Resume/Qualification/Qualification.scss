@@ -1,7 +1,16 @@
 .qualification__basic-recommend {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 29px;
   margin: 36px 0;
   max-width: 729px;
+
+  &_top {
+    margin-bottom: -4px;
+  }
+
+  &_bottom {
+    margin-top: -4px;
+    margin-bottom: 1px;
+  }
 }

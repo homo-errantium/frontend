@@ -2,13 +2,17 @@
   display: flex;
   flex-direction: column;
   gap: 32px;
-  margin: 36px 0;
+  margin: 39px 0;
   max-width: 729px;
+
+  &_about-me {
+    margin-top: 27px;
+  }
 }
 .experience__basic-recommend {
   display: flex;
   flex-direction: column;
-  gap: 32px;
-  margin: 36px 0;
+  gap: 29px;
+  margin: 36px 0 1px;
   max-width: 729px;
 }
