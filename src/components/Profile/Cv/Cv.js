@@ -79,42 +79,38 @@ const Cv = ({
   }, [arrValues])
 
   return (
-    <div className="profile__cv-container">
-      <div className="profile__cv-image-container">
-        <div className="profile__cv-content">
+    <div className="cv-container">
+      <div className="cv-containe__image">
+        <div className="cv-container__content">
           <ResultResume values={cv} />
         </div>
         <button
           type="button"
-          className="profile__cv-changes-button link"
+          className="cv-container__change-button link"
           onClick={openCvMenu}
         >
           <img src={ellipsesIcon} alt="многоточие" className="link" />
         </button>
       </div>
-      <span className="profile__cv-name">{cv.resume_name}</span>
+      <span className="cv-container__name">{cv.resume_name}</span>
       <div
         className={classNames(
-          'profile__bcg',
-          isEditCvPopupOpen ? 'profile__bcg_opened' : ''
+          'cv-container__bcg',
+          isEditCvPopupOpen ? 'cv-container__bcg_opened' : ''
         )}
       />
       <div
         className={classNames(
-          'profile__cv-menu',
-          isEditCvPopupOpen ? 'profile__cv-menu_opened' : ''
+          'cv-container__menu',
+          isEditCvPopupOpen ? 'cv-container__menu_opened' : ''
         )}
       >
         <button
-          className="profile__cv-menu-option link"
+          className="cv-container__menu-option link"
           type="button"
           onClick={handleEditResume}
         >
-          <img
-            src={EditIcon}
-            alt="карандашик"
-            className="profile__cv-menu-icon"
-          />
+          <img src={EditIcon} alt="карандашик" className="cv-container__icon" />
           Редактировать
         </button>
         <button
@@ -125,26 +121,22 @@ const Cv = ({
           <img
             src={DownloadIcon}
             alt="скачивание"
-            className="profile__cv-menu-icon"
+            className="cv-container__icon"
           />
           Скачать в PDF
         </button>
         <button
-          className="profile__cv-menu-option link"
+          className="cv-container__menu-option link"
           type="button"
           onClick={() => {
             copyToClipboard(resumePath, setPopupCopyLink, setPopupCopyLinkText)
           }}
         >
-          <img
-            src={linkIcon}
-            alt="скачивание"
-            className="profile__cv-menu-icon"
-          />
+          <img src={linkIcon} alt="скачивание" className="cv-container__icon" />
           Скопировать ссылку
         </button>
         <button
-          className="profile__cv-menu-option link"
+          className="cv-container__menu-option link"
           type="button"
           onClick={() => {
             setIsEditCvPopupOpen(false)
@@ -152,22 +144,18 @@ const Cv = ({
             handleEditName()
           }}
         >
-          <img
-            src={EditIcon}
-            alt="карандашик"
-            className="profile__cv-menu-icon"
-          />
+          <img src={EditIcon} alt="карандашик" className="cv-container__icon" />
           Переименовать
         </button>
         <button
-          className="profile__cv-menu-option profile__cv-menu-option_red link"
+          className="cv-container__menu-option cv-container__menu-option_red link"
           type="button"
           onClick={handleDelete}
         >
           <img
             src={DeleteIcon}
             alt="скачивание"
-            className="profile__cv-menu-icon"
+            className="cv-container__icon"
           />
           Удалить резюме
         </button>
