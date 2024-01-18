@@ -28,7 +28,7 @@ const Job = ({
 
   return (
     <>
-      <div className="job__job-container experience__job-container" id={i}>
+      <div className="job__container" id={i}>
         <div
           className="job__job-container-basic-rec"
           onClick={handleBackToBasicRecommend}
