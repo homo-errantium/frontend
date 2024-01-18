@@ -74,27 +74,33 @@ function PopupResumeName({
           value={values.resume_name || ''}
           onChange={handleChange}
         />
-      </form>
-      <div className="resume-name__buttons">
-        <button
-          className="resume-name__button resume-name__button_delete"
-          type="button"
-          label="button"
-          onClick={handleClick}
-        >
-          <img alt="корзина" src={TrashLogo} />
-          Удалить
-        </button>
+        <div className="resume-name__buttons">
+          <button
+            className="resume-name__button resume-name__button_delete"
+            type="button"
+            label="button"
+            onClick={handleClick}
+          >
+            <img alt="корзина" src={TrashLogo} />
+            Удалить
+          </button>
 
-        <button
-          className="resume-name__button resume-name__button_save"
-          type="button"
-          label="button"
-          onClick={handleSubmit}
-        >
-          Сохранить
-        </button>
-      </div>
+          <button
+            className="resume-name__button resume-name__button_save"
+            type="button"
+            label="button"
+            onClick={handleSubmit}
+          >
+            Сохранить
+          </button>
+          <button
+            className="resume-name__btn-close"
+            type="button"
+            onClick={onClose}
+            label="button"
+          />
+        </div>
+      </form>
     </div>
   )
 }

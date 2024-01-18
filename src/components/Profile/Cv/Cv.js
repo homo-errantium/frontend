@@ -36,7 +36,7 @@ const Cv = ({
     }
 
     const closeMouseDown = e => {
-      if (e.target.classList.contains('profile__bcg')) {
+      if (e.target.classList.contains('cv-container__bcg')) {
         setIsEditCvPopupOpen(false)
       }
     }
@@ -114,7 +114,7 @@ const Cv = ({
           Редактировать
         </button>
         <button
-          className="profile__cv-menu-option link"
+          className="cv-container__menu-option link"
           type="button"
           onClick={handleDownload}
         >
