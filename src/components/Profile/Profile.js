@@ -397,7 +397,7 @@ function Profile({
                         className="profile__input"
                         onChange={handleChangeUserData}
                       />
-                      <span className="profile-input__error">
+                      <span className="profile__input-error">
                         {errorsUserInfo.name}
                       </span>
                     </label>
@@ -412,7 +412,7 @@ function Profile({
                         value={currentUser.surname || ''}
                         onChange={handleChangeUserData}
                       />
-                      <span className="profile-input__error">
+                      <span className="profile__input-error">
                         {errorsUserInfo.surname}
                       </span>
                     </label>
@@ -433,7 +433,7 @@ function Profile({
                             onChange={handleChangeUserData}
                             mask="date"
                           />
-                          <span className="profile-input__error">
+                          <span className="profile__input-error">
                             {errorsUserInfo.birthday}
                           </span>
                         </label>
@@ -450,7 +450,7 @@ function Profile({
                             value={currentUser.city || ''}
                             onChange={handleChangeUserData}
                           />
-                          <span className="profile-input__error">
+                          <span className="profile__input-error">
                             {errorsUserInfo.city}
                           </span>
                         </label>
@@ -505,7 +505,7 @@ function Profile({
                             onChange={handleChangePassword}
                             required
                           />
-                          <span className="profile-input__error">
+                          <span className="profile__input-error">
                             {errorsUserInfo.previousPassword}
                           </span>
                         </label>
@@ -523,7 +523,7 @@ function Profile({
                             onChange={handleChangePassword}
                             required
                           />
-                          <span className="profile-input__error">
+                          <span className="profile__input-error">
                             {errorsUserInfo.newPassword}
                           </span>
                         </label>
@@ -541,20 +541,20 @@ function Profile({
                             required
                             onChange={handleChangePassword}
                           />
-                          <span className="profile-input__error">
+                          <span className="profile__input-error">
                             {errorsUserInfo.passwordConfirmation}
                           </span>
                         </label>
                       </form>
                     )}
-                    {/* <button
+                    <button
                       className="profile__save-button link"
                       type="button"
                       disabled={!isValidUserInfoData}
                       onClick={handleClickUserData}
                     >
                       Сохранить изменения
-                    </button> */}
+                    </button>
                   </div>
                 </>
               )}
@@ -570,11 +570,11 @@ function Profile({
                       value={currentUser.email || ''}
                       onChange={handleChangeUserContacts}
                     />
-                    <span className="profile-input__error">
+                    <span className="profile__input-error">
                       {errorsUserContacts.email}
                     </span>
                   </label>
-                  <div className="profile__double-input-container">
+                  <div className="profile__double-input-container profile__double-input-container_contacts">
                     <label htmlFor="phone" className="profile__input-label">
                       Телефон
                       <input
@@ -586,7 +586,7 @@ function Profile({
                         onChange={handleChangeUserContacts}
                         mask="phone"
                       />
-                      <span className="profile-input__error">
+                      <span className="profile__input-error">
                         {errorsUserContacts.phone}
                       </span>
                     </label>
@@ -601,7 +601,7 @@ function Profile({
                         onChange={handleChangeUserContacts}
                         mask="tgLink"
                       />
-                      <span className="profile-input__error">
+                      <span className="profile__input-error">
                         {errorsUserContacts.telegram}
                       </span>
                     </label>
