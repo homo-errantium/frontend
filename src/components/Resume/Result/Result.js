@@ -7,6 +7,7 @@ import DownloadIcon from '../../../img/download-icon.svg'
 import ResultResume from '../ResultResume/ResultResume'
 import { handleGeneratePdf, copyToClipboard } from '../../Utils/Utils'
 import PopupCopyLink from '../../Popups/PopupCopyLink/PopupCopyLink'
+import ResumeTitle from '../ResumeComponents/ResumeTitle/ResumeTitle'
 
 function Result({ values, setIsTempResume }) {
   const [popupCopyLink, setPopupCopyLink] = React.useState(false)
@@ -17,7 +18,7 @@ function Result({ values, setIsTempResume }) {
   return (
     <section className="result">
       <div className="result__header">
-        <h1 className="result__title">Готовое резюме</h1>
+        <ResumeTitle title="Готовое резюме" />
         <div className="result__buttons-container">
           <button
             className="result__button"

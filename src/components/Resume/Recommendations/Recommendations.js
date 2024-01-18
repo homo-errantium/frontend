@@ -17,6 +17,7 @@ import {
 import PlusIcon from '../../../img/plus-icon.svg'
 import ArrowDown from '../../../img/arrow-down-icon.svg'
 import CopyIcon from '../../../img/copy-icon.svg'
+import { jobs } from '../../../constants/jobs'
 
 const Recommendations = ({ duties, qualifications, portfolio, about }) => {
   const clipboard = useClipboard()
@@ -34,58 +35,7 @@ const Recommendations = ({ duties, qualifications, portfolio, about }) => {
 
   // TODO: подставить нужные подсказки
   // Массив с данными для выбора профессии на странице "Опыт работы":
-  const jobs = [
-    {
-      id: 0,
-      job: 'UI/UX designer',
-      duties: [
-        {
-          text: 'Провел тщательное исследование пользовательского поведения, что позволило выявить слабые места в интерфейсе. Внес изменения, которые повысили удовлетворенность клиентов на 25% и сократили время выполнения ключевых задач.',
-        },
-        {
-          text: 'Разработал интерактивные прототипы, которые были использованы для тестирования пользовательских сценариев. Полученные данные использовались для внесения корректив в дизайн, что привело к существенному улучшению пользовательского восприятия.',
-        },
-      ],
-      qualifications: [
-        {
-          text: 'Владение Sketch и InVision позволяет мне создавать визуально привлекательные макеты, а тестирование пользовательских сценариев в UsabilityHub дополняет мой набор навыков. Теперь обладаю необходимыми компетенциями для разработки интуитивных и современных интерфейсов.',
-        },
-        {
-          text: 'Я научился проводить глубокий анализ пользовательских потребностей, применять методики Jobs-to-be-Done для более точного понимания целей пользователей. Я успешно интегрировал Figma API для оптимизации рабочих процессов и создал высокоинтерактивные прототипы с использованием Framer X.',
-        },
-      ],
-    },
-    {
-      id: 1,
-      job: 'Frontend Developer',
-      duties: [{ text: 'front 1' }, { text: 'front 2' }],
-      qualifications: [{ text: 'front 1' }, { text: 'front 2' }],
-    },
-    {
-      id: 2,
-      job: 'Backend Developer',
-      duties: [{ text: 'back 1' }, { text: 'back 2' }],
-      qualifications: [{ text: 'back 1' }, { text: 'back 2' }],
-    },
-    {
-      id: 3,
-      job: 'Project Manager',
-      duties: [{ text: 'PM 1' }, { text: 'PM 2' }],
-      qualifications: [{ text: 'PM 1' }, { text: 'PM 2' }],
-    },
-    {
-      id: 4,
-      job: 'System analyst',
-      duties: [{ text: 'SA 1' }, { text: 'SA 2' }],
-      qualifications: [{ text: 'SA 1' }, { text: 'SA 2' }],
-    },
-    {
-      id: 5,
-      job: 'QA-engineer',
-      duties: [{ text: 'QA 1' }, { text: 'QA 2' }],
-      qualifications: [{ text: 'QA 1' }, { text: 'QA 2' }],
-    },
-  ]
+
   const [jobChoice, setJobChoice] = useState(false)
   const [chosenJob, setChosenJob] = useState(jobs[0].job)
   const chooseThisJob = evt => {
@@ -127,7 +77,7 @@ const Recommendations = ({ duties, qualifications, portfolio, about }) => {
             в зависимости от исполняемых ролей. Не нужно подробно описывать все
             задачи — чем конкретнее, тем лучше:
           </p>
-          <br />
+
           <div className="recommend__duties-formula">
             <span className="recommend__duties-component">
               обязанность <br /> (что сделали)
@@ -137,7 +87,7 @@ const Recommendations = ({ duties, qualifications, portfolio, about }) => {
               инструмент <br /> (как делали)
             </span>
           </div>
-          <br />
+
           <p className="recommend__text">
             Достижения — это активные действия, которые принесли измеримый
             результат. Они показывают вашу результативность и профессиональный
@@ -146,7 +96,7 @@ const Recommendations = ({ duties, qualifications, portfolio, about }) => {
             совершённом виде. Вы отвечаете на вопрос «Что сделал(а)?» — это
             конкретизирует описание.
           </p>
-          <br />
+
           <p className="recommend__text">
             Релевантный опыт — это подтверждение того, что кандидат уже решал
             похожие задачи в условиях, приближённых к тем, которые его ждут в
@@ -156,7 +106,7 @@ const Recommendations = ({ duties, qualifications, portfolio, about }) => {
             а на первый выходят достижения.Не указывайте контекст, если он
             нерелевантен желаемой должности.
           </p>
-          <br />
+
           <p className="recommend__text">
             Если релевантный опыт практически отсутствует, кандидат может
             показать свои софтскилы. Можно показать нерелевантный опыт
@@ -166,7 +116,7 @@ const Recommendations = ({ duties, qualifications, portfolio, about }) => {
             Не бойтесь сокращать опыт, но не убирайте его совсем. Делайте акцент
             на достижениях.
           </p>
-          <br />
+
           <p className="recommend__text">
             Ниже выбирайте свою специальность и смотрите удачные примеры
             заполнения поля «обязанности».
@@ -258,12 +208,12 @@ const Recommendations = ({ duties, qualifications, portfolio, about }) => {
             подтверждают вашу заинтересованность в профессиональном росте и
             стремлении к саморазвитию.
           </p>
-          <br />
+
           <p className="recommend__text">
             Покажите, что вы умеете: в начале расскажите о методиках и
             инструментах, которые используете.
           </p>
-          <br />
+
           <p className="recommend__text">
             Ниже представлены удачные примеры заполнения блока с навыками:
           </p>
@@ -368,7 +318,7 @@ const Recommendations = ({ duties, qualifications, portfolio, about }) => {
             укажите: что именно вы сделали, какие инструменты использовались в
             процессе и ссылку на Github.
           </p>
-          <br />
+
           <p className="recommend__text">
             Не используйте учебную лексику. Учебные слова затрудняют сравнение
             желаемого профиля должности с вашим резюме. В компании всё‑таки
@@ -414,7 +364,7 @@ const Recommendations = ({ duties, qualifications, portfolio, about }) => {
             Мы открываем свою личность и подчёркиваем её индивидуальность.
             Поэтому так важно заполнять блок «Обо мне».
           </p>
-          <br />
+
           <p className="recommend__text">Укажите:</p>
           <ul className="recommend__list">
             <li className="recommend__list-item recommend__text">

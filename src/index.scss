@@ -3,7 +3,6 @@
 @import './components/App/App.scss';
 
 body {
-  outline: 1px yellow solid;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -25,4 +24,8 @@ code {
 .link:hover {
   opacity: 0.75;
   transition: opacity 0.1s ease;
+}
+
+* {
+  outline: 1px violet solid;
 }

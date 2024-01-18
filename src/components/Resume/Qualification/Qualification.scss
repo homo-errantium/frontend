@@ -1,8 +1,17 @@
+@import '../../../vendor/vars';
+
+.qualification {
+  @extend %left-container;
+}
+
+.qualification__form-container {
+  @extend %form-container;
+  gap: 33px;
+}
 .qualification__basic-recommend {
   display: flex;
   flex-direction: column;
   gap: 29px;
-  margin: 36px 0;
   max-width: 729px;
 
   &_top {

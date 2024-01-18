@@ -1,59 +1,47 @@
-.personal-data {
-  width: 59.2%;
-  min-height: 100vh;
-  border-right: 1px solid #d0d0d0;
-  // padding-right: 20px;
+@import '../../../vendor/vars';
 
-  // .personal-data...
-  &_height {
-    height: 100%;
-  }
+.personal-data {
+  @extend %left-container;
 
   &__container {
-    width: 100%;
-    height: 100%;
     padding-bottom: 137px;
   }
 
   &__form {
     display: flex;
     flex-direction: column;
+    width: 100%;
     margin: 38px 0 61px;
     gap: 27px;
-    width: 100%;
     max-width: 729px;
 
     // .personal-data__form...
-    &_top {
-      gap: 26px;
-    }
-
     &_bottom {
       gap: 28px;
       margin-bottom: 63px;
     }
 
-    &-box {
-      display: flex;
-      flex-direction: row;
-      gap: 20px;
-      max-width: 729px;
-      width: 100%;
-    }
-
-    &-left-column {
-      width: 100%;
-      max-width: 408px;
+    &_left {
       display: flex;
       flex-direction: column;
+      width: 100%;
+      max-width: 408px;
       gap: 29px;
     }
 
-    &-right-column {
-      max-width: 301px;
-      width: 100%;
+    &_right {
       display: flex;
       flex-direction: column;
+      width: 100%;
+      max-width: 301px;
+    }
+
+    &-container {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      gap: 20px;
+      max-width: 729px;
     }
 
     &:last-of-type {

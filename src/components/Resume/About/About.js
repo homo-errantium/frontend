@@ -10,12 +10,12 @@ const About = ({ values, handleChangeWithValidation, setAbout }) => {
     setAbout(false)
   }
   return (
-    <section className="about personal-data">
+    <section className="about">
       <ResumeTitle
         title="Обо мне"
         handleBackToBasicRecommend={handleBackToBasicRecommend}
       />
-      <div className="experience__form-container experience__form-container_about-me">
+      <div className="about-me__form-container">
         <FormInput
           name="about"
           values={values}

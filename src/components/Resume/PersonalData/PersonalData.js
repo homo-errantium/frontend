@@ -84,12 +84,12 @@ const PersonalData = ({
   }
 
   return (
-    <section className="personal-data personal-data_height">
+    <section className="personal-data">
       <div className="personal-data__container">
         <ResumeTitle title="Персональные данные" />
-        <div className="personal-data__form personal-data__form_top">
-          <div className="personal-data__form-box">
-            <div className="personal-data__form-left-column">
+        <div className="personal-data__form">
+          <div className="personal-data__form-container">
+            <div className="personal-data__form_left">
               <FormInput
                 values={values}
                 handleChange={handleChangeWithValidation}
@@ -117,7 +117,7 @@ const PersonalData = ({
                 errors={errors}
               />
             </div>
-            <div className="personal-data__form-right-column">
+            <div className="personal-data__form_right">
               <ImageUploadForm
                 name="photo"
                 label="Фото"

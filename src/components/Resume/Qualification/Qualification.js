@@ -61,7 +61,7 @@ const Qualification = ({
   }
 
   return (
-    <section className="qualification personal-data">
+    <section className="qualification">
       <ResumeTitle
         title="Повышение квалификации"
         checkbox
@@ -73,7 +73,7 @@ const Qualification = ({
         values={values}
         handleBackToBasicRecommend={handleBackToBasicRecommend}
       />
-      <div className="qualification__form-container experience__form-container">
+      <div className="qualification__form-container">
         <div
           className="qualification__basic-recommend qualification__basic-recommend_top"
           onClick={handleBackToBasicRecommend}

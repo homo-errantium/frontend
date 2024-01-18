@@ -1,7 +1,8 @@
 .double-input {
   display: flex;
-  gap: 34px;
+  gap: 20px;
   flex-direction: row;
+  justify-content: space-between;
   align-items: flex-start;
   max-width: 729px;
   width: 100%;
@@ -9,13 +10,14 @@
 
 .double-input__left-box {
   width: 100%;
+  max-width: 408px;
   display: flex;
   align-items: flex-start;
   justify-content: center;
   flex-direction: column;
 }
 .double-input__short-left-box {
-  max-width: 307px;
+  max-width: 316px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -41,7 +43,7 @@
 }
 
 .double-input__label {
-  margin-bottom: 12px;
+  margin-bottom: 11px;
   text-align: left;
   color: #000;
   font-family:
@@ -57,9 +59,10 @@
   border-radius: 16px;
   border: 1px solid #9f9f9f;
   outline: #000;
-  width: 97%;
+  width: 96.5%;
   height: 22px;
   padding: 12px;
+  padding-right: 0;
   margin: 0;
   resize: none;
 }
@@ -71,7 +74,6 @@
   width: 91.78%;
   height: 22px;
   padding: 12px;
-  padding-right: 20px;
   margin: 0;
   resize: none;
 }
@@ -94,9 +96,9 @@
   min-height: 22px;
   width: 91.3%;
 }
-// .double-input__short-field_long {
-//   width: 93.4%;
-// }
+.double-input__short-field_long {
+  padding-right: 19px;
+}
 
 .double-input__field_selected {
   min-height: 48px;
