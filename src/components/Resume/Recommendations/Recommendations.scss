@@ -15,7 +15,6 @@
     margin-top: 32px;
     width: 100%;
     text-align: center;
-    line-height: 1.2;
   }
 
   &__container {
@@ -89,7 +88,6 @@
       &-text {
         @extend %font-Open;
         background: #fff;
-        line-height: 1.21;
         margin: 0;
         text-align: left;
       }
@@ -111,7 +109,6 @@
       background-color: transparent;
       border-bottom: 1px solid#B9B9B9;
       cursor: pointer;
-      line-height: 1.2;
       outline: none;
       margin-bottom: 18px;
       &-container {
@@ -144,7 +141,6 @@
       width: 248px;
       height: 27px;
       padding: 2px 0 2px 12px;
-      line-height: 1.2;
       background-color: #fff;
       border: none;
       text-align: left;

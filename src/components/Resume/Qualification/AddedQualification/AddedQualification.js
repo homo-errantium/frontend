@@ -22,12 +22,9 @@ const AddedQualification = ({
   const handleDelete = () => deleteQualification(i)
   return (
     <>
-      <div
-        className="added-qualification__container experience__job-container"
-        id={i}
-      >
+      <div className="added-qualification__container" id={i}>
         <div
-          className="qualification__basic-recommend"
+          className="added-qualification__basic-recommend"
           onClick={handleBackToBasicRecommend}
           onKeyDown={handleBackToBasicRecommend}
           onFocus={handleBackToBasicRecommend}
@@ -91,7 +88,7 @@ const AddedQualification = ({
           setQualifications={setQualifications}
         />
         <div
-          className="qualification__basic-recommend"
+          className="added-qualification__basic-recommend"
           onClick={handleBackToBasicRecommend}
           onKeyDown={handleBackToBasicRecommend}
           onFocus={handleBackToBasicRecommend}
@@ -106,9 +103,9 @@ const AddedQualification = ({
           />
         </div>
       </div>
-      <div className="added-qualification__buttons-container job__buttons-container">
+      <div className="added-qualification__buttons-container">
         <button
-          className="added-qualification__delete-button job__delete-button link"
+          className="added-qualification__delete-button link"
           type="button"
           onClick={handleDelete}
         >

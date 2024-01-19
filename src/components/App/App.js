@@ -758,7 +758,7 @@ function App() {
       setErrors({})
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname])
+  })
 
   const handleClickMyProfile = () => {
     setErrors({})

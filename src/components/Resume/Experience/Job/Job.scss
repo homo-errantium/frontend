@@ -1,34 +1,40 @@
+@import '../../../../vendor/vars';
+
 .job__container {
-  margin: 44px 0 0;
-  border-top: 1px #d0d0d0 dashed;
-  padding-top: 44px;
   display: flex;
   flex-direction: column;
+  // margin: 44px 0 0;
+  border-top: 1px #d0d0d0 dashed;
+  padding-top: 44px;
   gap: 32px;
 }
 
+.job__container-basic-rec {
+  display: flex;
+  flex-direction: column;
+  gap: 29px;
+}
+
 .job__buttons-container {
-  margin-top: 4px;
   display: flex;
   justify-content: space-between;
+  margin-top: 4px;
   gap: 20px;
 }
 
 .job__delete-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @extend %font-Open;
+  line-height: 1.21;
   background-color: transparent;
   padding: 15px 0;
   color: #ff4b4b;
   text-align: center;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 1.21;
   border-radius: 16px;
   border: 2px solid #ff4b4b;
   width: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   gap: 4px;
 }
 
@@ -37,9 +43,7 @@
   padding: 15px 0;
   color: #1a1b22;
   text-align: center;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 20px;
-  font-weight: 400;
+  @extend %font-Open;
   line-height: 1.21;
   border-radius: 16px;
   border: 2px solid #1a1b22;
