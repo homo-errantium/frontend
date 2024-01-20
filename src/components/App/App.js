@@ -685,7 +685,6 @@ function App() {
   }
 
   useEffect(() => {
-    // console.log(isValid)
     if (location.pathname === '/resume/my-profile') {
       setErrors({})
     }
@@ -758,6 +757,7 @@ function App() {
     if (location.pathname === '/resume/my-profile') {
       setErrors({})
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   })
 
   const handleClickMyProfile = () => {

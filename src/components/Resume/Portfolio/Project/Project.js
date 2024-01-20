@@ -18,12 +18,9 @@ const Project = ({
   const handleDelete = () => deleteProject(i)
   return (
     <>
-      {/* <div className="project__container experience__job-container" id={i}>
-        <FormInput label="Название проекта" />
-      </div> */}
-      <div className="project__container experience__job-container" id={i}>
+      <div className="project__container" id={i}>
         <div
-          className="portfolio__basic-recommend"
+          className="project__basic-recommend"
           onClick={handleBackToBasicRecommend}
           onKeyDown={handleBackToBasicRecommend}
           onFocus={handleBackToBasicRecommend}
@@ -46,7 +43,7 @@ const Project = ({
           setPortfolio={setPortfolio}
         />
         <div
-          className="portfolio__basic-recommend"
+          className="project__basic-recommend"
           onClick={handleBackToBasicRecommend}
           onKeyDown={handleBackToBasicRecommend}
           onFocus={handleBackToBasicRecommend}
@@ -60,9 +57,9 @@ const Project = ({
           />
         </div>
       </div>
-      <div className="project__buttons-container job__buttons-container">
+      <div className="project__buttons-container">
         <button
-          className="project__delete-button job__delete-button link"
+          className="project__delete-button link"
           type="button"
           onClick={handleDelete}
         >
@@ -70,7 +67,7 @@ const Project = ({
           Удалить
         </button>
         <button
-          className="project__add-button job__add-button link"
+          className="project__add-button link"
           type="button"
           onClick={addProject}
         >

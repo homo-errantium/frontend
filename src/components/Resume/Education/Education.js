@@ -53,9 +53,9 @@ const Education = ({
   }, [values.educations?.length])
 
   return (
-    <section className="education personal-data">
+    <section className="education">
       <ResumeTitle title="Образование" />
-      <div className="education__form-container experience__form-container">
+      <div className="education__form-container">
         <FormInput
           values={values}
           handleChange={handleChangeWithValidation}
