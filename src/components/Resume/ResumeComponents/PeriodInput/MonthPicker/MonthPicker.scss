@@ -1,7 +1,22 @@
+@import '../../../../../vendor/vars';
+
 .month__container {
   position: relative;
   display: flex;
   width: 59%;
+
+  &-list {
+    display: none;
+    position: absolute;
+    top: 48px;
+    left: 0px;
+    z-index: 1;
+    border: #000 solid 1px;
+    padding: 12px 9px;
+    width: 88%;
+    border-radius: 0px 0px 16px 16px;
+    background-color: #fff;
+  }
 }
 
 .month__input {
@@ -13,44 +28,32 @@
   opacity: 1;
   width: 100%;
   min-height: 22px;
-  padding: 12px;
-}
+  padding: 15px 12px 12px 9px;
 
-.month__input:disabled {
-  border: 1px solid #9f9f9f;
-  background: #e6e6e6;
-}
+  &::placeholder {
+    @extend %font-Open;
+  }
 
-.month__input:active {
-  border-color: #000;
-  outline-offset: 0;
-}
+  &:disabled {
+    border: 1px solid #9f9f9f;
+    background: #e6e6e6;
+  }
 
-.month__input:focus {
-  border-color: #000;
-  outline-offset: 0;
-}
+  &:active {
+    border-color: #000;
+    outline-offset: 0;
+    opacity: 0.75;
+    transition: opacity 0.1s ease;
+  }
 
-.month__input_disabled {
-  background-color: #fafafa;
-}
+  &:focus {
+    border-color: #000;
+    outline-offset: 0;
+  }
 
-.month__container-list {
-  display: none;
-  position: absolute;
-  top: 48px;
-  left: 0px;
-  z-index: 1;
-  border: #000 solid 1px;
-  padding: 12px 9px;
-  width: 88%;
-  border-radius: 0px 0px 16px 16px;
-  background-color: #fff;
-}
-
-.month__input:active {
-  opacity: 0.75;
-  transition: opacity 0.1s ease;
+  &_disabled {
+    background-color: #fafafa;
+  }
 }
 
 .month__container:hover .month__container-list {
@@ -82,10 +85,10 @@
   font-size: 15px;
   font-weight: 400;
   line-height: 1.21;
-}
 
-.month__button_active {
-  background-color: #d6f3ff;
+  &_active {
+    background-color: #d6f3ff;
+  }
 }
 
 @media screen and (max-width: 1300px) {

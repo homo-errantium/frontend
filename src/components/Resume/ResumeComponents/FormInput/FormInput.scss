@@ -1,82 +1,82 @@
+@import '../../../../vendor/vars';
+
 .form-input {
   width: 100%;
   display: flex;
   flex-direction: column;
-}
 
-.form-input__label-container {
-  display: flex;
-}
+  // .form-input__field
+  &__field {
+    border-radius: 16px;
+    border: 1px solid #9f9f9f;
+    outline: #000;
+    background: #fff;
+    height: 22px;
+    padding: 12px;
+    resize: none;
+    font-size: 120%;
 
-.form-input__label {
-  margin-bottom: 11px;
-  text-align: left;
-  color: #000;
-  font-family:
-    Open Sans,
-    sans-serif;
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 1.21;
-}
+    &_error {
+      border-color: #ff4b4b;
+    }
 
-.form-input__field {
-  border-radius: 16px;
-  border: 1px solid #9f9f9f;
-  outline: #000;
-  background: #fff;
-  height: 22px;
-  padding: 12px;
-  resize: none;
-  font-size: 120%;
-}
+    &:disabled {
+      border: 1px solid #9f9f9f;
+      background: #e6e6e6;
+    }
 
-.form-input__field_error {
-  border-color: #ff4b4b;
-}
+    &:active {
+      border-color: #000;
+      outline-offset: 0;
+    }
 
-.form-input__field:disabled {
-  border: 1px solid #9f9f9f;
-  background: #e6e6e6;
-}
+    &:focus {
+      border-color: #000;
+      outline-offset: 0;
+    }
 
-.form-input__field:active {
-  border-color: #000;
-  outline-offset: 0;
-}
+    &_responsibilities {
+      min-height: 175px;
+    }
 
-.form-input__field:focus {
-  border-color: #000;
-  outline-offset: 0;
-}
+    &_qualification-experience {
+      min-height: 174px;
+    }
 
-.form-input__field_responsibilities {
-  min-height: 175px;
-}
+    &_qualification-skills {
+      min-height: 174px;
+    }
 
-.form-input__field_qualification-experience {
-  min-height: 174px;
-}
+    &_portfolio {
+      min-height: 174px;
+    }
 
-.form-input__field_qualification-skills {
-  min-height: 174px;
-}
+    &_about {
+      min-height: 174px;
+    }
+  }
 
-.form-input__field_portfolio {
-  min-height: 174px;
-}
+  // .form-input__label
+  &__label {
+    @extend %font-Open;
+    margin-bottom: 11px;
+    text-align: left;
+    font-size: 123%;
 
-.form-input__field_about {
-  min-height: 174px;
-}
+    &-container {
+      display: flex;
+    }
+  }
 
-.form-input__input-error {
-  margin: 4px 0 0;
-  color: #ff4b4b;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  text-align: left;
+  // .form-input__input-error
+  &__input-error {
+    margin: 4px 0 0;
+    color: #ff4b4b;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align: left;
+  }
 }
