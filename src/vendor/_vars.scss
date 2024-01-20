@@ -10,6 +10,7 @@ $right-width: 39%;
   height: 100%;
   max-width: 729px;
   padding-bottom: 137px;
+  margin-top: 39px;
 }
 
 %left-container {
@@ -27,12 +28,18 @@ $right-width: 39%;
 }
 
 %font-Open {
-  font-family:
-    Open Sans,
-    sans-serif;
-  font-size: 125%;
-  font-weight: 400;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
   font-style: normal;
-  line-height: 1.21;
-  color: #000;
+  font-weight: 400;
+  line-height: 120%; /* 24px */
+}
+
+%font-Grotest {
+  color: var(--Text, #212121);
+  font-family: 'Space Grotesk';
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%; /* 36px */
 }

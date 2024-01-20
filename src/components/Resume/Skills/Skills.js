@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import skillsSelectedIcon from '../../../img/skills-confirm-icon.svg'
 import skillsRollIcon from '../../../img/skills-roll-icon.svg'
 import { skillList } from '../../../constants/skills-list'
+import ResumeTitle from '../ResumeComponents/ResumeTitle/ResumeTitle'
 
 function Skills({ values, setValues }) {
   const [selectedSkills, setSelectedSkills] = useState(values.hardskills || [])
@@ -25,7 +26,8 @@ function Skills({ values, setValues }) {
 
   return (
     <section className="skills">
-      <h1 className="skills__title">Навыки</h1>
+      <ResumeTitle title="Навыки" />
+      {/* <h1 className="skills__title">Навыки</h1> */}
       <h2 className="skills__subtitle">Выберите из списка</h2>
       <div className="skills__container">
         <div
