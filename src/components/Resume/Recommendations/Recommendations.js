@@ -145,7 +145,7 @@ const Recommendations = ({ duties, qualifications, portfolio, about }) => {
             />
 
             {jobChoice && (
-              <div className="recomment__job-list">
+              <div className="recommend__job-list">
                 {jobs.map(item => (
                   <span
                     className={classNames(
@@ -241,7 +241,7 @@ const Recommendations = ({ duties, qualifications, portfolio, about }) => {
             />
 
             {jobChoice && (
-              <div className="recomment__job-list">
+              <div className="recommend__job-list">
                 {jobs.map(item => (
                   <span
                     className={classNames(

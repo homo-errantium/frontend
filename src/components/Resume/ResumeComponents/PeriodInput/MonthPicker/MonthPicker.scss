@@ -20,6 +20,7 @@
 }
 
 .month__input {
+  @extend %font-Open;
   border-radius: 16px;
   border: 1px solid #9f9f9f;
   outline: #000;
