@@ -39,6 +39,7 @@ function Resume({
   setHasQualification,
   onClickMyProfile,
   setAllTillPresent,
+  handleRegisterPopupOpen,
 }) {
   const location = useLocation()
   // Находим индекс элемента в массиве с локациями
@@ -90,6 +91,7 @@ function Resume({
         setHasQualification={setHasQualification}
         onClickMyProfile={onClickMyProfile}
         setAllTillPresent={setAllTillPresent}
+        handleRegisterPopupOpen={handleRegisterPopupOpen}
       />
       <main className="resume">
         {location.pathname === '/resume/result' ? (
@@ -174,6 +176,7 @@ Resume.propTypes = {
   setHasExperience: PropTypes.func.isRequired,
   setHasQualification: PropTypes.func.isRequired,
   setAllTillPresent: PropTypes.func.isRequired,
+  handleRegisterPopupOpen: PropTypes.func.isRequired,
 }
 
 Resume.defaultProps = {

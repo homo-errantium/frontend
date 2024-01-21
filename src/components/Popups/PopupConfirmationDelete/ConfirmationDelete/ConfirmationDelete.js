@@ -1,7 +1,8 @@
 import './ConfirmationDelete.scss'
 import PropTypes from 'prop-types'
 import { v4 as uuidv4 } from 'uuid'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
+import classNames from 'classnames'
 import TrashIcon from '../../../../img/popups/trash-icon-red.svg'
 import CloseIcon from '../../../../img/popups/close-icon-black.svg'
 import { cleanLocalStorage } from '../../../Utils/Utils'
@@ -16,6 +17,8 @@ function ConfirmationDelete({
   setValues,
 }) {
   const navigate = useNavigate()
+  const location = useLocation()
+  const locationResult = location.pathname === '/resume/result'
   const currentResumeName = currentResume
     ? arrValues.find(item => item.id === currentResume.id)
     : ''
@@ -26,15 +29,30 @@ function ConfirmationDelete({
   }
 
   return (
-    <div className="confirmation-delete">
-      <p className="confirmation-delete__text">
+    <div
+      className={classNames(
+        'confirmation-delete',
+        locationResult && 'confirmation-delete_result'
+      )}
+    >
+      <p
+        className={classNames(
+          'confirmation-delete__text',
+          locationResult && 'confirmation-delete__text_result'
+        )}
+      >
         {`Вы действительно хотите удалить резюме ${
           currentResume.resume_name === undefined
             ? ''
             : currentResume.resume_name
         } без возможности восстановления?`}
       </p>
-      <div className="confirmation-delete__buttons">
+      <div
+        className={classNames(
+          'confirmation-delete__buttons',
+          locationResult && 'confirmation-delete__buttons_result'
+        )}
+      >
         <button
           className="confirmation-delete__button confirmation-delete__button_delete"
           type="button"
@@ -80,17 +98,19 @@ function ConfirmationDelete({
           Отменить
         </button>
       </div>
-      <button
-        type="button"
-        onClick={onClose}
-        className="confirmation-delete__close-button link"
-      >
-        <img
-          src={CloseIcon}
-          alt="крестик"
-          className="confirmation-delete__close-button-icon"
-        />
-      </button>
+      {!locationResult && (
+        <button
+          type="button"
+          onClick={onClose}
+          className="confirmation-delete__close-button link"
+        >
+          <img
+            src={CloseIcon}
+            alt="крестик"
+            className="confirmation-delete__close-button-icon"
+          />
+        </button>
+      )}
     </div>
   )
 }

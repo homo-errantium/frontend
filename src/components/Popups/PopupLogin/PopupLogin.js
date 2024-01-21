@@ -1,23 +1,33 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
 import './PopupLogin.scss'
 import LoginForm from '../../Login/LoginForm/LoginForm'
 import LoginImg from '../../../img/popups/login.svg'
 
-const PopupLogin = ({ isOpen, onClose, onLogin }) => {
+const PopupLogin = ({ isOpen, onClose, onLogin, handleRegisterPopupOpen }) => {
+  // Для закрытия попапа по клавише escape и на фон
   useEffect(() => {
-    const close = e => {
-      if (e.keyCode === 27) {
+    const closeEsc = e => {
+      if (e.key === 'Escape' || e.key === 'Esc') {
         onClose()
       }
     }
-    window.addEventListener('keydown', close)
-    return () => window.removeEventListener('keydown', close)
+
+    const closeMouseDown = e => {
+      if (e.target.classList.contains('popup-login_opened')) {
+        onClose()
+      }
+    }
+    window.addEventListener('keydown', closeEsc)
+    window.addEventListener('mousedown', closeMouseDown)
+    return () => {
+      window.removeEventListener('keydown', closeEsc)
+      window.removeEventListener('mousedown', closeMouseDown)
+    }
   }, [onClose])
 
   return (
-    <div className={`popup-login popup ${isOpen ? `popup_opened` : ''}`}>
+    <div className={`popup-login ${isOpen ? `popup-login_opened` : ''}`}>
       <div className="popup-login__container">
         <div className="popup-login__internal-container">
           <div className="popup-login__image-container">
@@ -41,9 +51,16 @@ const PopupLogin = ({ isOpen, onClose, onLogin }) => {
             <a href="_blank" className="popup-login__restore-password">
               Не помню пароль
             </a>
-            <Link className="popup-login__link link" to="/signup">
+            <button
+              className="popup-login__btn"
+              type="button"
+              onClick={() => {
+                onClose()
+                handleRegisterPopupOpen()
+              }}
+            >
               Зарегистрироваться
-            </Link>
+            </button>
           </div>
         </div>
         <button
@@ -61,6 +78,7 @@ PopupLogin.propTypes = {
   onLogin: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
+  handleRegisterPopupOpen: PropTypes.func.isRequired,
 }
 
 export default PopupLogin

@@ -33,11 +33,12 @@ function Header({
   isValid,
   inputsAreNotEmpty,
   setImage,
-  handleConfirmRegPopupOpen,
+  // handleConfirmRegPopupOpen,
   setHasExperience,
   setHasQualification,
   onClickMyProfile,
   setAllTillPresent,
+  handleRegisterPopupOpen,
 }) {
   const navigate = useNavigate()
   const location = useLocation()
@@ -214,7 +215,7 @@ function Header({
                 if (isLoggedIn) {
                   handleSave()
                 } else {
-                  handleConfirmRegPopupOpen()
+                  handleRegisterPopupOpen()
                 }
               }}
             >
@@ -568,6 +569,7 @@ Header.propTypes = {
   setHasQualification: PropTypes.func,
   setAllTillPresent: PropTypes.func,
   setIsLoggedIn: PropTypes.func,
+  handleRegisterPopupOpen: PropTypes.func,
 }
 Header.defaultProps = {
   setAllTillPresent: () => {},
@@ -589,6 +591,7 @@ Header.defaultProps = {
   inputsAreNotEmpty: undefined,
   setHasExperience: () => {},
   setHasQualification: () => {},
+  handleRegisterPopupOpen: () => {},
 }
 
 export default Header

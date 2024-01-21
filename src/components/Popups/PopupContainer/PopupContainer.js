@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import './PopupContainer.scss'
-import classNames from 'classnames'
 
 function PopupContainer({
   isOpen,
   onClose,
   popupName,
   element,
-  closeButton,
-  closeButtonBlack,
+  // closeButton,
+  // closeButtonBlack,
 }) {
   // Для закрытия попапа по клавише escape и на фон
   useEffect(() => {
@@ -36,7 +35,7 @@ function PopupContainer({
     <div className={`popup ${popupName} ${isOpen ? `popup_opened` : ''}`}>
       <div className="popup__container">
         {element}
-        {closeButton && (
+        {/* {closeButton && (
           <button
             className={classNames(
               'popup__btn-close',
@@ -46,7 +45,7 @@ function PopupContainer({
             onClick={onClose}
             label="button"
           />
-        )}
+        )} */}
       </div>
     </div>
   )
@@ -57,13 +56,13 @@ PopupContainer.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   popupName: PropTypes.string.isRequired,
   element: PropTypes.element.isRequired,
-  closeButton: PropTypes.bool,
-  closeButtonBlack: PropTypes.bool,
+  // closeButton: PropTypes.bool,
+  // closeButtonBlack: PropTypes.bool,
 }
 
-PopupContainer.defaultProps = {
-  closeButton: true,
-  closeButtonBlack: false,
-}
+// PopupContainer.defaultProps = {
+//   closeButton: true,
+//   closeButtonBlack: false,
+// }
 
 export default PopupContainer

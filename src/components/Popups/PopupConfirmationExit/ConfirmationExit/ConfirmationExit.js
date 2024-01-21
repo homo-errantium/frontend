@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router'
 import PropTypes from 'prop-types'
 import { v4 as uuidv4 } from 'uuid'
 import exitImage from '../../../../img/popups/exit-design.svg'
+import CloseIcon from '../../../../img/popups/close-icon-black.svg'
 
 function ConfirmationExit({
   onClose,
@@ -95,6 +96,17 @@ function ConfirmationExit({
           Сохранить и выйти
         </button>
       </div>
+      <button
+        type="button"
+        onClick={onClose}
+        className="confirmation-exit__close-button link"
+      >
+        <img
+          src={CloseIcon}
+          alt="крестик"
+          className="confirmation-exit__close-button-icon"
+        />
+      </button>
     </div>
   )
 }

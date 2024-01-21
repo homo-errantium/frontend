@@ -96,6 +96,10 @@
     &_red {
       color: #ff4b4b;
     }
+
+    &:last-child {
+      border-bottom: none;
+    }
   }
 
   &__icon {
