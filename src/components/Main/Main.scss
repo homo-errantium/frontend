@@ -79,10 +79,11 @@
     align-items: flex-start;
     margin-top: 106px;
     width: 43.8%;
-    min-width: 440px;
+    // min-width: 440px;
   }
 
   &__onboarding-title {
+    text-align: left;
     margin: 0;
     color: #000;
     font-family: 'Space Grotesk', sans-serif;
