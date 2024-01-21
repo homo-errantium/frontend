@@ -104,7 +104,7 @@ function Main({
                   educations: [],
                   portfolio: [],
                 })
-                setImage(currentUser.imageProfile)
+                setImage(isLoggedIn ? currentUser.imageProfile : '')
                 setHasExperience(true)
                 setHasQualification(true)
                 setAllTillPresent({})

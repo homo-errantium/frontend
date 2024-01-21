@@ -168,10 +168,6 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname])
 
-  // const [imageProfile, setImageProfile] = useState(
-  //   localStorage.getItem('imageProfile') || ''
-  // )
-
   useEffect(() => {
     setValues(prevValues => ({ ...prevValues, img: image }))
   }, [image])
@@ -284,27 +280,12 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [languagesAfterChanges])
 
-  // const handleLanguageChange = evt => {
-  //   const { name, value } = evt.target
-  //   const index = name.slice(9)
-  //   const languageToBeChanged = values.languages.find(m => m.id === index)
-  //   languageToBeChanged.language = value
-  // }
-
-  // const handleLanguageLevelChange = evt => {
-  //   const { name, value } = evt.target
-  //   const index = name.slice(15)
-  //   const languageToBeChanged = values.languages.find(m => m.id === index)
-  //   languageToBeChanged.level = value
-  // }
-
   useEffect(() => {
     if (languagesAfterDeleting?.length === 0) {
       setValues({ ...values, languages: [{ id: uuidv4() }] })
     } else {
       setValues({ ...values, languages: languagesAfterDeleting })
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [languagesAfterDeleting])
 
   useEffect(() => {
@@ -313,7 +294,6 @@ function App() {
     } else {
       setValues({ ...values, links: linksAfterDeleting })
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [linksAfterDeleting])
 
   // Функция, которая записывает данные основных чекбоксов
@@ -349,7 +329,6 @@ function App() {
       setValues({ ...values, [name]: value })
     }
     setErrors({ ...errors, [name]: evt.target.validationMessage })
-    // localStorage.setItem('formData', JSON.stringify(values))
   }
 
   const checkValidityPersonalData = evt => {
@@ -1232,6 +1211,7 @@ function App() {
                 setHasExperience={setHasExperience}
                 setHasQualification={setHasQualification}
                 setAllTillPresent={setAllTillPresent}
+                handleRegisterPopupOpen={handleRegisterPopupOpen}
               />
             }
           >
@@ -1287,12 +1267,14 @@ function App() {
           isOpen={isRegisterPopupOpen}
           onClose={closeAllPopup}
           onRegister={handleRegister}
+          onLogin={handleLoginPopupOpen}
         />
         {/* Попап авторизации */}
         <PopupLogin
           isOpen={isLoginPopupOpen}
           onClose={closeAllPopup}
           onLogin={handleLogin}
+          handleRegisterPopupOpen={handleRegisterPopupOpen}
         />
         {/* Попап подтверждения выхода */}
         <PopupConfirmationExit

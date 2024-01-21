@@ -1,4 +1,5 @@
 .popup-login {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,7 +10,7 @@
   visibility: hidden;
   opacity: 0;
   transition:
-    visibility 0s,
+    visibility 0.5s,
     opacity 0.2s linear;
 
   &_opened {
@@ -24,7 +25,7 @@
     justify-content: center;
     position: relative;
     border-radius: 44px;
-    width: 917px;
+    width: 63.5%;
     min-height: 454px;
     background-color: #da693f;
   }
@@ -52,9 +53,11 @@
     display: flex;
     margin: 64px auto;
     gap: 65px;
+    width: 82%;
   }
 
   &__image-container {
+    width: 52%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -63,8 +66,7 @@
   }
 
   &__image {
-    width: 391px;
-    height: 260px;
+    width: 95%;
   }
 
   &__image-text {
@@ -89,6 +91,7 @@
   }
 
   &__form-title {
+    width: 95%;
     color: #f7f7f7;
     font-family: 'Space Grotesk', sans-serif;
     font-size: 30px;
@@ -110,16 +113,15 @@
     margin-top: 16px;
   }
 
-  &__link {
-    text-decoration: none;
+  &__btn {
     color: #f7f7f7;
     text-align: center;
-    font-family: 'Open Sans', sans-serif;
     font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1.2;
     margin-top: 12px;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
   }
 
 }
