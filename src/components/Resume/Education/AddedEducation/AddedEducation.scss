@@ -1,0 +1,16 @@
+.added-education {
+  &__container {
+    margin-top: 6px;
+    border-top: 1px #d0d0d0 dashed;
+    padding-top: 46px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  &__buttons-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+}

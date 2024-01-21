@@ -75,7 +75,7 @@ const Experience = ({
     setDuties(false)
   }
   return (
-    <section className="experience personal-data">
+    <section className="experience">
       <ResumeTitle
         name="work_experience_checkbox"
         values={values}

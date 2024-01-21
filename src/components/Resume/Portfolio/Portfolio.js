@@ -45,12 +45,12 @@ const Portfolio = ({
   }, [values.portfolio?.length])
 
   return (
-    <section className="portfolio personal-data">
+    <section className="portfolio">
       <ResumeTitle
         title="Проекты и портфолио"
         handleBackToBasicRecommend={handleBackToBasicRecommend}
       />
-      <div className="portfolio__container experience__form-container">
+      <div className="portfolio__form-container">
         <div
           className="portfolio__basic-recommend"
           onClick={handleBackToBasicRecommend}

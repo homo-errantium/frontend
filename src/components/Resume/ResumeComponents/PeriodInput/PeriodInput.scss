@@ -4,15 +4,17 @@
   gap: 22px;
   align-items: flex-start;
   justify-content: center;
-}
 
-.period-input__container_year-only {
-  justify-content: flex-start;
-}
+  &_year-only {
+    justify-content: flex-start;
 
-.period-input__container_year-only-education {
-  width: 492px;
-  gap: 20px;
+    &-education {
+      max-width: 492px;
+      width: 100%;
+      gap: 20px;
+      margin-top: -4px;
+    }
+  }
 }
 
 .period-input__inputs-container {
@@ -20,35 +22,35 @@
   gap: 12px;
   align-items: center;
   justify-content: center;
-}
 
-.period-input__inputs-container_year-only {
-  justify-content: flex-start;
-}
+  &_year-only {
+    justify-content: flex-start;
 
-.period-input__inputs-container_year-only-education {
-  width: 301px;
-}
+    &-first {
+      width: 168px;
+    }
 
-.period-input__inputs-container_year-only-first {
-  width: 168px;
+    &-education {
+      width: 301px;
+    }
+  }
 }
 
 .period-input__field {
   width: 50%;
   padding: 12px;
-}
 
-.period-input__field_year-only {
-  width: 100%;
-}
+  &_year-only {
+    width: 100%;
 
-.period-input__field_year-only-education {
-  width: 142px;
+    &-education {
+      width: 142px;
+    }
+  }
 }
 
 .period-input__checkbox-container {
-  margin-top: 12px;
+  margin-top: 9px;
 }
 
 .input-with-error {

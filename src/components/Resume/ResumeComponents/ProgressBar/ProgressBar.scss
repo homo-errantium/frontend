@@ -3,7 +3,7 @@
   width: 87%;
   height: 12px;
   border-radius: 20px;
-  margin: 48px auto 0;
+  margin: 46px auto 0;
   position: relative;
 }
 
@@ -18,8 +18,8 @@
 }
 
 .progress-bar_step.active {
-  background: #DA693F ; // Цвет для активного шага
-  margin-right: 25px;
+  background: #da693f; // Цвет для активного шага
+  margin-right: 22px;
 }
 
 .progress-bar_step.future {

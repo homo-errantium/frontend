@@ -21,7 +21,7 @@ const ResumeTitle = ({
     onKeyDown={handleBackToBasicRecommend}
     onFocus={handleBackToBasicRecommend}
   >
-    <h1 className="resume-title__text">{title}</h1>
+    <h2 className="resume-title__text">{title}</h2>
     {checkbox && (
       <Toggle
         name={name}

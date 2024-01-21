@@ -2,7 +2,7 @@
   display: flex;
   gap: 8px;
   align-items: center;
-  padding-right: 5px;
+  padding-right: 22px;
 }
 
 .toggle__label {
@@ -25,7 +25,7 @@
 .toggle__label .toggle__text {
   display: inline-block;
   position: relative;
-  padding: 0 0 0 35px;
+  padding: 0 0 4px 35px;
   line-height: 22px;
 }
 
@@ -35,7 +35,7 @@
   width: 60px;
   height: 30px;
   position: absolute;
-  left: -31px;
+  left: -33px;
   top: -5px;
   transition: background 0.3s ease;
   background: url(../../../../../img/toggle-icon.svg) 0 0 no-repeat;
@@ -52,7 +52,9 @@
 
 .toggle__text {
   color: #000;
-  font-family: Open Sans, sans-serif;
+  font-family:
+    Open Sans,
+    sans-serif;
   font-size: 20px;
   font-weight: 400;
   line-height: 1.21;

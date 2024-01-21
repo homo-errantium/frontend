@@ -1,3 +1,5 @@
+@import '../../vendor/vars';
+
 .main {
   width: 100%;
 
@@ -20,24 +22,19 @@
   }
 
   &__title {
+    @extend %font-Grotest;
     text-align: left;
     margin: 108px 0 0;
     color: #f7f7f7;
-    font-family: 'Space Grotesk', sans-serif;
     font-size: 42px;
-    font-weight: 700;
-    line-height: 1.2;
-    letter-spacing: 2px
+    letter-spacing: 2px;
   }
 
   &__title-comment {
+    @extend %font-Open;
     text-align: left;
     margin-top: 20px;
     color: #f7f7f7;
-    font-family: Open Sans, sans-serif;
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 1.2;
   }
 
   &__create-button {
@@ -154,7 +151,9 @@
   &__onboarding-button {
     width: 100%;
     font-size: 20px;
-    font-family: Open Sans, sans-serif;
+    font-family:
+      Open Sans,
+      sans-serif;
     font-weight: 700;
     color: #757575;
     font-style: normal;
@@ -167,13 +166,15 @@
     cursor: pointer;
 
     &_bold {
-      color: #212121
+      color: #212121;
     }
   }
 
   &__onboarding-subtitle-element {
     width: 100%;
-    font-family: Open Sans, sans-serif;
+    font-family:
+      Open Sans,
+      sans-serif;
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
@@ -185,7 +186,6 @@
     &_visible {
       display: block;
     }
-
   }
 
   &__onboarding-progress-bar {
@@ -195,31 +195,54 @@
     position: relative;
 
     &_step1 {
-      background: linear-gradient(180deg, #FF4C00 0%, rgba(255, 76, 0, 0.00) 99.86%);
+      background: linear-gradient(
+        180deg,
+        #ff4c00 0%,
+        rgba(255, 76, 0, 0) 99.86%
+      );
     }
 
     &_step2 {
-      background: linear-gradient(180deg, #FFF 0%, rgba(255, 76, 0, 0.92) 25.88%, rgba(255, 255, 255, 0.28) 118.33%);
+      background: linear-gradient(
+        180deg,
+        #fff 0%,
+        rgba(255, 76, 0, 0.92) 25.88%,
+        rgba(255, 255, 255, 0.28) 118.33%
+      );
     }
 
     &_step3 {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 76, 0, 0.92) 38.17%, rgba(255, 255, 255, 0.28) 118.33%);
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 76, 0, 0.92) 38.17%,
+        rgba(255, 255, 255, 0.28) 118.33%
+      );
     }
 
     &_step4 {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 76, 0, 0.92) 53.13%, rgba(255, 255, 255, 0.28) 118.33%);
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 76, 0, 0.92) 53.13%,
+        rgba(255, 255, 255, 0.28) 118.33%
+      );
     }
 
     &_step5 {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 76, 0, 0.92) 73.46%, rgba(255, 255, 255, 0.28) 118.33%);
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 76, 0, 0.92) 73.46%,
+        rgba(255, 255, 255, 0.28) 118.33%
+      );
     }
-
   }
 
   &__onboarding-circle {
     width: 25px;
     height: 27px;
-    background-color: #FF4C00;
+    background-color: #ff4c00;
     border-radius: 50%;
     position: absolute;
     left: -9px;
@@ -244,5 +267,4 @@
       top: 206px;
     }
   }
-
 }

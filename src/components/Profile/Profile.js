@@ -158,6 +158,7 @@ function Profile({
         setIsValidUserContactsData(false)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isValidUserContacts, errorsUserContacts, currentUser])
 
   // Функция, которая собирает и валидирует поля с данными пользователя во вкладке "профиль"
@@ -258,6 +259,7 @@ function Profile({
       ...prevUser,
       imageProfile,
     }))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageProfile])
 
   // Функция сохраняет данные пользователя в локальное хранилище из вкладки "профиль"
