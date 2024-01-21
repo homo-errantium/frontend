@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import '../PersonalData/PersonalData.scss'
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
@@ -18,6 +19,8 @@ const Education = ({
   allTillPresent,
   handleAddEducationChange,
   handleAddEducationCheckboxChange,
+  setHasEducation,
+  hasEducation,
 }) => {
   // Если появился добавленное образование, основная кнопка "Добавить" удаляется
   const [noAddedEducation, setNoAddedEducation] = useState(true)
@@ -52,15 +55,50 @@ const Education = ({
     }
   }, [values.educations?.length])
 
+  const handleTitleCheckboxClick = () => {
+    setHasEducation(!hasEducation)
+    setValues({ ...values, educations: [] })
+    setNoAddedEducation(true)
+
+    if (hasEducation) {
+      setValues(prevValues => ({
+        ...prevValues,
+        education_period_checkbox: false,
+      }))
+      setAllTillPresent({ ...allTillPresent, 0: false })
+    }
+  }
+
+  useEffect(() => {
+    if (!hasEducation) {
+      setValues(prevValues => ({
+        ...prevValues,
+        university_name: '',
+        university_specialization: '',
+        education_level: '',
+      }))
+    }
+  }, [hasEducation])
+
   return (
     <section className="education">
-      <ResumeTitle title="Образование" />
+      <ResumeTitle
+        title="Образование"
+        checkbox
+        name="education_checkbox"
+        values={values}
+        handleCheckboxChange={handleCheckboxChange}
+        checkboxText="Отсутствует"
+        onClick={handleTitleCheckboxClick}
+        checkboxId="title-education-checkbox"
+      />
       <div className="education__form-container">
         <FormInput
           values={values}
           handleChange={handleChangeWithValidation}
           name="university_name"
           label="Название вуза"
+          disabled={!hasEducation}
         />
         <PeriodInput
           namePeriod="education_period_checkbox"
@@ -77,18 +115,21 @@ const Education = ({
           setAllTillPresent={setAllTillPresent}
           allTillPresent={allTillPresent}
           handleChange={handleChangeWithValidation}
+          disabled={!hasEducation}
         />
         <FormInput
           values={values}
           handleChange={handleChangeWithValidation}
           name="university_specialization"
           label="Специальность"
+          disabled={!hasEducation}
         />
         <FormInput
           values={values}
           handleChange={handleChangeWithValidation}
           name="education_level"
           label="Степень"
+          disabled={!hasEducation}
         />
         {values.educations.map(education => (
           <AddedEducation
@@ -103,10 +144,11 @@ const Education = ({
             setAllTillPresent={setAllTillPresent}
             allTillPresent={allTillPresent}
             allValues={values}
+            hasEducation={hasEducation}
           />
         ))}
         {noAddedEducation && values.educations?.length === 0 && (
-          <AddButton handleClick={addEducation} />
+          <AddButton handleClick={addEducation} disabled={!hasEducation} />
         )}
       </div>
     </section>
@@ -145,6 +187,8 @@ Education.propTypes = {
   handleChangeWithValidation: PropTypes.func.isRequired,
   handleAddEducationChange: PropTypes.func.isRequired,
   handleAddEducationCheckboxChange: PropTypes.func.isRequired,
+  setHasEducation: PropTypes.func.isRequired,
+  hasEducation: PropTypes.bool.isRequired,
 }
 
 Education.defaultProps = {

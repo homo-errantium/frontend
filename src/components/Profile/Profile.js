@@ -39,6 +39,8 @@ function Profile({
   setHasQualification,
   setHasExperience,
   setAllTillPresent,
+  setHasEducation,
+  setHasPortfolio,
 }) {
   const nextPage = '/*'
   const [isProfileData, setIsProfileData] = useState(true)
@@ -349,6 +351,8 @@ function Profile({
         setHasExperience={setHasExperience}
         setHasQualification={setHasQualification}
         setAllTillPresent={setAllTillPresent}
+        setHasEducation={setHasEducation}
+        setHasPortfolio={setHasPortfolio}
       />
       <main className="profile">
         <h1 className="profile__title">Личный кабинет</h1>
@@ -729,6 +733,8 @@ Profile.propTypes = {
   setHasExperience: PropTypes.func.isRequired,
   setHasQualification: PropTypes.func.isRequired,
   setAllTillPresent: PropTypes.func.isRequired,
+  setHasEducation: PropTypes.func.isRequired,
+  setHasPortfolio: PropTypes.func.isRequired,
 }
 
 Profile.defaultProps = {

@@ -24,6 +24,8 @@ function Main({
   setHasExperience,
   setHasQualification,
   setAllTillPresent,
+  setHasEducation,
+  setHasPortfolio,
 }) {
   const navigate = useNavigate()
   const nextPage = '/resume'
@@ -66,7 +68,9 @@ function Main({
         inputsAreNotEmpty={inputsAreNotEmpty}
         setHasExperience={setHasExperience}
         setHasQualification={setHasQualification}
+        setHasEducation={setHasEducation}
         setAllTillPresent={setAllTillPresent}
+        setHasPortfolio={setHasPortfolio}
       />
       <main className="main">
         <div className="main__title-container">
@@ -107,6 +111,8 @@ function Main({
                 setImage(isLoggedIn ? currentUser.imageProfile : '')
                 setHasExperience(true)
                 setHasQualification(true)
+                setHasEducation(true)
+                setHasPortfolio(true)
                 setAllTillPresent({})
               }}
             >
@@ -186,6 +192,8 @@ Main.propTypes = {
   setHasExperience: PropTypes.func.isRequired,
   setHasQualification: PropTypes.func.isRequired,
   setAllTillPresent: PropTypes.func.isRequired,
+  setHasEducation: PropTypes.func.isRequired,
+  setHasPortfolio: PropTypes.func.isRequired,
 }
 
 export default Main

@@ -60,13 +60,27 @@ const Qualification = ({
     setQualifications(false)
   }
 
+  useEffect(() => {
+    if (!hasQualification) {
+      setValues(prevValues => ({
+        ...prevValues,
+        organization: '',
+        course_name: '',
+        work_specialization: '',
+        description_experience: '',
+        skills: '',
+        diploma_link: '',
+      }))
+    }
+  }, [hasQualification])
+
   return (
     <section className="qualification">
       <ResumeTitle
         title="Повышение квалификации"
         checkbox
         checkboxText="Отсутствует"
-        checkboxId="title-checkbox"
+        checkboxId="title-qualification-checkbox"
         onClick={handleTitleCheckboxClick}
         handleCheckboxChange={handleCheckboxChange}
         name="qualification_checkbox"
@@ -86,7 +100,6 @@ const Qualification = ({
             label="Проводившая организация"
             disabled={!hasQualification}
             handleChange={handleChangeWithValidation}
-            setValues={setValues}
           />
           <FormInput
             name="course_name"
@@ -94,7 +107,6 @@ const Qualification = ({
             label="Название курса"
             disabled={!hasQualification}
             handleChange={handleChangeWithValidation}
-            setValues={setValues}
           />
           <FormInput
             name="work_specialization"
@@ -102,7 +114,6 @@ const Qualification = ({
             label="Специальность"
             disabled={!hasQualification}
             handleChange={handleChangeWithValidation}
-            setValues={setValues}
           />
           <PeriodInput
             monthPeriod={['month_qual_start', 'month_qual_end']}
@@ -123,7 +134,6 @@ const Qualification = ({
             extraInputClass="qualification-experience"
             disabled={!hasQualification}
             handleChange={handleChangeWithValidation}
-            setValues={setValues}
           />
         </div>
         <FormInput
@@ -133,7 +143,6 @@ const Qualification = ({
           extraInputClass="qualification-skills"
           disabled={!hasQualification}
           handleChange={handleChangeWithValidation}
-          setValues={setValues}
           setQualifications={setQualifications}
         />
         <div
@@ -148,7 +157,6 @@ const Qualification = ({
             label="Ссылка на дипломную работу"
             disabled={!hasQualification}
             handleChange={handleChangeWithValidation}
-            setValues={setValues}
           />
         </div>
         {values.qualifications.map(qualification => (

@@ -204,7 +204,7 @@ const PersonalData = ({
           ))}
         </div>
         <ResumeTitle title="Владение языками" />
-        {values.languages?.map(lang => (
+        {values.languages.map(lang => (
           <div className="personal-data__form-language" key={lang.id}>
             <LanguageInput
               values={lang}

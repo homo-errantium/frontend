@@ -86,7 +86,9 @@ function App() {
       work_experience_checkbox: false,
       work_period_experience_checkbox: false,
       education_period_checkbox: false,
+      education_checkbox: false,
       qualification_checkbox: false,
+      portfolio_checkbox: false,
       languages: [{ id: uuidv4() }],
       links: [{ id: uuidv4() }],
       jobs: [],
@@ -95,6 +97,8 @@ function App() {
       portfolio: [],
     }
   )
+
+  console.log(values.education_checkbox)
 
   const [arrValues, setArrValues] = useState(
     JSON.parse(localStorage.getItem('allData')) || [exampleObject]
@@ -118,13 +122,21 @@ function App() {
   const [portfolio, setPortfolio] = useState(false)
   const [about, setAbout] = useState(false)
 
-  // // Если опыт есть, поля активны. Если нет, поля деактивируются:
+  // Если опыт есть, поля активны. Если нет, поля деактивируются
   const [hasExperience, setHasExperience] = React.useState(
     JSON.parse(localStorage.getItem('hasExperience') || true)
   )
-  // Если повышение квалицикации есть, поля активны. Если нет, поля деактивируются:
+  // Если повышение квалицикации есть, поля активны. Если нет, поля деактивируются
   const [hasQualification, setHasQualification] = React.useState(
     JSON.parse(localStorage.getItem('hasQualification') || true)
+  )
+  // Если образование есть, поля активны. Если нет, поля деактивируются
+  const [hasEducation, setHasEducation] = React.useState(
+    JSON.parse(localStorage.getItem('hasEducation') || true)
+  )
+  // Если портфолио есть, поля активны. Если нет, поля деактивируются
+  const [hasPortfolio, setHasPortfolio] = React.useState(
+    JSON.parse(localStorage.getItem('hasPortfolio') || true)
   )
   // Записываем данные isTillPresent в один объект
   const [allTillPresent, setAllTillPresent] = React.useState(
@@ -906,6 +918,19 @@ function App() {
       }
       // else setInputsAreNotEmpty(true)
     }
+
+    if (
+      location.pathname !== '/resume/personal-data' &&
+      location.pathname !== '/resume/experience'
+    ) {
+      localStorage.setItem('hasEducation', JSON.stringify(hasEducation))
+      localStorage.setItem('hasExperience', JSON.stringify(hasExperience))
+      localStorage.setItem('isTillPresent', JSON.stringify(allTillPresent))
+      localStorage.setItem('image', image)
+      localStorage.setItem('formData', JSON.stringify(formData))
+      localStorage.setItem('hasQualification', JSON.stringify(hasQualification))
+      localStorage.setItem('hasPortfolio', JSON.stringify(hasPortfolio))
+    }
   }
   //  else {
   //   setErrors({})
@@ -1025,6 +1050,8 @@ function App() {
           allTillPresent={allTillPresent}
           handleAddEducationChange={handleAddEducationChange}
           handleAddEducationCheckboxChange={handleAddEducationCheckboxChange}
+          setHasEducation={setHasEducation}
+          hasEducation={hasEducation}
         />
       ),
       id: 4,
@@ -1039,6 +1066,9 @@ function App() {
           handleChangeWithValidation={handleChangeWithValidation}
           handleAddPortfolioChange={handleAddPortfolioChange}
           setPortfolio={setPortfolio}
+          hasPortfolio={hasPortfolio}
+          setHasPortfolio={setHasPortfolio}
+          handleCheckboxChange={handleCheckboxChange}
         />
       ),
       id: 5,
@@ -1146,6 +1176,8 @@ function App() {
                 setHasExperience={setHasExperience}
                 setAllTillPresent={setAllTillPresent}
                 setIsLoggedIn={setIsLoggedIn}
+                setHasEducation={setHasEducation}
+                setHasPortfolio={setHasPortfolio}
               />
             }
           />
@@ -1162,7 +1194,9 @@ function App() {
                 setImage={setImage}
                 setHasExperience={setHasExperience}
                 setHasQualification={setHasQualification}
+                setHasEducation={setHasEducation}
                 setAllTillPresent={setAllTillPresent}
+                setHasPortfolio={setHasPortfolio}
               />
             }
           />

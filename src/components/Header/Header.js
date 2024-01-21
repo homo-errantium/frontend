@@ -39,6 +39,8 @@ function Header({
   onClickMyProfile,
   setAllTillPresent,
   handleRegisterPopupOpen,
+  setHasEducation,
+  setHasPortfolio,
 }) {
   const navigate = useNavigate()
   const location = useLocation()
@@ -140,6 +142,8 @@ function Header({
                 setImage(currentUser.imageProfile)
                 setHasExperience(true)
                 setHasQualification(true)
+                setHasEducation(true)
+                setHasPortfolio(true)
                 setAllTillPresent({})
               }}
             >
@@ -304,6 +308,8 @@ function Header({
                 setImage(isLoggedIn ? currentUser.imageProfile : '')
                 setHasExperience(true)
                 setHasQualification(true)
+                setHasEducation(true)
+                setHasPortfolio(true)
                 setAllTillPresent({})
               }}
             >
@@ -380,6 +386,8 @@ function Header({
                 setImage('')
                 setHasExperience(true)
                 setHasQualification(true)
+                setHasEducation(true)
+                setHasPortfolio(true)
                 setAllTillPresent({})
               }}
             >
@@ -570,6 +578,8 @@ Header.propTypes = {
   setAllTillPresent: PropTypes.func,
   setIsLoggedIn: PropTypes.func,
   handleRegisterPopupOpen: PropTypes.func,
+  setHasEducation: PropTypes.func,
+  setHasPortfolio: PropTypes.func,
 }
 Header.defaultProps = {
   setAllTillPresent: () => {},
@@ -592,6 +602,8 @@ Header.defaultProps = {
   setHasExperience: () => {},
   setHasQualification: () => {},
   handleRegisterPopupOpen: () => {},
+  setHasEducation: () => {},
+  setHasPortfolio: () => {},
 }
 
 export default Header

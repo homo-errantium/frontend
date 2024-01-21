@@ -28,7 +28,6 @@ const Experience = ({
 }) => {
   // Если появился добавленный опыт, основная кнопка "Добавить" удаляется
   const [noAddedExperience, setNoAddedExperience] = useState(true)
-  // console.log(hasExperience)
 
   const handleTitleCheckboxClick = () => {
     setHasExperience(!hasExperience)
@@ -74,6 +73,18 @@ const Experience = ({
   const handleBackToBasicRecommend = () => {
     setDuties(false)
   }
+
+  useEffect(() => {
+    if (!hasExperience) {
+      setValues(prevValues => ({
+        ...prevValues,
+        company: '',
+        company_website: '',
+        current_position: '',
+        duties: '',
+      }))
+    }
+  }, [hasExperience])
   return (
     <section className="experience">
       <ResumeTitle
@@ -83,7 +94,7 @@ const Experience = ({
         title="Опыт работы"
         checkbox
         checkboxText="Нет опыта"
-        checkboxId="title-checkbox"
+        checkboxId="title-experience-checkbox"
         onClick={handleTitleCheckboxClick}
         handleBackToBasicRecommend={handleBackToBasicRecommend}
       />
@@ -100,7 +111,6 @@ const Experience = ({
             handleChange={handleChangeWithValidation}
             label="Название компании"
             disabled={!hasExperience}
-            setValues={setValues}
             errors={errors}
             id="0"
           />
@@ -110,7 +120,6 @@ const Experience = ({
             handleChange={handleChangeWithValidation}
             label="Сайт компании"
             disabled={!hasExperience}
-            setValues={setValues}
             errors={errors}
             id="0"
           />
@@ -122,7 +131,6 @@ const Experience = ({
             tip
             tipText={JOB_TIP}
             disabled={!hasExperience}
-            setValues={setValues}
             errors={errors}
             id="0"
           />

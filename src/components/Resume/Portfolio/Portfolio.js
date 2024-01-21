@@ -15,9 +15,18 @@ const Portfolio = ({
   handleChangeWithValidation,
   handleAddPortfolioChange,
   setPortfolio,
+  hasPortfolio,
+  setHasPortfolio,
+  handleCheckboxChange,
 }) => {
   // Если появился добавленное образование, основная кнопка "Добавить" удаляется
   const [noAddedProjects, setNoAddedProjects] = useState(true)
+
+  const handleTitleCheckboxClick = () => {
+    setHasPortfolio(!hasPortfolio)
+    setValues({ ...values, portfolio: [] })
+    setNoAddedProjects(true)
+  }
 
   const addProject = () => {
     setNoAddedProjects(false)
@@ -44,10 +53,28 @@ const Portfolio = ({
     }
   }, [values.portfolio?.length])
 
+  useEffect(() => {
+    if (!hasPortfolio) {
+      setValues(prevValues => ({
+        ...prevValues,
+        project_name: '',
+        project_description: '',
+        project_link: '',
+      }))
+    }
+  }, [hasPortfolio])
+
   return (
     <section className="portfolio">
       <ResumeTitle
         title="Проекты и портфолио"
+        name="portfolio_checkbox"
+        values={values}
+        handleCheckboxChange={handleCheckboxChange}
+        checkbox
+        checkboxText="Отсутствует"
+        checkboxId="title-portfolio-checkbox"
+        onClick={handleTitleCheckboxClick}
         handleBackToBasicRecommend={handleBackToBasicRecommend}
       />
       <div className="portfolio__form-container">
@@ -62,6 +89,7 @@ const Portfolio = ({
             values={values}
             handleChange={handleChangeWithValidation}
             label="Название проекта"
+            disabled={!hasPortfolio}
           />
         </div>
         <FormInput
@@ -71,6 +99,7 @@ const Portfolio = ({
           label="Краткое описание проекта"
           extraInputClass="portfolio"
           setPortfolio={setPortfolio}
+          disabled={!hasPortfolio}
         />
         <div
           className="portfolio__basic-recommend"
@@ -83,6 +112,7 @@ const Portfolio = ({
             values={values}
             handleChange={handleChangeWithValidation}
             label="Ссылка на проект"
+            disabled={!hasPortfolio}
           />
         </div>
         {values.portfolio.map(project => (
@@ -95,10 +125,11 @@ const Portfolio = ({
             handleChange={handleAddPortfolioChange}
             setPortfolio={setPortfolio}
             handleBackToBasicRecommend={handleBackToBasicRecommend}
+            hasPortfolio={hasPortfolio}
           />
         ))}
         {noAddedProjects && values.portfolio?.length === 0 && (
-          <AddButton handleClick={addProject} />
+          <AddButton handleClick={addProject} disabled={!hasPortfolio} />
         )}
       </div>
     </section>
@@ -129,6 +160,9 @@ Portfolio.propTypes = {
   handleChangeWithValidation: PropTypes.func.isRequired,
   handleAddPortfolioChange: PropTypes.func.isRequired,
   setPortfolio: PropTypes.func.isRequired,
+  setHasPortfolio: PropTypes.func.isRequired,
+  hasPortfolio: PropTypes.bool.isRequired,
+  handleCheckboxChange: PropTypes.func.isRequired,
 }
 
 Portfolio.defaultProps = {
