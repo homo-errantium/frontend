@@ -69,17 +69,6 @@ const Education = ({
     }
   }
 
-  useEffect(() => {
-    if (!hasEducation) {
-      setValues(prevValues => ({
-        ...prevValues,
-        university_name: '',
-        university_specialization: '',
-        education_level: '',
-      }))
-    }
-  }, [hasEducation])
-
   return (
     <section className="education">
       <ResumeTitle
@@ -99,6 +88,7 @@ const Education = ({
           name="university_name"
           label="Название вуза"
           disabled={!hasEducation}
+          setValues={setValues}
         />
         <PeriodInput
           namePeriod="education_period_checkbox"
@@ -123,6 +113,7 @@ const Education = ({
           name="university_specialization"
           label="Специальность"
           disabled={!hasEducation}
+          setValues={setValues}
         />
         <FormInput
           values={values}
@@ -130,6 +121,7 @@ const Education = ({
           name="education_level"
           label="Степень"
           disabled={!hasEducation}
+          setValues={setValues}
         />
         {values.educations.map(education => (
           <AddedEducation

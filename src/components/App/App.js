@@ -98,8 +98,6 @@ function App() {
     }
   )
 
-  console.log(values.education_checkbox)
-
   const [arrValues, setArrValues] = useState(
     JSON.parse(localStorage.getItem('allData')) || [exampleObject]
   )
@@ -809,10 +807,10 @@ function App() {
         localStorage.setItem('isTillPresent', JSON.stringify(allTillPresent))
         localStorage.setItem('image', image)
         localStorage.setItem('formData', JSON.stringify(formData))
-        localStorage.setItem(
-          'hasQualification',
-          JSON.stringify(hasQualification)
-        )
+        // localStorage.setItem(
+        //   'hasQualification',
+        //   JSON.stringify(hasQualification)
+        // )
       }
       // console.log(errors)
       setErrors(object)
@@ -907,31 +905,27 @@ function App() {
         } else {
           localStorage.setItem('hasExperience', JSON.stringify(hasExperience))
           localStorage.setItem('isTillPresent', JSON.stringify(allTillPresent))
-          localStorage.setItem('image', image)
+          // localStorage.setItem('image', image)
           localStorage.setItem('formData', JSON.stringify(formData))
-          localStorage.setItem(
-            'hasQualification',
-            JSON.stringify(hasQualification)
-          )
+          // localStorage.setItem(
+          //   'hasQualification',
+          //   JSON.stringify(hasQualification)
+          // )
         }
         setErrors(object)
       }
       // else setInputsAreNotEmpty(true)
     }
 
-    if (
-      location.pathname !== '/resume/personal-data' &&
-      location.pathname !== '/resume/experience'
-    ) {
-      localStorage.setItem('hasEducation', JSON.stringify(hasEducation))
-      localStorage.setItem('hasExperience', JSON.stringify(hasExperience))
-      localStorage.setItem('isTillPresent', JSON.stringify(allTillPresent))
-      localStorage.setItem('image', image)
-      localStorage.setItem('formData', JSON.stringify(formData))
-      localStorage.setItem('hasQualification', JSON.stringify(hasQualification))
-      localStorage.setItem('hasPortfolio', JSON.stringify(hasPortfolio))
-    }
+    localStorage.setItem('hasEducation', JSON.stringify(hasEducation))
+    localStorage.setItem('hasExperience', JSON.stringify(hasExperience))
+    localStorage.setItem('isTillPresent', JSON.stringify(allTillPresent))
+    localStorage.setItem('image', image)
+    localStorage.setItem('formData', JSON.stringify(formData))
+    localStorage.setItem('hasQualification', JSON.stringify(hasQualification))
+    localStorage.setItem('hasPortfolio', JSON.stringify(hasPortfolio))
   }
+  console.log(values)
   //  else {
   //   setErrors({})
   //   setInputsAreNotEmpty(true)
@@ -939,7 +933,6 @@ function App() {
   // console.log(errors)
 
   /* ----------------------------------------- Popup -----------------------------------------------------*/
-
   // закрытие попапа
   const closeAllPopup = () => {
     setIsLoginPopupOpen(false)
@@ -981,8 +974,6 @@ function App() {
         <PersonalData
           values={values}
           handleChange={handleChange}
-          // handleLanguageChange={handleLanguageChange}
-          // handleLanguageLevelChange={handleLanguageLevelChange}
           setLanguagesChanges={setLanguagesChanges}
           setValues={setValues}
           addLanguage={addLanguage}

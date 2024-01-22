@@ -26,6 +26,8 @@ const Experience = ({
   handleAddJobChange,
   handleAddJobCheckboxChange,
 }) => {
+  console.log(hasExperience)
+  console.log(values.jobs)
   // Если появился добавленный опыт, основная кнопка "Добавить" удаляется
   const [noAddedExperience, setNoAddedExperience] = useState(true)
 
@@ -74,17 +76,6 @@ const Experience = ({
     setDuties(false)
   }
 
-  useEffect(() => {
-    if (!hasExperience) {
-      setValues(prevValues => ({
-        ...prevValues,
-        company: '',
-        company_website: '',
-        current_position: '',
-        duties: '',
-      }))
-    }
-  }, [hasExperience])
   return (
     <section className="experience">
       <ResumeTitle
@@ -113,6 +104,7 @@ const Experience = ({
             disabled={!hasExperience}
             errors={errors}
             id="0"
+            setValues={setValues}
           />
           <FormInput
             name="company_website"
@@ -122,6 +114,7 @@ const Experience = ({
             disabled={!hasExperience}
             errors={errors}
             id="0"
+            setValues={setValues}
           />
           <FormInput
             name="current_position"
@@ -133,6 +126,7 @@ const Experience = ({
             disabled={!hasExperience}
             errors={errors}
             id="0"
+            setValues={setValues}
           />
           <PeriodInput
             labelOne="Дата начала работы"

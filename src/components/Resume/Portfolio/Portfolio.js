@@ -53,17 +53,6 @@ const Portfolio = ({
     }
   }, [values.portfolio?.length])
 
-  useEffect(() => {
-    if (!hasPortfolio) {
-      setValues(prevValues => ({
-        ...prevValues,
-        project_name: '',
-        project_description: '',
-        project_link: '',
-      }))
-    }
-  }, [hasPortfolio])
-
   return (
     <section className="portfolio">
       <ResumeTitle
@@ -90,6 +79,7 @@ const Portfolio = ({
             handleChange={handleChangeWithValidation}
             label="Название проекта"
             disabled={!hasPortfolio}
+            setValues={setValues}
           />
         </div>
         <FormInput
@@ -100,6 +90,7 @@ const Portfolio = ({
           extraInputClass="portfolio"
           setPortfolio={setPortfolio}
           disabled={!hasPortfolio}
+          setValues={setValues}
         />
         <div
           className="portfolio__basic-recommend"
@@ -113,6 +104,7 @@ const Portfolio = ({
             handleChange={handleChangeWithValidation}
             label="Ссылка на проект"
             disabled={!hasPortfolio}
+            setValues={setValues}
           />
         </div>
         {values.portfolio.map(project => (

@@ -101,6 +101,8 @@ function Main({
                   work_period_experience_checkbox: false,
                   education_period_checkbox: false,
                   qualification_checkbox: false,
+                  education_checkbox: false,
+                  portfolio_checkbox: false,
                   languages: [{ id: uuidv4() }],
                   links: [{ id: uuidv4() }],
                   jobs: [],

@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useNavigate, useLocation, NavLink } from 'react-router-dom'
@@ -132,6 +131,8 @@ function Header({
                   work_period_experience_checkbox: false,
                   education_period_checkbox: false,
                   qualification_checkbox: false,
+                  education_checkbox: false,
+                  portfolio_checkbox: false,
                   languages: [{ id: uuidv4() }],
                   links: [{ id: uuidv4() }],
                   jobs: [],
@@ -157,6 +158,11 @@ function Header({
                 cleanLocalStorage()
                 setValues({})
                 setImage('')
+                setHasExperience(true)
+                setHasQualification(true)
+                setHasEducation(true)
+                setHasPortfolio(true)
+                setAllTillPresent({})
                 setIsLoggedIn(false)
                 navigate('/')
               }}
@@ -243,6 +249,11 @@ function Header({
             cleanLocalStorage()
             setValues({})
             setImage('')
+            setHasExperience(true)
+            setHasQualification(true)
+            setHasEducation(true)
+            setHasPortfolio(true)
+            setAllTillPresent({})
           }}
         >
           <div className="header__button-icon_flex-container">
@@ -298,6 +309,8 @@ function Header({
                   work_period_experience_checkbox: false,
                   education_period_checkbox: false,
                   qualification_checkbox: false,
+                  education_checkbox: false,
+                  portfolio_checkbox: false,
                   languages: [{ id: uuidv4() }],
                   links: [{ id: uuidv4() }],
                   jobs: [],
@@ -323,6 +336,11 @@ function Header({
                 cleanLocalStorage()
                 setValues({})
                 setImage('')
+                setHasExperience(true)
+                setHasQualification(true)
+                setHasEducation(true)
+                setHasPortfolio(true)
+                setAllTillPresent({})
                 setIsLoggedIn(false)
                 navigate('/')
               }}
@@ -376,6 +394,8 @@ function Header({
                   work_period_experience_checkbox: false,
                   education_period_checkbox: false,
                   qualification_checkbox: false,
+                  education_checkbox: false,
+                  portfolio_checkbox: false,
                   languages: [{ id: uuidv4() }],
                   links: [{ id: uuidv4() }],
                   jobs: [],
@@ -459,6 +479,11 @@ function Header({
                 cleanLocalStorage()
                 setValues({})
                 setImage('')
+                setHasExperience(true)
+                setHasQualification(true)
+                setHasEducation(true)
+                setHasPortfolio(true)
+                setAllTillPresent({})
               }}
             >
               <div className="header__button-icon_flex-container">
@@ -580,6 +605,7 @@ Header.propTypes = {
   handleRegisterPopupOpen: PropTypes.func,
   setHasEducation: PropTypes.func,
   setHasPortfolio: PropTypes.func,
+  onClickMyProfile: PropTypes.func,
 }
 Header.defaultProps = {
   setAllTillPresent: () => {},
@@ -604,6 +630,7 @@ Header.defaultProps = {
   handleRegisterPopupOpen: () => {},
   setHasEducation: () => {},
   setHasPortfolio: () => {},
+  onClickMyProfile: () => {},
 }
 
 export default Header

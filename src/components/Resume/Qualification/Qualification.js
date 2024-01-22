@@ -60,20 +60,6 @@ const Qualification = ({
     setQualifications(false)
   }
 
-  useEffect(() => {
-    if (!hasQualification) {
-      setValues(prevValues => ({
-        ...prevValues,
-        organization: '',
-        course_name: '',
-        work_specialization: '',
-        description_experience: '',
-        skills: '',
-        diploma_link: '',
-      }))
-    }
-  }, [hasQualification])
-
   return (
     <section className="qualification">
       <ResumeTitle

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import IMask from 'imask'
 import classNames from 'classnames'
 import './FormInput.scss'
+import { useLocation } from 'react-router-dom'
 import Tip from '../Tip/Tip'
 
 const FormInput = ({
@@ -22,7 +23,9 @@ const FormInput = ({
   errors,
   id,
   placeholder,
+  setValues,
 }) => {
+  const location = useLocation()
   const maskInput = (dataValue, options) => {
     const inputElements = document.querySelectorAll(`[mask="${dataValue}"]`) // ищем поля ввода по селектору с переданным значением data-атрибута
     if (!inputElements) return // если таких полей ввода нет, прерываем функцию
@@ -45,6 +48,49 @@ const FormInput = ({
     setAbout(true)
     setPortfolio(true)
   }
+
+  React.useEffect(() => {
+    if (disabled && location.pathname === '/resume/experience') {
+      setValues(prevValues => ({
+        ...prevValues,
+        company: '',
+        company_website: '',
+        current_position: '',
+        duties: '',
+      }))
+    }
+
+    if (disabled && location.pathname === '/resume/qualification') {
+      setValues(prevValues => ({
+        ...prevValues,
+        organization: '',
+        course_name: '',
+        work_specialization: '',
+        description_experience: '',
+        skills: '',
+        diploma_link: '',
+      }))
+    }
+
+    if (disabled && location.pathname === '/resume/education') {
+      setValues(prevValues => ({
+        ...prevValues,
+        university_name: '',
+        university_specialization: '',
+        education_level: '',
+      }))
+    }
+
+    if (disabled && location.pathname === '/resume/portfolio') {
+      setValues(prevValues => ({
+        ...prevValues,
+        project_name: '',
+        project_description: '',
+        project_link: '',
+      }))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [disabled])
 
   return (
     <div className="form-input">
@@ -98,6 +144,7 @@ FormInput.propTypes = {
   setQualifications: PropTypes.func,
   errors: PropTypes.objectOf(PropTypes.string),
   id: PropTypes.string,
+  setValues: PropTypes.func,
 }
 
 FormInput.defaultProps = {
@@ -115,6 +162,7 @@ FormInput.defaultProps = {
   setPortfolio: () => {},
   setAbout: () => {},
   label: undefined,
+  setValues: () => {},
 }
 
 export default FormInput
