@@ -86,6 +86,7 @@ const Qualification = ({
             label="Проводившая организация"
             disabled={!hasQualification}
             handleChange={handleChangeWithValidation}
+            setValues={setValues}
           />
           <FormInput
             name="course_name"
@@ -93,6 +94,7 @@ const Qualification = ({
             label="Название курса"
             disabled={!hasQualification}
             handleChange={handleChangeWithValidation}
+            setValues={setValues}
           />
           <FormInput
             name="work_specialization"
@@ -100,6 +102,7 @@ const Qualification = ({
             label="Специальность"
             disabled={!hasQualification}
             handleChange={handleChangeWithValidation}
+            setValues={setValues}
           />
           <PeriodInput
             monthPeriod={['month_qual_start', 'month_qual_end']}
@@ -120,6 +123,7 @@ const Qualification = ({
             extraInputClass="qualification-experience"
             disabled={!hasQualification}
             handleChange={handleChangeWithValidation}
+            setValues={setValues}
           />
         </div>
         <FormInput
@@ -130,6 +134,7 @@ const Qualification = ({
           disabled={!hasQualification}
           handleChange={handleChangeWithValidation}
           setQualifications={setQualifications}
+          setValues={setValues}
         />
         <div
           className="qualification__basic-recommend qualification__basic-recommend_bottom"
@@ -143,6 +148,7 @@ const Qualification = ({
             label="Ссылка на дипломную работу"
             disabled={!hasQualification}
             handleChange={handleChangeWithValidation}
+            setValues={setValues}
           />
         </div>
         {values.qualifications.map(qualification => (

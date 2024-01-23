@@ -102,8 +102,6 @@ function App() {
     JSON.parse(localStorage.getItem('allData')) || [exampleObject]
   )
 
-  // console.log(values)
-
   const [languagesAfterChanges, setLanguagesChanges] = useState(
     values.languages
   )
@@ -140,6 +138,10 @@ function App() {
   const [allTillPresent, setAllTillPresent] = React.useState(
     JSON.parse(localStorage.getItem('isTillPresent')) || {}
   )
+  // console.log(`hasExp: ${hasExperience}`)
+  // console.log(`has qual: ${hasQualification}`)
+  // console.log(`hasEdu: ${hasEducation}`)
+  // console.log(`hasPort: ${hasPortfolio}`)
   const [errors, setErrors] = useState({})
   // Сохраняем ссылку изображения в переменную и вытягиваем из локального хранилища данные
   const [image, setImage] = React.useState(localStorage.getItem('image') || '')
@@ -181,6 +183,38 @@ function App() {
   useEffect(() => {
     setValues(prevValues => ({ ...prevValues, img: image }))
   }, [image])
+
+  // Функция очищает объекты данных
+  const clearData = () => {
+    setValues({
+      name: isLoggedIn ? currentUser.name : '',
+      surname: isLoggedIn ? currentUser.surname : '',
+      birthday: isLoggedIn ? currentUser.birthday : '',
+      telegram: isLoggedIn ? currentUser.telegram : '',
+      phone: isLoggedIn ? currentUser.phone : '',
+      work_status: '',
+      email: isLoggedIn ? currentUser.email : '',
+      city: isLoggedIn ? currentUser.city : '',
+      work_experience_checkbox: false,
+      work_period_experience_checkbox: false,
+      education_period_checkbox: false,
+      qualification_checkbox: false,
+      education_checkbox: false,
+      portfolio_checkbox: false,
+      languages: [{ id: uuidv4() }],
+      links: [{ id: uuidv4() }],
+      jobs: [],
+      qualifications: [],
+      educations: [],
+      portfolio: [],
+    })
+    setImage(isLoggedIn ? currentUser.imageProfile : '')
+    setHasExperience(true)
+    setHasQualification(true)
+    setHasEducation(true)
+    setHasPortfolio(true)
+    setAllTillPresent({})
+  }
 
   // Функция, которая записывает данные дополнительных полей опыта работы
   const handleAddJobChange = evt => {
@@ -925,7 +959,7 @@ function App() {
     localStorage.setItem('hasQualification', JSON.stringify(hasQualification))
     localStorage.setItem('hasPortfolio', JSON.stringify(hasPortfolio))
   }
-  console.log(values)
+  console.log(arrValues)
   //  else {
   //   setErrors({})
   //   setInputsAreNotEmpty(true)
@@ -1162,13 +1196,8 @@ function App() {
                 currentResume={currentResume}
                 setIsEditMod={setIsEditMod}
                 setIsResumeNamePopupOpen={setIsResumeNamePopupOpen}
-                setImage={setImage}
-                setHasQualification={setHasQualification}
-                setHasExperience={setHasExperience}
-                setAllTillPresent={setAllTillPresent}
                 setIsLoggedIn={setIsLoggedIn}
-                setHasEducation={setHasEducation}
-                setHasPortfolio={setHasPortfolio}
+                clearData={clearData}
               />
             }
           />
@@ -1181,13 +1210,7 @@ function App() {
                 onOpenPopup={handleConfirmRegPopupOpen}
                 isValid={isValid}
                 inputsAreNotEmpty={inputsAreNotEmpty}
-                setValues={setValues}
-                setImage={setImage}
-                setHasExperience={setHasExperience}
-                setHasQualification={setHasQualification}
-                setHasEducation={setHasEducation}
-                setAllTillPresent={setAllTillPresent}
-                setHasPortfolio={setHasPortfolio}
+                clearData={clearData}
               />
             }
           />
@@ -1207,7 +1230,6 @@ function App() {
                 setArrValues={setArrValues}
                 arrValues={arrValues}
                 values={values}
-                setValues={setValues}
                 setIsEditMod={setIsEditMod}
                 isEditMod={isEditMod}
                 isLoggedIn={isLoggedIn}
@@ -1225,7 +1247,6 @@ function App() {
                 setCompletedStepsPortfolio={setCompletedStepsPortfolio}
                 setCompletedStepsSkills={setCompletedStepsSkills}
                 setCompletedStepsAbout={setCompletedStepsAbout}
-                // setCompletedLayouts={setCompletedLayouts}
                 onClick={handleClick}
                 onClickMyProfile={handleClickMyProfile}
                 duties={duties}
@@ -1234,10 +1255,8 @@ function App() {
                 about={about}
                 handleResumeNamePopupOpen={handleResumeNamePopupOpen}
                 handleConfirmRegPopupOpen={handleConfirmRegPopupOpen}
-                setHasExperience={setHasExperience}
-                setHasQualification={setHasQualification}
-                setAllTillPresent={setAllTillPresent}
                 handleRegisterPopupOpen={handleRegisterPopupOpen}
+                clearData={clearData}
               />
             }
           >
@@ -1307,13 +1326,12 @@ function App() {
           isOpen={isConfirmExitPopupOpen}
           onClose={closeAllPopup}
           handleResumeNamePopupOpen={handleResumeNamePopupOpen}
-          setValues={setValues}
-          setImage={setImage}
           isEditMod={isEditMod}
           setArrValues={setArrValues}
           arrValues={arrValues}
           values={values}
           setIsEditMod={setIsEditMod}
+          clearData={clearData}
         />
         {/* попап добавления имени резюме */}
         <PopupResumeName
@@ -1326,6 +1344,7 @@ function App() {
           setIsEditMod={setIsEditMod}
           currentResume={currentResume}
           setCurrentResume={setCurrentResume}
+          clearData={clearData}
         />
         {/* Попап подтверждения удаления */}
         <PopupConfirmationDelete
@@ -1337,6 +1356,7 @@ function App() {
           setArrValues={setArrValues}
           setValues={setValues}
           setImage={setImage}
+          clearData={clearData}
         />
         {/* Попап подтверждения перехода */}
         <PopupConfirmationRegister

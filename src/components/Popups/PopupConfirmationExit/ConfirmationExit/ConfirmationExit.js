@@ -12,6 +12,7 @@ function ConfirmationExit({
   arrValues,
   values,
   setIsEditMod,
+  clearData,
 }) {
   const navigate = useNavigate()
 
@@ -53,6 +54,7 @@ function ConfirmationExit({
           type="button"
           label="button"
           onClick={() => {
+            clearData()
             navigate('/my-profile')
             onClose()
           }}
@@ -133,6 +135,7 @@ ConfirmationExit.propTypes = {
     ])
   ),
   setIsEditMod: PropTypes.func.isRequired,
+  clearData: PropTypes.func.isRequired,
 }
 
 ConfirmationExit.defaultProps = {
