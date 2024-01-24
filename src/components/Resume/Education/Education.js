@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import '../PersonalData/PersonalData.scss'
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
@@ -87,7 +86,7 @@ const Education = ({
           handleChange={handleChangeWithValidation}
           name="university_name"
           label="Название вуза"
-          disabled={!hasEducation}
+          disabled={hasEducation}
           setValues={setValues}
         />
         <PeriodInput
@@ -105,14 +104,14 @@ const Education = ({
           setAllTillPresent={setAllTillPresent}
           allTillPresent={allTillPresent}
           handleChange={handleChangeWithValidation}
-          disabled={!hasEducation}
+          disabled={hasEducation}
         />
         <FormInput
           values={values}
           handleChange={handleChangeWithValidation}
           name="university_specialization"
           label="Специальность"
-          disabled={!hasEducation}
+          disabled={hasEducation}
           setValues={setValues}
         />
         <FormInput
@@ -120,7 +119,7 @@ const Education = ({
           handleChange={handleChangeWithValidation}
           name="education_level"
           label="Степень"
-          disabled={!hasEducation}
+          disabled={hasEducation}
           setValues={setValues}
         />
         {values.educations.map(education => (
@@ -140,7 +139,7 @@ const Education = ({
           />
         ))}
         {noAddedEducation && values.educations?.length === 0 && (
-          <AddButton handleClick={addEducation} disabled={!hasEducation} />
+          <AddButton handleClick={addEducation} disabled={hasEducation} />
         )}
       </div>
     </section>

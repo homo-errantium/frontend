@@ -34,7 +34,7 @@ const AddedQualification = ({
             values={values}
             handleChange={handleChange}
             label="Проводившая организация"
-            disabled={!hasQualification}
+            disabled={hasQualification}
             id={i}
           />
           <FormInput
@@ -42,7 +42,7 @@ const AddedQualification = ({
             values={values}
             handleChange={handleChange}
             label="Название курса"
-            disabled={!hasQualification}
+            disabled={hasQualification}
             id={i}
           />
           <FormInput
@@ -50,14 +50,14 @@ const AddedQualification = ({
             values={values}
             handleChange={handleChange}
             label="Специальность"
-            disabled={!hasQualification}
+            disabled={hasQualification}
             id={i}
           />
           <PeriodInput
             labelOne="Дата начала"
             labelTwo="Дата окончания"
             month
-            disabled={!hasQualification}
+            disabled={hasQualification}
             i={i}
             values={values}
             handleChange={handleChange}
@@ -73,7 +73,7 @@ const AddedQualification = ({
             handleChange={handleChange}
             label="Описание полученного опыта"
             extraInputClass="qualification-experience"
-            disabled={!hasQualification}
+            disabled={hasQualification}
             id={i}
           />
         </div>
@@ -83,7 +83,7 @@ const AddedQualification = ({
           handleChange={handleChange}
           label="Навыки"
           extraInputClass="qualification-skills"
-          disabled={!hasQualification}
+          disabled={hasQualification}
           id={i}
           setQualifications={setQualifications}
         />
@@ -98,7 +98,7 @@ const AddedQualification = ({
             values={values}
             handleChange={handleChange}
             label="Ссылка на дипломную работу"
-            disabled={!hasQualification}
+            disabled={hasQualification}
             id={i}
           />
         </div>

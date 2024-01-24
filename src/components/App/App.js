@@ -120,28 +120,25 @@ function App() {
 
   // Если опыт есть, поля активны. Если нет, поля деактивируются
   const [hasExperience, setHasExperience] = React.useState(
-    JSON.parse(localStorage.getItem('hasExperience') || true)
+    JSON.parse(localStorage.getItem('hasExperience') || false)
   )
   // Если повышение квалицикации есть, поля активны. Если нет, поля деактивируются
   const [hasQualification, setHasQualification] = React.useState(
-    JSON.parse(localStorage.getItem('hasQualification') || true)
+    JSON.parse(localStorage.getItem('hasQualification') || false)
   )
   // Если образование есть, поля активны. Если нет, поля деактивируются
   const [hasEducation, setHasEducation] = React.useState(
-    JSON.parse(localStorage.getItem('hasEducation') || true)
+    JSON.parse(localStorage.getItem('hasEducation') || false)
   )
   // Если портфолио есть, поля активны. Если нет, поля деактивируются
   const [hasPortfolio, setHasPortfolio] = React.useState(
-    JSON.parse(localStorage.getItem('hasPortfolio') || true)
+    JSON.parse(localStorage.getItem('hasPortfolio') || false)
   )
   // Записываем данные isTillPresent в один объект
   const [allTillPresent, setAllTillPresent] = React.useState(
     JSON.parse(localStorage.getItem('isTillPresent')) || {}
   )
-  // console.log(`hasExp: ${hasExperience}`)
-  // console.log(`has qual: ${hasQualification}`)
-  // console.log(`hasEdu: ${hasEducation}`)
-  // console.log(`hasPort: ${hasPortfolio}`)
+
   const [errors, setErrors] = useState({})
   // Сохраняем ссылку изображения в переменную и вытягиваем из локального хранилища данные
   const [image, setImage] = React.useState(localStorage.getItem('image') || '')
@@ -174,7 +171,8 @@ function App() {
 
   useEffect(() => {
     if (location.pathname === '/resume/result' && !isEditMod && !values.id) {
-      setValues({ ...values, id: uuidv4() })
+      // setValues({ ...values, id: uuidv4() })
+      setValues(prevValues => ({ ...prevValues, id: uuidv4() }))
     }
     localStorage.setItem('allData', JSON.stringify(arrValues))
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -209,10 +207,10 @@ function App() {
       portfolio: [],
     })
     setImage(isLoggedIn ? currentUser.imageProfile : '')
-    setHasExperience(true)
-    setHasQualification(true)
-    setHasEducation(true)
-    setHasPortfolio(true)
+    setHasExperience(false)
+    setHasQualification(false)
+    setHasEducation(false)
+    setHasPortfolio(false)
     setAllTillPresent({})
   }
 
@@ -229,7 +227,7 @@ function App() {
       }
       return job
     })
-    setValues({ ...values, jobs: updatedJobs })
+    setValues(prevValues => ({ ...prevValues, jobs: updatedJobs }))
   }
 
   // Функция, которая записывает данные ополнительных чекбоксов опыта работы
@@ -245,7 +243,7 @@ function App() {
       }
       return job
     })
-    setValues({ ...values, jobs: updatedJobs })
+    setValues(prevValues => ({ ...prevValues, jobs: updatedJobs }))
   }
 
   // Функция, которая записывает данные дополнительных полей с квалификацией
@@ -257,7 +255,10 @@ function App() {
       }
       return qual
     })
-    setValues({ ...values, qualifications: updatedQualification })
+    setValues(prevValues => ({
+      ...prevValues,
+      qualifications: updatedQualification,
+    }))
   }
 
   // Функция, которая записывает данные дополнительных полей с образованием
@@ -269,7 +270,10 @@ function App() {
       }
       return education
     })
-    setValues({ ...values, educations: updatedEducation })
+    setValues(prevValues => ({
+      ...prevValues,
+      educations: updatedEducation,
+    }))
   }
 
   // Функция, которая записывает данные чекбоксов дополнительных полей с образованием
@@ -285,7 +289,10 @@ function App() {
       }
       return education
     })
-    setValues({ ...values, educations: updatedEducation })
+    setValues(prevValues => ({
+      ...prevValues,
+      educations: updatedEducation,
+    }))
   }
 
   // Функция, которая записывает данные дополнительных полей с портфолио
@@ -297,7 +304,10 @@ function App() {
       }
       return p
     })
-    setValues({ ...values, portfolio: updatedPortfolio })
+    setValues(prevValues => ({
+      ...prevValues,
+      portfolio: updatedPortfolio,
+    }))
   }
 
   const addLink = () => {
@@ -342,8 +352,8 @@ function App() {
 
   // Функция, которая записывает данные основных чекбоксов
   const handleCheckboxChange = evt => {
-    const { name } = evt.target
-    setValues(prevValues => ({ ...prevValues, [name]: !prevValues[name] }))
+    const { name, checked } = evt.target
+    setValues(prevValues => ({ ...prevValues, [name]: checked }))
   }
 
   function deleteNonLatin(text) {
@@ -370,7 +380,7 @@ function App() {
     if (name === 'telegram') {
       checkTgInput(name, cleanValue)
     } else {
-      setValues({ ...values, [name]: value })
+      setValues(prevValues => ({ ...prevValues, [name]: values }))
     }
     setErrors({ ...errors, [name]: evt.target.validationMessage })
   }
@@ -959,7 +969,6 @@ function App() {
     localStorage.setItem('hasQualification', JSON.stringify(hasQualification))
     localStorage.setItem('hasPortfolio', JSON.stringify(hasPortfolio))
   }
-  console.log(arrValues)
   //  else {
   //   setErrors({})
   //   setInputsAreNotEmpty(true)

@@ -84,7 +84,7 @@ const Qualification = ({
             name="organization"
             values={values}
             label="Проводившая организация"
-            disabled={!hasQualification}
+            disabled={hasQualification}
             handleChange={handleChangeWithValidation}
             setValues={setValues}
           />
@@ -92,7 +92,7 @@ const Qualification = ({
             name="course_name"
             values={values}
             label="Название курса"
-            disabled={!hasQualification}
+            disabled={hasQualification}
             handleChange={handleChangeWithValidation}
             setValues={setValues}
           />
@@ -100,7 +100,7 @@ const Qualification = ({
             name="work_specialization"
             values={values}
             label="Специальность"
-            disabled={!hasQualification}
+            disabled={hasQualification}
             handleChange={handleChangeWithValidation}
             setValues={setValues}
           />
@@ -110,7 +110,7 @@ const Qualification = ({
             labelOne="Дата начала"
             labelTwo="Дата окончания"
             month
-            disabled={!hasQualification}
+            disabled={hasQualification}
             i="0"
             values={values}
             setValues={setValues}
@@ -121,7 +121,7 @@ const Qualification = ({
             name="description_experience"
             values={values}
             extraInputClass="qualification-experience"
-            disabled={!hasQualification}
+            disabled={hasQualification}
             handleChange={handleChangeWithValidation}
             setValues={setValues}
           />
@@ -131,7 +131,7 @@ const Qualification = ({
           name="skills"
           values={values}
           extraInputClass="qualification-skills"
-          disabled={!hasQualification}
+          disabled={hasQualification}
           handleChange={handleChangeWithValidation}
           setQualifications={setQualifications}
           setValues={setValues}
@@ -146,7 +146,7 @@ const Qualification = ({
             name="diploma_link"
             values={values}
             label="Ссылка на дипломную работу"
-            disabled={!hasQualification}
+            disabled={hasQualification}
             handleChange={handleChangeWithValidation}
             setValues={setValues}
           />
@@ -168,7 +168,7 @@ const Qualification = ({
         ))}
         {noAddedQualification && values.qualifications?.length === 0 && (
           <AddButton
-            disabled={!hasQualification}
+            disabled={hasQualification}
             handleClick={addQualification}
           />
         )}

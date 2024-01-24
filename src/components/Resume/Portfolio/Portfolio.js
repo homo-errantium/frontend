@@ -19,18 +19,22 @@ const Portfolio = ({
   setHasPortfolio,
   handleCheckboxChange,
 }) => {
+  console.log(`hasPort: ${hasPortfolio}`)
   // Если появился добавленное образование, основная кнопка "Добавить" удаляется
   const [noAddedProjects, setNoAddedProjects] = useState(true)
 
   const handleTitleCheckboxClick = () => {
     setHasPortfolio(!hasPortfolio)
-    setValues({ ...values, portfolio: [] })
+    setValues(prevValues => ({ ...prevValues, portfolio: [] }))
     setNoAddedProjects(true)
   }
 
   const addProject = () => {
     setNoAddedProjects(false)
-    setValues({ ...values, portfolio: [...values.portfolio, { id: uuidv4() }] })
+    setValues(prevValues => ({
+      ...prevValues,
+      portfolio: [...prevValues.portfolio, { id: uuidv4() }],
+    }))
   }
 
   const deleteProject = projectId => {
@@ -78,7 +82,7 @@ const Portfolio = ({
             values={values}
             handleChange={handleChangeWithValidation}
             label="Название проекта"
-            disabled={!hasPortfolio}
+            disabled={hasPortfolio}
             setValues={setValues}
           />
         </div>
@@ -89,7 +93,7 @@ const Portfolio = ({
           label="Краткое описание проекта"
           extraInputClass="portfolio"
           setPortfolio={setPortfolio}
-          disabled={!hasPortfolio}
+          disabled={hasPortfolio}
           setValues={setValues}
         />
         <div
@@ -103,7 +107,7 @@ const Portfolio = ({
             values={values}
             handleChange={handleChangeWithValidation}
             label="Ссылка на проект"
-            disabled={!hasPortfolio}
+            disabled={hasPortfolio}
             setValues={setValues}
           />
         </div>
@@ -121,7 +125,7 @@ const Portfolio = ({
           />
         ))}
         {noAddedProjects && values.portfolio?.length === 0 && (
-          <AddButton handleClick={addProject} disabled={!hasPortfolio} />
+          <AddButton handleClick={addProject} disabled={hasPortfolio} />
         )}
       </div>
     </section>

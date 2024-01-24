@@ -29,7 +29,7 @@ const AddedEducation = ({
           handleChange={handleChange}
           label="Название вуза"
           id={i}
-          disabled={!hasEducation}
+          disabled={hasEducation}
         />
         <PeriodInput
           education
@@ -47,7 +47,7 @@ const AddedEducation = ({
           setAllTillPresent={setAllTillPresent}
           allTillPresent={allTillPresent}
           allValues={allValues}
-          disabled={!hasEducation}
+          disabled={hasEducation}
         />
         <FormInput
           name="university_specialization"
@@ -55,7 +55,7 @@ const AddedEducation = ({
           handleChange={handleChange}
           label="Специальность"
           id={i}
-          disabled={!hasEducation}
+          disabled={hasEducation}
         />
         <FormInput
           name="education_level"
@@ -63,7 +63,7 @@ const AddedEducation = ({
           handleChange={handleChange}
           label="Степень"
           id={i}
-          disabled={!hasEducation}
+          disabled={hasEducation}
         />
       </div>
       <div className="added-education__buttons-container">

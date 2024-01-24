@@ -38,7 +38,7 @@ const Job = ({
             values={values}
             handleChange={handleChange}
             label="Название компании"
-            disabled={!hasExperience}
+            disabled={hasExperience}
             id={i}
           />
           <FormInput
@@ -46,7 +46,7 @@ const Job = ({
             values={values}
             handleChange={handleChange}
             label="Сайт компании"
-            disabled={!hasExperience}
+            disabled={hasExperience}
             id={i}
           />
           <FormInput
@@ -55,14 +55,14 @@ const Job = ({
             handleChange={handleChange}
             label="Должность"
             tipText={JOB_TIP}
-            disabled={!hasExperience}
+            disabled={hasExperience}
             id={i}
           />
           <PeriodInput
             labelOne="Дата начала работы"
             labelTwo="Дата окончания работы"
             month
-            disabled={!hasExperience}
+            disabled={hasExperience}
             i={i}
             tillPresent
             values={values}
@@ -83,7 +83,7 @@ const Job = ({
           handleChange={handleChange}
           label="Обязанности"
           extraInputClass="responsibilities"
-          disabled={!hasExperience}
+          disabled={hasExperience}
           setDuties={setDuties}
           id={i}
         />

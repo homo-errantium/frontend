@@ -32,7 +32,7 @@ const Project = ({
             id={i}
             name="project_name"
             label="Название проекта"
-            hasPortfolio={!hasPortfolio}
+            hasPortfolio={hasPortfolio}
           />
         </div>
         <FormInput
@@ -43,7 +43,7 @@ const Project = ({
           label="Краткое описание проекта"
           extraInputClass="portfolio"
           setPortfolio={setPortfolio}
-          hasPortfolio={!hasPortfolio}
+          hasPortfolio={hasPortfolio}
         />
         <div
           className="project__basic-recommend"
@@ -57,7 +57,7 @@ const Project = ({
             id={i}
             name="project_link"
             label="Ссылка на проект"
-            hasPortfolio={!hasPortfolio}
+            hasPortfolio={hasPortfolio}
           />
         </div>
       </div>

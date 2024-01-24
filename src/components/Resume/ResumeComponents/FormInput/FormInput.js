@@ -50,7 +50,7 @@ const FormInput = ({
   }
 
   React.useEffect(() => {
-    if (disabled && location.pathname === '/resume/experience') {
+    if (disabled === true && location.pathname === '/resume/experience') {
       setValues(prevValues => ({
         ...prevValues,
         company: '',
@@ -60,7 +60,7 @@ const FormInput = ({
       }))
     }
 
-    if (disabled && location.pathname === '/resume/qualification') {
+    if (disabled === true && location.pathname === '/resume/qualification') {
       setValues(prevValues => ({
         ...prevValues,
         organization: '',
@@ -72,7 +72,7 @@ const FormInput = ({
       }))
     }
 
-    if (disabled && location.pathname === '/resume/education') {
+    if (disabled === true && location.pathname === '/resume/education') {
       setValues(prevValues => ({
         ...prevValues,
         university_name: '',
@@ -81,7 +81,7 @@ const FormInput = ({
       }))
     }
 
-    if (disabled && location.pathname === '/resume/portfolio') {
+    if (disabled === true && location.pathname === '/resume/portfolio') {
       setValues(prevValues => ({
         ...prevValues,
         project_name: '',
@@ -104,7 +104,7 @@ const FormInput = ({
         name={name}
         value={values[name]}
         onChange={handleChange}
-        disabled={disabled}
+        disabled={disabled === true}
         placeholder={placeholder}
         id={id}
         className={classNames(
