@@ -86,7 +86,9 @@ function App() {
       work_experience_checkbox: false,
       work_period_experience_checkbox: false,
       education_period_checkbox: false,
+      education_checkbox: false,
       qualification_checkbox: false,
+      portfolio_checkbox: false,
       languages: [{ id: uuidv4() }],
       links: [{ id: uuidv4() }],
       jobs: [],
@@ -99,8 +101,6 @@ function App() {
   const [arrValues, setArrValues] = useState(
     JSON.parse(localStorage.getItem('allData')) || [exampleObject]
   )
-
-  // console.log(values)
 
   const [languagesAfterChanges, setLanguagesChanges] = useState(
     values.languages
@@ -118,18 +118,27 @@ function App() {
   const [portfolio, setPortfolio] = useState(false)
   const [about, setAbout] = useState(false)
 
-  // // Если опыт есть, поля активны. Если нет, поля деактивируются:
+  // Если опыт есть, поля активны. Если нет, поля деактивируются
   const [hasExperience, setHasExperience] = React.useState(
-    JSON.parse(localStorage.getItem('hasExperience') || true)
+    JSON.parse(localStorage.getItem('hasExperience') || false)
   )
-  // Если повышение квалицикации есть, поля активны. Если нет, поля деактивируются:
+  // Если повышение квалицикации есть, поля активны. Если нет, поля деактивируются
   const [hasQualification, setHasQualification] = React.useState(
-    JSON.parse(localStorage.getItem('hasQualification') || true)
+    JSON.parse(localStorage.getItem('hasQualification') || false)
+  )
+  // Если образование есть, поля активны. Если нет, поля деактивируются
+  const [hasEducation, setHasEducation] = React.useState(
+    JSON.parse(localStorage.getItem('hasEducation') || false)
+  )
+  // Если портфолио есть, поля активны. Если нет, поля деактивируются
+  const [hasPortfolio, setHasPortfolio] = React.useState(
+    JSON.parse(localStorage.getItem('hasPortfolio') || false)
   )
   // Записываем данные isTillPresent в один объект
   const [allTillPresent, setAllTillPresent] = React.useState(
     JSON.parse(localStorage.getItem('isTillPresent')) || {}
   )
+
   const [errors, setErrors] = useState({})
   // Сохраняем ссылку изображения в переменную и вытягиваем из локального хранилища данные
   const [image, setImage] = React.useState(localStorage.getItem('image') || '')
@@ -162,7 +171,8 @@ function App() {
 
   useEffect(() => {
     if (location.pathname === '/resume/result' && !isEditMod && !values.id) {
-      setValues({ ...values, id: uuidv4() })
+      // setValues({ ...values, id: uuidv4() })
+      setValues(prevValues => ({ ...prevValues, id: uuidv4() }))
     }
     localStorage.setItem('allData', JSON.stringify(arrValues))
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -171,6 +181,38 @@ function App() {
   useEffect(() => {
     setValues(prevValues => ({ ...prevValues, img: image }))
   }, [image])
+
+  // Функция очищает объекты данных
+  const clearData = () => {
+    setValues({
+      name: isLoggedIn ? currentUser.name : '',
+      surname: isLoggedIn ? currentUser.surname : '',
+      birthday: isLoggedIn ? currentUser.birthday : '',
+      telegram: isLoggedIn ? currentUser.telegram : '',
+      phone: isLoggedIn ? currentUser.phone : '',
+      work_status: '',
+      email: isLoggedIn ? currentUser.email : '',
+      city: isLoggedIn ? currentUser.city : '',
+      work_experience_checkbox: false,
+      work_period_experience_checkbox: false,
+      education_period_checkbox: false,
+      qualification_checkbox: false,
+      education_checkbox: false,
+      portfolio_checkbox: false,
+      languages: [{ id: uuidv4() }],
+      links: [{ id: uuidv4() }],
+      jobs: [],
+      qualifications: [],
+      educations: [],
+      portfolio: [],
+    })
+    setImage(isLoggedIn ? currentUser.imageProfile : '')
+    setHasExperience(false)
+    setHasQualification(false)
+    setHasEducation(false)
+    setHasPortfolio(false)
+    setAllTillPresent({})
+  }
 
   // Функция, которая записывает данные дополнительных полей опыта работы
   const handleAddJobChange = evt => {
@@ -185,7 +227,7 @@ function App() {
       }
       return job
     })
-    setValues({ ...values, jobs: updatedJobs })
+    setValues(prevValues => ({ ...prevValues, jobs: updatedJobs }))
   }
 
   // Функция, которая записывает данные ополнительных чекбоксов опыта работы
@@ -201,7 +243,7 @@ function App() {
       }
       return job
     })
-    setValues({ ...values, jobs: updatedJobs })
+    setValues(prevValues => ({ ...prevValues, jobs: updatedJobs }))
   }
 
   // Функция, которая записывает данные дополнительных полей с квалификацией
@@ -213,7 +255,10 @@ function App() {
       }
       return qual
     })
-    setValues({ ...values, qualifications: updatedQualification })
+    setValues(prevValues => ({
+      ...prevValues,
+      qualifications: updatedQualification,
+    }))
   }
 
   // Функция, которая записывает данные дополнительных полей с образованием
@@ -225,7 +270,10 @@ function App() {
       }
       return education
     })
-    setValues({ ...values, educations: updatedEducation })
+    setValues(prevValues => ({
+      ...prevValues,
+      educations: updatedEducation,
+    }))
   }
 
   // Функция, которая записывает данные чекбоксов дополнительных полей с образованием
@@ -241,7 +289,10 @@ function App() {
       }
       return education
     })
-    setValues({ ...values, educations: updatedEducation })
+    setValues(prevValues => ({
+      ...prevValues,
+      educations: updatedEducation,
+    }))
   }
 
   // Функция, которая записывает данные дополнительных полей с портфолио
@@ -253,7 +304,10 @@ function App() {
       }
       return p
     })
-    setValues({ ...values, portfolio: updatedPortfolio })
+    setValues(prevValues => ({
+      ...prevValues,
+      portfolio: updatedPortfolio,
+    }))
   }
 
   const addLink = () => {
@@ -298,8 +352,8 @@ function App() {
 
   // Функция, которая записывает данные основных чекбоксов
   const handleCheckboxChange = evt => {
-    const { name } = evt.target
-    setValues(prevValues => ({ ...prevValues, [name]: !prevValues[name] }))
+    const { name, checked } = evt.target
+    setValues(prevValues => ({ ...prevValues, [name]: checked }))
   }
 
   function deleteNonLatin(text) {
@@ -326,7 +380,7 @@ function App() {
     if (name === 'telegram') {
       checkTgInput(name, cleanValue)
     } else {
-      setValues({ ...values, [name]: value })
+      setValues(prevValues => ({ ...prevValues, [name]: values }))
     }
     setErrors({ ...errors, [name]: evt.target.validationMessage })
   }
@@ -797,10 +851,10 @@ function App() {
         localStorage.setItem('isTillPresent', JSON.stringify(allTillPresent))
         localStorage.setItem('image', image)
         localStorage.setItem('formData', JSON.stringify(formData))
-        localStorage.setItem(
-          'hasQualification',
-          JSON.stringify(hasQualification)
-        )
+        // localStorage.setItem(
+        //   'hasQualification',
+        //   JSON.stringify(hasQualification)
+        // )
       }
       // console.log(errors)
       setErrors(object)
@@ -895,17 +949,25 @@ function App() {
         } else {
           localStorage.setItem('hasExperience', JSON.stringify(hasExperience))
           localStorage.setItem('isTillPresent', JSON.stringify(allTillPresent))
-          localStorage.setItem('image', image)
+          // localStorage.setItem('image', image)
           localStorage.setItem('formData', JSON.stringify(formData))
-          localStorage.setItem(
-            'hasQualification',
-            JSON.stringify(hasQualification)
-          )
+          // localStorage.setItem(
+          //   'hasQualification',
+          //   JSON.stringify(hasQualification)
+          // )
         }
         setErrors(object)
       }
       // else setInputsAreNotEmpty(true)
     }
+
+    localStorage.setItem('hasEducation', JSON.stringify(hasEducation))
+    localStorage.setItem('hasExperience', JSON.stringify(hasExperience))
+    localStorage.setItem('isTillPresent', JSON.stringify(allTillPresent))
+    localStorage.setItem('image', image)
+    localStorage.setItem('formData', JSON.stringify(formData))
+    localStorage.setItem('hasQualification', JSON.stringify(hasQualification))
+    localStorage.setItem('hasPortfolio', JSON.stringify(hasPortfolio))
   }
   //  else {
   //   setErrors({})
@@ -914,7 +976,6 @@ function App() {
   // console.log(errors)
 
   /* ----------------------------------------- Popup -----------------------------------------------------*/
-
   // закрытие попапа
   const closeAllPopup = () => {
     setIsLoginPopupOpen(false)
@@ -956,8 +1017,6 @@ function App() {
         <PersonalData
           values={values}
           handleChange={handleChange}
-          // handleLanguageChange={handleLanguageChange}
-          // handleLanguageLevelChange={handleLanguageLevelChange}
           setLanguagesChanges={setLanguagesChanges}
           setValues={setValues}
           addLanguage={addLanguage}
@@ -1025,6 +1084,8 @@ function App() {
           allTillPresent={allTillPresent}
           handleAddEducationChange={handleAddEducationChange}
           handleAddEducationCheckboxChange={handleAddEducationCheckboxChange}
+          setHasEducation={setHasEducation}
+          hasEducation={hasEducation}
         />
       ),
       id: 4,
@@ -1039,6 +1100,9 @@ function App() {
           handleChangeWithValidation={handleChangeWithValidation}
           handleAddPortfolioChange={handleAddPortfolioChange}
           setPortfolio={setPortfolio}
+          hasPortfolio={hasPortfolio}
+          setHasPortfolio={setHasPortfolio}
+          handleCheckboxChange={handleCheckboxChange}
         />
       ),
       id: 5,
@@ -1141,11 +1205,8 @@ function App() {
                 currentResume={currentResume}
                 setIsEditMod={setIsEditMod}
                 setIsResumeNamePopupOpen={setIsResumeNamePopupOpen}
-                setImage={setImage}
-                setHasQualification={setHasQualification}
-                setHasExperience={setHasExperience}
-                setAllTillPresent={setAllTillPresent}
                 setIsLoggedIn={setIsLoggedIn}
+                clearData={clearData}
               />
             }
           />
@@ -1158,11 +1219,7 @@ function App() {
                 onOpenPopup={handleConfirmRegPopupOpen}
                 isValid={isValid}
                 inputsAreNotEmpty={inputsAreNotEmpty}
-                setValues={setValues}
-                setImage={setImage}
-                setHasExperience={setHasExperience}
-                setHasQualification={setHasQualification}
-                setAllTillPresent={setAllTillPresent}
+                clearData={clearData}
               />
             }
           />
@@ -1182,7 +1239,6 @@ function App() {
                 setArrValues={setArrValues}
                 arrValues={arrValues}
                 values={values}
-                setValues={setValues}
                 setIsEditMod={setIsEditMod}
                 isEditMod={isEditMod}
                 isLoggedIn={isLoggedIn}
@@ -1200,7 +1256,6 @@ function App() {
                 setCompletedStepsPortfolio={setCompletedStepsPortfolio}
                 setCompletedStepsSkills={setCompletedStepsSkills}
                 setCompletedStepsAbout={setCompletedStepsAbout}
-                // setCompletedLayouts={setCompletedLayouts}
                 onClick={handleClick}
                 onClickMyProfile={handleClickMyProfile}
                 duties={duties}
@@ -1209,10 +1264,8 @@ function App() {
                 about={about}
                 handleResumeNamePopupOpen={handleResumeNamePopupOpen}
                 handleConfirmRegPopupOpen={handleConfirmRegPopupOpen}
-                setHasExperience={setHasExperience}
-                setHasQualification={setHasQualification}
-                setAllTillPresent={setAllTillPresent}
                 handleRegisterPopupOpen={handleRegisterPopupOpen}
+                clearData={clearData}
               />
             }
           >
@@ -1282,13 +1335,12 @@ function App() {
           isOpen={isConfirmExitPopupOpen}
           onClose={closeAllPopup}
           handleResumeNamePopupOpen={handleResumeNamePopupOpen}
-          setValues={setValues}
-          setImage={setImage}
           isEditMod={isEditMod}
           setArrValues={setArrValues}
           arrValues={arrValues}
           values={values}
           setIsEditMod={setIsEditMod}
+          clearData={clearData}
         />
         {/* попап добавления имени резюме */}
         <PopupResumeName
@@ -1301,6 +1353,7 @@ function App() {
           setIsEditMod={setIsEditMod}
           currentResume={currentResume}
           setCurrentResume={setCurrentResume}
+          clearData={clearData}
         />
         {/* Попап подтверждения удаления */}
         <PopupConfirmationDelete
@@ -1312,6 +1365,7 @@ function App() {
           setArrValues={setArrValues}
           setValues={setValues}
           setImage={setImage}
+          clearData={clearData}
         />
         {/* Попап подтверждения перехода */}
         <PopupConfirmationRegister

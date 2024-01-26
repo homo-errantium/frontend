@@ -28,11 +28,10 @@ const Experience = ({
 }) => {
   // Если появился добавленный опыт, основная кнопка "Добавить" удаляется
   const [noAddedExperience, setNoAddedExperience] = useState(true)
-  // console.log(hasExperience)
 
   const handleTitleCheckboxClick = () => {
     setHasExperience(!hasExperience)
-    setValues({ ...values, jobs: [] })
+    setValues(prevValues => ({ ...prevValues, jobs: [] }))
     setNoAddedExperience(true)
     setErrors({})
 
@@ -47,21 +46,23 @@ const Experience = ({
 
   const addExperience = () => {
     setNoAddedExperience(false)
-    setValues({
-      ...values,
+    setValues(prevValues => ({
+      ...prevValues,
       jobs: [
-        ...values.jobs,
+        ...prevValues.jobs,
         { id: uuidv4(), work_period_experience_checkbox: false },
       ],
-    })
+    }))
   }
 
   const deleteExperience = jobId => {
     const experienceToBeRemoved = values.jobs.find(m => jobId === m.id)
-    setValues({
-      ...values,
-      jobs: values.jobs.filter(item => item.id !== experienceToBeRemoved.id),
-    })
+    setValues(prevValues => ({
+      ...prevValues,
+      jobs: prevValues.jobs.filter(
+        item => item.id !== experienceToBeRemoved.id
+      ),
+    }))
   }
 
   // Если addedExperience пустой, то возвращается основная кнопка "Добавить"
@@ -74,6 +75,7 @@ const Experience = ({
   const handleBackToBasicRecommend = () => {
     setDuties(false)
   }
+
   return (
     <section className="experience">
       <ResumeTitle
@@ -83,7 +85,7 @@ const Experience = ({
         title="Опыт работы"
         checkbox
         checkboxText="Нет опыта"
-        checkboxId="title-checkbox"
+        checkboxId="title-experience-checkbox"
         onClick={handleTitleCheckboxClick}
         handleBackToBasicRecommend={handleBackToBasicRecommend}
       />
@@ -99,20 +101,20 @@ const Experience = ({
             values={values}
             handleChange={handleChangeWithValidation}
             label="Название компании"
-            disabled={!hasExperience}
-            setValues={setValues}
+            disabled={hasExperience}
             errors={errors}
             id="0"
+            setValues={setValues}
           />
           <FormInput
             name="company_website"
             values={values}
             handleChange={handleChangeWithValidation}
             label="Сайт компании"
-            disabled={!hasExperience}
-            setValues={setValues}
+            disabled={hasExperience}
             errors={errors}
             id="0"
+            setValues={setValues}
           />
           <FormInput
             name="current_position"
@@ -121,16 +123,16 @@ const Experience = ({
             label="Должность"
             tip
             tipText={JOB_TIP}
-            disabled={!hasExperience}
-            setValues={setValues}
+            disabled={hasExperience}
             errors={errors}
             id="0"
+            setValues={setValues}
           />
           <PeriodInput
             labelOne="Дата начала работы"
             labelTwo="Дата окончания работы"
             month
-            disabled={!hasExperience}
+            disabled={hasExperience}
             i="0"
             tillPresent
             handleCheckboxChange={handleCheckboxChange}
@@ -152,7 +154,7 @@ const Experience = ({
           handleChange={handleChangeWithValidation}
           label="Обязанности"
           extraInputClass="responsibilities"
-          disabled={!hasExperience}
+          disabled={hasExperience}
           setValues={setValues}
           setDuties={setDuties}
           errors={errors}
@@ -177,7 +179,7 @@ const Experience = ({
           />
         ))}
         {noAddedExperience && values.jobs?.length === 0 && (
-          <AddButton disabled={!hasExperience} handleClick={addExperience} />
+          <AddButton disabled={hasExperience} handleClick={addExperience} />
         )}
       </div>
     </section>

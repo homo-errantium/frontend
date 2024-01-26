@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import { useNavigate, useLocation, NavLink } from 'react-router-dom'
 import './Header.scss'
 // import headerIcon from '../../logo.svg'
-import { v4 as uuidv4 } from 'uuid'
 import ResumeLogo from '../../img/resume.svg'
 import PlusLogo from '../../img/plus-logo.svg'
 import ExitIcon from '../../img/exit-icon.svg'
@@ -14,12 +13,10 @@ import RightArrowIcon from '../../img/right-arrow.svg'
 import EditIcon from '../../img/edit-icon.svg'
 import ResumeLogoBlack from '../../img/resume-logo-black.svg'
 import { handleOpenPopup, cleanLocalStorage } from '../Utils/Utils'
-import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 
 function Header({
   setIsLoggedIn,
   values,
-  setValues,
   arrValues,
   setArrValues,
   setIsEditMod,
@@ -32,18 +29,13 @@ function Header({
   handleResumeNamePopupOpen,
   isValid,
   inputsAreNotEmpty,
-  setImage,
-  // handleConfirmRegPopupOpen,
-  setHasExperience,
-  setHasQualification,
   onClickMyProfile,
-  setAllTillPresent,
   handleRegisterPopupOpen,
+  clearData,
 }) {
   const navigate = useNavigate()
   const location = useLocation()
   const path = location.pathname
-  const currentUser = React.useContext(CurrentUserContext)
 
   const updateResume = () => {
     setArrValues(newArr =>
@@ -57,13 +49,15 @@ function Header({
     localStorage.setItem('allData', JSON.stringify(arrValues))
   }
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!isEditMod) {
       handleResumeNamePopupOpen()
     } else {
       updateResume()
       setIsEditMod(false)
       navigate('/my-profile')
+      await clearData()
+      await cleanLocalStorage()
     }
   }
 
@@ -117,30 +111,7 @@ function Header({
                 cleanLocalStorage()
                 setIsEditMod(false)
                 handleOpenPopup(navigate, isLoggedIn, onOpenPopup)
-                setValues({
-                  name: currentUser.name,
-                  surname: currentUser.surname,
-                  birthday: currentUser.birthday,
-                  telegram: currentUser.telegram,
-                  phone: currentUser.phone,
-                  work_status: '',
-                  email: currentUser.email,
-                  city: currentUser.city,
-                  work_experience_checkbox: false,
-                  work_period_experience_checkbox: false,
-                  education_period_checkbox: false,
-                  qualification_checkbox: false,
-                  languages: [{ id: uuidv4() }],
-                  links: [{ id: uuidv4() }],
-                  jobs: [],
-                  qualifications: [],
-                  educations: [],
-                  portfolio: [],
-                })
-                setImage(currentUser.imageProfile)
-                setHasExperience(true)
-                setHasQualification(true)
-                setAllTillPresent({})
+                clearData()
               }}
             >
               Создать резюме
@@ -151,8 +122,7 @@ function Header({
               label="button"
               onClick={() => {
                 cleanLocalStorage()
-                setValues({})
-                setImage('')
+                clearData()
                 setIsLoggedIn(false)
                 navigate('/')
               }}
@@ -237,8 +207,7 @@ function Header({
           onClick={() => {
             navigate('/')
             cleanLocalStorage()
-            setValues({})
-            setImage('')
+            clearData()
           }}
         >
           <div className="header__button-icon_flex-container">
@@ -281,30 +250,7 @@ function Header({
                 cleanLocalStorage()
                 setIsEditMod(false)
                 handleOpenPopup(navigate, isLoggedIn, onOpenPopup)
-                setValues({
-                  name: isLoggedIn ? currentUser.name : '',
-                  surname: isLoggedIn ? currentUser.surname : '',
-                  birthday: isLoggedIn ? currentUser.birthday : '',
-                  telegram: isLoggedIn ? currentUser.telegram : '',
-                  phone: isLoggedIn ? currentUser.phone : '',
-                  work_status: '',
-                  email: isLoggedIn ? currentUser.email : '',
-                  city: isLoggedIn ? currentUser.city : '',
-                  work_experience_checkbox: false,
-                  work_period_experience_checkbox: false,
-                  education_period_checkbox: false,
-                  qualification_checkbox: false,
-                  languages: [{ id: uuidv4() }],
-                  links: [{ id: uuidv4() }],
-                  jobs: [],
-                  qualifications: [],
-                  educations: [],
-                  portfolio: [],
-                })
-                setImage(isLoggedIn ? currentUser.imageProfile : '')
-                setHasExperience(true)
-                setHasQualification(true)
-                setAllTillPresent({})
+                clearData()
               }}
             >
               Создать резюме
@@ -315,8 +261,7 @@ function Header({
               label="button"
               onClick={() => {
                 cleanLocalStorage()
-                setValues({})
-                setImage('')
+                clearData()
                 setIsLoggedIn(false)
                 navigate('/')
               }}
@@ -359,28 +304,7 @@ function Header({
                 cleanLocalStorage()
                 setIsEditMod(false)
                 handleOpenPopup(navigate, isLoggedIn, onOpenPopup)
-                setValues({
-                  name: '',
-                  surname: '',
-                  birthday: '',
-                  work_status: '',
-                  email: '',
-                  city: '',
-                  work_experience_checkbox: false,
-                  work_period_experience_checkbox: false,
-                  education_period_checkbox: false,
-                  qualification_checkbox: false,
-                  languages: [{ id: uuidv4() }],
-                  links: [{ id: uuidv4() }],
-                  jobs: [],
-                  qualifications: [],
-                  educations: [],
-                  portfolio: [],
-                })
-                setImage('')
-                setHasExperience(true)
-                setHasQualification(true)
-                setAllTillPresent({})
+                clearData()
               }}
             >
               Создать резюме
@@ -429,6 +353,7 @@ function Header({
               label="button"
               onClick={() => {
                 onClickMyProfile()
+                clearData()
                 navigate('/my-profile')
               }}
             >
@@ -449,8 +374,7 @@ function Header({
               onClick={() => {
                 navigate('/')
                 cleanLocalStorage()
-                setValues({})
-                setImage('')
+                clearData()
               }}
             >
               <div className="header__button-icon_flex-container">
@@ -561,22 +485,17 @@ Header.propTypes = {
     )
   ),
   setArrValues: PropTypes.func,
-  setValues: PropTypes.func,
-  setImage: PropTypes.func,
   isValid: PropTypes.bool,
   inputsAreNotEmpty: PropTypes.bool,
-  setHasExperience: PropTypes.func,
-  setHasQualification: PropTypes.func,
-  setAllTillPresent: PropTypes.func,
   setIsLoggedIn: PropTypes.func,
   handleRegisterPopupOpen: PropTypes.func,
+  onClickMyProfile: PropTypes.func,
+  clearData: PropTypes.func.isRequired,
 }
 Header.defaultProps = {
-  setAllTillPresent: () => {},
   setIsLoggedIn: () => {},
   values: {},
   arrValues: [],
-  setValues: () => {},
   setArrValues: () => {},
   isEditMod: false,
   isLoggedIn: true,
@@ -586,12 +505,10 @@ Header.defaultProps = {
   onClick: () => {},
   handleResumeNamePopupOpen: () => {},
   setIsEditMod: () => {},
-  setImage: () => {},
   isValid: undefined,
   inputsAreNotEmpty: undefined,
-  setHasExperience: () => {},
-  setHasQualification: () => {},
   handleRegisterPopupOpen: () => {},
+  onClickMyProfile: () => {},
 }
 
 export default Header

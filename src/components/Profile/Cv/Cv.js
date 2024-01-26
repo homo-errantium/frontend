@@ -72,6 +72,7 @@ const Cv = ({
     setCurrentResume({ ...currentResume, ...cv })
     deletePopupSetState(true)
     setIsEditCvPopupOpen(false)
+    navigate('/my-profile')
   }
 
   useEffect(() => {
