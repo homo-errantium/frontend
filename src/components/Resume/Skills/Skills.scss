@@ -2,6 +2,7 @@
 
 .skills {
   @extend %left-container;
+  padding-right: 0;
 
   &__title {
     padding: 0;
@@ -18,17 +19,23 @@
     margin-bottom: 36px;
   }
 
+  &__subtitle-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    max-width: 729px;
+  }
+
   &__subtitle {
+    @extend %font-Open;
     padding: 0;
     margin: 0;
-    color: #212121;
-    font-family: Inter;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 400;
+    // color: #212121;
+    // font-size: 20px;
+    // font-style: normal;
+    // font-weight: 400;
     line-height: normal;
     text-transform: none;
-    margin-bottom: 12px;
     text-align: left;
   }
 
@@ -62,7 +69,7 @@
       width: 16px;
       height: 16px;
       padding: 16px;
-      position: relative;
+      // position: relative;
     }
 
     &-selected-btn {
@@ -123,5 +130,52 @@
         cursor: pointer;
       }
     }
+  }
+
+  &__job {
+    &-selector {
+      margin: 0;
+      border-bottom: none;
+      padding: 0;
+      background-color: #fff;
+
+      &-container {
+        margin: 0;
+        padding: 4px 12px;
+        align-items: center;
+        position: relative;
+        border-radius: 16px;
+        background-color: #fff;
+        width: 237px;
+
+        &_active {
+          border-bottom-left-radius: 0;
+          border-bottom-right-radius: 0;
+          z-index: 10;
+        }
+      }
+    }
+
+    &-list {
+      border-top: 1px solid #da693f;
+    }
+
+    &-option {
+      padding: 2px 2px 0 12px;
+      width: 100%;
+
+      &:hover {
+        background-color: #ffbba1;
+      }
+    }
+  }
+
+  &__arrow-button {
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    top: 3px;
+    left: 220px;
+    background-color: #fff;
   }
 }

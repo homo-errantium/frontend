@@ -1,13 +1,29 @@
 import './Skills.scss'
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+import { useLocation } from 'react-router-dom'
+import classNames from 'classnames'
 import skillsSelectedIcon from '../../../img/skills-confirm-icon.svg'
 import skillsRollIcon from '../../../img/skills-roll-icon.svg'
-import { skillList } from '../../../constants/skills-list'
+// import { skillList } from '../../../constants/skills-list'
 import ResumeTitle from '../ResumeComponents/ResumeTitle/ResumeTitle'
+import { jobs } from '../../../constants/jobs'
+import ArrowDown from '../../../img/arrow-icon-black.svg'
 
 function Skills({ values, setValues }) {
+  const location = useLocation()
+  const path = location.pathname
+  const [jobChoice, setJobChoice] = useState(false)
+  const [chosenJob, setChosenJob] = useState(jobs[0].job)
   const [selectedSkills, setSelectedSkills] = useState(values.hardskills || [])
+
+  const chooseThisJob = evt => {
+    const newJob = evt.target.innerText
+    setChosenJob(newJob)
+    setJobChoice(false)
+  }
+
+  const isSkillsPage = () => !!(path === '/resume/skills')
 
   useEffect(() => {
     setValues({ ...values, hardskills: selectedSkills })
@@ -24,11 +40,71 @@ function Skills({ values, setValues }) {
     setIsOpenMenu(false)
   }
 
+  const skillsToRender = jobs.find(item => item.job === chosenJob).skills
+
   return (
     <section className="skills">
       <ResumeTitle title="Навыки" />
       {/* <h1 className="skills__title">Навыки</h1> */}
-      <h2 className="skills__subtitle">Выберите из списка</h2>
+      <div className="skills__subtitle-container">
+        <h2 className="skills__subtitle">Выберите из списка</h2>
+
+        {isSkillsPage && (
+          <div
+            className={`recommend__job-selector-container skills__job-selector-container ${
+              jobChoice && 'skills__job-selector-container_active'
+            }`}
+          >
+            <input
+              id="professions"
+              name="professions"
+              value={chosenJob}
+              className={classNames(
+                'recommend__job-selector link skills__job-selector',
+                jobChoice &&
+                  'recommend__job-selector_active skills__job-selector_active'
+              )}
+              onClick={() => {
+                setJobChoice(!jobChoice)
+              }}
+              readOnly
+            />
+            <button
+              className="recommend__arrow-button link skills__arrow-button"
+              type="button"
+              label="button"
+              onClick={() => {
+                setJobChoice(!jobChoice)
+              }}
+            >
+              <img
+                className="skills__arrow-icon"
+                alt="плюсик"
+                src={ArrowDown}
+              />
+            </button>
+
+            {jobChoice && (
+              <div className="recommend__job-list skills__job-list">
+                {jobs.map(item => (
+                  <button
+                    type="button"
+                    label="button"
+                    className={classNames(
+                      'recommend__job-option skills__job-option',
+                      chosenJob === item.job && 'recommend__job-option_selected'
+                    )}
+                    key={item.id}
+                    onClick={chooseThisJob}
+                  >
+                    {item.job}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
       <div className="skills__container">
         <div
           className={`skills__field ${
@@ -94,7 +170,7 @@ function Skills({ values, setValues }) {
         {/* отрисовка всех навыков */}
         <ul className={`skills__list ${isOpenMenu && ' skills__list_visible'}`}>
           {React.Children.toArray(
-            skillList.map(item => (
+            skillsToRender.map(item => (
               <li className="skills__item">
                 <button
                   className={`skills__item-button ${

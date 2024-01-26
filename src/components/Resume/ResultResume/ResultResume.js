@@ -347,6 +347,7 @@ function ResultResume({ values }) {
         </span>
       </div> */}
       {/* ------ блок образование ------*/}
+
       <div
         className={classNames(
           'result-resume__container',
