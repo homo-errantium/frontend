@@ -15,10 +15,6 @@ const Experience = ({
   values,
   setValues,
   handleCheckboxChange,
-  hasExperience,
-  setHasExperience,
-  setAllTillPresent,
-  allTillPresent,
   setDuties,
   errors,
   handleChangeWithValidation,
@@ -30,19 +26,27 @@ const Experience = ({
   const [noAddedExperience, setNoAddedExperience] = useState(true)
 
   const handleTitleCheckboxClick = () => {
-    setHasExperience(!hasExperience)
-    setValues(prevValues => ({ ...prevValues, jobs: [] }))
+    setValues(prevValues => ({
+      ...prevValues,
+      jobs: [],
+      work_experience_checkbox: !prevValues.work_experience_checkbox,
+    }))
     setNoAddedExperience(true)
     setErrors({})
+  }
 
-    if (hasExperience) {
+  useEffect(() => {
+    if (values.work_experience_checkbox === true) {
       setValues(prevValues => ({
         ...prevValues,
         work_period_experience_checkbox: false,
+        allTillPresentCheckboxes: {
+          ...prevValues.allTillPresentCheckboxes,
+          0: false,
+        },
       }))
-      setAllTillPresent({ ...allTillPresent, 0: false })
     }
-  }
+  }, [values.work_experience_checkbox])
 
   const addExperience = () => {
     setNoAddedExperience(false)
@@ -101,7 +105,7 @@ const Experience = ({
             values={values}
             handleChange={handleChangeWithValidation}
             label="Название компании"
-            disabled={hasExperience}
+            disabled={values.work_experience_checkbox}
             errors={errors}
             id="0"
             setValues={setValues}
@@ -111,7 +115,7 @@ const Experience = ({
             values={values}
             handleChange={handleChangeWithValidation}
             label="Сайт компании"
-            disabled={hasExperience}
+            disabled={values.work_experience_checkbox}
             errors={errors}
             id="0"
             setValues={setValues}
@@ -123,7 +127,7 @@ const Experience = ({
             label="Должность"
             tip
             tipText={JOB_TIP}
-            disabled={hasExperience}
+            disabled={values.work_experience_checkbox}
             errors={errors}
             id="0"
             setValues={setValues}
@@ -132,7 +136,7 @@ const Experience = ({
             labelOne="Дата начала работы"
             labelTwo="Дата окончания работы"
             month
-            disabled={hasExperience}
+            disabled={values.work_experience_checkbox}
             i="0"
             tillPresent
             handleCheckboxChange={handleCheckboxChange}
@@ -140,8 +144,6 @@ const Experience = ({
             monthPeriod={['month_work_start', 'month_work_end']}
             year={['year_work_start', 'year_work_end']}
             values={values}
-            setAllTillPresent={setAllTillPresent}
-            allTillPresent={allTillPresent}
             handleChange={handleChangeWithValidation}
             errors={errors}
             allValues={values}
@@ -154,7 +156,7 @@ const Experience = ({
           handleChange={handleChangeWithValidation}
           label="Обязанности"
           extraInputClass="responsibilities"
-          disabled={hasExperience}
+          disabled={values.work_experience_checkbox}
           setValues={setValues}
           setDuties={setDuties}
           errors={errors}
@@ -165,21 +167,22 @@ const Experience = ({
             values={experience}
             allValues={values}
             handleChange={handleAddJobChange}
-            hasExperience={hasExperience}
+            disabled={values.work_experience_checkbox}
             deleteExperience={deleteExperience}
             addExperience={addExperience}
             i={experience.id}
             key={experience.id}
             handleCheckboxChange={handleAddJobCheckboxChange}
             setValues={setValues}
-            setAllTillPresent={setAllTillPresent}
-            allTillPresent={allTillPresent}
             setDuties={setDuties}
             handleBackToBasicRecommend={handleBackToBasicRecommend}
           />
         ))}
         {noAddedExperience && values.jobs?.length === 0 && (
-          <AddButton disabled={hasExperience} handleClick={addExperience} />
+          <AddButton
+            disabled={values.work_experience_checkbox}
+            handleClick={addExperience}
+          />
         )}
       </div>
     </section>
@@ -204,6 +207,7 @@ Experience.propTypes = {
           ),
         ])
       ),
+      PropTypes.objectOf(PropTypes.bool),
     ])
   ),
   setValues: PropTypes.func.isRequired,
@@ -211,9 +215,6 @@ Experience.propTypes = {
   checkboxValues: PropTypes.shape({
     checkbox: PropTypes.bool,
   }),
-  hasExperience: PropTypes.bool.isRequired,
-  setHasExperience: PropTypes.func.isRequired,
-  setAllTillPresent: PropTypes.func.isRequired,
   allTillPresent: PropTypes.shape({
     value: PropTypes.bool,
   }),

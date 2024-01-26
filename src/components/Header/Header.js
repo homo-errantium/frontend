@@ -461,6 +461,7 @@ Header.propTypes = {
           ),
         ])
       ),
+      PropTypes.objectOf(PropTypes.bool),
     ])
   ),
   arrValues: PropTypes.arrayOf(
@@ -481,6 +482,7 @@ Header.propTypes = {
             ),
           ])
         ),
+        PropTypes.objectOf(PropTypes.bool),
       ])
     )
   ),

@@ -119,6 +119,7 @@ Resume.propTypes = {
           ),
         ])
       ),
+      PropTypes.objectOf(PropTypes.bool),
     ])
   ),
   arrValues: PropTypes.arrayOf(
@@ -139,6 +140,7 @@ Resume.propTypes = {
             ),
           ])
         ),
+        PropTypes.objectOf(PropTypes.bool),
       ])
     )
   ),

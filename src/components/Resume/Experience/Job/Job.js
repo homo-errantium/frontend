@@ -10,7 +10,6 @@ import PlusIcon from '../../../../img/plus-icon.svg'
 import TrashIcon from '../../../../img/trash-icon-red.svg'
 
 const Job = ({
-  hasExperience,
   addExperience,
   deleteExperience,
   i,
@@ -23,6 +22,7 @@ const Job = ({
   setDuties,
   allValues,
   handleBackToBasicRecommend,
+  disabled,
 }) => {
   const handleDelete = () => deleteExperience(i)
 
@@ -38,7 +38,7 @@ const Job = ({
             values={values}
             handleChange={handleChange}
             label="Название компании"
-            disabled={hasExperience}
+            disabled={disabled}
             id={i}
           />
           <FormInput
@@ -46,7 +46,7 @@ const Job = ({
             values={values}
             handleChange={handleChange}
             label="Сайт компании"
-            disabled={hasExperience}
+            disabled={disabled}
             id={i}
           />
           <FormInput
@@ -55,14 +55,14 @@ const Job = ({
             handleChange={handleChange}
             label="Должность"
             tipText={JOB_TIP}
-            disabled={hasExperience}
+            disabled={disabled}
             id={i}
           />
           <PeriodInput
             labelOne="Дата начала работы"
             labelTwo="Дата окончания работы"
             month
-            disabled={hasExperience}
+            disabled={disabled}
             i={i}
             tillPresent
             values={values}
@@ -83,7 +83,7 @@ const Job = ({
           handleChange={handleChange}
           label="Обязанности"
           extraInputClass="responsibilities"
-          disabled={hasExperience}
+          disabled={disabled}
           setDuties={setDuties}
           id={i}
         />
@@ -111,7 +111,7 @@ const Job = ({
 }
 
 Job.propTypes = {
-  hasExperience: PropTypes.bool.isRequired,
+  // hasExperience: PropTypes.bool.isRequired,
   addExperience: PropTypes.func.isRequired,
   deleteExperience: PropTypes.func.isRequired,
   i: PropTypes.string.isRequired,
@@ -149,6 +149,7 @@ Job.propTypes = {
     ])
   ),
   handleBackToBasicRecommend: PropTypes.func.isRequired,
+  disabled: PropTypes.bool.isRequired,
 }
 
 Job.defaultProps = {

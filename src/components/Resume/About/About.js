@@ -46,6 +46,7 @@ About.propTypes = {
           ),
         ])
       ),
+      PropTypes.objectOf(PropTypes.bool),
     ])
   ),
   handleChangeWithValidation: PropTypes.func,

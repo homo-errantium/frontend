@@ -662,14 +662,12 @@ Profile.propTypes = {
           ),
         ])
       ),
+      PropTypes.objectOf(PropTypes.bool),
     ])
   ).isRequired,
   setValues: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   deletePopupSetState: PropTypes.func.isRequired,
-  // errors: PropTypes.objectOf(
-  //   PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-  // ).isRequired,
   setCurrentUser: PropTypes.func.isRequired,
   imageProfile: PropTypes.string,
   setImageProfile: PropTypes.func.isRequired,
@@ -691,6 +689,7 @@ Profile.propTypes = {
             ),
           ])
         ),
+        PropTypes.objectOf(PropTypes.bool),
       ])
     )
   ).isRequired,

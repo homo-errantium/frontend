@@ -125,6 +125,7 @@ PopupResumeName.propTypes = {
           ),
         ])
       ),
+      PropTypes.objectOf(PropTypes.bool),
     ])
   ),
   setValues: PropTypes.func.isRequired,
@@ -148,6 +149,7 @@ PopupResumeName.propTypes = {
             ),
           ])
         ),
+        PropTypes.objectOf(PropTypes.bool),
       ])
     )
   ),

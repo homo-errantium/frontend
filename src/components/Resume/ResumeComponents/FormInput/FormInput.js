@@ -113,7 +113,6 @@ const FormInput = ({
           errors[name] && 'form-input__field_error'
         )}
         onFocus={handleFocus}
-        // onBlur={handleBlur}
         mask={dataMask}
       />
       {errors && (

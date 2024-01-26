@@ -59,6 +59,7 @@ PopupConfirmationExit.propTypes = {
             ),
           ])
         ),
+        PropTypes.objectOf(PropTypes.bool),
       ])
     )
   ),
@@ -80,6 +81,7 @@ PopupConfirmationExit.propTypes = {
           ),
         ])
       ),
+      PropTypes.objectOf(PropTypes.bool),
     ])
   ),
   setIsEditMod: PropTypes.func.isRequired,

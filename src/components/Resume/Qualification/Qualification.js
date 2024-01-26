@@ -12,8 +12,6 @@ import AddedQualification from './AddedQualification/AddedQualification'
 
 const Qualification = ({
   handleCheckboxChange,
-  setHasQualification,
-  hasQualification,
   values,
   handleChangeWithValidation,
   setValues,
@@ -24,8 +22,11 @@ const Qualification = ({
   const [noAddedQualification, setNoAddedQualification] = useState(true)
 
   const handleTitleCheckboxClick = () => {
-    setHasQualification(!hasQualification)
-    setValues({ ...values, qualifications: [] })
+    setValues(prevValues => ({
+      ...prevValues,
+      qualifications: [],
+      qualification_checkbox: !prevValues.qualification_checkbox,
+    }))
     setNoAddedQualification(true)
   }
 
@@ -84,7 +85,7 @@ const Qualification = ({
             name="organization"
             values={values}
             label="Проводившая организация"
-            disabled={hasQualification}
+            disabled={values.qualification_checkbox}
             handleChange={handleChangeWithValidation}
             setValues={setValues}
           />
@@ -92,7 +93,7 @@ const Qualification = ({
             name="course_name"
             values={values}
             label="Название курса"
-            disabled={hasQualification}
+            disabled={values.qualification_checkbox}
             handleChange={handleChangeWithValidation}
             setValues={setValues}
           />
@@ -100,7 +101,7 @@ const Qualification = ({
             name="work_specialization"
             values={values}
             label="Специальность"
-            disabled={hasQualification}
+            disabled={values.qualification_checkbox}
             handleChange={handleChangeWithValidation}
             setValues={setValues}
           />
@@ -110,7 +111,7 @@ const Qualification = ({
             labelOne="Дата начала"
             labelTwo="Дата окончания"
             month
-            disabled={hasQualification}
+            disabled={values.qualification_checkbox}
             i="0"
             values={values}
             setValues={setValues}
@@ -121,7 +122,7 @@ const Qualification = ({
             name="description_experience"
             values={values}
             extraInputClass="qualification-experience"
-            disabled={hasQualification}
+            disabled={values.qualification_checkbox}
             handleChange={handleChangeWithValidation}
             setValues={setValues}
           />
@@ -131,7 +132,7 @@ const Qualification = ({
           name="skills"
           values={values}
           extraInputClass="qualification-skills"
-          disabled={hasQualification}
+          disabled={values.qualification_checkbox}
           handleChange={handleChangeWithValidation}
           setQualifications={setQualifications}
           setValues={setValues}
@@ -146,7 +147,7 @@ const Qualification = ({
             name="diploma_link"
             values={values}
             label="Ссылка на дипломную работу"
-            disabled={hasQualification}
+            disabled={values.qualification_checkbox}
             handleChange={handleChangeWithValidation}
             setValues={setValues}
           />
@@ -154,7 +155,7 @@ const Qualification = ({
         {values.qualifications.map(qualification => (
           <AddedQualification
             values={qualification}
-            hasQualification={hasQualification}
+            disabled={values.qualification_checkbox}
             handleChange={handleAddQualificationChange}
             deleteQualification={deleteQualification}
             addQualification={addQualification}
@@ -168,7 +169,7 @@ const Qualification = ({
         ))}
         {noAddedQualification && values.qualifications?.length === 0 && (
           <AddButton
-            disabled={hasQualification}
+            disabled={values.qualification_checkbox}
             handleClick={addQualification}
           />
         )}
@@ -179,8 +180,6 @@ const Qualification = ({
 
 Qualification.propTypes = {
   handleCheckboxChange: PropTypes.func.isRequired,
-  setHasQualification: PropTypes.func.isRequired,
-  hasQualification: PropTypes.bool.isRequired,
   values: PropTypes.objectOf(
     PropTypes.oneOfType([
       PropTypes.string,
@@ -198,6 +197,7 @@ Qualification.propTypes = {
           ),
         ])
       ),
+      PropTypes.objectOf(PropTypes.bool),
     ])
   ),
   handleChangeWithValidation: PropTypes.func.isRequired,

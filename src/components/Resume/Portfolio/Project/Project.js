@@ -14,7 +14,7 @@ const Project = ({
   handleChange,
   setPortfolio,
   handleBackToBasicRecommend,
-  hasPortfolio,
+  disabled,
 }) => {
   const handleDelete = () => deleteProject(i)
   return (
@@ -32,7 +32,7 @@ const Project = ({
             id={i}
             name="project_name"
             label="Название проекта"
-            hasPortfolio={hasPortfolio}
+            hasPortfolio={disabled}
           />
         </div>
         <FormInput
@@ -43,7 +43,7 @@ const Project = ({
           label="Краткое описание проекта"
           extraInputClass="portfolio"
           setPortfolio={setPortfolio}
-          hasPortfolio={hasPortfolio}
+          hasPortfolio={disabled}
         />
         <div
           className="project__basic-recommend"
@@ -57,7 +57,7 @@ const Project = ({
             id={i}
             name="project_link"
             label="Ссылка на проект"
-            hasPortfolio={hasPortfolio}
+            hasPortfolio={disabled}
           />
         </div>
       </div>
@@ -103,7 +103,7 @@ Project.propTypes = {
   handleChange: PropTypes.func.isRequired,
   handleBackToBasicRecommend: PropTypes.func.isRequired,
   setPortfolio: PropTypes.func.isRequired,
-  hasPortfolio: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool.isRequired,
 }
 
 Project.defaultProps = {

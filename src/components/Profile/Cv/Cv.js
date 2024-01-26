@@ -12,13 +12,11 @@ import ResultResume from '../../Resume/ResultResume/ResultResume'
 import { handleGeneratePdf, copyToClipboard } from '../../Utils/Utils'
 
 const Cv = ({
-  // isEditMod,
   cv,
   deletePopupSetState,
   currentResume,
   setCurrentResume,
   setIsEditMod,
-  // setArrValues,
   arrValues,
   setIsResumeNamePopupOpen,
   setPopupCopyLink,
@@ -166,27 +164,6 @@ const Cv = ({
 }
 
 Cv.propTypes = {
-  // isEditMod: PropTypes.bool.isRequired,
-  // values: PropTypes.objectOf(
-  //   PropTypes.oneOfType([
-  //     PropTypes.string,
-  //     PropTypes.number,
-  //     PropTypes.bool,
-  //     PropTypes.arrayOf(
-  //       PropTypes.oneOfType([
-  //         PropTypes.string,
-  //         PropTypes.objectOf(
-  //           PropTypes.oneOfType([
-  //             PropTypes.string,
-  //             PropTypes.number,
-  //             PropTypes.bool,
-  //           ])
-  //         ),
-  //       ])
-  //     ),
-  //   ])
-  // ),
-  // setValues: PropTypes.func.isRequired,
   setIsEditMod: PropTypes.func,
   cv: PropTypes.objectOf(
     PropTypes.oneOfType([
@@ -205,6 +182,7 @@ Cv.propTypes = {
           ),
         ])
       ),
+      PropTypes.objectOf(PropTypes.bool),
     ])
   ),
   deletePopupSetState: PropTypes.func.isRequired,
@@ -246,6 +224,7 @@ Cv.propTypes = {
             ),
           ])
         ),
+        PropTypes.objectOf(PropTypes.bool),
       ])
     )
   ).isRequired,

@@ -17,7 +17,7 @@ const AddedEducation = ({
   setAllTillPresent,
   allTillPresent,
   allValues,
-  hasEducation,
+  disabled,
 }) => {
   const handleDelete = () => deleteEducation(i)
   return (
@@ -29,7 +29,7 @@ const AddedEducation = ({
           handleChange={handleChange}
           label="Название вуза"
           id={i}
-          disabled={hasEducation}
+          disabled={disabled}
         />
         <PeriodInput
           education
@@ -47,7 +47,7 @@ const AddedEducation = ({
           setAllTillPresent={setAllTillPresent}
           allTillPresent={allTillPresent}
           allValues={allValues}
-          disabled={hasEducation}
+          disabled={disabled}
         />
         <FormInput
           name="university_specialization"
@@ -55,7 +55,7 @@ const AddedEducation = ({
           handleChange={handleChange}
           label="Специальность"
           id={i}
-          disabled={hasEducation}
+          disabled={disabled}
         />
         <FormInput
           name="education_level"
@@ -63,7 +63,7 @@ const AddedEducation = ({
           handleChange={handleChange}
           label="Степень"
           id={i}
-          disabled={hasEducation}
+          disabled={disabled}
         />
       </div>
       <div className="added-education__buttons-container">
@@ -124,7 +124,7 @@ AddedEducation.propTypes = {
       ),
     ])
   ),
-  hasEducation: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool.isRequired,
 }
 
 AddedEducation.defaultProps = {

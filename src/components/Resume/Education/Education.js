@@ -14,12 +14,8 @@ const Education = ({
   handleChangeWithValidation,
   setValues,
   handleCheckboxChange,
-  setAllTillPresent,
-  allTillPresent,
   handleAddEducationChange,
   handleAddEducationCheckboxChange,
-  setHasEducation,
-  hasEducation,
 }) => {
   // Если появился добавленное образование, основная кнопка "Добавить" удаляется
   const [noAddedEducation, setNoAddedEducation] = useState(true)
@@ -55,18 +51,27 @@ const Education = ({
   }, [values.educations?.length])
 
   const handleTitleCheckboxClick = () => {
-    setHasEducation(!hasEducation)
     setValues({ ...values, educations: [] })
+    setValues(prevValues => ({
+      ...prevValues,
+      educations: [],
+      education_checkbox: !prevValues.education_checkbox,
+    }))
     setNoAddedEducation(true)
+  }
 
-    if (hasEducation) {
+  useEffect(() => {
+    if (values.education_checkbox === true) {
       setValues(prevValues => ({
         ...prevValues,
         education_period_checkbox: false,
+        allTillPresentCheckboxes: {
+          ...prevValues.allTillPresentCheckboxes,
+          1: false,
+        },
       }))
-      setAllTillPresent({ ...allTillPresent, 0: false })
     }
-  }
+  }, [values.education_checkbox])
 
   return (
     <section className="education">
@@ -86,7 +91,7 @@ const Education = ({
           handleChange={handleChangeWithValidation}
           name="university_name"
           label="Название вуза"
-          disabled={hasEducation}
+          disabled={values.education_checkbox}
           setValues={setValues}
         />
         <PeriodInput
@@ -101,17 +106,15 @@ const Education = ({
           handleCheckboxChange={handleCheckboxChange}
           values={values}
           setValues={setValues}
-          setAllTillPresent={setAllTillPresent}
-          allTillPresent={allTillPresent}
           handleChange={handleChangeWithValidation}
-          disabled={hasEducation}
+          disabled={values.education_checkbox}
         />
         <FormInput
           values={values}
           handleChange={handleChangeWithValidation}
           name="university_specialization"
           label="Специальность"
-          disabled={hasEducation}
+          disabled={values.education_checkbox}
           setValues={setValues}
         />
         <FormInput
@@ -119,7 +122,7 @@ const Education = ({
           handleChange={handleChangeWithValidation}
           name="education_level"
           label="Степень"
-          disabled={hasEducation}
+          disabled={values.education_checkbox}
           setValues={setValues}
         />
         {values.educations.map(education => (
@@ -132,14 +135,15 @@ const Education = ({
             handleChange={handleAddEducationChange}
             handleCheckboxChange={handleAddEducationCheckboxChange}
             setValues={setValues}
-            setAllTillPresent={setAllTillPresent}
-            allTillPresent={allTillPresent}
             allValues={values}
-            hasEducation={hasEducation}
+            disabled={values.education_checkbox}
           />
         ))}
         {noAddedEducation && values.educations?.length === 0 && (
-          <AddButton handleClick={addEducation} disabled={hasEducation} />
+          <AddButton
+            handleClick={addEducation}
+            disabled={values.education_checkbox}
+          />
         )}
       </div>
     </section>
@@ -164,6 +168,7 @@ Education.propTypes = {
           ),
         ])
       ),
+      PropTypes.objectOf(PropTypes.bool),
     ])
   ),
   setValues: PropTypes.func.isRequired,
@@ -171,15 +176,12 @@ Education.propTypes = {
   checkboxValues: PropTypes.shape({
     checkbox: PropTypes.bool,
   }),
-  setAllTillPresent: PropTypes.func.isRequired,
   allTillPresent: PropTypes.shape({
     value: PropTypes.bool,
   }),
   handleChangeWithValidation: PropTypes.func.isRequired,
   handleAddEducationChange: PropTypes.func.isRequired,
   handleAddEducationCheckboxChange: PropTypes.func.isRequired,
-  setHasEducation: PropTypes.func.isRequired,
-  hasEducation: PropTypes.bool.isRequired,
 }
 
 Education.defaultProps = {

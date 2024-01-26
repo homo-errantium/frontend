@@ -23,8 +23,6 @@ const PeriodInput = ({
   values,
   handleCheckboxChange,
   handleChange,
-  setAllTillPresent,
-  allTillPresent,
   errors,
   allValues,
   education,
@@ -32,8 +30,10 @@ const PeriodInput = ({
   const location = useLocation()
   const [disabledMonthChoice, setDisabledMonthChoice] = useState(false)
   const [isTillPresent, setIsTillPresent] = React.useState(
-    allTillPresent[i] || false
+    values.allTillPresentCheckboxes[i] || false
   )
+  // console.log(`isTillPresent: ${isTillPresent}`)
+  // console.log(`disabled: ${disabled}`)
   useEffect(() => {
     if (isTillPresent) {
       if (i === '0' || i === '1') {
@@ -86,7 +86,14 @@ const PeriodInput = ({
 
   const handleCheckboxToggle = () => {
     setIsTillPresent(!isTillPresent)
-    setAllTillPresent(prevValue => ({ ...prevValue, [i]: !isTillPresent }))
+    // setAllTillPresent(prevValue => ({ ...prevValue, [i]: !isTillPresent }))
+    setValues(prevValues => ({
+      ...prevValues,
+      allTillPresentCheckboxes: {
+        ...prevValues.allTillPresentCheckboxes,
+        [i]: !isTillPresent,
+      },
+    }))
   }
 
   useEffect(() => {
@@ -248,10 +255,10 @@ PeriodInput.propTypes = {
           ),
         ])
       ),
+      PropTypes.objectOf(PropTypes.bool),
     ])
   ),
   handleChange: PropTypes.func,
-  setAllTillPresent: PropTypes.func,
   allTillPresent: PropTypes.shape({
     value: PropTypes.bool,
   }),
@@ -263,6 +270,7 @@ PeriodInput.propTypes = {
       PropTypes.bool,
       PropTypes.arrayOf(
         PropTypes.oneOfType([
+          PropTypes.string,
           PropTypes.objectOf(
             PropTypes.oneOfType([
               PropTypes.string,
@@ -270,9 +278,9 @@ PeriodInput.propTypes = {
               PropTypes.bool,
             ])
           ),
-          PropTypes.string,
         ])
       ),
+      PropTypes.objectOf(PropTypes.bool),
     ])
   ),
   education: PropTypes.bool,
@@ -290,7 +298,6 @@ PeriodInput.defaultProps = {
   year: [],
   values: {},
   handleChange: () => {},
-  setAllTillPresent: () => {},
   allTillPresent: {},
   allValues: {},
   errors: {},

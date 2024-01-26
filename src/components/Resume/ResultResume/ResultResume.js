@@ -962,11 +962,9 @@ ResultResume.propTypes = {
           ),
         ])
       ),
+      PropTypes.objectOf(PropTypes.bool),
     ])
   ),
-  // checkboxValues: PropTypes.objectOf(
-  //   PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-  // ),
 }
 
 ResultResume.defaultProps = {

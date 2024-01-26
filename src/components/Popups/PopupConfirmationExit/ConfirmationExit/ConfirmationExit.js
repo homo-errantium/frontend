@@ -111,6 +111,7 @@ ConfirmationExit.propTypes = {
             ),
           ])
         ),
+        PropTypes.objectOf(PropTypes.bool),
       ])
     )
   ),
@@ -132,6 +133,7 @@ ConfirmationExit.propTypes = {
           ),
         ])
       ),
+      PropTypes.objectOf(PropTypes.bool),
     ])
   ),
   setIsEditMod: PropTypes.func.isRequired,

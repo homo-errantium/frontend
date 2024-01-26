@@ -63,6 +63,7 @@ PopupConfirmationExit.propTypes = {
             ),
           ])
         ),
+        PropTypes.objectOf(PropTypes.bool),
       ])
     )
   ),
@@ -83,6 +84,7 @@ PopupConfirmationExit.propTypes = {
           ),
         ])
       ),
+      PropTypes.objectOf(PropTypes.bool),
     ])
   ),
   currentResume: PropTypes.objectOf(

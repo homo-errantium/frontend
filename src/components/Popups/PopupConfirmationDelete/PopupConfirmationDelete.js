@@ -56,6 +56,7 @@ PopupConfirmationDelete.propTypes = {
             ),
           ])
         ),
+        PropTypes.objectOf(PropTypes.bool),
       ])
     )
   ).isRequired,
