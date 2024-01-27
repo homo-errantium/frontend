@@ -95,6 +95,7 @@ function App() {
       qualifications: [],
       educations: [],
       portfolio: [],
+      id: uuidv4(),
     }
   )
 
@@ -139,7 +140,6 @@ function App() {
     React.useState(false)
   const [completedStepsSkills, setCompletedStepsSkills] = React.useState(false)
   const [completedStepsAbout, setCompletedStepsAbout] = React.useState(false)
-  // const [completedLayouts, setCompletedLayouts] = React.useState(false)
 
   // --------------------------- Работа с данными через локальное хранилище ----------------------
 
@@ -149,10 +149,6 @@ function App() {
   }, [currentResume])
 
   useEffect(() => {
-    if (location.pathname === '/resume/result' && !isEditMod && !values.id) {
-      // setValues({ ...values, id: uuidv4() })
-      setValues(prevValues => ({ ...prevValues, id: uuidv4() }))
-    }
     localStorage.setItem('allData', JSON.stringify(arrValues))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname])
@@ -184,11 +180,10 @@ function App() {
       qualifications: [],
       educations: [],
       portfolio: [],
+      id: uuidv4(),
     })
     setImage(isLoggedIn ? currentUser.imageProfile : '')
   }
-
-  console.log(values)
 
   // Функция, которая записывает данные дополнительных полей опыта работы
   const handleAddJobChange = evt => {
