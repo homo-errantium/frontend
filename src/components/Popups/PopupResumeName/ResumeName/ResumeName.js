@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 import { useNavigate, useLocation } from 'react-router'
 import { cleanLocalStorage } from '../../../Utils/Utils'
 import TrashLogo from '../../../../img/trash-icon-red.svg'
+import { CurrentValues } from '../../../../contexts/ValuesContext'
 
 function PopupResumeName({
-  values,
   setValues,
   setArrValues,
   onClose,
@@ -18,6 +18,7 @@ function PopupResumeName({
 }) {
   const navigate = useNavigate()
   const location = useLocation()
+  const values = React.useContext(CurrentValues)
 
   // добавление имени резюме
   function handleChange(evt) {
@@ -108,26 +109,6 @@ function PopupResumeName({
 
 PopupResumeName.propTypes = {
   setIsEditMod: PropTypes.func,
-  values: PropTypes.objectOf(
-    PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.bool,
-      PropTypes.arrayOf(
-        PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.objectOf(
-            PropTypes.oneOfType([
-              PropTypes.string,
-              PropTypes.number,
-              PropTypes.bool,
-            ])
-          ),
-        ])
-      ),
-      PropTypes.objectOf(PropTypes.bool),
-    ])
-  ),
   setValues: PropTypes.func.isRequired,
   setArrValues: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
@@ -177,7 +158,6 @@ PopupResumeName.propTypes = {
 }
 
 PopupResumeName.defaultProps = {
-  values: {},
   arrValues: [],
   setIsEditMod: () => {},
   currentResume: {},

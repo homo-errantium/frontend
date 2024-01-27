@@ -10,7 +10,6 @@ import { locationArr } from '../../constants/constants'
 function Resume({
   arrValues,
   setArrValues,
-  values,
   setIsEditMod,
   isEditMod,
   isLoggedIn,
@@ -68,7 +67,6 @@ function Resume({
       <Header
         arrValues={arrValues}
         setArrValues={setArrValues}
-        values={values}
         setIsEditMod={setIsEditMod}
         isEditMod={isEditMod}
         isValid={isValid}
@@ -102,26 +100,6 @@ function Resume({
 }
 
 Resume.propTypes = {
-  values: PropTypes.objectOf(
-    PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.bool,
-      PropTypes.arrayOf(
-        PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.objectOf(
-            PropTypes.oneOfType([
-              PropTypes.string,
-              PropTypes.number,
-              PropTypes.bool,
-            ])
-          ),
-        ])
-      ),
-      PropTypes.objectOf(PropTypes.bool),
-    ])
-  ),
   arrValues: PropTypes.arrayOf(
     PropTypes.objectOf(
       PropTypes.oneOfType([
@@ -156,7 +134,6 @@ Resume.propTypes = {
   setCompletedStepsPortfolio: PropTypes.func.isRequired,
   setCompletedStepsSkills: PropTypes.func.isRequired,
   setCompletedStepsAbout: PropTypes.func.isRequired,
-  // setCompletedLayouts: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
   handleResumeNamePopupOpen: PropTypes.func,
   duties: PropTypes.bool,
@@ -174,7 +151,6 @@ Resume.propTypes = {
 Resume.defaultProps = {
   arrValues: [],
   setArrValues: () => {},
-  values: {},
   isEditMod: false,
   duties: false,
   qualifications: false,

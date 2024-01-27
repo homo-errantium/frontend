@@ -31,7 +31,6 @@ function Profile({
   arrValues,
   setArrValues,
   setIsEditMod,
-  values,
   setValues,
   setIsResumeNamePopupOpen,
   clearData,
@@ -626,7 +625,6 @@ function Profile({
                   cv={cv}
                   deletePopupSetState={deletePopupSetState}
                   setIsEditMod={setIsEditMod}
-                  values={values}
                   setValues={setValues}
                   setIsResumeNamePopupOpen={setIsResumeNamePopupOpen}
                   setPopupCopyLink={setPopupCopyLink}
@@ -645,26 +643,6 @@ function Profile({
 Profile.propTypes = {
   setIsLoggedIn: PropTypes.func.isRequired,
   isEditMod: PropTypes.bool.isRequired,
-  values: PropTypes.objectOf(
-    PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.bool,
-      PropTypes.arrayOf(
-        PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.objectOf(
-            PropTypes.oneOfType([
-              PropTypes.string,
-              PropTypes.number,
-              PropTypes.bool,
-            ])
-          ),
-        ])
-      ),
-      PropTypes.objectOf(PropTypes.bool),
-    ])
-  ).isRequired,
   setValues: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   deletePopupSetState: PropTypes.func.isRequired,

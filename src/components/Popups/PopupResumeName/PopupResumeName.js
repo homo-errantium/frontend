@@ -7,7 +7,6 @@ import ResumeName from './ResumeName/ResumeName'
 function PopupConfirmationExit({
   isOpen,
   onClose,
-  values,
   setValues,
   setArrValues,
   arrValues,
@@ -24,7 +23,6 @@ function PopupConfirmationExit({
       closeButtonBlack
       element={
         <ResumeName
-          values={values}
           setValues={setValues}
           setArrValues={setArrValues}
           onClose={onClose}
@@ -67,26 +65,6 @@ PopupConfirmationExit.propTypes = {
       ])
     )
   ),
-  values: PropTypes.objectOf(
-    PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.bool,
-      PropTypes.arrayOf(
-        PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.objectOf(
-            PropTypes.oneOfType([
-              PropTypes.string,
-              PropTypes.number,
-              PropTypes.bool,
-            ])
-          ),
-        ])
-      ),
-      PropTypes.objectOf(PropTypes.bool),
-    ])
-  ),
   currentResume: PropTypes.objectOf(
     PropTypes.oneOfType([
       PropTypes.string,
@@ -112,7 +90,6 @@ PopupConfirmationExit.propTypes = {
 
 PopupConfirmationExit.defaultProps = {
   arrValues: [],
-  values: {},
   setIsEditMod: () => {},
   currentResume: {},
 }

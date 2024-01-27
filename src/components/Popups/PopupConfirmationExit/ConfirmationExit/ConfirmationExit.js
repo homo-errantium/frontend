@@ -1,8 +1,10 @@
+import React from 'react'
 import './ConfirmationExit.scss'
 import { useNavigate } from 'react-router'
 import PropTypes from 'prop-types'
 import exitImage from '../../../../img/popups/exit-design.svg'
 import CloseIcon from '../../../../img/popups/close-icon-black.svg'
+import { CurrentValues } from '../../../../contexts/ValuesContext'
 
 function ConfirmationExit({
   onClose,
@@ -10,11 +12,11 @@ function ConfirmationExit({
   isEditMod,
   setArrValues,
   arrValues,
-  values,
   setIsEditMod,
   clearData,
 }) {
   const navigate = useNavigate()
+  const values = React.useContext(CurrentValues)
 
   const updateResume = () => {
     setArrValues(newArr =>
@@ -116,33 +118,13 @@ ConfirmationExit.propTypes = {
     )
   ),
   setArrValues: PropTypes.func.isRequired,
-  values: PropTypes.objectOf(
-    PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.bool,
-      PropTypes.arrayOf(
-        PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.objectOf(
-            PropTypes.oneOfType([
-              PropTypes.string,
-              PropTypes.number,
-              PropTypes.bool,
-            ])
-          ),
-        ])
-      ),
-      PropTypes.objectOf(PropTypes.bool),
-    ])
-  ),
+
   setIsEditMod: PropTypes.func.isRequired,
   clearData: PropTypes.func.isRequired,
 }
 
 ConfirmationExit.defaultProps = {
   arrValues: {},
-  values: {},
 }
 
 export default ConfirmationExit
