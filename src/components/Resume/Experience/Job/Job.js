@@ -17,8 +17,6 @@ const Job = ({
   handleChange,
   handleCheckboxChange,
   setValues,
-  setAllTillPresent,
-  allTillPresent,
   setDuties,
   allValues,
   handleBackToBasicRecommend,
@@ -40,6 +38,7 @@ const Job = ({
             label="Название компании"
             disabled={disabled}
             id={i}
+            setValues={setValues}
           />
           <FormInput
             name="company_website"
@@ -48,6 +47,7 @@ const Job = ({
             label="Сайт компании"
             disabled={disabled}
             id={i}
+            setValues={setValues}
           />
           <FormInput
             name="current_position"
@@ -57,6 +57,7 @@ const Job = ({
             tipText={JOB_TIP}
             disabled={disabled}
             id={i}
+            setValues={setValues}
           />
           <PeriodInput
             labelOne="Дата начала работы"
@@ -72,8 +73,6 @@ const Job = ({
             year={['year_work_start', 'year_work_end']}
             handleCheckboxChange={handleCheckboxChange}
             setValues={setValues}
-            setAllTillPresent={setAllTillPresent}
-            allTillPresent={allTillPresent}
             allValues={allValues}
           />
         </div>
@@ -86,6 +85,7 @@ const Job = ({
           disabled={disabled}
           setDuties={setDuties}
           id={i}
+          setValues={setValues}
         />
       </div>
       <div className="job__buttons-container">
@@ -111,7 +111,6 @@ const Job = ({
 }
 
 Job.propTypes = {
-  // hasExperience: PropTypes.bool.isRequired,
   addExperience: PropTypes.func.isRequired,
   deleteExperience: PropTypes.func.isRequired,
   i: PropTypes.string.isRequired,
@@ -124,7 +123,6 @@ Job.propTypes = {
   }),
   handleCheckboxChange: PropTypes.func.isRequired,
   setValues: PropTypes.func.isRequired,
-  setAllTillPresent: PropTypes.func.isRequired,
   allTillPresent: PropTypes.shape({
     value: PropTypes.bool,
   }),
@@ -146,10 +144,11 @@ Job.propTypes = {
           ),
         ])
       ),
+      PropTypes.objectOf(PropTypes.bool),
     ])
   ),
   handleBackToBasicRecommend: PropTypes.func.isRequired,
-  disabled: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool,
 }
 
 Job.defaultProps = {
@@ -157,6 +156,7 @@ Job.defaultProps = {
   checkboxValues: {},
   allTillPresent: {},
   allValues: {},
+  disabled: undefined,
 }
 
 export default Job

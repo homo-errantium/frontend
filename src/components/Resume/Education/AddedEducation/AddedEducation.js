@@ -14,8 +14,6 @@ const AddedEducation = ({
   handleChange,
   handleCheckboxChange,
   setValues,
-  setAllTillPresent,
-  allTillPresent,
   allValues,
   disabled,
 }) => {
@@ -44,8 +42,6 @@ const AddedEducation = ({
           handleChange={handleChange}
           handleCheckboxChange={handleCheckboxChange}
           setValues={setValues}
-          setAllTillPresent={setAllTillPresent}
-          allTillPresent={allTillPresent}
           allValues={allValues}
           disabled={disabled}
         />
@@ -101,7 +97,6 @@ AddedEducation.propTypes = {
   }),
   handleCheckboxChange: PropTypes.func.isRequired,
   setValues: PropTypes.func.isRequired,
-  setAllTillPresent: PropTypes.func.isRequired,
   allTillPresent: PropTypes.shape({
     value: PropTypes.bool,
   }),

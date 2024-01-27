@@ -95,11 +95,8 @@ function App() {
       qualifications: [],
       educations: [],
       portfolio: [],
-      allTillPresentCheckboxes: { 0: false, 1: false },
     }
   )
-
-  // console.log(values)
 
   const [arrValues, setArrValues] = useState(
     JSON.parse(localStorage.getItem('allData')) || [exampleObject]
@@ -120,10 +117,6 @@ function App() {
   const [qualifications, setQualifications] = useState(false)
   const [portfolio, setPortfolio] = useState(false)
   const [about, setAbout] = useState(false)
-  // Записываем данные isTillPresent в один объект
-  // const [allTillPresent, setAllTillPresent] = React.useState(
-  //   JSON.parse(localStorage.getItem('isTillPresent')) || {}
-  // )
 
   const [errors, setErrors] = useState({})
   // Сохраняем ссылку изображения в переменную и вытягиваем из локального хранилища данные
@@ -191,10 +184,11 @@ function App() {
       qualifications: [],
       educations: [],
       portfolio: [],
-      allTillPresentCheckboxes: { 0: false, 1: false },
     })
     setImage(isLoggedIn ? currentUser.imageProfile : '')
   }
+
+  console.log(values)
 
   // Функция, которая записывает данные дополнительных полей опыта работы
   const handleAddJobChange = evt => {

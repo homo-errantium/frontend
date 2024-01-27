@@ -12,33 +12,30 @@ const Checkbox = ({
   values,
   handleCheckboxChange,
   disabled,
-}) => {
-  console.log(values[name])
-  return (
-    <div className="checkbox__container">
-      <label className="checkbox__label" htmlFor={checkboxId}>
-        <input
-          name={name}
-          type="checkbox"
-          onClick={onClick}
-          id={checkboxId}
-          disabled={disabled === true}
-          className="checkbox__input"
-          onChange={handleCheckboxChange}
-          checked={values[name]}
-        />
-        <span
-          className={classNames(
-            'checkbox__text',
-            disabled && 'checkbox__text_inactive'
-          )}
-        >
-          {checkboxText}
-        </span>
-      </label>
-    </div>
-  )
-}
+}) => (
+  <div className="checkbox__container">
+    <label className="checkbox__label" htmlFor={checkboxId}>
+      <input
+        name={name}
+        type="checkbox"
+        onClick={onClick}
+        id={checkboxId}
+        disabled={disabled === true}
+        className="checkbox__input"
+        onChange={handleCheckboxChange}
+        checked={values[name]}
+      />
+      <span
+        className={classNames(
+          'checkbox__text',
+          disabled && 'checkbox__text_inactive'
+        )}
+      >
+        {checkboxText}
+      </span>
+    </label>
+  </div>
+)
 
 Checkbox.propTypes = {
   checkboxText: PropTypes.string.isRequired,

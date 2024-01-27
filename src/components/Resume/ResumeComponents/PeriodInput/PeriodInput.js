@@ -29,13 +29,8 @@ const PeriodInput = ({
 }) => {
   const location = useLocation()
   const [disabledMonthChoice, setDisabledMonthChoice] = useState(false)
-  const [isTillPresent, setIsTillPresent] = React.useState(
-    values.allTillPresentCheckboxes[i] || false
-  )
-  // console.log(`isTillPresent: ${isTillPresent}`)
-  // console.log(`disabled: ${disabled}`)
   useEffect(() => {
-    if (isTillPresent) {
+    if (values[namePeriod] === true) {
       if (i === '0' || i === '1') {
         setValues(prevValue => ({
           ...prevValue,
@@ -65,10 +60,10 @@ const PeriodInput = ({
       }
     }
     if (disabled) {
-      setIsTillPresent(false)
+      setValues(prevValues => ({ ...prevValues, [namePeriod]: false }))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isTillPresent])
+  }, [values[namePeriod]])
 
   useEffect(() => {
     if (disabled) {
@@ -79,20 +74,15 @@ const PeriodInput = ({
         [year[0]]: '',
         [year[1]]: '',
       })
-      setIsTillPresent(false)
+      setValues(prevValues => ({ ...prevValues, [namePeriod]: false }))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [disabled])
 
   const handleCheckboxToggle = () => {
-    setIsTillPresent(!isTillPresent)
-    // setAllTillPresent(prevValue => ({ ...prevValue, [i]: !isTillPresent }))
     setValues(prevValues => ({
       ...prevValues,
-      allTillPresentCheckboxes: {
-        ...prevValues.allTillPresentCheckboxes,
-        [i]: !isTillPresent,
-      },
+      [namePeriod]: !prevValues.namePeriod,
     }))
   }
 
@@ -177,7 +167,7 @@ const PeriodInput = ({
               name={monthPeriod[1]}
               values={values}
               setValues={setValues}
-              disabled={disabledMonthChoice || isTillPresent}
+              disabled={disabledMonthChoice || values[namePeriod] === true}
               id={i}
               allValues={allValues}
             />
@@ -195,7 +185,7 @@ const PeriodInput = ({
               errors[year[1]] && 'form-input__field_error',
               education && 'period-input__field_year-only-education'
             )}
-            disabled={disabled || isTillPresent}
+            disabled={disabled || values[namePeriod] === true}
           />
         </div>
         {errors && (

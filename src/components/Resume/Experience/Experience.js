@@ -40,10 +40,6 @@ const Experience = ({
       setValues(prevValues => ({
         ...prevValues,
         work_period_experience_checkbox: false,
-        allTillPresentCheckboxes: {
-          ...prevValues.allTillPresentCheckboxes,
-          0: false,
-        },
       }))
     }
   }, [values.work_experience_checkbox])

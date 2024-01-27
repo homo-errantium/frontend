@@ -65,10 +65,6 @@ const Education = ({
       setValues(prevValues => ({
         ...prevValues,
         education_period_checkbox: false,
-        allTillPresentCheckboxes: {
-          ...prevValues.allTillPresentCheckboxes,
-          1: false,
-        },
       }))
     }
   }, [values.education_checkbox])

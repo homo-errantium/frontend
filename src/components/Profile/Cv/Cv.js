@@ -22,6 +22,7 @@ const Cv = ({
   setPopupCopyLink,
   setPopupCopyLinkText,
 }) => {
+  console.log(cv.id)
   const resumePath = `/resume/result/${cv.id}`
   const navigate = useNavigate()
   const [isEditCvPopupOpen, setIsEditCvPopupOpen] = useState(false)

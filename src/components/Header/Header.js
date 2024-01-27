@@ -492,7 +492,7 @@ Header.propTypes = {
   setIsLoggedIn: PropTypes.func,
   handleRegisterPopupOpen: PropTypes.func,
   onClickMyProfile: PropTypes.func,
-  clearData: PropTypes.func.isRequired,
+  clearData: PropTypes.func,
 }
 Header.defaultProps = {
   setIsLoggedIn: () => {},
@@ -511,6 +511,7 @@ Header.defaultProps = {
   inputsAreNotEmpty: undefined,
   handleRegisterPopupOpen: () => {},
   onClickMyProfile: () => {},
+  clearData: () => {},
 }
 
 export default Header
