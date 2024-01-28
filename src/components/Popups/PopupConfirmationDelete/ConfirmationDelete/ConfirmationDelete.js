@@ -1,7 +1,6 @@
 import React from 'react'
 import './ConfirmationDelete.scss'
 import PropTypes from 'prop-types'
-import { v4 as uuidv4 } from 'uuid'
 import { useNavigate, useLocation } from 'react-router-dom'
 import classNames from 'classnames'
 import TrashIcon from '../../../../img/popups/trash-icon-red.svg'
@@ -14,8 +13,7 @@ function ConfirmationDelete({
   onClose,
   setArrValues,
   setCurrentResume,
-  setImage,
-  setValues,
+  clearData,
 }) {
   const navigate = useNavigate()
   const location = useLocation()
@@ -65,25 +63,7 @@ function ConfirmationDelete({
             onClose()
             cleanLocalStorage()
             navigate('/')
-            setValues({
-              name: '',
-              surname: '',
-              birthday: '',
-              work_status: '',
-              email: '',
-              city: '',
-              work_experience_checkbox: false,
-              work_period_experience_checkbox: false,
-              education_period_checkbox: false,
-              qualification_checkbox: false,
-              languages: [{ id: uuidv4() }],
-              links: [{ id: uuidv4() }],
-              jobs: [],
-              qualifications: [],
-              educations: [],
-              portfolio: [],
-            })
-            setImage('')
+            clearData()
           }}
         >
           <img src={TrashIcon} alt="trash-icon" />
@@ -122,15 +102,13 @@ ConfirmationDelete.propTypes = {
   setArrValues: PropTypes.func,
   onClose: PropTypes.func.isRequired,
   setCurrentResume: PropTypes.func,
-  setValues: PropTypes.func,
-  setImage: PropTypes.func,
+  clearData: PropTypes.func,
 }
 
 ConfirmationDelete.defaultProps = {
   setArrValues: () => {},
   setCurrentResume: () => {},
-  setValues: () => {},
-  setImage: () => {},
+  clearData: () => {},
 }
 
 export default ConfirmationDelete

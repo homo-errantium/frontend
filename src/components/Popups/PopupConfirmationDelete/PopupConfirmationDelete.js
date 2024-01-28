@@ -9,8 +9,7 @@ function PopupConfirmationDelete({
   setCurrentResume,
   isOpen,
   onClose,
-  setValues,
-  setImage,
+  clearData,
 }) {
   return (
     <PopupСontainer
@@ -23,8 +22,7 @@ function PopupConfirmationDelete({
           onClose={onClose}
           setArrValues={setArrValues}
           setCurrentResume={setCurrentResume}
-          setValues={setValues}
-          setImage={setImage}
+          clearData={clearData}
         />
       }
     />
@@ -36,14 +34,12 @@ PopupConfirmationDelete.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   setArrValues: PropTypes.func.isRequired,
   setCurrentResume: PropTypes.func,
-  setValues: PropTypes.func,
-  setImage: PropTypes.func,
+  clearData: PropTypes.func,
 }
 
 PopupConfirmationDelete.defaultProps = {
   setCurrentResume: () => {},
-  setValues: () => {},
-  setImage: () => {},
+  clearData: () => {},
 }
 
 export default PopupConfirmationDelete
