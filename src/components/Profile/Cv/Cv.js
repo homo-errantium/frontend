@@ -10,18 +10,20 @@ import DeleteIcon from '../../../img/trash-icon-red.svg'
 import ellipsesIcon from '../../../img/ellipses-icon.svg'
 import ResultResume from '../../Resume/ResultResume/ResultResume'
 import { handleGeneratePdf, copyToClipboard } from '../../Utils/Utils'
+import { CurrentArrValuesContext } from '../../../contexts/ArrValuesContext'
+import { CurrentResumeContext } from '../../../contexts/CurrentResumeContext'
 
 const Cv = ({
   cv,
   deletePopupSetState,
-  currentResume,
   setCurrentResume,
   setIsEditMod,
-  arrValues,
   setIsResumeNamePopupOpen,
   setPopupCopyLink,
   setPopupCopyLinkText,
 }) => {
+  const arrValues = React.useContext(CurrentArrValuesContext)
+  const currentResume = React.useContext(CurrentResumeContext)
   const resumePath = `/resume/result/${cv.id}`
   const navigate = useNavigate()
   const [isEditCvPopupOpen, setIsEditCvPopupOpen] = useState(false)
@@ -187,47 +189,6 @@ Cv.propTypes = {
   ),
   deletePopupSetState: PropTypes.func.isRequired,
   setCurrentResume: PropTypes.func,
-  currentResume: PropTypes.objectOf(
-    PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.bool,
-      PropTypes.arrayOf(
-        PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.objectOf(
-            PropTypes.oneOfType([
-              PropTypes.string,
-              PropTypes.number,
-              PropTypes.bool,
-            ])
-          ),
-        ])
-      ),
-    ])
-  ).isRequired,
-  arrValues: PropTypes.arrayOf(
-    PropTypes.objectOf(
-      PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-        PropTypes.bool,
-        PropTypes.arrayOf(
-          PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.objectOf(
-              PropTypes.oneOfType([
-                PropTypes.string,
-                PropTypes.number,
-                PropTypes.bool,
-              ])
-            ),
-          ])
-        ),
-        PropTypes.objectOf(PropTypes.bool),
-      ])
-    )
-  ).isRequired,
   setIsResumeNamePopupOpen: PropTypes.func.isRequired,
   setPopupCopyLink: PropTypes.func.isRequired,
   setPopupCopyLinkText: PropTypes.func.isRequired,

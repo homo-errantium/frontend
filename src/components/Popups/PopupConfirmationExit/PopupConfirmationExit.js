@@ -10,7 +10,6 @@ function PopupConfirmationExit({
   handleResumeNamePopupOpen,
   isEditMod,
   setArrValues,
-  arrValues,
   setIsEditMod,
   clearData,
 }) {
@@ -25,7 +24,6 @@ function PopupConfirmationExit({
           handleResumeNamePopupOpen={handleResumeNamePopupOpen}
           isEditMod={isEditMod}
           setArrValues={setArrValues}
-          arrValues={arrValues}
           setIsEditMod={setIsEditMod}
           clearData={clearData}
         />
@@ -39,35 +37,9 @@ PopupConfirmationExit.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   handleResumeNamePopupOpen: PropTypes.func.isRequired,
   isEditMod: PropTypes.bool.isRequired,
-  arrValues: PropTypes.arrayOf(
-    PropTypes.objectOf(
-      PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-        PropTypes.bool,
-        PropTypes.arrayOf(
-          PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.objectOf(
-              PropTypes.oneOfType([
-                PropTypes.string,
-                PropTypes.number,
-                PropTypes.bool,
-              ])
-            ),
-          ])
-        ),
-        PropTypes.objectOf(PropTypes.bool),
-      ])
-    )
-  ),
   setArrValues: PropTypes.func.isRequired,
   setIsEditMod: PropTypes.func.isRequired,
   clearData: PropTypes.func.isRequired,
-}
-
-PopupConfirmationExit.defaultProps = {
-  arrValues: {},
 }
 
 export default PopupConfirmationExit

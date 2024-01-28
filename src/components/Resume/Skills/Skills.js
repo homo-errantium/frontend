@@ -5,8 +5,10 @@ import skillsSelectedIcon from '../../../img/skills-confirm-icon.svg'
 import skillsRollIcon from '../../../img/skills-roll-icon.svg'
 import { skillList } from '../../../constants/skills-list'
 import ResumeTitle from '../ResumeComponents/ResumeTitle/ResumeTitle'
+import { CurrentValuesContext } from '../../../contexts/ValuesContext'
 
-function Skills({ values, setValues }) {
+function Skills({ setValues }) {
+  const values = React.useContext(CurrentValuesContext)
   const [selectedSkills, setSelectedSkills] = useState(values.hardskills || [])
 
   useEffect(() => {
@@ -121,31 +123,10 @@ function Skills({ values, setValues }) {
 }
 
 Skills.propTypes = {
-  values: PropTypes.objectOf(
-    PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.bool,
-      PropTypes.arrayOf(
-        PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.objectOf(
-            PropTypes.oneOfType([
-              PropTypes.string,
-              PropTypes.number,
-              PropTypes.bool,
-            ])
-          ),
-        ])
-      ),
-      PropTypes.objectOf(PropTypes.bool),
-    ])
-  ),
   setValues: PropTypes.func,
 }
 
 Skills.defaultProps = {
-  values: {},
   setValues: () => {},
 }
 

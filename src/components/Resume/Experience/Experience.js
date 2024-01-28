@@ -10,9 +10,9 @@ import FormInput from '../ResumeComponents/FormInput/FormInput'
 import PeriodInput from '../ResumeComponents/PeriodInput/PeriodInput'
 import Job from './Job/Job'
 import { JOB_TIP } from '../../../constants/tips'
+import { CurrentValuesContext } from '../../../contexts/ValuesContext'
 
 const Experience = ({
-  values,
   setValues,
   handleCheckboxChange,
   setDuties,
@@ -24,6 +24,7 @@ const Experience = ({
 }) => {
   // Если появился добавленный опыт, основная кнопка "Добавить" удаляется
   const [noAddedExperience, setNoAddedExperience] = useState(true)
+  const values = React.useContext(CurrentValuesContext)
 
   const handleTitleCheckboxClick = () => {
     setValues(prevValues => ({
@@ -186,26 +187,6 @@ const Experience = ({
 }
 
 Experience.propTypes = {
-  values: PropTypes.objectOf(
-    PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.bool,
-      PropTypes.arrayOf(
-        PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.objectOf(
-            PropTypes.oneOfType([
-              PropTypes.string,
-              PropTypes.number,
-              PropTypes.bool,
-            ])
-          ),
-        ])
-      ),
-      PropTypes.objectOf(PropTypes.bool),
-    ])
-  ),
   setValues: PropTypes.func.isRequired,
   handleCheckboxChange: PropTypes.func.isRequired,
   checkboxValues: PropTypes.shape({
@@ -225,7 +206,6 @@ Experience.propTypes = {
 }
 
 Experience.defaultProps = {
-  values: {},
   checkboxValues: {},
   allTillPresent: {},
 }

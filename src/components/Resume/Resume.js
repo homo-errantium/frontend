@@ -8,7 +8,6 @@ import ProgressBar from './ResumeComponents/ProgressBar/ProgressBar'
 import { locationArr } from '../../constants/constants'
 
 function Resume({
-  arrValues,
   setArrValues,
   setIsEditMod,
   isEditMod,
@@ -65,7 +64,6 @@ function Resume({
   return (
     <>
       <Header
-        arrValues={arrValues}
         setArrValues={setArrValues}
         setIsEditMod={setIsEditMod}
         isEditMod={isEditMod}
@@ -100,28 +98,6 @@ function Resume({
 }
 
 Resume.propTypes = {
-  arrValues: PropTypes.arrayOf(
-    PropTypes.objectOf(
-      PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-        PropTypes.bool,
-        PropTypes.arrayOf(
-          PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.objectOf(
-              PropTypes.oneOfType([
-                PropTypes.string,
-                PropTypes.number,
-                PropTypes.bool,
-              ])
-            ),
-          ])
-        ),
-        PropTypes.objectOf(PropTypes.bool),
-      ])
-    )
-  ),
   setArrValues: PropTypes.func,
   setIsEditMod: PropTypes.func,
   isEditMod: PropTypes.bool,
@@ -149,7 +125,6 @@ Resume.propTypes = {
 }
 
 Resume.defaultProps = {
-  arrValues: [],
   setArrValues: () => {},
   isEditMod: false,
   duties: false,

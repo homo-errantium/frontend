@@ -1,3 +1,4 @@
+import React from 'react'
 import './ConfirmationDelete.scss'
 import PropTypes from 'prop-types'
 import { v4 as uuidv4 } from 'uuid'
@@ -6,18 +7,20 @@ import classNames from 'classnames'
 import TrashIcon from '../../../../img/popups/trash-icon-red.svg'
 import CloseIcon from '../../../../img/popups/close-icon-black.svg'
 import { cleanLocalStorage } from '../../../Utils/Utils'
+import { CurrentArrValuesContext } from '../../../../contexts/ArrValuesContext'
+import { CurrentResumeContext } from '../../../../contexts/CurrentResumeContext'
 
 function ConfirmationDelete({
   onClose,
-  arrValues,
   setArrValues,
-  currentResume,
   setCurrentResume,
   setImage,
   setValues,
 }) {
   const navigate = useNavigate()
   const location = useLocation()
+  const arrValues = React.useContext(CurrentArrValuesContext)
+  const currentResume = React.useContext(CurrentResumeContext)
   const locationResult = location.pathname === '/resume/result'
   const currentResumeName = currentResume
     ? arrValues.find(item => item.id === currentResume.id)
@@ -116,48 +119,7 @@ function ConfirmationDelete({
 }
 
 ConfirmationDelete.propTypes = {
-  arrValues: PropTypes.arrayOf(
-    PropTypes.objectOf(
-      PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-        PropTypes.bool,
-        PropTypes.arrayOf(
-          PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.objectOf(
-              PropTypes.oneOfType([
-                PropTypes.string,
-                PropTypes.number,
-                PropTypes.bool,
-              ])
-            ),
-          ])
-        ),
-        PropTypes.objectOf(PropTypes.bool),
-      ])
-    )
-  ),
   setArrValues: PropTypes.func,
-  currentResume: PropTypes.objectOf(
-    PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.bool,
-      PropTypes.arrayOf(
-        PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.objectOf(
-            PropTypes.oneOfType([
-              PropTypes.string,
-              PropTypes.number,
-              PropTypes.bool,
-            ])
-          ),
-        ])
-      ),
-    ])
-  ).isRequired,
   onClose: PropTypes.func.isRequired,
   setCurrentResume: PropTypes.func,
   setValues: PropTypes.func,
@@ -165,7 +127,6 @@ ConfirmationDelete.propTypes = {
 }
 
 ConfirmationDelete.defaultProps = {
-  arrValues: [],
   setArrValues: () => {},
   setCurrentResume: () => {},
   setValues: () => {},

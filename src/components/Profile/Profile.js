@@ -17,18 +17,17 @@ import {
   validationEmail,
   validationPhone,
 } from '../../constants/validation'
+import { CurrentArrValuesContext } from '../../contexts/ArrValuesContext'
 
 function Profile({
   setIsLoggedIn,
   isEditMod,
   setCurrentResume,
-  currentResume,
   isLoggedIn,
   deletePopupSetState,
   setCurrentUser,
   imageProfile,
   setImageProfile,
-  arrValues,
   setArrValues,
   setIsEditMod,
   setValues,
@@ -41,6 +40,7 @@ function Profile({
   const [popupCopyLink, setPopupCopyLink] = useState(false)
   const [popupCopyLinkText, setPopupCopyLinkText] = useState('')
   const currentUser = useContext(CurrentUserContext)
+  const arrValues = useContext(CurrentArrValuesContext)
 
   // Объект, который содержит текст ошибки во вкладке "профиль"
   const [errorsUserInfo, setErrorsUserInfo] = useState({
@@ -618,8 +618,6 @@ function Profile({
                 <Cv
                   isEditMod={isEditMod}
                   setCurrentResume={setCurrentResume}
-                  currentResume={currentResume}
-                  arrValues={arrValues}
                   setArrValues={setArrValues}
                   key={cv.id}
                   cv={cv}
@@ -649,49 +647,8 @@ Profile.propTypes = {
   setCurrentUser: PropTypes.func.isRequired,
   imageProfile: PropTypes.string,
   setImageProfile: PropTypes.func.isRequired,
-  arrValues: PropTypes.arrayOf(
-    PropTypes.objectOf(
-      PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-        PropTypes.bool,
-        PropTypes.arrayOf(
-          PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.objectOf(
-              PropTypes.oneOfType([
-                PropTypes.string,
-                PropTypes.number,
-                PropTypes.bool,
-              ])
-            ),
-          ])
-        ),
-        PropTypes.objectOf(PropTypes.bool),
-      ])
-    )
-  ).isRequired,
   setArrValues: PropTypes.func.isRequired,
   setCurrentResume: PropTypes.func.isRequired,
-  currentResume: PropTypes.objectOf(
-    PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.bool,
-      PropTypes.arrayOf(
-        PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.objectOf(
-            PropTypes.oneOfType([
-              PropTypes.string,
-              PropTypes.number,
-              PropTypes.bool,
-            ])
-          ),
-        ])
-      ),
-    ])
-  ).isRequired,
   setIsEditMod: PropTypes.func,
   setIsResumeNamePopupOpen: PropTypes.func.isRequired,
   clearData: PropTypes.func.isRequired,

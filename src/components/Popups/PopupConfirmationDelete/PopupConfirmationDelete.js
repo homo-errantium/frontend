@@ -5,9 +5,7 @@ import PopupСontainer from '../PopupContainer/PopupContainer'
 import ConfirmationDelete from './ConfirmationDelete/ConfirmationDelete'
 
 function PopupConfirmationDelete({
-  arrValues,
   setArrValues,
-  currentResume,
   setCurrentResume,
   isOpen,
   onClose,
@@ -23,9 +21,7 @@ function PopupConfirmationDelete({
       element={
         <ConfirmationDelete
           onClose={onClose}
-          arrValues={arrValues}
           setArrValues={setArrValues}
-          currentResume={currentResume}
           setCurrentResume={setCurrentResume}
           setValues={setValues}
           setImage={setImage}
@@ -38,48 +34,7 @@ function PopupConfirmationDelete({
 PopupConfirmationDelete.propTypes = {
   onClose: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
-  arrValues: PropTypes.arrayOf(
-    PropTypes.objectOf(
-      PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-        PropTypes.bool,
-        PropTypes.arrayOf(
-          PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.objectOf(
-              PropTypes.oneOfType([
-                PropTypes.string,
-                PropTypes.number,
-                PropTypes.bool,
-              ])
-            ),
-          ])
-        ),
-        PropTypes.objectOf(PropTypes.bool),
-      ])
-    )
-  ).isRequired,
   setArrValues: PropTypes.func.isRequired,
-  currentResume: PropTypes.objectOf(
-    PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.bool,
-      PropTypes.arrayOf(
-        PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.objectOf(
-            PropTypes.oneOfType([
-              PropTypes.string,
-              PropTypes.number,
-              PropTypes.bool,
-            ])
-          ),
-        ])
-      ),
-    ])
-  ).isRequired,
   setCurrentResume: PropTypes.func,
   setValues: PropTypes.func,
   setImage: PropTypes.func,

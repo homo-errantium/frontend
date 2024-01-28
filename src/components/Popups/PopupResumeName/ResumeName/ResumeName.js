@@ -4,21 +4,23 @@ import PropTypes from 'prop-types'
 import { useNavigate, useLocation } from 'react-router'
 import { cleanLocalStorage } from '../../../Utils/Utils'
 import TrashLogo from '../../../../img/trash-icon-red.svg'
-import { CurrentValues } from '../../../../contexts/ValuesContext'
+import { CurrentValuesContext } from '../../../../contexts/ValuesContext'
+import { CurrentArrValuesContext } from '../../../../contexts/ArrValuesContext'
+import { CurrentResumeContext } from '../../../../contexts/CurrentResumeContext'
 
 function PopupResumeName({
   setValues,
   setArrValues,
   onClose,
-  arrValues,
   setIsEditMod,
-  currentResume,
   setCurrentResume,
   clearData,
 }) {
   const navigate = useNavigate()
   const location = useLocation()
-  const values = React.useContext(CurrentValues)
+  const values = React.useContext(CurrentValuesContext)
+  const arrValues = React.useContext(CurrentArrValuesContext)
+  const currentResume = React.useContext(CurrentResumeContext)
 
   // добавление имени резюме
   function handleChange(evt) {
@@ -112,55 +114,12 @@ PopupResumeName.propTypes = {
   setValues: PropTypes.func.isRequired,
   setArrValues: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
-  arrValues: PropTypes.arrayOf(
-    PropTypes.objectOf(
-      PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-        PropTypes.bool,
-        PropTypes.arrayOf(
-          PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.objectOf(
-              PropTypes.oneOfType([
-                PropTypes.string,
-                PropTypes.number,
-                PropTypes.bool,
-              ])
-            ),
-          ])
-        ),
-        PropTypes.objectOf(PropTypes.bool),
-      ])
-    )
-  ),
-  currentResume: PropTypes.objectOf(
-    PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.bool,
-      PropTypes.arrayOf(
-        PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.objectOf(
-            PropTypes.oneOfType([
-              PropTypes.string,
-              PropTypes.number,
-              PropTypes.bool,
-            ])
-          ),
-        ])
-      ),
-    ])
-  ),
   setCurrentResume: PropTypes.func.isRequired,
   clearData: PropTypes.func.isRequired,
 }
 
 PopupResumeName.defaultProps = {
-  arrValues: [],
   setIsEditMod: () => {},
-  currentResume: {},
 }
 
 export default PopupResumeName

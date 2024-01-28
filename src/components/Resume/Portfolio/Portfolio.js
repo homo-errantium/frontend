@@ -8,9 +8,9 @@ import ResumeTitle from '../ResumeComponents/ResumeTitle/ResumeTitle'
 import AddButton from '../ResumeComponents/AddButton/AddButton'
 import FormInput from '../ResumeComponents/FormInput/FormInput'
 import Project from './Project/Project'
+import { CurrentValuesContext } from '../../../contexts/ValuesContext'
 
 const Portfolio = ({
-  values,
   setValues,
   handleChangeWithValidation,
   handleAddPortfolioChange,
@@ -19,6 +19,7 @@ const Portfolio = ({
 }) => {
   // Если появился добавленное образование, основная кнопка "Добавить" удаляется
   const [noAddedProjects, setNoAddedProjects] = useState(true)
+  const values = React.useContext(CurrentValuesContext)
 
   const handleTitleCheckboxClick = () => {
     setValues(prevValues => ({
@@ -136,35 +137,11 @@ const Portfolio = ({
 }
 
 Portfolio.propTypes = {
-  values: PropTypes.objectOf(
-    PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.bool,
-      PropTypes.arrayOf(
-        PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.objectOf(
-            PropTypes.oneOfType([
-              PropTypes.string,
-              PropTypes.number,
-              PropTypes.bool,
-            ])
-          ),
-        ])
-      ),
-      PropTypes.objectOf(PropTypes.bool),
-    ])
-  ),
   setValues: PropTypes.func.isRequired,
   handleChangeWithValidation: PropTypes.func.isRequired,
   handleAddPortfolioChange: PropTypes.func.isRequired,
   setPortfolio: PropTypes.func.isRequired,
   handleCheckboxChange: PropTypes.func.isRequired,
-}
-
-Portfolio.defaultProps = {
-  values: {},
 }
 
 export default Portfolio
