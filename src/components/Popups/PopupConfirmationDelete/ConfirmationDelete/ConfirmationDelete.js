@@ -134,6 +134,7 @@ ConfirmationDelete.propTypes = {
             ),
           ])
         ),
+        PropTypes.objectOf(PropTypes.bool),
       ])
     )
   ),

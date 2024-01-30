@@ -14,6 +14,7 @@ function PopupResumeName({
   setIsEditMod,
   currentResume,
   setCurrentResume,
+  clearData,
 }) {
   const navigate = useNavigate()
   const location = useLocation()
@@ -33,7 +34,7 @@ function PopupResumeName({
       const newValues = [...arrValues, values]
       setArrValues(newValues)
       localStorage.setItem('allData', JSON.stringify(newValues))
-      await setValues({})
+      await clearData()
       setIsEditMod(false)
       onClose()
       navigate('/my-profile')
@@ -50,7 +51,7 @@ function PopupResumeName({
       setArrValues(newValues)
       await localStorage.setItem('allData', JSON.stringify(newValues))
       onClose()
-      await setValues({})
+      await clearData()
     }
   }
 
@@ -124,6 +125,7 @@ PopupResumeName.propTypes = {
           ),
         ])
       ),
+      PropTypes.objectOf(PropTypes.bool),
     ])
   ),
   setValues: PropTypes.func.isRequired,
@@ -147,6 +149,7 @@ PopupResumeName.propTypes = {
             ),
           ])
         ),
+        PropTypes.objectOf(PropTypes.bool),
       ])
     )
   ),
@@ -170,6 +173,7 @@ PopupResumeName.propTypes = {
     ])
   ),
   setCurrentResume: PropTypes.func.isRequired,
+  clearData: PropTypes.func.isRequired,
 }
 
 PopupResumeName.defaultProps = {

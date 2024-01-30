@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 import './Profile.scss'
@@ -35,10 +34,7 @@ function Profile({
   values,
   setValues,
   setIsResumeNamePopupOpen,
-  setImage,
-  setHasQualification,
-  setHasExperience,
-  setAllTillPresent,
+  clearData,
 }) {
   const nextPage = '/*'
   const [isProfileData, setIsProfileData] = useState(true)
@@ -344,11 +340,7 @@ function Profile({
         isLoggedIn={isLoggedIn}
         nextPage={nextPage}
         setIsEditMod={setIsEditMod}
-        setValues={setValues}
-        setImage={setImage}
-        setHasExperience={setHasExperience}
-        setHasQualification={setHasQualification}
-        setAllTillPresent={setAllTillPresent}
+        clearData={clearData}
       />
       <main className="profile">
         <h1 className="profile__title">Личный кабинет</h1>
@@ -670,14 +662,12 @@ Profile.propTypes = {
           ),
         ])
       ),
+      PropTypes.objectOf(PropTypes.bool),
     ])
   ).isRequired,
   setValues: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   deletePopupSetState: PropTypes.func.isRequired,
-  // errors: PropTypes.objectOf(
-  //   PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-  // ).isRequired,
   setCurrentUser: PropTypes.func.isRequired,
   imageProfile: PropTypes.string,
   setImageProfile: PropTypes.func.isRequired,
@@ -699,6 +689,7 @@ Profile.propTypes = {
             ),
           ])
         ),
+        PropTypes.objectOf(PropTypes.bool),
       ])
     )
   ).isRequired,
@@ -725,16 +716,12 @@ Profile.propTypes = {
   ).isRequired,
   setIsEditMod: PropTypes.func,
   setIsResumeNamePopupOpen: PropTypes.func.isRequired,
-  setImage: PropTypes.func,
-  setHasExperience: PropTypes.func.isRequired,
-  setHasQualification: PropTypes.func.isRequired,
-  setAllTillPresent: PropTypes.func.isRequired,
+  clearData: PropTypes.func.isRequired,
 }
 
 Profile.defaultProps = {
   imageProfile: '',
   setIsEditMod: () => {},
-  setImage: () => {},
 }
 
 export default Profile

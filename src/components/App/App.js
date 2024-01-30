@@ -86,21 +86,22 @@ function App() {
       work_experience_checkbox: false,
       work_period_experience_checkbox: false,
       education_period_checkbox: false,
+      education_checkbox: false,
       qualification_checkbox: false,
+      portfolio_checkbox: false,
       languages: [{ id: uuidv4() }],
       links: [{ id: uuidv4() }],
       jobs: [],
       qualifications: [],
       educations: [],
       portfolio: [],
+      id: uuidv4(),
     }
   )
 
   const [arrValues, setArrValues] = useState(
     JSON.parse(localStorage.getItem('allData')) || [exampleObject]
   )
-
-  // console.log(values)
 
   const [languagesAfterChanges, setLanguagesChanges] = useState(
     values.languages
@@ -118,18 +119,6 @@ function App() {
   const [portfolio, setPortfolio] = useState(false)
   const [about, setAbout] = useState(false)
 
-  // // Если опыт есть, поля активны. Если нет, поля деактивируются:
-  const [hasExperience, setHasExperience] = React.useState(
-    JSON.parse(localStorage.getItem('hasExperience') || true)
-  )
-  // Если повышение квалицикации есть, поля активны. Если нет, поля деактивируются:
-  const [hasQualification, setHasQualification] = React.useState(
-    JSON.parse(localStorage.getItem('hasQualification') || true)
-  )
-  // Записываем данные isTillPresent в один объект
-  const [allTillPresent, setAllTillPresent] = React.useState(
-    JSON.parse(localStorage.getItem('isTillPresent')) || {}
-  )
   const [errors, setErrors] = useState({})
   // Сохраняем ссылку изображения в переменную и вытягиваем из локального хранилища данные
   const [image, setImage] = React.useState(localStorage.getItem('image') || '')
@@ -151,7 +140,6 @@ function App() {
     React.useState(false)
   const [completedStepsSkills, setCompletedStepsSkills] = React.useState(false)
   const [completedStepsAbout, setCompletedStepsAbout] = React.useState(false)
-  // const [completedLayouts, setCompletedLayouts] = React.useState(false)
 
   // --------------------------- Работа с данными через локальное хранилище ----------------------
 
@@ -161,9 +149,6 @@ function App() {
   }, [currentResume])
 
   useEffect(() => {
-    if (location.pathname === '/resume/result' && !isEditMod && !values.id) {
-      setValues({ ...values, id: uuidv4() })
-    }
     localStorage.setItem('allData', JSON.stringify(arrValues))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname])
@@ -171,6 +156,34 @@ function App() {
   useEffect(() => {
     setValues(prevValues => ({ ...prevValues, img: image }))
   }, [image])
+
+  // Функция очищает объекты данных
+  const clearData = () => {
+    setValues({
+      name: isLoggedIn ? currentUser.name : '',
+      surname: isLoggedIn ? currentUser.surname : '',
+      birthday: isLoggedIn ? currentUser.birthday : '',
+      telegram: isLoggedIn ? currentUser.telegram : '',
+      phone: isLoggedIn ? currentUser.phone : '',
+      work_status: '',
+      email: isLoggedIn ? currentUser.email : '',
+      city: isLoggedIn ? currentUser.city : '',
+      work_experience_checkbox: false,
+      work_period_experience_checkbox: false,
+      education_period_checkbox: false,
+      qualification_checkbox: false,
+      education_checkbox: false,
+      portfolio_checkbox: false,
+      languages: [{ id: uuidv4() }],
+      links: [{ id: uuidv4() }],
+      jobs: [],
+      qualifications: [],
+      educations: [],
+      portfolio: [],
+      id: uuidv4(),
+    })
+    setImage(isLoggedIn ? currentUser.imageProfile : '')
+  }
 
   // Функция, которая записывает данные дополнительных полей опыта работы
   const handleAddJobChange = evt => {
@@ -185,7 +198,7 @@ function App() {
       }
       return job
     })
-    setValues({ ...values, jobs: updatedJobs })
+    setValues(prevValues => ({ ...prevValues, jobs: updatedJobs }))
   }
 
   // Функция, которая записывает данные ополнительных чекбоксов опыта работы
@@ -201,7 +214,7 @@ function App() {
       }
       return job
     })
-    setValues({ ...values, jobs: updatedJobs })
+    setValues(prevValues => ({ ...prevValues, jobs: updatedJobs }))
   }
 
   // Функция, которая записывает данные дополнительных полей с квалификацией
@@ -213,7 +226,10 @@ function App() {
       }
       return qual
     })
-    setValues({ ...values, qualifications: updatedQualification })
+    setValues(prevValues => ({
+      ...prevValues,
+      qualifications: updatedQualification,
+    }))
   }
 
   // Функция, которая записывает данные дополнительных полей с образованием
@@ -225,7 +241,10 @@ function App() {
       }
       return education
     })
-    setValues({ ...values, educations: updatedEducation })
+    setValues(prevValues => ({
+      ...prevValues,
+      educations: updatedEducation,
+    }))
   }
 
   // Функция, которая записывает данные чекбоксов дополнительных полей с образованием
@@ -241,7 +260,10 @@ function App() {
       }
       return education
     })
-    setValues({ ...values, educations: updatedEducation })
+    setValues(prevValues => ({
+      ...prevValues,
+      educations: updatedEducation,
+    }))
   }
 
   // Функция, которая записывает данные дополнительных полей с портфолио
@@ -253,7 +275,10 @@ function App() {
       }
       return p
     })
-    setValues({ ...values, portfolio: updatedPortfolio })
+    setValues(prevValues => ({
+      ...prevValues,
+      portfolio: updatedPortfolio,
+    }))
   }
 
   const addLink = () => {
@@ -298,8 +323,8 @@ function App() {
 
   // Функция, которая записывает данные основных чекбоксов
   const handleCheckboxChange = evt => {
-    const { name } = evt.target
-    setValues(prevValues => ({ ...prevValues, [name]: !prevValues[name] }))
+    const { name, checked } = evt.target
+    setValues(prevValues => ({ ...prevValues, [name]: checked }))
   }
 
   function deleteNonLatin(text) {
@@ -322,11 +347,12 @@ function App() {
   // Функция, которая записывает данные полей форм
   const handleChange = evt => {
     const { name, value } = evt.target
+
     const cleanValue = deleteNonLatin(value)
     if (name === 'telegram') {
       checkTgInput(name, cleanValue)
     } else {
-      setValues({ ...values, [name]: value })
+      setValues(prevValues => ({ ...prevValues, [name]: value }))
     }
     setErrors({ ...errors, [name]: evt.target.validationMessage })
   }
@@ -449,11 +475,9 @@ function App() {
       }
     }
   }
-
   // INPUTS  VALIDATION:
   const handleChangeWithValidation = evt => {
     handleChange(evt)
-    // console.log(isValid)
     const { name, value } = evt.target
     if (name === 'name' && !NAME_REGEX.test(value)) {
       setErrors({
@@ -793,14 +817,9 @@ function App() {
       ) {
         setInputsAreNotEmpty(true)
       } else {
-        localStorage.setItem('hasExperience', JSON.stringify(hasExperience))
-        localStorage.setItem('isTillPresent', JSON.stringify(allTillPresent))
+        // localStorage.setItem('isTillPresent', JSON.stringify(allTillPresent))
         localStorage.setItem('image', image)
         localStorage.setItem('formData', JSON.stringify(formData))
-        localStorage.setItem(
-          'hasQualification',
-          JSON.stringify(hasQualification)
-        )
       }
       // console.log(errors)
       setErrors(object)
@@ -812,7 +831,6 @@ function App() {
     // }
 
     if (location.pathname === '/resume/experience') {
-      // console.log(inputsAreNotEmpty)
       if (!formData.work_experience_checkbox) {
         if (formData.company === undefined || formData.company === '') {
           object = {
@@ -893,19 +911,14 @@ function App() {
         ) {
           setInputsAreNotEmpty(true)
         } else {
-          localStorage.setItem('hasExperience', JSON.stringify(hasExperience))
-          localStorage.setItem('isTillPresent', JSON.stringify(allTillPresent))
-          localStorage.setItem('image', image)
           localStorage.setItem('formData', JSON.stringify(formData))
-          localStorage.setItem(
-            'hasQualification',
-            JSON.stringify(hasQualification)
-          )
         }
         setErrors(object)
       }
       // else setInputsAreNotEmpty(true)
     }
+    localStorage.setItem('image', image)
+    localStorage.setItem('formData', JSON.stringify(formData))
   }
   //  else {
   //   setErrors({})
@@ -914,7 +927,6 @@ function App() {
   // console.log(errors)
 
   /* ----------------------------------------- Popup -----------------------------------------------------*/
-
   // закрытие попапа
   const closeAllPopup = () => {
     setIsLoginPopupOpen(false)
@@ -956,8 +968,6 @@ function App() {
         <PersonalData
           values={values}
           handleChange={handleChange}
-          // handleLanguageChange={handleLanguageChange}
-          // handleLanguageLevelChange={handleLanguageLevelChange}
           setLanguagesChanges={setLanguagesChanges}
           setValues={setValues}
           addLanguage={addLanguage}
@@ -978,13 +988,8 @@ function App() {
       element: (
         <Experience
           values={values}
-          handleChange={handleChange}
           handleCheckboxChange={handleCheckboxChange}
-          hasExperience={hasExperience}
-          setHasExperience={setHasExperience}
           setValues={setValues}
-          setAllTillPresent={setAllTillPresent}
-          allTillPresent={allTillPresent}
           setDuties={setDuties}
           errors={errors}
           handleChangeWithValidation={handleChangeWithValidation}
@@ -1001,8 +1006,6 @@ function App() {
       element: (
         <Qualification
           handleCheckboxChange={handleCheckboxChange}
-          setHasQualification={setHasQualification}
-          hasQualification={hasQualification}
           values={values}
           handleChangeWithValidation={handleChangeWithValidation}
           setValues={setValues}
@@ -1021,8 +1024,6 @@ function App() {
           handleChangeWithValidation={handleChangeWithValidation}
           setValues={setValues}
           handleCheckboxChange={handleCheckboxChange}
-          setAllTillPresent={setAllTillPresent}
-          allTillPresent={allTillPresent}
           handleAddEducationChange={handleAddEducationChange}
           handleAddEducationCheckboxChange={handleAddEducationCheckboxChange}
         />
@@ -1039,6 +1040,7 @@ function App() {
           handleChangeWithValidation={handleChangeWithValidation}
           handleAddPortfolioChange={handleAddPortfolioChange}
           setPortfolio={setPortfolio}
+          handleCheckboxChange={handleCheckboxChange}
         />
       ),
       id: 5,
@@ -1062,12 +1064,6 @@ function App() {
       id: 7,
       completedSteps: completedStepsAbout,
     },
-    // {
-    //   path: 'layouts',
-    //   element: <Layouts />,
-    //   id: 8,
-    //   completedSteps: completedLayouts,
-    // },
     {
       path: 'result',
       element: <Result values={values} setIsTempResume={setIsTempResume} />,
@@ -1141,11 +1137,8 @@ function App() {
                 currentResume={currentResume}
                 setIsEditMod={setIsEditMod}
                 setIsResumeNamePopupOpen={setIsResumeNamePopupOpen}
-                setImage={setImage}
-                setHasQualification={setHasQualification}
-                setHasExperience={setHasExperience}
-                setAllTillPresent={setAllTillPresent}
                 setIsLoggedIn={setIsLoggedIn}
+                clearData={clearData}
               />
             }
           />
@@ -1158,11 +1151,7 @@ function App() {
                 onOpenPopup={handleConfirmRegPopupOpen}
                 isValid={isValid}
                 inputsAreNotEmpty={inputsAreNotEmpty}
-                setValues={setValues}
-                setImage={setImage}
-                setHasExperience={setHasExperience}
-                setHasQualification={setHasQualification}
-                setAllTillPresent={setAllTillPresent}
+                clearData={clearData}
               />
             }
           />
@@ -1182,7 +1171,6 @@ function App() {
                 setArrValues={setArrValues}
                 arrValues={arrValues}
                 values={values}
-                setValues={setValues}
                 setIsEditMod={setIsEditMod}
                 isEditMod={isEditMod}
                 isLoggedIn={isLoggedIn}
@@ -1200,7 +1188,6 @@ function App() {
                 setCompletedStepsPortfolio={setCompletedStepsPortfolio}
                 setCompletedStepsSkills={setCompletedStepsSkills}
                 setCompletedStepsAbout={setCompletedStepsAbout}
-                // setCompletedLayouts={setCompletedLayouts}
                 onClick={handleClick}
                 onClickMyProfile={handleClickMyProfile}
                 duties={duties}
@@ -1209,10 +1196,8 @@ function App() {
                 about={about}
                 handleResumeNamePopupOpen={handleResumeNamePopupOpen}
                 handleConfirmRegPopupOpen={handleConfirmRegPopupOpen}
-                setHasExperience={setHasExperience}
-                setHasQualification={setHasQualification}
-                setAllTillPresent={setAllTillPresent}
                 handleRegisterPopupOpen={handleRegisterPopupOpen}
+                clearData={clearData}
               />
             }
           >
@@ -1282,13 +1267,12 @@ function App() {
           isOpen={isConfirmExitPopupOpen}
           onClose={closeAllPopup}
           handleResumeNamePopupOpen={handleResumeNamePopupOpen}
-          setValues={setValues}
-          setImage={setImage}
           isEditMod={isEditMod}
           setArrValues={setArrValues}
           arrValues={arrValues}
           values={values}
           setIsEditMod={setIsEditMod}
+          clearData={clearData}
         />
         {/* попап добавления имени резюме */}
         <PopupResumeName
@@ -1301,6 +1285,7 @@ function App() {
           setIsEditMod={setIsEditMod}
           currentResume={currentResume}
           setCurrentResume={setCurrentResume}
+          clearData={clearData}
         />
         {/* Попап подтверждения удаления */}
         <PopupConfirmationDelete
@@ -1312,6 +1297,7 @@ function App() {
           setArrValues={setArrValues}
           setValues={setValues}
           setImage={setImage}
+          clearData={clearData}
         />
         {/* Попап подтверждения перехода */}
         <PopupConfirmationRegister

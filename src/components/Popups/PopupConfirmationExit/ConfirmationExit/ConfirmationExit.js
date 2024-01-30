@@ -1,20 +1,18 @@
 import './ConfirmationExit.scss'
 import { useNavigate } from 'react-router'
 import PropTypes from 'prop-types'
-import { v4 as uuidv4 } from 'uuid'
 import exitImage from '../../../../img/popups/exit-design.svg'
 import CloseIcon from '../../../../img/popups/close-icon-black.svg'
 
 function ConfirmationExit({
   onClose,
   handleResumeNamePopupOpen,
-  setValues,
-  setImage,
   isEditMod,
   setArrValues,
   arrValues,
   values,
   setIsEditMod,
+  clearData,
 }) {
   const navigate = useNavigate()
 
@@ -56,27 +54,9 @@ function ConfirmationExit({
           type="button"
           label="button"
           onClick={() => {
+            clearData()
             navigate('/my-profile')
             onClose()
-            setValues({
-              name: '',
-              surname: '',
-              birthday: '',
-              work_status: '',
-              email: '',
-              city: '',
-              work_experience_checkbox: false,
-              work_period_experience_checkbox: false,
-              education_period_checkbox: false,
-              qualification_checkbox: false,
-              languages: [{ id: uuidv4() }],
-              links: [{ id: uuidv4() }],
-              jobs: [],
-              qualifications: [],
-              educations: [],
-              portfolio: [],
-            })
-            setImage('')
           }}
         >
           Выйти без сохранения
@@ -87,10 +67,8 @@ function ConfirmationExit({
           type="button"
           label="button"
           onClick={() => {
-            // navigate('/my-profile')
             onClose()
             handleSave()
-            // handleResumeNamePopupOpen()
           }}
         >
           Сохранить и выйти
@@ -114,8 +92,6 @@ function ConfirmationExit({
 ConfirmationExit.propTypes = {
   onClose: PropTypes.func.isRequired,
   handleResumeNamePopupOpen: PropTypes.func.isRequired,
-  setValues: PropTypes.func.isRequired,
-  setImage: PropTypes.func.isRequired,
   isEditMod: PropTypes.bool.isRequired,
   arrValues: PropTypes.arrayOf(
     PropTypes.objectOf(
@@ -135,6 +111,7 @@ ConfirmationExit.propTypes = {
             ),
           ])
         ),
+        PropTypes.objectOf(PropTypes.bool),
       ])
     )
   ),
@@ -156,9 +133,11 @@ ConfirmationExit.propTypes = {
           ),
         ])
       ),
+      PropTypes.objectOf(PropTypes.bool),
     ])
   ),
   setIsEditMod: PropTypes.func.isRequired,
+  clearData: PropTypes.func.isRequired,
 }
 
 ConfirmationExit.defaultProps = {

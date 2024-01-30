@@ -15,10 +15,6 @@ const Experience = ({
   values,
   setValues,
   handleCheckboxChange,
-  hasExperience,
-  setHasExperience,
-  setAllTillPresent,
-  allTillPresent,
   setDuties,
   errors,
   handleChangeWithValidation,
@@ -28,40 +24,45 @@ const Experience = ({
 }) => {
   // Если появился добавленный опыт, основная кнопка "Добавить" удаляется
   const [noAddedExperience, setNoAddedExperience] = useState(true)
-  // console.log(hasExperience)
 
   const handleTitleCheckboxClick = () => {
-    setHasExperience(!hasExperience)
-    setValues({ ...values, jobs: [] })
+    setValues(prevValues => ({
+      ...prevValues,
+      jobs: [],
+      work_experience_checkbox: !prevValues.work_experience_checkbox,
+    }))
     setNoAddedExperience(true)
     setErrors({})
+  }
 
-    if (hasExperience) {
+  useEffect(() => {
+    if (values.work_experience_checkbox === true) {
       setValues(prevValues => ({
         ...prevValues,
         work_period_experience_checkbox: false,
       }))
-      setAllTillPresent({ ...allTillPresent, 0: false })
     }
-  }
+  }, [values.work_experience_checkbox])
 
   const addExperience = () => {
     setNoAddedExperience(false)
-    setValues({
-      ...values,
+    setValues(prevValues => ({
+      ...prevValues,
       jobs: [
-        ...values.jobs,
+        ...prevValues.jobs,
         { id: uuidv4(), work_period_experience_checkbox: false },
       ],
-    })
+    }))
   }
 
   const deleteExperience = jobId => {
     const experienceToBeRemoved = values.jobs.find(m => jobId === m.id)
-    setValues({
-      ...values,
-      jobs: values.jobs.filter(item => item.id !== experienceToBeRemoved.id),
-    })
+    setValues(prevValues => ({
+      ...prevValues,
+      jobs: prevValues.jobs.filter(
+        item => item.id !== experienceToBeRemoved.id
+      ),
+    }))
   }
 
   // Если addedExperience пустой, то возвращается основная кнопка "Добавить"
@@ -74,6 +75,7 @@ const Experience = ({
   const handleBackToBasicRecommend = () => {
     setDuties(false)
   }
+
   return (
     <section className="experience">
       <ResumeTitle
@@ -83,7 +85,7 @@ const Experience = ({
         title="Опыт работы"
         checkbox
         checkboxText="Нет опыта"
-        checkboxId="title-checkbox"
+        checkboxId="title-experience-checkbox"
         onClick={handleTitleCheckboxClick}
         handleBackToBasicRecommend={handleBackToBasicRecommend}
       />
@@ -99,20 +101,20 @@ const Experience = ({
             values={values}
             handleChange={handleChangeWithValidation}
             label="Название компании"
-            disabled={!hasExperience}
-            setValues={setValues}
+            disabled={values.work_experience_checkbox}
             errors={errors}
             id="0"
+            setValues={setValues}
           />
           <FormInput
             name="company_website"
             values={values}
             handleChange={handleChangeWithValidation}
             label="Сайт компании"
-            disabled={!hasExperience}
-            setValues={setValues}
+            disabled={values.work_experience_checkbox}
             errors={errors}
             id="0"
+            setValues={setValues}
           />
           <FormInput
             name="current_position"
@@ -121,16 +123,16 @@ const Experience = ({
             label="Должность"
             tip
             tipText={JOB_TIP}
-            disabled={!hasExperience}
-            setValues={setValues}
+            disabled={values.work_experience_checkbox}
             errors={errors}
             id="0"
+            setValues={setValues}
           />
           <PeriodInput
             labelOne="Дата начала работы"
             labelTwo="Дата окончания работы"
             month
-            disabled={!hasExperience}
+            disabled={values.work_experience_checkbox}
             i="0"
             tillPresent
             handleCheckboxChange={handleCheckboxChange}
@@ -138,8 +140,6 @@ const Experience = ({
             monthPeriod={['month_work_start', 'month_work_end']}
             year={['year_work_start', 'year_work_end']}
             values={values}
-            setAllTillPresent={setAllTillPresent}
-            allTillPresent={allTillPresent}
             handleChange={handleChangeWithValidation}
             errors={errors}
             allValues={values}
@@ -152,7 +152,7 @@ const Experience = ({
           handleChange={handleChangeWithValidation}
           label="Обязанности"
           extraInputClass="responsibilities"
-          disabled={!hasExperience}
+          disabled={values.work_experience_checkbox}
           setValues={setValues}
           setDuties={setDuties}
           errors={errors}
@@ -163,21 +163,22 @@ const Experience = ({
             values={experience}
             allValues={values}
             handleChange={handleAddJobChange}
-            hasExperience={hasExperience}
+            disabled={values.work_experience_checkbox}
             deleteExperience={deleteExperience}
             addExperience={addExperience}
             i={experience.id}
             key={experience.id}
             handleCheckboxChange={handleAddJobCheckboxChange}
             setValues={setValues}
-            setAllTillPresent={setAllTillPresent}
-            allTillPresent={allTillPresent}
             setDuties={setDuties}
             handleBackToBasicRecommend={handleBackToBasicRecommend}
           />
         ))}
         {noAddedExperience && values.jobs?.length === 0 && (
-          <AddButton disabled={!hasExperience} handleClick={addExperience} />
+          <AddButton
+            disabled={values.work_experience_checkbox}
+            handleClick={addExperience}
+          />
         )}
       </div>
     </section>
@@ -202,6 +203,7 @@ Experience.propTypes = {
           ),
         ])
       ),
+      PropTypes.objectOf(PropTypes.bool),
     ])
   ),
   setValues: PropTypes.func.isRequired,
@@ -209,9 +211,6 @@ Experience.propTypes = {
   checkboxValues: PropTypes.shape({
     checkbox: PropTypes.bool,
   }),
-  hasExperience: PropTypes.bool.isRequired,
-  setHasExperience: PropTypes.func.isRequired,
-  setAllTillPresent: PropTypes.func.isRequired,
   allTillPresent: PropTypes.shape({
     value: PropTypes.bool,
   }),

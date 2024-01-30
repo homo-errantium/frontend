@@ -14,6 +14,7 @@ function PopupConfirmationExit({
   setIsEditMod,
   currentResume,
   setCurrentResume,
+  clearData,
 }) {
   return (
     <PopupСontainer
@@ -31,6 +32,7 @@ function PopupConfirmationExit({
           setIsEditMod={setIsEditMod}
           currentResume={currentResume}
           setCurrentResume={setCurrentResume}
+          clearData={clearData}
         />
       }
     />
@@ -61,6 +63,7 @@ PopupConfirmationExit.propTypes = {
             ),
           ])
         ),
+        PropTypes.objectOf(PropTypes.bool),
       ])
     )
   ),
@@ -81,6 +84,7 @@ PopupConfirmationExit.propTypes = {
           ),
         ])
       ),
+      PropTypes.objectOf(PropTypes.bool),
     ])
   ),
   currentResume: PropTypes.objectOf(
@@ -103,6 +107,7 @@ PopupConfirmationExit.propTypes = {
     ])
   ),
   setCurrentResume: PropTypes.func.isRequired,
+  clearData: PropTypes.func.isRequired,
 }
 
 PopupConfirmationExit.defaultProps = {

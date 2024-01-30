@@ -14,8 +14,6 @@ const Education = ({
   handleChangeWithValidation,
   setValues,
   handleCheckboxChange,
-  setAllTillPresent,
-  allTillPresent,
   handleAddEducationChange,
   handleAddEducationCheckboxChange,
 }) => {
@@ -52,15 +50,45 @@ const Education = ({
     }
   }, [values.educations?.length])
 
+  const handleTitleCheckboxClick = () => {
+    setValues({ ...values, educations: [] })
+    setValues(prevValues => ({
+      ...prevValues,
+      educations: [],
+      education_checkbox: !prevValues.education_checkbox,
+    }))
+    setNoAddedEducation(true)
+  }
+
+  useEffect(() => {
+    if (values.education_checkbox === true) {
+      setValues(prevValues => ({
+        ...prevValues,
+        education_period_checkbox: false,
+      }))
+    }
+  }, [values.education_checkbox])
+
   return (
     <section className="education">
-      <ResumeTitle title="Образование" />
+      <ResumeTitle
+        title="Образование"
+        checkbox
+        name="education_checkbox"
+        values={values}
+        handleCheckboxChange={handleCheckboxChange}
+        checkboxText="Отсутствует"
+        onClick={handleTitleCheckboxClick}
+        checkboxId="title-education-checkbox"
+      />
       <div className="education__form-container">
         <FormInput
           values={values}
           handleChange={handleChangeWithValidation}
           name="university_name"
           label="Название вуза"
+          disabled={values.education_checkbox}
+          setValues={setValues}
         />
         <PeriodInput
           namePeriod="education_period_checkbox"
@@ -74,21 +102,24 @@ const Education = ({
           handleCheckboxChange={handleCheckboxChange}
           values={values}
           setValues={setValues}
-          setAllTillPresent={setAllTillPresent}
-          allTillPresent={allTillPresent}
           handleChange={handleChangeWithValidation}
+          disabled={values.education_checkbox}
         />
         <FormInput
           values={values}
           handleChange={handleChangeWithValidation}
           name="university_specialization"
           label="Специальность"
+          disabled={values.education_checkbox}
+          setValues={setValues}
         />
         <FormInput
           values={values}
           handleChange={handleChangeWithValidation}
           name="education_level"
           label="Степень"
+          disabled={values.education_checkbox}
+          setValues={setValues}
         />
         {values.educations.map(education => (
           <AddedEducation
@@ -100,13 +131,15 @@ const Education = ({
             handleChange={handleAddEducationChange}
             handleCheckboxChange={handleAddEducationCheckboxChange}
             setValues={setValues}
-            setAllTillPresent={setAllTillPresent}
-            allTillPresent={allTillPresent}
             allValues={values}
+            disabled={values.education_checkbox}
           />
         ))}
         {noAddedEducation && values.educations?.length === 0 && (
-          <AddButton handleClick={addEducation} />
+          <AddButton
+            handleClick={addEducation}
+            disabled={values.education_checkbox}
+          />
         )}
       </div>
     </section>
@@ -131,6 +164,7 @@ Education.propTypes = {
           ),
         ])
       ),
+      PropTypes.objectOf(PropTypes.bool),
     ])
   ),
   setValues: PropTypes.func.isRequired,
@@ -138,7 +172,6 @@ Education.propTypes = {
   checkboxValues: PropTypes.shape({
     checkbox: PropTypes.bool,
   }),
-  setAllTillPresent: PropTypes.func.isRequired,
   allTillPresent: PropTypes.shape({
     value: PropTypes.bool,
   }),
