@@ -13,11 +13,11 @@ import RightArrowIcon from '../../img/right-arrow.svg'
 import EditIcon from '../../img/edit-icon.svg'
 import ResumeLogoBlack from '../../img/resume-logo-black.svg'
 import { handleOpenPopup, cleanLocalStorage } from '../Utils/Utils'
+import { CurrentValuesContext } from '../../contexts/ValuesContext'
+import { CurrentArrValuesContext } from '../../contexts/ArrValuesContext'
 
 function Header({
   setIsLoggedIn,
-  values,
-  arrValues,
   setArrValues,
   setIsEditMod,
   isEditMod,
@@ -36,6 +36,8 @@ function Header({
   const navigate = useNavigate()
   const location = useLocation()
   const path = location.pathname
+  const values = React.useContext(CurrentValuesContext)
+  const arrValues = React.useContext(CurrentArrValuesContext)
 
   const updateResume = () => {
     setArrValues(newArr =>
@@ -444,48 +446,6 @@ Header.propTypes = {
   setCompletedSteps: PropTypes.func,
   onClick: PropTypes.func,
   handleResumeNamePopupOpen: PropTypes.func,
-  values: PropTypes.objectOf(
-    PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.bool,
-      PropTypes.arrayOf(
-        PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.objectOf(
-            PropTypes.oneOfType([
-              PropTypes.string,
-              PropTypes.number,
-              PropTypes.bool,
-            ])
-          ),
-        ])
-      ),
-      PropTypes.objectOf(PropTypes.bool),
-    ])
-  ),
-  arrValues: PropTypes.arrayOf(
-    PropTypes.objectOf(
-      PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-        PropTypes.bool,
-        PropTypes.arrayOf(
-          PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.objectOf(
-              PropTypes.oneOfType([
-                PropTypes.string,
-                PropTypes.number,
-                PropTypes.bool,
-              ])
-            ),
-          ])
-        ),
-        PropTypes.objectOf(PropTypes.bool),
-      ])
-    )
-  ),
   setArrValues: PropTypes.func,
   isValid: PropTypes.bool,
   inputsAreNotEmpty: PropTypes.bool,
@@ -496,8 +456,6 @@ Header.propTypes = {
 }
 Header.defaultProps = {
   setIsLoggedIn: () => {},
-  values: {},
-  arrValues: [],
   setArrValues: () => {},
   isEditMod: false,
   isLoggedIn: true,

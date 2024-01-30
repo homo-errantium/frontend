@@ -7,7 +7,6 @@ import classNames from 'classnames'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import TitleImage from '../../img/main_title.svg'
-// import Step1 from '../../img/main_step1.svg'
 import { onboardingTitle, imgMainArr } from '../../constants/constants'
 import { handleOpenPopup } from '../Utils/Utils'
 

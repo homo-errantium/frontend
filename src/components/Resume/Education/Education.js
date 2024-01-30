@@ -8,9 +8,9 @@ import AddButton from '../ResumeComponents/AddButton/AddButton'
 import FormInput from '../ResumeComponents/FormInput/FormInput'
 import PeriodInput from '../ResumeComponents/PeriodInput/PeriodInput'
 import AddedEducation from './AddedEducation/AddedEducation'
+import { CurrentValuesContext } from '../../../contexts/ValuesContext'
 
 const Education = ({
-  values,
   handleChangeWithValidation,
   setValues,
   handleCheckboxChange,
@@ -19,6 +19,7 @@ const Education = ({
 }) => {
   // Если появился добавленное образование, основная кнопка "Добавить" удаляется
   const [noAddedEducation, setNoAddedEducation] = useState(true)
+  const values = React.useContext(CurrentValuesContext)
 
   const addEducation = () => {
     setNoAddedEducation(false)
@@ -147,26 +148,6 @@ const Education = ({
 }
 
 Education.propTypes = {
-  values: PropTypes.objectOf(
-    PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.bool,
-      PropTypes.arrayOf(
-        PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.objectOf(
-            PropTypes.oneOfType([
-              PropTypes.string,
-              PropTypes.number,
-              PropTypes.bool,
-            ])
-          ),
-        ])
-      ),
-      PropTypes.objectOf(PropTypes.bool),
-    ])
-  ),
   setValues: PropTypes.func.isRequired,
   handleCheckboxChange: PropTypes.func.isRequired,
   checkboxValues: PropTypes.shape({
@@ -181,7 +162,6 @@ Education.propTypes = {
 }
 
 Education.defaultProps = {
-  values: {},
   checkboxValues: {},
   allTillPresent: {},
 }

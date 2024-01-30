@@ -11,6 +11,9 @@ import {
   useLocation,
 } from 'react-router-dom'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
+import { CurrentValuesContext } from '../../contexts/ValuesContext'
+import { CurrentArrValuesContext } from '../../contexts/ArrValuesContext'
+import { CurrentResumeContext } from '../../contexts/CurrentResumeContext'
 import Main from '../Main/Main'
 import Profession from '../Profession/Profession'
 import Resume from '../Resume/Resume'
@@ -32,7 +35,6 @@ import {
 import About from '../Resume/About/About'
 import Education from '../Resume/Education/Education'
 import Experience from '../Resume/Experience/Experience'
-// import Layouts from '../Resume/Layouts/Layouts'
 import PersonalData from '../Resume/PersonalData/PersonalData'
 import Portfolio from '../Resume/Portfolio/Portfolio'
 import Qualification from '../Resume/Qualification/Qualification'
@@ -966,7 +968,6 @@ function App() {
       path: 'personal-data',
       element: (
         <PersonalData
-          values={values}
           handleChange={handleChange}
           setLanguagesChanges={setLanguagesChanges}
           setValues={setValues}
@@ -987,7 +988,6 @@ function App() {
       path: 'experience',
       element: (
         <Experience
-          values={values}
           handleCheckboxChange={handleCheckboxChange}
           setValues={setValues}
           setDuties={setDuties}
@@ -1006,7 +1006,6 @@ function App() {
       element: (
         <Qualification
           handleCheckboxChange={handleCheckboxChange}
-          values={values}
           handleChangeWithValidation={handleChangeWithValidation}
           setValues={setValues}
           handleAddQualificationChange={handleAddQualificationChange}
@@ -1020,7 +1019,6 @@ function App() {
       path: 'education',
       element: (
         <Education
-          values={values}
           handleChangeWithValidation={handleChangeWithValidation}
           setValues={setValues}
           handleCheckboxChange={handleCheckboxChange}
@@ -1048,7 +1046,7 @@ function App() {
     },
     {
       path: 'skills',
-      element: <Skills values={values} setValues={setValues} />,
+      element: <Skills setValues={setValues} />,
       id: 6,
       completedSteps: completedStepsSkills,
     },
@@ -1056,7 +1054,6 @@ function App() {
       path: 'about',
       element: (
         <About
-          values={values}
           handleChangeWithValidation={handleChangeWithValidation}
           setAbout={setAbout}
         />
@@ -1087,224 +1084,221 @@ function App() {
 
   return (
     <div className="app">
-      <CurrentUserContext.Provider value={currentUser}>
-        <Routes>
-          <Route
-            path="/signup"
-            element={
-              isLoggedIn ? (
-                <Navigate to="/" replace />
-              ) : (
-                <Register
-                  onRegister={handleRegister}
-                  isOpen={isRegisterPopupOpen}
+      <CurrentResumeContext.Provider value={currentResume}>
+        <CurrentArrValuesContext.Provider value={arrValues}>
+          <CurrentValuesContext.Provider value={values}>
+            <CurrentUserContext.Provider value={currentUser}>
+              <Routes>
+                <Route
+                  path="/signup"
+                  element={
+                    isLoggedIn ? (
+                      <Navigate to="/" replace />
+                    ) : (
+                      <Register
+                        onRegister={handleRegister}
+                        isOpen={isRegisterPopupOpen}
+                      />
+                    )
+                  }
                 />
-              )
-            }
-          />
-          <Route
-            path="/signin"
-            element={
-              isLoggedIn ? (
-                <Navigate to="/" replace />
-              ) : (
-                <Login
-                  onLogin={handleLogin}
-                  isOpen={isLoginPopupOpen}
-                  isLoggedIn={isLoggedIn}
+                <Route
+                  path="/signin"
+                  element={
+                    isLoggedIn ? (
+                      <Navigate to="/" replace />
+                    ) : (
+                      <Login
+                        onLogin={handleLogin}
+                        isOpen={isLoginPopupOpen}
+                        isLoggedIn={isLoggedIn}
+                      />
+                    )
+                  }
                 />
-              )
-            }
-          />
-          <Route
-            path="/my-profile"
-            element={
-              <ProtectedRoute
-                element={Profile}
-                isEditMod={isEditMod}
-                values={values}
-                setValues={setValues}
-                isLoggedIn={isLoggedIn}
-                deletePopupSetState={setIsConfirmDeletePopupOpen}
-                errors={errors}
-                setErrors={setErrors}
-                setCurrentUser={setCurrentUser}
-                imageProfile={imageProfile}
-                setImageProfile={setImageProfile}
-                arrValues={arrValues}
-                setArrValues={setArrValues}
-                setCurrentResume={setCurrentResume}
-                currentResume={currentResume}
-                setIsEditMod={setIsEditMod}
-                setIsResumeNamePopupOpen={setIsResumeNamePopupOpen}
-                setIsLoggedIn={setIsLoggedIn}
-                clearData={clearData}
-              />
-            }
-          />
-          <Route
-            path="/"
-            element={
-              <Main
-                setIsLoggedIn={setIsLoggedIn}
-                isLoggedIn={isLoggedIn}
-                onOpenPopup={handleConfirmRegPopupOpen}
-                isValid={isValid}
-                inputsAreNotEmpty={inputsAreNotEmpty}
-                clearData={clearData}
-              />
-            }
-          />
-          <Route
-            path="/profession"
-            element={
-              <Profession
-                isLoggedIn={isLoggedIn}
-                onOpenPopup={handleConfirmDeletePopupOpen}
-              />
-            }
-          />
-          <Route
-            path="/resume"
-            element={
-              <Resume
-                setArrValues={setArrValues}
-                arrValues={arrValues}
-                values={values}
-                setIsEditMod={setIsEditMod}
-                isEditMod={isEditMod}
-                isLoggedIn={isLoggedIn}
-                isValid={isValid}
-                inputsAreNotEmpty={inputsAreNotEmpty}
-                onOpenPopup={
-                  isLoggedIn
-                    ? handleConfirmExitPopupOpen
-                    : handleConfirmDeletePopupOpen
-                }
-                setCompletedStepsPersonalData={setCompletedStepsPersonalData}
-                setCompletedStepsExperience={setCompletedStepsExperience}
-                setCompletedStepsQualification={setCompletedStepsQualification}
-                setCompletedStepsEducation={setCompletedStepsEducation}
-                setCompletedStepsPortfolio={setCompletedStepsPortfolio}
-                setCompletedStepsSkills={setCompletedStepsSkills}
-                setCompletedStepsAbout={setCompletedStepsAbout}
-                onClick={handleClick}
-                onClickMyProfile={handleClickMyProfile}
-                duties={duties}
-                qualifications={qualifications}
-                portfolio={portfolio}
-                about={about}
-                handleResumeNamePopupOpen={handleResumeNamePopupOpen}
-                handleConfirmRegPopupOpen={handleConfirmRegPopupOpen}
-                handleRegisterPopupOpen={handleRegisterPopupOpen}
-                clearData={clearData}
-              />
-            }
-          >
-            <Route index element={<Navigate to="personal-data" />} />
-            {routesResumeArr.map((route, i) => (
-              <Route
-                path={route.path}
-                element={
-                  i === 0 || routesResumeArr[i - 1].completedSteps ? (
-                    route.element
-                  ) : (
-                    <Navigate to="/resume" replace />
-                  )
-                }
-                key={route.id}
-              />
-            ))}
-          </Route>
-          {/* отрисовка путей-компонентов под каждое готовое резюме  */}
-          {arrValues.map(resume => (
-            <Route
-              key={resume.id}
-              path={`/resume/result/${resume.id}`}
-              element={
-                <ResultResume
-                  values={resume}
-                  isLoggedIn={isLoggedIn}
-                  onOpenPopup={handleConfirmExitPopupOpen}
-                  image={image}
+                <Route
+                  path="/my-profile"
+                  element={
+                    <ProtectedRoute
+                      element={Profile}
+                      isEditMod={isEditMod}
+                      setValues={setValues}
+                      isLoggedIn={isLoggedIn}
+                      deletePopupSetState={setIsConfirmDeletePopupOpen}
+                      errors={errors}
+                      setErrors={setErrors}
+                      setCurrentUser={setCurrentUser}
+                      imageProfile={imageProfile}
+                      setImageProfile={setImageProfile}
+                      setArrValues={setArrValues}
+                      setCurrentResume={setCurrentResume}
+                      setIsEditMod={setIsEditMod}
+                      setIsResumeNamePopupOpen={setIsResumeNamePopupOpen}
+                      setIsLoggedIn={setIsLoggedIn}
+                      clearData={clearData}
+                    />
+                  }
                 />
-              }
-            />
-          ))}
-          {/* отрисовка пути-компонента под временное резюме  */}
-          {values.id && (
-            <Route
-              path={`/resume/result/${values.id}`}
-              element={
-                <ResultResume
-                  values={values}
-                  isLoggedIn={isLoggedIn}
-                  onOpenPopup={handleConfirmExitPopupOpen}
-                  image={image}
+                <Route
+                  path="/"
+                  element={
+                    <Main
+                      setIsLoggedIn={setIsLoggedIn}
+                      isLoggedIn={isLoggedIn}
+                      onOpenPopup={handleConfirmRegPopupOpen}
+                      isValid={isValid}
+                      inputsAreNotEmpty={inputsAreNotEmpty}
+                      clearData={clearData}
+                    />
+                  }
                 />
-              }
-            />
-          )}
+                <Route
+                  path="/profession"
+                  element={
+                    <Profession
+                      isLoggedIn={isLoggedIn}
+                      onOpenPopup={handleConfirmDeletePopupOpen}
+                    />
+                  }
+                />
+                <Route
+                  path="/resume"
+                  element={
+                    <Resume
+                      setArrValues={setArrValues}
+                      setIsEditMod={setIsEditMod}
+                      isEditMod={isEditMod}
+                      isLoggedIn={isLoggedIn}
+                      isValid={isValid}
+                      inputsAreNotEmpty={inputsAreNotEmpty}
+                      onOpenPopup={
+                        isLoggedIn
+                          ? handleConfirmExitPopupOpen
+                          : handleConfirmDeletePopupOpen
+                      }
+                      setCompletedStepsPersonalData={
+                        setCompletedStepsPersonalData
+                      }
+                      setCompletedStepsExperience={setCompletedStepsExperience}
+                      setCompletedStepsQualification={
+                        setCompletedStepsQualification
+                      }
+                      setCompletedStepsEducation={setCompletedStepsEducation}
+                      setCompletedStepsPortfolio={setCompletedStepsPortfolio}
+                      setCompletedStepsSkills={setCompletedStepsSkills}
+                      setCompletedStepsAbout={setCompletedStepsAbout}
+                      onClick={handleClick}
+                      onClickMyProfile={handleClickMyProfile}
+                      duties={duties}
+                      qualifications={qualifications}
+                      portfolio={portfolio}
+                      about={about}
+                      handleResumeNamePopupOpen={handleResumeNamePopupOpen}
+                      handleConfirmRegPopupOpen={handleConfirmRegPopupOpen}
+                      handleRegisterPopupOpen={handleRegisterPopupOpen}
+                      clearData={clearData}
+                    />
+                  }
+                >
+                  <Route index element={<Navigate to="personal-data" />} />
+                  {routesResumeArr.map((route, i) => (
+                    <Route
+                      path={route.path}
+                      element={
+                        i === 0 || routesResumeArr[i - 1].completedSteps ? (
+                          route.element
+                        ) : (
+                          <Navigate to="/resume" replace />
+                        )
+                      }
+                      key={route.id}
+                    />
+                  ))}
+                </Route>
+                {/* отрисовка путей-компонентов под каждое готовое резюме  */}
+                {arrValues.map(resume => (
+                  <Route
+                    key={resume.id}
+                    path={`/resume/result/${resume.id}`}
+                    element={
+                      <ResultResume
+                        values={resume}
+                        isLoggedIn={isLoggedIn}
+                        onOpenPopup={handleConfirmExitPopupOpen}
+                        image={image}
+                      />
+                    }
+                  />
+                ))}
+                {/* отрисовка пути-компонента под временное резюме  */}
+                {values.id && (
+                  <Route
+                    path={`/resume/result/${values.id}`}
+                    element={
+                      <ResultResume
+                        isLoggedIn={isLoggedIn}
+                        onOpenPopup={handleConfirmExitPopupOpen}
+                        image={image}
+                      />
+                    }
+                  />
+                )}
 
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        {/* Попап регистрации */}
-        <PopupRegister
-          isOpen={isRegisterPopupOpen}
-          onClose={closeAllPopup}
-          onRegister={handleRegister}
-          onLogin={handleLoginPopupOpen}
-        />
-        {/* Попап авторизации */}
-        <PopupLogin
-          isOpen={isLoginPopupOpen}
-          onClose={closeAllPopup}
-          onLogin={handleLogin}
-          handleRegisterPopupOpen={handleRegisterPopupOpen}
-        />
-        {/* Попап подтверждения выхода */}
-        <PopupConfirmationExit
-          isOpen={isConfirmExitPopupOpen}
-          onClose={closeAllPopup}
-          handleResumeNamePopupOpen={handleResumeNamePopupOpen}
-          isEditMod={isEditMod}
-          setArrValues={setArrValues}
-          arrValues={arrValues}
-          values={values}
-          setIsEditMod={setIsEditMod}
-          clearData={clearData}
-        />
-        {/* попап добавления имени резюме */}
-        <PopupResumeName
-          isOpen={isResumeNamePopupOpen}
-          onClose={closeAllPopup}
-          setValues={setValues}
-          values={values}
-          setArrValues={setArrValues}
-          arrValues={arrValues}
-          setIsEditMod={setIsEditMod}
-          currentResume={currentResume}
-          setCurrentResume={setCurrentResume}
-          clearData={clearData}
-        />
-        {/* Попап подтверждения удаления */}
-        <PopupConfirmationDelete
-          isOpen={isConfirmDeletePopupOpen}
-          onClose={closeAllPopup}
-          currentResume={currentResume}
-          setCurrentResume={setCurrentResume}
-          arrValues={arrValues}
-          setArrValues={setArrValues}
-          setValues={setValues}
-          setImage={setImage}
-          clearData={clearData}
-        />
-        {/* Попап подтверждения перехода */}
-        <PopupConfirmationRegister
-          isOpen={isConfirmRegPopupOpen}
-          onClose={closeAllPopup}
-        />
-      </CurrentUserContext.Provider>
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+              {/* Попап регистрации */}
+              <PopupRegister
+                isOpen={isRegisterPopupOpen}
+                onClose={closeAllPopup}
+                onRegister={handleRegister}
+                onLogin={handleLoginPopupOpen}
+              />
+              {/* Попап авторизации */}
+              <PopupLogin
+                isOpen={isLoginPopupOpen}
+                onClose={closeAllPopup}
+                onLogin={handleLogin}
+                handleRegisterPopupOpen={handleRegisterPopupOpen}
+              />
+              {/* Попап подтверждения выхода */}
+              <PopupConfirmationExit
+                isOpen={isConfirmExitPopupOpen}
+                onClose={closeAllPopup}
+                handleResumeNamePopupOpen={handleResumeNamePopupOpen}
+                isEditMod={isEditMod}
+                setArrValues={setArrValues}
+                setIsEditMod={setIsEditMod}
+                clearData={clearData}
+              />
+              {/* попап добавления имени резюме */}
+              <PopupResumeName
+                isOpen={isResumeNamePopupOpen}
+                onClose={closeAllPopup}
+                setValues={setValues}
+                setArrValues={setArrValues}
+                setIsEditMod={setIsEditMod}
+                setCurrentResume={setCurrentResume}
+                clearData={clearData}
+              />
+              {/* Попап подтверждения удаления */}
+              <PopupConfirmationDelete
+                isOpen={isConfirmDeletePopupOpen}
+                onClose={closeAllPopup}
+                setCurrentResume={setCurrentResume}
+                setArrValues={setArrValues}
+                setValues={setValues}
+                setImage={setImage}
+                clearData={clearData}
+              />
+              {/* Попап подтверждения перехода */}
+              <PopupConfirmationRegister
+                isOpen={isConfirmRegPopupOpen}
+                onClose={closeAllPopup}
+              />
+            </CurrentUserContext.Provider>
+          </CurrentValuesContext.Provider>
+        </CurrentArrValuesContext.Provider>
+      </CurrentResumeContext.Provider>
     </div>
   )
 }

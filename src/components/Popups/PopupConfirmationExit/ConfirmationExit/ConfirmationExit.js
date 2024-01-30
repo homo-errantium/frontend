@@ -1,20 +1,23 @@
+import React from 'react'
 import './ConfirmationExit.scss'
 import { useNavigate } from 'react-router'
 import PropTypes from 'prop-types'
 import exitImage from '../../../../img/popups/exit-design.svg'
 import CloseIcon from '../../../../img/popups/close-icon-black.svg'
+import { CurrentValuesContext } from '../../../../contexts/ValuesContext'
+import { CurrentArrValuesContext } from '../../../../contexts/ArrValuesContext'
 
 function ConfirmationExit({
   onClose,
   handleResumeNamePopupOpen,
   isEditMod,
   setArrValues,
-  arrValues,
-  values,
   setIsEditMod,
   clearData,
 }) {
   const navigate = useNavigate()
+  const values = React.useContext(CurrentValuesContext)
+  const arrValues = React.useContext(CurrentArrValuesContext)
 
   const updateResume = () => {
     setArrValues(newArr =>
@@ -93,56 +96,10 @@ ConfirmationExit.propTypes = {
   onClose: PropTypes.func.isRequired,
   handleResumeNamePopupOpen: PropTypes.func.isRequired,
   isEditMod: PropTypes.bool.isRequired,
-  arrValues: PropTypes.arrayOf(
-    PropTypes.objectOf(
-      PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-        PropTypes.bool,
-        PropTypes.arrayOf(
-          PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.objectOf(
-              PropTypes.oneOfType([
-                PropTypes.string,
-                PropTypes.number,
-                PropTypes.bool,
-              ])
-            ),
-          ])
-        ),
-        PropTypes.objectOf(PropTypes.bool),
-      ])
-    )
-  ),
   setArrValues: PropTypes.func.isRequired,
-  values: PropTypes.objectOf(
-    PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.bool,
-      PropTypes.arrayOf(
-        PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.objectOf(
-            PropTypes.oneOfType([
-              PropTypes.string,
-              PropTypes.number,
-              PropTypes.bool,
-            ])
-          ),
-        ])
-      ),
-      PropTypes.objectOf(PropTypes.bool),
-    ])
-  ),
+
   setIsEditMod: PropTypes.func.isRequired,
   clearData: PropTypes.func.isRequired,
-}
-
-ConfirmationExit.defaultProps = {
-  arrValues: {},
-  values: {},
 }
 
 export default ConfirmationExit
