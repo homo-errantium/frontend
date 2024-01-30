@@ -20,9 +20,9 @@ import FormInput from '../ResumeComponents/FormInput/FormInput'
 import LanguageInput from '../ResumeComponents/LanguageInput/LanguageInput'
 import ImageUploadForm from './ImageUploadForm/ImageUploadForm'
 import LinkInput from '../ResumeComponents/LinkInput/LinkInput'
+import { CurrentValuesContext } from '../../../contexts/ValuesContext'
 
 const PersonalData = ({
-  values,
   setValues,
   addLanguage,
   addLink,
@@ -34,6 +34,7 @@ const PersonalData = ({
   setImage,
   image,
 }) => {
+  const values = React.useContext(CurrentValuesContext)
   const deleteLanguage = i => {
     const languageToBeRemoved = values.languages.find(item => item.id === i)
     const remainingLanguages = values.languages.filter(
@@ -224,26 +225,6 @@ const PersonalData = ({
 }
 
 PersonalData.propTypes = {
-  values: PropTypes.objectOf(
-    PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.bool,
-      PropTypes.arrayOf(
-        PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.objectOf(
-            PropTypes.oneOfType([
-              PropTypes.string,
-              PropTypes.number,
-              PropTypes.bool,
-            ])
-          ),
-        ])
-      ),
-      PropTypes.objectOf(PropTypes.bool),
-    ])
-  ),
   setValues: PropTypes.func.isRequired,
   addLanguage: PropTypes.func.isRequired,
   addLink: PropTypes.func.isRequired,
@@ -257,7 +238,6 @@ PersonalData.propTypes = {
 }
 
 PersonalData.defaultProps = {
-  values: {},
   errors: {},
   image: undefined,
 }

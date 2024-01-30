@@ -9,10 +9,10 @@ import AddButton from '../ResumeComponents/AddButton/AddButton'
 import FormInput from '../ResumeComponents/FormInput/FormInput'
 import PeriodInput from '../ResumeComponents/PeriodInput/PeriodInput'
 import AddedQualification from './AddedQualification/AddedQualification'
+import { CurrentValuesContext } from '../../../contexts/ValuesContext'
 
 const Qualification = ({
   handleCheckboxChange,
-  values,
   handleChangeWithValidation,
   setValues,
   handleAddQualificationChange,
@@ -20,6 +20,7 @@ const Qualification = ({
 }) => {
   // Если появилась добавленная квалификация, основная кнопка "Добавить" удаляется
   const [noAddedQualification, setNoAddedQualification] = useState(true)
+  const values = React.useContext(CurrentValuesContext)
 
   const handleTitleCheckboxClick = () => {
     setValues(prevValues => ({
@@ -180,26 +181,6 @@ const Qualification = ({
 
 Qualification.propTypes = {
   handleCheckboxChange: PropTypes.func.isRequired,
-  values: PropTypes.objectOf(
-    PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.bool,
-      PropTypes.arrayOf(
-        PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.objectOf(
-            PropTypes.oneOfType([
-              PropTypes.string,
-              PropTypes.number,
-              PropTypes.bool,
-            ])
-          ),
-        ])
-      ),
-      PropTypes.objectOf(PropTypes.bool),
-    ])
-  ),
   handleChangeWithValidation: PropTypes.func.isRequired,
   setValues: PropTypes.func.isRequired,
   handleAddQualificationChange: PropTypes.func.isRequired,
@@ -207,7 +188,6 @@ Qualification.propTypes = {
 }
 
 Qualification.defaultProps = {
-  values: {},
   setQualifications: () => {},
 }
 
