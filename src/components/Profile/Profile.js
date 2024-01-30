@@ -16,6 +16,7 @@ import {
   validationPassword,
   validationEmail,
   validationPhone,
+  deleteNonLatin,
 } from '../../constants/validation'
 import { CurrentArrValuesContext } from '../../contexts/ArrValuesContext'
 
@@ -201,6 +202,23 @@ function Profile({
     setCurrentUser({ ...currentUser, [name]: value })
   }
 
+  // Функция, которая накладывает маску на поле телеграм и собирает данные
+  function checkTgInput(name, value) {
+    const cleanValue = deleteNonLatin(value)
+    if (cleanValue === '') {
+      setCurrentUser({ ...currentUser, [name]: '' })
+    } else if (cleanValue === 'https://t.me/') {
+      setCurrentUser({ ...currentUser, [name]: '' })
+    } else if (cleanValue.includes('https://t.me/')) {
+      setCurrentUser({ ...currentUser, [name]: cleanValue })
+    } else {
+      setCurrentUser({
+        ...currentUser,
+        [name]: `https://t.me/${cleanValue}`,
+      })
+    }
+  }
+
   // Функция, которая собирает и валидирует поля с данными пользователя во вкладке "контакты"
   function handleChangeUserContacts(evt) {
     const { name, value } = evt.target
@@ -213,6 +231,7 @@ function Profile({
         setErrorsUserContacts,
         errorsUserContacts
       )
+      setCurrentUser(prevValues => ({ ...prevValues, [name]: value }))
     }
 
     if (name === 'phone') {
@@ -223,13 +242,13 @@ function Profile({
         setErrorsUserContacts,
         errorsUserContacts
       )
+      setCurrentUser(prevValues => ({ ...prevValues, [name]: value }))
     }
 
     if (name === 'telegram') {
+      checkTgInput(name, value)
       setIsValidUserContacts({ ...isValidUserContacts, telegram: true })
     }
-
-    setCurrentUser(prevValues => ({ ...prevValues, [name]: value }))
   }
 
   // Функция, которая собирает и валидирует поля с подтверждением пароля во вкладке "профиль"
