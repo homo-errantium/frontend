@@ -62,22 +62,7 @@ command starts the test runner in live view mode. For more information, see [run
 - create a back-end part for authorization, registration and the ability to create protected accounts
 - creation of a server with a database for independent storage, exchange, editing of information
 - optimization for various screen extensions (adaptive for mobile devices)
-- create a back-end part for authorization, registration and the ability to create protected accounts
-- creation of a server with a database for independent storage, exchange, editing of information
-- optimization for various screen extensions (adaptive for mobile devices)
 
-For support and development of the project, please contact the following contacts:\
-[Dmitry Ivankov](https://github.com/cakamup1) - project manager\
-[Elena](https://github.com/ElenaPompon) - designer\
-[Anatoliy Ivankov](https://github.com/anatolliq) - designer\
-[Renata Gafiatullina](https://github.com/heyRene) - front-end developer\
-[Marina Sorokina](https://github.com/SorokinaMarina) - front-end developer\
-[Aishat Safin](https://github.com/homo-errantium) - front-end developer\
-[Irina Sakhno](https://github.com/IrinaSakhno) - front-end developer\
-[Maxim Anisimov](https://github.com/makc-anisimov) - front-end developer\
-[Vladimir Maksimov](https://github.com/v-mcsimoff) - backend developer\
-[Evgeny Volochek](https://github.com/EvgVol) - backend developer\
-[Julia](https://github.com/iuliia-elch) - QA-tester
 For support and development of the project, please contact the following contacts:\
 [Dmitry Ivankov](https://github.com/cakamup1) - project manager\
 [Elena](https://github.com/ElenaPompon) - designer\
