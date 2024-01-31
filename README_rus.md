@@ -1,111 +1,52 @@
-# проект создания и редактирования резюме
+# Проект Резюме Плюс
 
-Этот проект был запущен с помощью [Create React App](https://github.com/facebook/create-react-app).
+## _Платформа для создания и редактирования резюме._
 
-## Установка
+Почти каждому айти-специалисту бывает нужно создать резюме. Однако написать красивое и привлекательное резюме - дело непростое. Есть множество нюансов оформления, указания той или иной информации их Вашей биографии. Можно легко запутаться в составлении главного артефакта поиска работы. Проект "Резюме Плюс" создан для создания и редактирования Вашего резюме.  
+Сайт "Резюме Плюс" представляет собой пошаговую инструкцию в заполнении резюме. Вы просто заполняете поля анкеты, где Вас будут сопровождать подсказки и инструкции, а в конце Вы получите красивое и грамотно оформленное резюме, которое сможете моментально распечатать, переслать, сохранить или отредактировать.
 
-Для запуска потребуется установленное приложение Docker
+Уникальная система подсказок и советов поможет Вам легко выбрать что указать в тех или иных случаях. С интутивным и дружелюбным интерфейсом Вы не потеряетесь в процессе офрмления, а свежий дизайн придаст больше энтузиазма и интересных идей. Вы также можете избежать обязательного оформления полей, если у Вас нет информации или вы считаете ее ненужной.
 
-[Инструкция по установке](https://docs.docker.com/desktop/)
+Имеющиеся аналоги сложны для восприятия и не имеют легкости формирования резюме, количество создаваемых документов в них зачастую ограничено и требует допполнительной платы. На нашем сайте вы можете бесплатно составлять сколько угодно вариантов Вашего резюме, сравнивать их и легко редактировать. Попробуйте создать свое резюме на сайте "Резюме Плюс" и Вы поймете, что поиск работы может быть интересным и увлекательным.
 
-1. Склонируйте репозитории:
+### Используемые технологии:
 
-```
-git clone https://github.com/creating-and-editing-a-resume/frontend.git
-```
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 
-2. Создайте образ, укажите название
+## Для установки Вам необходимо:
 
-docker built -t <your-image-name> .
+    1. скачать репозиторий. Вы можете скопировать папку с файлами через SSH-ключ
+    `git clone https://git@github.com:creating-and-editing-a-resume/frontend.git`
+    [https://git@github.com:creating-and-editing-a-resume/frontend.git](https://git@github.com:creating-and-editing-a-resume/frontend.git)
+    или
+    скачать  [ZIP-версию](git@github.com:creating-and-editing-a-resume/frontend.git)
+    2. перейти в корневую папку `cd frontend`
+    3. установить зависимости  `npm install`
 
-3. Запустите Docker-контейнер:
+## Для запуска Вам необходимо:
 
-```
-docker run -p 3000:3000 -d <your-image-name>
+    1. собрать приложение для производства в папке `build`:  `npm run build`
+    2. запустить приложение в режиме разработки: `npm start`
 
-```
+    Команда `npm-test` запускает программу запуска тестов в режиме интерактивного просмотра. Дополнительную информацию см. в разделе о [выполнении тестов](https://facebook.github.io/create-react-app/docs/running-tests).
 
-Проект запускается локально на 3000 порту.
+## Сайт "Резюме Плюс" является некоммерческим пет-проектом студентов Я.Практикума. Имеется план действий для улучшения и оптимизации:
 
-### Описание докер-скриптов
+    - создать бэк-енд часть для авторизации, регистрации и возможности создания защищенных аккаунтов
+    - создание сервера с базой даных для независимого хранения, обмена, редактирования информации
+    - оптимизация под различные расширения экрана (адаптив под мобильные устройства)
 
-FROM node:20 as build - создание образа контейнера (определение версии Node)
+Для поддержки и развития проекта обращаться по следующим контактам:
+[Дмитрий Иванков](https://github.com/cakamup1) - проект-менеджер
+[Елена](https://github.com/ElenaPompon) - дизайнер
+[Антолий Иванов](https://t.me/anatolliq) - дизайнер
+[Рената Гафиатуллина](https://github.com/heyRene) - фронтенд-разработчик
+[Марина Сорокина](https://github.com/SorokinaMarina) - фронтенд-разработчик
+[Айшат Сафин](https://github.com/homo-errantium) - фронтенд-разработчик
+[Ирина Сахно](https://github.com/IrinaSakhno) - фронтенд-разработчик
+[Максим Анисимов](https://github.com/makc-anisimov) - фронтенд-разработчик
+[Владимир Максимов](https://github.com/v-mcsimoff) - бэкенд-разработчик
+[Евгений Волочек](https://github.com/EvgVol) - бэкенд-разработчик
+[Юлия](https://github.com/iuliia-elch) - QA-тестировщик
 
-WORKDIR /app - установка рабочей директории
-
-COPY package*.json ./ - копирование файлов package*.json в рабочую директорию
-
-RUN npm install - установка зависимости внутри контейнера
-
-COPY . ./ копирование всех файлов в рабочую директорию
-
-RUN npm run build - сборка образа
-
-CMD cp -r build result_build - установка команды при запуске контейнера / копирование содержимого папки build в папку result_build внутри контейнера
-
-## Доступные скрипты
-
-В каталоге проекта вы можете запустить:
-
-### `npm start`
-
-Запускает приложение в режиме разработки.\
-Откройте [http://localhost:3000](http://localhost:3000), чтобы просмотреть его в браузере.
-
-Страница перезагрузится, когда вы внесете изменения.\
-Вы также можете увидеть любые ошибки в консоли.
-
-### `npm test`
-
-Запускает программу запуска тестов в режиме интерактивного просмотра.\
-Дополнительную информацию см. в разделе о [выполнении тестов](https://facebook.github.io/create-react-app/docs/running-tests).
-
-### `npm run build`
-
-Собирает приложение для производства в папке `build`.\
-Он правильно объединяет React в производственном режиме и оптимизирует сборку для достижения наилучшей производительности.
-
-Сборка минимизирована, а имена файлов включают хэши.\
-Ваше приложение готово к развертыванию!
-
-Дополнительную информацию см. в разделе о [развертывании](https://facebook.github.io/create-react-app/docs/deployment).
-
-### `npm run eject`
-
-**Примечание: это односторонняя операция. Как только вы «выброситесь», вы не сможете вернуться назад!**
-
-Если вас не устраивает инструмент сборки и варианты конфигурации, вы можете «извлечь» в любое время. Эта команда удалит из вашего проекта единственную зависимость сборки.
-
-Вместо этого он скопирует все файлы конфигурации и транзитивные зависимости (webpack, Babel, ESLint и т. д.) прямо в ваш проект, чтобы вы имели полный контроль над ними. Все команды, кроме «eject», по-прежнему будут работать, но они будут указывать на скопированные сценарии, чтобы вы могли их настроить. На данный момент вы сами по себе.
-
-Вам не обязательно использовать `eject`. Рекомендуемый набор функций подходит для небольших и средних развертываний, и вы не должны чувствовать себя обязанным использовать эту функцию. Однако мы понимаем, что этот инструмент не будет полезен, если вы не сможете настроить его, когда будете к этому готовы.
-
-## Узнать больше
-
-Вы можете узнать больше в [документации по созданию приложения React] (https://facebook.github.io/create-react-app/docs/getting-started).
-
-Чтобы изучить React, ознакомьтесь с [документацией React](https://reactjs.org/).
-
-### Разделение кода
-
-Этот раздел переехал сюда: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code- расщепление)
-
-### Анализ размера пакета
-
-Этот раздел переехал сюда: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/ документы/анализ размера пакета)
-
-### Создание прогрессивного веб-приложения
-
-Этот раздел переехал сюда: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react- приложение/документы/создание прогрессивного веб-приложения)
-
-### Расширенная конфигурация
-
-Этот раздел переехал сюда: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced- конфигурация)
-
-### Развертывание
-
-Этот раздел переехал сюда: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` не удается минимизировать
-
-Этот раздел переехал сюда: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/ create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Спасибо за просмотр
