@@ -58,6 +58,7 @@ npm-test
 For support and development of the project, please contact the following contacts:\
 [Dmitry Ivankov](https://github.com/cakamup1) - project manager\
 [Elena](https://github.com/ElenaPompon) - designer\
+[Anatoliy Ivankov](https://github.com/anatolliq) - designer\
 [Renata Gafiatullina](https://github.com/heyRene) - front-end developer\
 [Marina Sorokina](https://github.com/SorokinaMarina) - front-end developer\
 [Aishat Safin](https://github.com/homo-errantium) - front-end developer\
