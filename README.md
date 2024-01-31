@@ -15,12 +15,14 @@ The existing analogues are difficult to understand and do not allow for the ease
 
 ## To install you need:
 
-     1. download the repository. You can copy a folder with files via SSH key
-     ```git clone https://git@github.com:creating-and-editing-a-resume/frontend.git```
-     or
+download the repository. You can copy a folder with files via SSH key
+     `git clone https://git@github.com:creating-and-editing-a-resume/frontend.git`
+or
      download [ZIP version](git@github.com:creating-and-editing-a-resume/frontend.git)
-     2. go to the root folder `cd frontend`
-     3. install dependencies `npm install`
+go to the root folder 
+      `cd frontend`
+install dependencies 
+      `npm install`
 
 ## To start you need:
 
@@ -35,16 +37,16 @@ The existing analogues are difficult to understand and do not allow for the ease
      - creation of a server with a database for independent storage, exchange, editing of information
      - optimization for various screen extensions (adaptive for mobile devices)
 
-For support and development of the project, please contact the following contacts:
-[Dmitry Ivankov](https://github.com/cakamup1) - project manager
-[Elena](https://github.com/ElenaPompon) - designer
-[Renata Gafiatullina](https://github.com/heyRene) - front-end developer
-[Marina Sorokina](https://github.com/SorokinaMarina) - front-end developer
-[Aishat Safin](https://github.com/homo-errantium) - front-end developer
-[Irina Sakhno](https://github.com/IrinaSakhno) - front-end developer
-[Maxim Anisimov](https://github.com/makc-anisimov) - front-end developer
-[Vladimir Maksimov](https://github.com/v-mcsimoff) - backend developer
-[Evgeny Volochek](https://github.com/EvgVol) - backend developer
-[Julia](https://github.com/iuliia-elch) - QA tester
+For support and development of the project, please contact the following contacts:\
+[Dmitry Ivankov](https://github.com/cakamup1) - project manager\
+[Elena](https://github.com/ElenaPompon) - designer\
+[Renata Gafiatullina](https://github.com/heyRene) - front-end developer\
+[Marina Sorokina](https://github.com/SorokinaMarina) - front-end developer\
+[Aishat Safin](https://github.com/homo-errantium) - front-end developer\
+[Irina Sakhno](https://github.com/IrinaSakhno) - front-end developer\
+[Maxim Anisimov](https://github.com/makc-anisimov) - front-end developer\
+[Vladimir Maksimov](https://github.com/v-mcsimoff) - backend developer\
+[Evgeny Volochek](https://github.com/EvgVol) - backend developer\
+[Julia](https://github.com/iuliia-elch) - QA-tester
 
 ### Thank you for watching
