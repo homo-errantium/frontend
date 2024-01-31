@@ -15,27 +15,45 @@ The existing analogues are difficult to understand and do not allow for the ease
 
 ## To install you need:
 
-download the repository. You can copy a folder with files via SSH key
-     `git clone https://git@github.com:creating-and-editing-a-resume/frontend.git`
-or
-     download [ZIP version](git@github.com:creating-and-editing-a-resume/frontend.git)
-go to the root folder 
-      `cd frontend`
-install dependencies 
-      `npm install`
+1. download the repository. You can copy a folder with files via SSH key:
+   
+```
+git clone https://git@github.com:creating-and-editing-a-resume/frontend.git
+```
+
+or download [ZIP version](git@github.com:creating-and-editing-a-resume/frontend.git)
+
+2. go to the root folder 
+```
+cd frontend
+```
+3. install dependencies 
+```
+npm install
+```
 
 ## To start you need:
 
-     1. build the application for production in the `build` folder: `npm run build`
-     2. run the application in development mode: `npm start`
+1. build the application for production in the `build` folder: 
+ ```
+ npm run build
+ ```
+2. run the application in development mode:
+```
+npm start
+```
 
-     The `npm-test` command starts the test runner in live view mode. For more information, see [running tests](https://facebook.github.io/create-react-app/docs/running-tests).
+The
+```
+npm-test
+```
+ command starts the test runner in live view mode. For more information, see [running tests](https://facebook.github.io/create-react-app/docs/running-tests).
 
 ## The website "Resume Plus" is a non-profit pet project of students of Ya.Practicum. There is an action plan for improvement and optimization:
 
-     - create a back-end part for authorization, registration and the ability to create protected accounts
-     - creation of a server with a database for independent storage, exchange, editing of information
-     - optimization for various screen extensions (adaptive for mobile devices)
+- create a back-end part for authorization, registration and the ability to create protected accounts
+- creation of a server with a database for independent storage, exchange, editing of information
+- optimization for various screen extensions (adaptive for mobile devices)
 
 For support and development of the project, please contact the following contacts:\
 [Dmitry Ivankov](https://github.com/cakamup1) - project manager\
