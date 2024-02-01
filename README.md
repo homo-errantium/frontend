@@ -7,7 +7,7 @@ The "Resume Plus" website provides step-by-step instructions for filling out a r
 
 A unique system of hints and tips will help you easily choose what to indicate in certain cases. With an intuitive and friendly interface, you won’t get lost in the design process, and the fresh design will add more enthusiasm and interesting ideas. You can also avoid mandatory fields if you do not have the information or consider it unnecessary.
 
-The existing analogues are difficult to understand and do not allow for the ease of forming a summary. The number of documents created in them is often limited and requires an additional fee. On our website you can create as many versions of your resume as you like for free, compare them and easily edit them. Try creating your resume on the Resume Plus website and you will understand that job search can be interesting and exciting.
+Try creating your resume on the Resume Plus website and you will understand that job search can be interesting and exciting.
 
 ### Technologies used:
 
@@ -57,16 +57,18 @@ npm-test
 
 command starts the test runner in live view mode. For more information, see [running tests](https://facebook.github.io/create-react-app/docs/running-tests).
 
-## The website "Resume Plus" is a non-profit pet project of students of Ya.Practicum. There is an action plan for improvement and optimization:
+## The website "Resume Plus" is a non-profit pet project of students of Yandex.Practicum. There is an action plan for improvement and optimization:
 
 - create a back-end part for authorization, registration and the ability to create protected accounts
 - creation of a server with a database for independent storage, exchange, editing of information
 - optimization for various screen extensions (adaptive for mobile devices)
+- connection of the spell checking system
+- usability testing
 
 For support and development of the project, please contact the following contacts:\
 [Dmitry Ivankov](https://github.com/cakamup1) - project manager\
 [Elena](https://github.com/ElenaPompon) - designer\
-[Anatoliy Ivankov](https://github.com/anatolliq) - designer\
+[Anatoliy Ivanov](https://github.com/anatolliq) - designer\
 [Renata Gafiatullina](https://github.com/heyRene) - front-end developer\
 [Marina Sorokina](https://github.com/SorokinaMarina) - front-end developer\
 [Aishat Safin](https://github.com/homo-errantium) - front-end developer\
