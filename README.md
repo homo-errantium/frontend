@@ -1,112 +1,81 @@
-# creating-and-editing-a-resume project (website)
+# Project Resume Plus
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## _Platform for creating and editing resumes._
 
-## Installing
+Almost every IT specialist needs to create a resume. However, writing a beautiful and attractive resume is not an easy task. There are many nuances of design and information. It can be easy to get confused when putting together your main job search artifact. The "Resume Plus" project was created to create and edit your resume.
+The "Resume Plus" website provides step-by-step instructions for filling out a resume. You simply fill out the fields of the questionnaire, where you will be accompanied by tips and instructions, and at the end you will receive a beautiful and well-designed resume that you can instantly print, forward, save or edit.
 
-To run you will need the Docker application installed
+A unique system of hints and tips will help you easily choose what to indicate in certain cases. With an intuitive and friendly interface, you won’t get lost in the design process, and the fresh design will add more enthusiasm and interesting ideas. You can also avoid mandatory fields if you do not have the information or consider it unnecessary.
 
-[Installation instructions](https://docs.docker.com/desktop/)
+Try creating your resume on the Resume Plus website and you will understand that job search can be interesting and exciting.
 
-1. Clone the repositories:
+### Technologies used:
 
-```
-git clone https://github.com/creating-and-editing-a-resume/frontend.git
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 
-```
+## To install you need:
 
-2. Create an image, specify a name
-
-docker built -t <your-image-name> .
-
-3. Start the Docker container:
+1. download the repository. You can copy a folder with files via SSH key:
 
 ```
-docker run -p 3000:3000 -d <your-image-name>
-
+git clone https://git@github.com:creating-and-editing-a-resume/frontend.git
 ```
 
-The project runs locally on port 3000.
+or download [ZIP version](git@github.com:creating-and-editing-a-resume/frontend.git)
 
-### Description of Docker scripts
+2. go to the root folder
 
-FROM node:20 as build - creating a container image (detecting the Node version)
+```
+cd frontend
+```
 
-WORKDIR /app - setting the working directory
+3. install dependencies
 
-COPY package*.json ./ - copying package*.json files to the working directory
+```
+npm install
+```
 
-RUN npm install - installing dependency inside container
+## To start you need:
 
-COPY. ./ copy all files to the working directory
+1. build the application for production in the `build` folder:
 
-RUN npm run build - build the image
+```
+npm run build
+```
 
-CMD cp -r build result_build - install the command when starting the container / copy the contents of the build folder to the result_build folder inside the container
+2. run the application in development mode:
 
-## Available Scripts
+```
+npm start
+```
 
-In the project directory, you can run:
+The
 
-### `npm start`
+```
+npm-test
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+command starts the test runner in live view mode. For more information, see [running tests](https://facebook.github.io/create-react-app/docs/running-tests).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## The website "Resume Plus" is a non-profit pet project of students of Yandex.Practicum. There is an action plan for improvement and optimization:
 
-### `npm test`
+- create a back-end part for authorization, registration and the ability to create protected accounts
+- creation of a server with a database for independent storage, exchange, editing of information
+- optimization for various screen extensions (adaptive for mobile devices)
+- connection of the spell checking system
+- usability testing
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+For support and development of the project, please contact the following contacts:\
+[Dmitry Ivankov](https://github.com/cakamup1) - project manager\
+[Elena](https://github.com/ElenaPompon) - designer\
+[Anatoliy Ivanov](https://github.com/anatolliq) - designer\
+[Renata Gafiatullina](https://github.com/heyRene) - front-end developer\
+[Marina Sorokina](https://github.com/SorokinaMarina) - front-end developer\
+[Aishat Safin](https://github.com/homo-errantium) - front-end developer\
+[Irina Sakhno](https://github.com/IrinaSakhno) - front-end developer\
+[Maxim Anisimov](https://github.com/makc-anisimov) - front-end developer\
+[Vladimir Maksimov](https://github.com/v-mcsimoff) - backend developer\
+[Evgeny Volochek](https://github.com/EvgVol) - backend developer\
+[Julia](https://github.com/iuliia-elch) - QA-tester
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Thank you for watching
