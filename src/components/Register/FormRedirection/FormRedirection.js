@@ -5,9 +5,7 @@ import './FormRedirection.scss'
 import classNames from 'classnames'
 
 const FormRedirection = ({ page, text, button, path, whiteText }) => (
-  <div
-    className={`form-redirection__container form-redirection__container_${page}`}
-  >
+  <div className={`form-redirection form-redirection_${page}`}>
     {text && (
       <span
         className={classNames(

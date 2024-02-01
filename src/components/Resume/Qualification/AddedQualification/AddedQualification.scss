@@ -1,0 +1,56 @@
+@import '../../../../vendor/vars';
+
+.added-qualification__container {
+  display: flex;
+  flex-direction: column;
+  margin: 44px 0 0;
+  border-top: 1px #d0d0d0 dashed;
+  padding-top: 44px;
+  gap: 32px;
+}
+
+.added-qualification__basic-recommend {
+  display: flex;
+  flex-direction: column;
+  gap: 29px;
+  max-width: 729px;
+}
+
+.added-qualification__buttons-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  gap: 20px;
+}
+
+.added-qualification__delete-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @extend %font-Open;
+  line-height: 1.21;
+  background-color: transparent;
+  padding: 15px 0;
+  color: #ff4b4b;
+  text-align: center;
+  border-radius: 16px;
+  border: 2px solid #ff4b4b;
+  width: 50%;
+  gap: 4px;
+}
+
+.added-qualification__add-button {
+  background-color: transparent;
+  padding: 15px 0;
+  color: #1a1b22;
+  text-align: center;
+  @extend %font-Open;
+  line-height: 1.21;
+  border-radius: 16px;
+  border: 2px solid #1a1b22;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}

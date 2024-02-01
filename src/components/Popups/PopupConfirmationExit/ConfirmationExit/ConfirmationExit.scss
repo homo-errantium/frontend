@@ -3,64 +3,77 @@
   flex-direction: column;
   align-items: center;
   gap: 44px;
-  padding: 40px 40px;
-}
-
-.confirmation-exit__title {
-  margin: 0;
-  color: #1a1b22;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: normal;
-  width: 618px;
-  text-align: left;
-}
-
-.confirmation-exit__image {
-  width: 281px;
-  height: 279px;
-}
-
-.confirmation-reg__text {
-  width: 516px;
-  color: #212121;
-  text-align: center;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 1.2;
-}
-
-.confirmation-exit__buttons {
-  display: flex;
-  gap: 20px;
-}
-
-.confirmation-exit__button {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 1.2;
-  border-radius: 16px;
-  border: 2px solid;
-  width: 301px;
-  height: 52px;
-}
-
-.confirmation-exit__button:hover {
-  opacity: 0.6;
-  cursor: pointer;
-}
-
-.confirmation-exit__button_exit {
-  color: #1a1b22;
+  padding: 40px 0;
+  width: 702px;
   background-color: #fff;
-  border-color: #1a1b22;
+  border-radius: 24px;
+  position: relative;
+
+  &__title {
+    margin: 0;
+    color: #1a1b22;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: normal;
+    width: 618px;
+    text-align: left;
+  }
+
+  &__image {
+    width: 281px;
+    height: 279px;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 20px;
+  }
+
+  &__button {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.2;
+    border-radius: 16px;
+    border: 2px solid;
+    width: 301px;
+    height: 52px;
+
+    &:hover {
+      opacity: 0.6;
+      cursor: pointer;
+    }
+
+    &_exit {
+      color: #1a1b22;
+      background-color: #fff;
+      border-color: #1a1b22;
+    }
+
+    &_save {
+      color: #fff;
+      background-color: #1a1b22;
+      border-color: #1a1b22;
+    }
+  }
+
+  &__close-button {
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    position: absolute;
+    top: 24px;
+    right: 35px;
+  }
 }
 
-.confirmation-exit__button_save {
-  color: #fff;
-  background-color: #1a1b22;
-  border-color: #1a1b22;
-}
+// .confirmation-reg__text {
+//   width: 516px;
+//   color: #212121;
+//   text-align: center;
+//   font-family: 'Open Sans', sans-serif;
+//   font-size: 20px;
+//   font-weight: 400;
+//   line-height: 1.2;
+// }

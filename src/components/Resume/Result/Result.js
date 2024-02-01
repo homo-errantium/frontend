@@ -7,16 +7,18 @@ import DownloadIcon from '../../../img/download-icon.svg'
 import ResultResume from '../ResultResume/ResultResume'
 import { handleGeneratePdf, copyToClipboard } from '../../Utils/Utils'
 import PopupCopyLink from '../../Popups/PopupCopyLink/PopupCopyLink'
+import ResumeTitle from '../ResumeComponents/ResumeTitle/ResumeTitle'
 
 function Result({ values, setIsTempResume }) {
   const [popupCopyLink, setPopupCopyLink] = React.useState(false)
+  const [popupCopyLinkText, setPopupCopyLinkText] = React.useState('')
   const navigate = useNavigate()
   const resumePath = `/resume/result/${values.id}`
 
   return (
     <section className="result">
       <div className="result__header">
-        <h1 className="result__title">Готовое резюме</h1>
+        <ResumeTitle title="Готовое резюме" />
         <div className="result__buttons-container">
           <button
             className="result__button"
@@ -25,7 +27,11 @@ function Result({ values, setIsTempResume }) {
             onClick={() => {
               // navigate(`${resumePath}`)
               setIsTempResume(true)
-              copyToClipboard(resumePath, setPopupCopyLink)
+              copyToClipboard(
+                resumePath,
+                setPopupCopyLink,
+                setPopupCopyLinkText
+              )
             }}
           >
             <img
@@ -36,7 +42,7 @@ function Result({ values, setIsTempResume }) {
             Скопировать ссылку
           </button>
           <button
-            className="result__button"
+            className="result__button result__button_right"
             type="button"
             label="button"
             onClick={() => {
@@ -56,7 +62,7 @@ function Result({ values, setIsTempResume }) {
       <div className="result__content">
         <ResultResume values={values} />
       </div>
-      <PopupCopyLink popupCopyLink={popupCopyLink} />
+      <PopupCopyLink popupCopyLink={popupCopyLink} text={popupCopyLinkText} />
     </section>
   )
 }
@@ -80,6 +86,7 @@ Result.propTypes = {
           ),
         ])
       ),
+      PropTypes.objectOf(PropTypes.bool),
     ])
   ),
 }

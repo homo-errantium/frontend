@@ -1,43 +1,36 @@
+@import '../../../../vendor/vars';
+
 .link-input {
-    display: flex;
-    flex-direction: row;
-    margin: 0;
-    gap: 20px;
-    width: 100%;
-    align-items: flex-end;
-  }
-  .link-input__left-box {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  gap: 20px;
+  width: 100%;
+  align-items: flex-end;
+
+  &__left-box {
     max-width: 316px;
     width: 100%;
   }
-  .link-input__right-box {
+
+  &__right-box {
     max-width: 265px;
     width: 100%;
   }
-  .link-input__label-container {
-    display: flex;
-  }
-  
-  .link-input__label {
+
+  &__label {
+    @extend %font-Open;
     margin-bottom: 12px;
     text-align: left;
-    color: #000;
     font-family: Inter;
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 1.21;
+
+    &-container {
+      display: flex;
+    }
   }
-  // .link-input__select-wrapper {
-  //   position: relative;
-  // }
-  // .link-input__select-wrapper::after {
-  //   content: url(../../../../img/select-arrow.svg);
-  //   position: absolute;
-  //   bottom: 12px;
-  //   right: 16px;
-  //   pointer-events: none;
-  // }
-  .link-input__field{
+
+  // field
+  &__field {
     appearance: none;
     border-radius: 16px;
     border: 1px solid #9f9f9f;
@@ -48,34 +41,37 @@
     margin: 0;
     resize: none;
   }
-  .link-input__short-field {
+
+  &:active {
+    border-color: #000;
+    outline-offset: 0;
+  }
+
+  &:focus {
+    border-color: #000;
+    outline-offset: 0;
+  }
+
+  &__short-field {
     appearance: none;
     border-radius: 16px;
     border: 1px solid #9f9f9f;
     outline: #000;
-    width: 91.78%;
+    width: 90.78%;
     height: 22px;
     padding: 12px;
     margin: 0;
     resize: none;
   }
-  
-  .link-input__field:active{
-    border-color: #000;
-    outline-offset: 0;
-  }
-  
-  .link-input__field:focus {
-    border-color: #000;
-    outline-offset: 0;
-  }
-  
-  .link-input__button-container {
+
+  // button
+  &__button-container {
     display: flex;
     flex-direction: row;
     gap: 12px;
   }
-  .link-input__button-delete {
+
+  &__button-delete {
     width: 48px;
     height: 48px;
     padding: 10px;
@@ -86,11 +82,13 @@
     background-size: 20px 20px;
     background-repeat: no-repeat;
     background-position: center;
-  }
-  .link-input__button-delete:hover {
+
+    &:hover {
       background-image: url(../../../../img/delete-button-hover.svg);
+    }
   }
-  .link-input__button-add {
+
+  &__button-add {
     width: 48px;
     height: 48px;
     padding: 10px;
@@ -101,7 +99,9 @@
     background-size: 20px 20px;
     background-repeat: no-repeat;
     background-position: center;
-  }
-  .link-input__button-add:hover {
+
+    &:hover {
       background-image: url(../../../../img/add-button-hover.svg);
+    }
   }
+}

@@ -14,23 +14,20 @@ const AddedEducation = ({
   handleChange,
   handleCheckboxChange,
   setValues,
-  setAllTillPresent,
-  allTillPresent,
   allValues,
+  disabled,
 }) => {
   const handleDelete = () => deleteEducation(i)
   return (
     <>
-      <div
-        className="added-education__container experience__job-container"
-        id={i}
-      >
+      <div className="added-education__container" id={i}>
         <FormInput
           name="university_name"
           values={values}
           handleChange={handleChange}
           label="Название вуза"
           id={i}
+          disabled={disabled}
         />
         <PeriodInput
           education
@@ -45,9 +42,8 @@ const AddedEducation = ({
           handleChange={handleChange}
           handleCheckboxChange={handleCheckboxChange}
           setValues={setValues}
-          setAllTillPresent={setAllTillPresent}
-          allTillPresent={allTillPresent}
           allValues={allValues}
+          disabled={disabled}
         />
         <FormInput
           name="university_specialization"
@@ -55,6 +51,7 @@ const AddedEducation = ({
           handleChange={handleChange}
           label="Специальность"
           id={i}
+          disabled={disabled}
         />
         <FormInput
           name="education_level"
@@ -62,9 +59,10 @@ const AddedEducation = ({
           handleChange={handleChange}
           label="Степень"
           id={i}
+          disabled={disabled}
         />
       </div>
-      <div className="added-education__buttons-container job__buttons-container">
+      <div className="added-education__buttons-container">
         <button
           className="added-education__delete-button job__delete-button link"
           type="button"
@@ -99,7 +97,6 @@ AddedEducation.propTypes = {
   }),
   handleCheckboxChange: PropTypes.func.isRequired,
   setValues: PropTypes.func.isRequired,
-  setAllTillPresent: PropTypes.func.isRequired,
   allTillPresent: PropTypes.shape({
     value: PropTypes.bool,
   }),
@@ -122,6 +119,7 @@ AddedEducation.propTypes = {
       ),
     ])
   ),
+  disabled: PropTypes.bool.isRequired,
 }
 
 AddedEducation.defaultProps = {

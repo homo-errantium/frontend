@@ -1,0 +1,114 @@
+.cv-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+
+  &__content {
+    width: 100%;
+  }
+
+  &__image {
+    position: relative;
+    max-width: 495px;
+    object-fit: cover;
+    max-height: 697px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+
+  &__change-button {
+    border: none;
+    background-color: transparent;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 16px;
+    right: 25px;
+    z-index: 2;
+  }
+
+  &__name {
+    font-size: 20px;
+    text-align: left;
+    line-height: 120%;
+    padding-top: 16px;
+  }
+
+  &__bcg {
+    background-color: rgba(0, 0, 0, 0.35);
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    visibility: hidden;
+    opacity: 0;
+    transition:
+      visibility 0.5s,
+      opacity 0.2s linear;
+    z-index: 1;
+
+    &_opened {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    }
+
+  &__menu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 32px;
+    right: 63px;
+    border-radius: 8px;
+    background: #fff;
+    padding: 8px 0px;
+    width: 263px;
+    visibility: hidden;
+    opacity: 0;
+    transition:
+    visibility 0.5s,
+    opacity 0.2s linear;
+    z-index: 2;
+
+    &_opened {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  &__menu-option {
+    color: #212121;
+    text-align: left;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.2;
+    border: none;
+    border-bottom: 1px solid #b9b9b9;
+    background: #fff;
+    height: 36px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+
+    &_red {
+      color: #ff4b4b;
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 20px;
+    margin-right: 4px;
+    color: black;
+  }
+
+}

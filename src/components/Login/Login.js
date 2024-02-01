@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import './Login.scss'
 import '../Register/Register.scss'
 import FormTitle from '../Register/FormTitle/FormTitle'
 import FormRedirection from '../Register/FormRedirection/FormRedirection'
@@ -10,14 +9,14 @@ import Header from '../Header/Header'
 const Login = ({ onLogin, isLoggedIn }) => (
   <>
     <Header isLoggedIn={isLoggedIn} />
-    <section className="login register">
-      <div className="login__container register__container">
+    <section className="register">
+      <div className="register__container">
         <FormTitle page="login" greeting="Вход" />
 
-        <div className="login__form-container">
+        <div className="register__form-container">
           <LoginForm buttonText="Войти" onSubmit={onLogin} />
         </div>
-        <a href="_blank" className="login__restore-password">
+        <a href="_blank" className="register__restore-password">
           Не помню пароль
         </a>
         <FormRedirection

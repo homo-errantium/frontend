@@ -347,151 +347,155 @@ function ResultResume({ values }) {
         </span>
       </div> */}
       {/* ------ блок образование ------*/}
-      <div
-        className={classNames(
-          'result-resume__container',
-          locationProfile && 'result-resume__container_profile'
-        )}
-      >
-        <h2
-          className={classNames(
-            'result-resume__title',
-            locationProfile && 'result-resume__title_profile'
-          )}
-        >
-          Образование
-        </h2>
+      {!values.education_checkbox && (
         <div
           className={classNames(
-            'result-resume__children',
-            locationProfile && 'result-resume__children_profile'
+            'result-resume__container',
+            locationProfile && 'result-resume__container_profile'
           )}
         >
-          <div
+          <h2
             className={classNames(
-              'result-resume__first-column',
-              locationProfile && 'result-resume__first-column_profile'
+              'result-resume__title',
+              locationProfile && 'result-resume__title_profile'
             )}
           >
-            <p
-              className={classNames(
-                'result-resume__date',
-                locationProfile && 'result-resume__date_profile'
-              )}
-            >
-              {values.year_education_start
-                ? `${
-                    values.year_education_start
-                      ? ` ${values.year_education_start}`
-                      : ''
-                  } ${
-                    values.year_education_start &&
-                    values.year_education_end &&
-                    '-'
-                  } ${
-                    values.year_education_end
-                      ? ` ${values.year_education_end}`
-                      : ''
-                  }`
-                : ''}
-            </p>
-            <p
-              className={classNames(
-                'result-resume__paragraph',
-                locationProfile && 'result-resume__paragraph_profile'
-              )}
-            >
-              {values.university_name ?? ''}
-            </p>
-          </div>
+            Образование
+          </h2>
           <div
             className={classNames(
-              'result-resume__second-column',
-              locationProfile && 'result-resume__second-column_profile'
+              'result-resume__children',
+              locationProfile && 'result-resume__children_profile'
             )}
           >
-            <p
-              className={classNames(
-                'result-resume__paragraph',
-                locationProfile && 'result-resume__paragraph_profile'
-              )}
-            >
-              {values.university_specialization}
-            </p>
-            <p
-              className={classNames(
-                'result-resume__paragraph',
-                locationProfile && 'result-resume__paragraph_profile'
-              )}
-            >
-              {values.education_level}
-            </p>
-          </div>
-        </div>
-        {React.Children.toArray(
-          userAllEducations?.map(item => (
             <div
               className={classNames(
-                'result-resume__children',
-                locationProfile && 'result-resume__children_profile'
+                'result-resume__first-column',
+                locationProfile && 'result-resume__first-column_profile'
               )}
             >
-              <div
+              <p
                 className={classNames(
-                  'result-resume__first-column',
-                  locationProfile && 'result-resume__first-column_profile'
+                  'result-resume__date',
+                  locationProfile && 'result-resume__date_profile'
                 )}
               >
-                <p
-                  className={classNames(
-                    'result-resume__date',
-                    locationProfile && 'result-resume__date_profile'
-                  )}
-                >
-                  {`${
-                    item.year_education_start
-                      ? ` ${item.year_education_start}`
-                      : ''
-                  } - ${
-                    item.year_education_end ? ` ${item.year_education_end}` : ''
-                  }`}
-                </p>
-                <p
-                  className={classNames(
-                    'result-resume__paragraph',
-                    locationProfile && 'result-resume__paragraph_profile'
-                  )}
-                >
-                  {item.university_name}
-                </p>
-              </div>
-              <div
+                {values.year_education_start
+                  ? `${
+                      values.year_education_start
+                        ? ` ${values.year_education_start}`
+                        : ''
+                    } ${
+                      values.year_education_start &&
+                      values.year_education_end &&
+                      '-'
+                    } ${
+                      values.year_education_end
+                        ? ` ${values.year_education_end}`
+                        : ''
+                    }`
+                  : ''}
+              </p>
+              <p
                 className={classNames(
-                  'result-resume__second-column',
-                  locationProfile && 'result-resume__second-column_profile'
+                  'result-resume__paragraph',
+                  locationProfile && 'result-resume__paragraph_profile'
                 )}
               >
-                <p
-                  className={classNames(
-                    'result-resume__paragraph',
-                    locationProfile && 'result-resume__paragraph_profile'
-                  )}
-                >
-                  {item.university_specialization}
-                </p>
-                <p
-                  className={classNames(
-                    'result-resume__paragraph',
-                    locationProfile && 'result-resume__paragraph_profile'
-                  )}
-                >
-                  {item.education_level}
-                </p>
-              </div>
+                {values.university_name ?? ''}
+              </p>
             </div>
-          ))
-        )}
-      </div>
+            <div
+              className={classNames(
+                'result-resume__second-column',
+                locationProfile && 'result-resume__second-column_profile'
+              )}
+            >
+              <p
+                className={classNames(
+                  'result-resume__paragraph',
+                  locationProfile && 'result-resume__paragraph_profile'
+                )}
+              >
+                {values.university_specialization}
+              </p>
+              <p
+                className={classNames(
+                  'result-resume__paragraph',
+                  locationProfile && 'result-resume__paragraph_profile'
+                )}
+              >
+                {values.education_level}
+              </p>
+            </div>
+          </div>
+          {React.Children.toArray(
+            userAllEducations?.map(item => (
+              <div
+                className={classNames(
+                  'result-resume__children',
+                  locationProfile && 'result-resume__children_profile'
+                )}
+              >
+                <div
+                  className={classNames(
+                    'result-resume__first-column',
+                    locationProfile && 'result-resume__first-column_profile'
+                  )}
+                >
+                  <p
+                    className={classNames(
+                      'result-resume__date',
+                      locationProfile && 'result-resume__date_profile'
+                    )}
+                  >
+                    {`${
+                      item.year_education_start
+                        ? ` ${item.year_education_start}`
+                        : ''
+                    } - ${
+                      item.year_education_end
+                        ? ` ${item.year_education_end}`
+                        : ''
+                    }`}
+                  </p>
+                  <p
+                    className={classNames(
+                      'result-resume__paragraph',
+                      locationProfile && 'result-resume__paragraph_profile'
+                    )}
+                  >
+                    {item.university_name}
+                  </p>
+                </div>
+                <div
+                  className={classNames(
+                    'result-resume__second-column',
+                    locationProfile && 'result-resume__second-column_profile'
+                  )}
+                >
+                  <p
+                    className={classNames(
+                      'result-resume__paragraph',
+                      locationProfile && 'result-resume__paragraph_profile'
+                    )}
+                  >
+                    {item.university_specialization}
+                  </p>
+                  <p
+                    className={classNames(
+                      'result-resume__paragraph',
+                      locationProfile && 'result-resume__paragraph_profile'
+                    )}
+                  >
+                    {item.education_level}
+                  </p>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      )}
       {/* ------ блок повышение квалификации ------*/}
       {!values.qualification_checkbox && (
         <div
@@ -690,94 +694,46 @@ function ResultResume({ values }) {
       )}
 
       {/* ------ блок проекты и портфолио ------*/}
-      <div
-        className={classNames(
-          'result-resume__container',
-          locationProfile && 'result-resume__container_profile'
-        )}
-      >
-        <h2
-          className={classNames(
-            'result-resume__title',
-            locationProfile && 'result-resume__title_profile'
-          )}
-        >
-          Проекты и портфолио
-        </h2>
+      {!values.portfolio_checkbox && (
         <div
           className={classNames(
-            'result-resume__project',
-            locationProfile && 'result-resume__project_profile'
+            'result-resume__container',
+            locationProfile && 'result-resume__container_profile'
           )}
         >
-          <h5
+          <h2
             className={classNames(
-              'result-resume__project-name',
-              locationProfile && 'result-resume__project-name_profile'
+              'result-resume__title',
+              locationProfile && 'result-resume__title_profile'
             )}
           >
-            {values.project_name}
-          </h5>
-          <br />
-          <p
+            Проекты и портфолио
+          </h2>
+          <div
             className={classNames(
-              'result-resume__paragraph',
-              locationProfile && 'result-resume__paragraph_profile'
+              'result-resume__project',
+              locationProfile && 'result-resume__project_profile'
             )}
           >
-            {values.project_description}
-          </p>
-          <br />
-          {values.project_link ? (
+            <h5
+              className={classNames(
+                'result-resume__project-name',
+                locationProfile && 'result-resume__project-name_profile'
+              )}
+            >
+              {values.project_name}
+            </h5>
+            <br />
             <p
               className={classNames(
                 'result-resume__paragraph',
                 locationProfile && 'result-resume__paragraph_profile'
               )}
             >
-              Ссылка на проект:
-              <Link
-                to={values.project_link}
-                target="_blank"
-                className={classNames(
-                  'result-resume__organization',
-                  'result-resume__project-link',
-                  locationProfile && 'result-resume__organization_profile'
-                )}
-              >
-                {absentValues(values.project_link)}
-              </Link>
+              {values.project_description}
             </p>
-          ) : (
-            ''
-          )}
-        </div>
-        {React.Children.toArray(
-          userAllPortfolio?.map(item => (
-            <div
-              className={classNames(
-                'result-resume__project',
-                locationProfile && 'result-resume__project_profile'
-              )}
-            >
-              <h5
-                className={classNames(
-                  'result-resume__project-name',
-                  locationProfile && 'result-resume__project-name_profile'
-                )}
-              >
-                {item.project_name}
-              </h5>
-              <br />
-              <p
-                className={classNames(
-                  'result-resume__paragraph',
-                  locationProfile && 'result-resume__paragraph_profile'
-                )}
-              >
-                {item.project_description}
-              </p>
-              <br />
+            <br />
+            {values.project_link ? (
               <p
                 className={classNames(
                   'result-resume__paragraph',
@@ -786,7 +742,7 @@ function ResultResume({ values }) {
               >
                 Ссылка на проект:
                 <Link
-                  to={item.project_link}
+                  to={values.project_link}
                   target="_blank"
                   className={classNames(
                     'result-resume__organization',
@@ -794,38 +750,90 @@ function ResultResume({ values }) {
                     locationProfile && 'result-resume__organization_profile'
                   )}
                 >
-                  {absentValues(item.project_link)}
+                  {absentValues(values.project_link)}
                 </Link>
               </p>
-            </div>
-          ))
-        )}
-      </div>
+            ) : (
+              ''
+            )}
+          </div>
+          {React.Children.toArray(
+            userAllPortfolio?.map(item => (
+              <div
+                className={classNames(
+                  'result-resume__project',
+                  locationProfile && 'result-resume__project_profile'
+                )}
+              >
+                <h5
+                  className={classNames(
+                    'result-resume__project-name',
+                    locationProfile && 'result-resume__project-name_profile'
+                  )}
+                >
+                  {item.project_name}
+                </h5>
+                <br />
+                <p
+                  className={classNames(
+                    'result-resume__paragraph',
+                    locationProfile && 'result-resume__paragraph_profile'
+                  )}
+                >
+                  {item.project_description}
+                </p>
+                <br />
+                <p
+                  className={classNames(
+                    'result-resume__paragraph',
+                    locationProfile && 'result-resume__paragraph_profile'
+                  )}
+                >
+                  Ссылка на проект:
+                  <Link
+                    to={item.project_link}
+                    target="_blank"
+                    className={classNames(
+                      'result-resume__organization',
+                      'result-resume__project-link',
+                      locationProfile && 'result-resume__organization_profile'
+                    )}
+                  >
+                    {absentValues(item.project_link)}
+                  </Link>
+                </p>
+              </div>
+            ))
+          )}
+        </div>
+      )}
       {/* ------ блок о себе ------ */}
-      <div
-        className={classNames(
-          'result-resume__container',
-          locationProfile && 'result-resume__container_profile'
-        )}
-      >
-        <h2
+      {values.about && (
+        <div
           className={classNames(
-            'result-resume__title',
-            locationProfile && 'result-resume__title_profile'
+            'result-resume__container',
+            locationProfile && 'result-resume__container_profile'
           )}
         >
-          Обо мне
-        </h2>
-        <p
-          className={classNames(
-            'result-resume__paragraph',
-            'result-resume__paragraph_about',
-            locationProfile && 'result-resume__paragraph_profile'
-          )}
-        >
-          {values.about}
-        </p>
-      </div>
+          <h2
+            className={classNames(
+              'result-resume__title',
+              locationProfile && 'result-resume__title_profile'
+            )}
+          >
+            Обо мне
+          </h2>
+          <p
+            className={classNames(
+              'result-resume__paragraph',
+              'result-resume__paragraph_about',
+              locationProfile && 'result-resume__paragraph_profile'
+            )}
+          >
+            {values.about}
+          </p>
+        </div>
+      )}
       <div className="result-resume__right-container">
         {/* ------ блок с контактами ------*/}
         <div className="result-resume__right-container-info result-resume__user-contacts">
@@ -962,11 +970,9 @@ ResultResume.propTypes = {
           ),
         ])
       ),
+      PropTypes.objectOf(PropTypes.bool),
     ])
   ),
-  // checkboxValues: PropTypes.objectOf(
-  //   PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-  // ),
 }
 
 ResultResume.defaultProps = {

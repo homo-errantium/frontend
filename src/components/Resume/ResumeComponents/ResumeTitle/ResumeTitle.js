@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -21,7 +22,7 @@ const ResumeTitle = ({
     onKeyDown={handleBackToBasicRecommend}
     onFocus={handleBackToBasicRecommend}
   >
-    <h1 className="resume-title__text">{title}</h1>
+    <h2 className="resume-title__text">{title}</h2>
     {checkbox && (
       <Toggle
         name={name}

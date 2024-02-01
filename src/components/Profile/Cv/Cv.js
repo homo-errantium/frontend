@@ -10,19 +10,20 @@ import DeleteIcon from '../../../img/trash-icon-red.svg'
 import ellipsesIcon from '../../../img/ellipses-icon.svg'
 import ResultResume from '../../Resume/ResultResume/ResultResume'
 import { handleGeneratePdf, copyToClipboard } from '../../Utils/Utils'
+import { CurrentArrValuesContext } from '../../../contexts/ArrValuesContext'
+import { CurrentResumeContext } from '../../../contexts/CurrentResumeContext'
 
 const Cv = ({
-  // isEditMod,
   cv,
   deletePopupSetState,
-  currentResume,
   setCurrentResume,
   setIsEditMod,
-  // setArrValues,
-  arrValues,
   setIsResumeNamePopupOpen,
   setPopupCopyLink,
+  setPopupCopyLinkText,
 }) => {
+  const arrValues = React.useContext(CurrentArrValuesContext)
+  const currentResume = React.useContext(CurrentResumeContext)
   const resumePath = `/resume/result/${cv.id}`
   const navigate = useNavigate()
   const [isEditCvPopupOpen, setIsEditCvPopupOpen] = useState(false)
@@ -35,7 +36,7 @@ const Cv = ({
     }
 
     const closeMouseDown = e => {
-      if (e.target.classList.contains('profile__bcg')) {
+      if (e.target.classList.contains('cv-container__bcg')) {
         setIsEditCvPopupOpen(false)
       }
     }
@@ -71,6 +72,7 @@ const Cv = ({
     setCurrentResume({ ...currentResume, ...cv })
     deletePopupSetState(true)
     setIsEditCvPopupOpen(false)
+    navigate('/my-profile')
   }
 
   useEffect(() => {
@@ -78,72 +80,64 @@ const Cv = ({
   }, [arrValues])
 
   return (
-    <div className="profile__cv-container">
-      <div className="profile__cv-image-container">
-        <div className="profile__cv-content">
+    <div className="cv-container">
+      <div className="cv-containe__image">
+        <div className="cv-container__content">
           <ResultResume values={cv} />
         </div>
         <button
           type="button"
-          className="profile__cv-changes-button link"
+          className="cv-container__change-button link"
           onClick={openCvMenu}
         >
           <img src={ellipsesIcon} alt="многоточие" className="link" />
         </button>
       </div>
-      <span className="profile__cv-name">{cv.resume_name}</span>
+      <span className="cv-container__name">{cv.resume_name}</span>
       <div
         className={classNames(
-          'profile__bcg',
-          isEditCvPopupOpen ? 'profile__bcg_opened' : ''
+          'cv-container__bcg',
+          isEditCvPopupOpen ? 'cv-container__bcg_opened' : ''
         )}
       />
       <div
         className={classNames(
-          'profile__cv-menu',
-          isEditCvPopupOpen ? 'profile__cv-menu_opened' : ''
+          'cv-container__menu',
+          isEditCvPopupOpen ? 'cv-container__menu_opened' : ''
         )}
       >
         <button
-          className="profile__cv-menu-option link"
+          className="cv-container__menu-option link"
           type="button"
           onClick={handleEditResume}
         >
-          <img
-            src={EditIcon}
-            alt="карандашик"
-            className="profile__cv-menu-icon"
-          />
+          <img src={EditIcon} alt="карандашик" className="cv-container__icon" />
           Редактировать
         </button>
         <button
-          className="profile__cv-menu-option link"
+          className="cv-container__menu-option link"
           type="button"
           onClick={handleDownload}
         >
           <img
             src={DownloadIcon}
             alt="скачивание"
-            className="profile__cv-menu-icon"
+            className="cv-container__icon"
           />
           Скачать в PDF
         </button>
         <button
-          className="profile__cv-menu-option link"
+          className="cv-container__menu-option link"
           type="button"
           onClick={() => {
-            copyToClipboard(resumePath, setPopupCopyLink)
+            copyToClipboard(resumePath, setPopupCopyLink, setPopupCopyLinkText)
           }}
         >
-          <img
-            src={linkIcon}
-            alt="скачивание"
-            className="profile__cv-menu-icon"
-          />
+          <img src={linkIcon} alt="скачивание" className="cv-container__icon" />
           Скопировать ссылку
         </button>
         <button
-          className="profile__cv-menu-option link"
+          className="cv-container__menu-option link"
           type="button"
           onClick={() => {
             setIsEditCvPopupOpen(false)
@@ -151,22 +145,18 @@ const Cv = ({
             handleEditName()
           }}
         >
-          <img
-            src={EditIcon}
-            alt="карандашик"
-            className="profile__cv-menu-icon"
-          />
+          <img src={EditIcon} alt="карандашик" className="cv-container__icon" />
           Переименовать
         </button>
         <button
-          className="profile__cv-menu-option profile__cv-menu-option_red link"
+          className="cv-container__menu-option cv-container__menu-option_red link"
           type="button"
           onClick={handleDelete}
         >
           <img
             src={DeleteIcon}
             alt="скачивание"
-            className="profile__cv-menu-icon"
+            className="cv-container__icon"
           />
           Удалить резюме
         </button>
@@ -176,27 +166,6 @@ const Cv = ({
 }
 
 Cv.propTypes = {
-  // isEditMod: PropTypes.bool.isRequired,
-  // values: PropTypes.objectOf(
-  //   PropTypes.oneOfType([
-  //     PropTypes.string,
-  //     PropTypes.number,
-  //     PropTypes.bool,
-  //     PropTypes.arrayOf(
-  //       PropTypes.oneOfType([
-  //         PropTypes.string,
-  //         PropTypes.objectOf(
-  //           PropTypes.oneOfType([
-  //             PropTypes.string,
-  //             PropTypes.number,
-  //             PropTypes.bool,
-  //           ])
-  //         ),
-  //       ])
-  //     ),
-  //   ])
-  // ),
-  // setValues: PropTypes.func.isRequired,
   setIsEditMod: PropTypes.func,
   cv: PropTypes.objectOf(
     PropTypes.oneOfType([
@@ -215,52 +184,14 @@ Cv.propTypes = {
           ),
         ])
       ),
+      PropTypes.objectOf(PropTypes.bool),
     ])
   ),
   deletePopupSetState: PropTypes.func.isRequired,
   setCurrentResume: PropTypes.func,
-  currentResume: PropTypes.objectOf(
-    PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.bool,
-      PropTypes.arrayOf(
-        PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.objectOf(
-            PropTypes.oneOfType([
-              PropTypes.string,
-              PropTypes.number,
-              PropTypes.bool,
-            ])
-          ),
-        ])
-      ),
-    ])
-  ).isRequired,
-  arrValues: PropTypes.arrayOf(
-    PropTypes.objectOf(
-      PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-        PropTypes.bool,
-        PropTypes.arrayOf(
-          PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.objectOf(
-              PropTypes.oneOfType([
-                PropTypes.string,
-                PropTypes.number,
-                PropTypes.bool,
-              ])
-            ),
-          ])
-        ),
-      ])
-    )
-  ).isRequired,
   setIsResumeNamePopupOpen: PropTypes.func.isRequired,
   setPopupCopyLink: PropTypes.func.isRequired,
+  setPopupCopyLinkText: PropTypes.func.isRequired,
 }
 
 Cv.defaultProps = {

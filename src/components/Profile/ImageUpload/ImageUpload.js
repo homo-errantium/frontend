@@ -2,7 +2,13 @@
 import './ImageUpload.scss'
 import PropTypes from 'prop-types'
 
-const ImageUpload = ({ image, setImage, name, currentImage }) => {
+const ImageUpload = ({
+  image,
+  setImage,
+  name,
+  currentImage,
+  setIsValidUserInfo,
+}) => {
   function handleChange(e) {
     const canvas = document.createElement('canvas')
     const context = canvas.getContext('2d')
@@ -15,6 +21,7 @@ const ImageUpload = ({ image, setImage, name, currentImage }) => {
       setImage(dataUrl)
     }
     img.src = URL.createObjectURL(e.target.files[0])
+    setIsValidUserInfo(prevValues => ({ ...prevValues, imageProfile: true }))
   }
 
   return (
@@ -49,6 +56,7 @@ ImageUpload.propTypes = {
   setImage: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   currentImage: PropTypes.string,
+  setIsValidUserInfo: PropTypes.func.isRequired,
 }
 
 ImageUpload.defaultProps = {

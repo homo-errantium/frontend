@@ -15,7 +15,7 @@ function ConfirmationRegister({ onClose }) {
 
       <div className="confirmation-reg__buttons">
         <button
-          className="popup-confirmation-reg__button confirmation-reg__button_skip"
+          className="confirmation-reg__button confirmation-reg__button_skip"
           type="button"
           label="button"
           onClick={() => {
@@ -26,7 +26,7 @@ function ConfirmationRegister({ onClose }) {
           Пропустить
         </button>
         <button
-          className="popup-confirmation-reg__button confirmation-reg__button_reg"
+          className="confirmation-reg__button confirmation-reg__button_reg"
           type="button"
           label="button"
           onClick={() => {

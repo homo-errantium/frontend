@@ -1,14 +1,16 @@
-.experience__form-container {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  margin: 36px 0;
-  max-width: 729px;
+@import '../../../vendor/vars';
+
+.experience {
+  @extend %left-container;
 }
+
+.experience__form-container {
+  @extend %form-container;
+}
+
 .experience__basic-recommend {
   display: flex;
   flex-direction: column;
-  gap: 32px;
-  margin: 36px 0;
-  max-width: 729px;
+  gap: 29px;
+  // max-width: 729px;
 }
