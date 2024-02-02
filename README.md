@@ -1,4 +1,4 @@
-# Project Resume Plus
+# Project "Resume Plus"
 
 ## _Platform for creating and editing resumes._
 
@@ -8,6 +8,8 @@ The "Resume Plus" website provides step-by-step instructions for filling out a r
 A unique system of hints and tips will help you easily choose what to indicate in certain cases. With an intuitive and friendly interface, you won’t get lost in the design process, and the fresh design will add more enthusiasm and interesting ideas. You can also avoid mandatory fields if you do not have the information or consider it unnecessary.
 
 Try creating your resume on the Resume Plus website and you will understand that job search can be interesting and exciting.
+
+## link to GitHub-Pages: [https://creating-and-editing-a-resume.github.io/frontend/](https://creating-and-editing-a-resume.github.io/frontend/)
 
 ### Technologies used:
 
